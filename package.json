@@ -14,7 +14,7 @@
     },
     "repository":{
         "type": "git",
-        "url": ""
+        "url": "https://github.com/OBKoro1/koro1FileHeader"
     },
     "engines": {
         "vscode": "^1.23.0"
