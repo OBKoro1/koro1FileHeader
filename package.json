@@ -2,17 +2,17 @@
     "name": "korofileheader",
     "displayName": "koroFileHeader",
     "description": "insert header comment,and custom edit information and automatically update the time.",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "publisher": "OBKoro1",
     "author": {
         "name": "OBKoro1",
         "url": "http://obkoro1.com/"
     },
-    "galleryBanner":{
+    "galleryBanner": {
         "color": "red",
         "theme": "dark"
     },
-    "repository":{
+    "repository": {
         "type": "git",
         "url": "https://github.com/OBKoro1/koro1FileHeader"
     },
@@ -20,17 +20,75 @@
         "vscode": "^1.23.0"
     },
     "categories": [
-        "Other" 
+        "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.sayHello",
+        "onCommand:extension.methodNotes"
     ],
     "main": "./extension",
     "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "File header Configuration",
+            "properties": {
+                "sayHello.Author": {
+                    "type": "string",
+                    "default": "OBKoro1",
+                    "description": "By default, create file  username"
+                },
+                "sayHello.tpl": {
+                    "type": "string",
+                    "default": "/*\r\n * @Author: {author}\r\n * @Email: {email}\r\n * @Date: {createTime}\r\n * @Last Modified by:   {lastModifiedBy}\r\n * @Last Modified time: {updateTime}\r\n * @Description: {Description}\r\n */\r\n",
+                    "description": "By default, common template. Do not modify it!!!!!"
+                },
+                "sayHello.LastModifiedBy": {
+                    "type": "string",
+                    "default": "OBKoro1",
+                    "description": "By default, update file  username."
+                },
+                "sayHello.closeChoose": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Select the configuration you want to close."
+                },
+                "sayHello.Email": {
+                    "type": "string",
+                    "default": "",
+                    "description": "By default, update file  username."
+                },
+                "sayHello.Description": {
+                    "type": "string",
+                    "default": "哈哈哈",
+                    "description": "By default, update file  username."
+                },
+                "methodNotes.tpl":{
+                    "type": "string",
+                    "default": "/*\r\n * @method: {method}\r\n * @param: {param}\r\n * @return: {return}\r\n */\r\n",
+                    "description": "By default, common template. Do not modify it!!!!!"
+                }
+            }
+        },
         "commands": [
             {
                 "command": "extension.sayHello",
                 "title": "Hello World"
+            },
+            {
+                "command": "extension.methodNotes",
+                "title": "Hello World2"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.sayHello",
+                "key": "ctrl+alt+i",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.methodNotes",
+                "key": "ctrl+alt+space",
+                "when": "editorTextFocus"
             }
         ]
     },

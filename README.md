@@ -1,65 +1,52 @@
-# korofileheader README
+# vscode-fileheader
 
-This is the README for your extension "korofileheader". After writing up a brief description, we recommend including the following sections.
+## feature
 
-## Features
+Add notes to the file header, and supports automatic update file modification time.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+eg:
 
-For example if there is an image subfolder under your extension project workspace:
+```
+/*
+ * @Author: mikey.zhaopeng
+ * @Date:   2016-07-29 15:57:29
+ * @Last Modified by: OBKoro1
+ * @Last Modified time: 2018-05-13 18:41:14
+ */
+```
 
-\!\[feature X\]\(images/feature-x.png\)
+![fileheader](https://github.com/zhaopengme/vscode-fileheader/raw/master/fileheader.gif)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+> Tip: ctrl+alt+i You can insert comments in the head, ctrl+s After you save the file, and automatically update the time and author.
 
-## Requirements
+## install
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Press `F1`,type`ext install fileheader`.
 
-## Extension Settings
+## Configuration
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+In the User Settings inside, set and modify the creator's name.
 
-For example:
+```
+"fileheader.Author": "tom",
+"fileheader.LastModifiedBy": "jerry"
+```
 
-This extension contributes the following settings:
+![name config](https://github.com/zhaopengme/vscode-fileheader/raw/master/name.jpg)
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+## hot key
 
-## Known Issues
+`ctrl+alt+i` You can insert comments in the head.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
+## Change log
 
 ### 1.0.0
 
-Initial release of ...
+1. Support hotkey insert header comments
+2. Support Save file, automatically update the time
+3. Support the configuration and update the creator's name
 
-### 1.0.1
+## task
 
-Fixed issue #.
+ [] 1. add template 
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
