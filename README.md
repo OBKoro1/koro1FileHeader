@@ -1,52 +1,39 @@
-# vscode-fileheader
+# koroFileHeader
 
-## feature
+## language
 
-Add notes to the file header, and supports automatic update file modification time.
+English | [中文](https://github.com/OBKoro1/koro1FileHeader)
 
-eg:
 
-```
-/*
- * @Author: mikey.zhaopeng
- * @Date:   2016-07-29 15:57:29
- * @Last Modified by: OBKoro1
- * @Last Modified time: 2018-05-13 18:41:14
- */
-```
 
-![fileheader](https://github.com/zhaopengme/vscode-fileheader/raw/master/fileheader.gif)
+## Introduction
 
-> Tip: ctrl+alt+i You can insert comments in the head, ctrl+s After you save the file, and automatically update the time and author.
+* Vscode extension
+* Add notes to the file header
+* Support user custom templates.
+* Automatically update the edit time when you save the file.
 
 ## install
 
-Press `F1`,type`ext install fileheader`.
+In Vscode extend the shop search `koroFileHeader`
 
-## Configuration
+## Use
 
-In the User Settings inside, set and modify the creator's name.
+* 在文件中
 
-```
-"fileheader.Author": "tom",
-"fileheader.LastModifiedBy": "jerry"
-```
+## example
 
-![name config](https://github.com/zhaopengme/vscode-fileheader/raw/master/name.jpg)
+![use demo](http://ww1.sinaimg.cn/large/005Y4rCogy1frc5aqol45g30dk08gdhd.gif)
 
-## hot key
+    /*
+     * @Author:OBKoro1
+     * @Date:2018-05-15 16:20:04
+     * @Email:obkoro1@foxmail.com
+     * @LastEditors:OBKoro1
+     * @LastEditTime:Do not edit
+     * @Description:file information
+     * @Company:your company
+     */
 
-`ctrl+alt+i` You can insert comments in the head.
 
-## Change log
-
-### 1.0.0
-
-1. Support hotkey insert header comments
-2. Support Save file, automatically update the time
-3. Support the configuration and update the creator's name
-
-## task
-
- [] 1. add template 
 
