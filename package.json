@@ -2,7 +2,7 @@
     "name": "korofileheader",
     "displayName": "koroFileHeader",
     "description": "insert header comment,and custom edit information and automatically update the time.",
-    "version": "0.0.4",
+    "version": "0.9.0",
     "publisher": "OBKoro1",
     "author": {
         "name": "OBKoro1",
@@ -47,7 +47,7 @@
                         "Author": "OBKoro1",
                         "Date": "Do not edit",
                         "Email": "obkoro1@foxmail.com",
-                        "LastEditors": "OBKoro2",
+                        "LastEditors": "OBKoro1",
                         "LastEditTime": "Do not edit",
                         "Description": "file information",
                         "Company": "your company"
