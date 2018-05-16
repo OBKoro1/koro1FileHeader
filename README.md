@@ -37,11 +37,9 @@ Successfully inserted file comment in file header
         "fileheader.customMade": {
             "Author": "OBKoro1",
             "Date": "Do not edit",
-            "Email": "obkoro1@foxmail.com",
             "LastEditors": "OBKoro1",
             "LastEditTime": "Do not edit",
-            "Description": "file information",
-            "Company": "your company"
+            "Description": "",
         }
 
 * File annotation eg:
@@ -49,12 +47,14 @@ Successfully inserted file comment in file header
         /*
          * @Author:OBKoro1
          * @Date:2018-05-15 16:20:04
-         * @Email:obkoro1@foxmail.com
          * @LastEditors:OBKoro1
          * @LastEditTime:Do not edit
          * @Description:file information
-         * @Company:your company
          */
+
+### Recommended template parameters
+
+`Email`、`Company `、`version` and so on.
 
 ### Custom annotation template
 
@@ -83,7 +83,7 @@ Successfully inserted file comment in file header
 
 ## Automatically update editing time eg:
 
-![](https://ww1.sinaimg.cn/large/005Y4rCogy1frcys5ftdfg30bh07igmo.gif)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
 
 ## License
 

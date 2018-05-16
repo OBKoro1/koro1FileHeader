@@ -36,11 +36,9 @@
         "fileheader.customMade": {
             "Author": "OBKoro1",
             "Date": "Do not edit",
-            "Email": "obkoro1@foxmail.com",
             "LastEditors": "OBKoro1",
             "LastEditTime": "Do not edit",
-            "Description": "file information",
-            "Company": "your company"
+            "Description": "",
         }
 
 * 文件注释生成:
@@ -54,6 +52,10 @@
          * @Description:file information
          * @Company:your company
          */
+
+### 推荐模板参数
+
+`Email`、`Company `、`version`等.
 
 ### 自定义注释模板
 
@@ -89,7 +91,7 @@
 
 关注我的微信公众号，每月会发几篇[技术博客](http://obkoro1.com/)，有问题可以一起交流，相互学习，共同进步。
 
-[](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
 
 ## LICENSE
 
