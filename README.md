@@ -83,7 +83,7 @@ Successfully inserted file comment in file header
 
 ## Automatically update editing time eg:
 
-![](https://user-gold-cdn.xitu.io/2018/5/15/16363c1d23874359?w=488&h=304&f=gif&s=66984)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1frcys5ftdfg30bh07igmo.gif)
 
 ## License
 

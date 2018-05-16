@@ -83,7 +83,7 @@
 
 ## 自动更新编辑时间 示例:
 
-![](https://user-gold-cdn.xitu.io/2018/5/15/16363c1d23874359?w=488&h=304&f=gif&s=66984)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1frcys5ftdfg30bh07igmo.gif)
 
 ## 微信公众号
 
