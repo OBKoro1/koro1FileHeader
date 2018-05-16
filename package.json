@@ -2,7 +2,7 @@
     "name": "korofileheader",
     "displayName": "koroFileHeader",
     "description": "insert header comment,and custom edit information and automatically update the time.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publisher": "OBKoro1",
     "author": {
         "name": "OBKoro1",

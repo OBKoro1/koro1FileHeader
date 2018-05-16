@@ -1,11 +1,10 @@
 /*
  * @Author: OBKoro1
- * @Date: 2018-05-16 10:18:43
- * @Email: obkoro1@foxmail.com
- * @LastEditors: OBKoro2
- * @LastEditTime: 2018-05-16 10:18:53
- * @Description: file information
+ * @Date: 2018-05-16 15:05:41
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2018-05-16 15:05:56
+ * @Description: 
+ * @Email: your Email
  * @Company: your company
- * @youWant: you want info
+ * @youWant: add you want
  */
-console.log('update time')
