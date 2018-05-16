@@ -1,8 +1,9 @@
-# koroFileHeader
+# koroFileHeader 
 
-本 VsCode 是参照 [vscode-fileheader](https://github.com/zhaopengme/vscode-fileheader.git)扩展并增加了用户自定义注释功能。
+[koroFileHeader](https://github.com/OBKoro1/koro1FileHeader)是为Vscode开发的插件，在 VsCode 中通过快捷键`ctrl+alt+i`在文件头部添加注释。
 
-开发这个插件的初衷是因为：
+插件是参照 [vscode-fileheader](https://github.com/zhaopengme/vscode-fileheader.git)扩展并增加了用户自定义注释功能。
+
 
 ## language
 
@@ -84,6 +85,11 @@
 
 ![](https://user-gold-cdn.xitu.io/2018/5/15/16363c1d23874359?w=488&h=304&f=gif&s=66984)
 
+## 微信公众号
+
+关注我的微信公众号，每月会发几篇[技术博客](http://obkoro1.com/)，有问题可以一起交流，相互学习，共同进步。
+
+[](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
 
 ## LICENSE
 

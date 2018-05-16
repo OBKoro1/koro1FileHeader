@@ -1,5 +1,3 @@
-// TODO: /中英文 readme  
-// TODO: 推广我的公众号 以及参照怎么书写插件规范 
 const vscode = require('vscode');
 
 // 模板

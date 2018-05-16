@@ -1,5 +1,9 @@
 # koroFileHeader
 
+[koroFileHeader](https://github.com/OBKoro1/koro1FileHeader)Plugins developed for vscode, Add comments in the file header with the shortcut key ctrl+alt+i in VsCode.
+
+The plug-in is based on the [vscode-fileheader](https://github.com/zhaopengme/vscode-fileheader.git) extension and adds user-defined annotations.
+
 ## language
 
 English | [简体中文](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_zh-cn.md)
