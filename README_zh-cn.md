@@ -91,6 +91,6 @@
 
 ![](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
 
-## LICENSE
+## 最后
 
-MIT
+如果我的项目解决了你的问题或者是觉得还不错的话，就给个 star ⭐️ 鼓励一下吧~
