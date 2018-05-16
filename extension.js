@@ -79,8 +79,8 @@ function activate(context) {
             let document = editor.document;
             let comment = false;
             let authorRange, authorText, lastTimeRange, lastTimeText, diff;
-            for (let i = 0; i < 20; i++) {
-                // 前20行没有文件头部注释内容即退出
+            for (let i = 0; i < 40; i++) {
+                // 前40行没有文件头部注释内容即退出
                 let linetAt = document.lineAt(i); // 获取每行内容
                 let line = linetAt.text.trim();
                 if (line.startsWith('/*') && !line.endsWith('*/')) {
@@ -102,11 +102,11 @@ function activate(context) {
                         lastTimeText = ' * @LastEditTime: ' + curTime.format("yyyy-MM-dd hh:mm:ss");
                     }
                     if (!comment) {
-                        break; // 结束
+                        break; // 结束 退出循环
                     }
                 }
             }
-            if ((authorRange != null) && (lastTimeRange != null) && (diff > 5)) {
+            if ((authorRange != null) && (lastTimeRange != null) && (diff > 20)) {
                 setTimeout(function () {
                     editor.edit(function (edit) {
                         edit.replace(authorRange, authorText);

@@ -46,11 +46,9 @@
         /*
          * @Author:OBKoro1
          * @Date:2018-05-15 16:20:04
-         * @Email:obkoro1@foxmail.com
          * @LastEditors:OBKoro1
-         * @LastEditTime:Do not edit
-         * @Description:file information
-         * @Company:your company
+         * @LastEditTime:2018-05-15 16:20:04
+         * @Description:
          */
 
 ### 推荐模板参数
@@ -68,19 +66,19 @@
 
 * 设置：
 
-![](https://user-gold-cdn.xitu.io/2018/5/15/16363b5fe692715c?w=783&h=369&f=jpeg&s=212840)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1frd5d7eg0tj30o10800ty.jpg)
 
 * 文件注释生成:
 
         /*
          * @Author: OBKoro1
-         * @Date: 2018-05-15 20:08:15
-         * @Email: obkoro1@foxmail.com
-         * @LastEditors: OBKoro2
-         * @LastEditTime: 2018-05-15 20:08:15
-         * @Description: file information
+         * @Date: 2018-05-16 12:33:57
+         * @LastEditors: OBKoro1
+         * @LastEditTime: 2018-05-16 12:33:57
+         * @Description: 
+         * @Email: your Email
          * @Company: your company
-         * @youWant: you want info
+         * @youWant: add you want
          */
 
 ## 自动更新编辑时间 示例:

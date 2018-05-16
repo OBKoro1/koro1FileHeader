@@ -48,8 +48,8 @@ Successfully inserted file comment in file header
          * @Author:OBKoro1
          * @Date:2018-05-15 16:20:04
          * @LastEditors:OBKoro1
-         * @LastEditTime:Do not edit
-         * @Description:file information
+         * @LastEditTime:2018-05-15 16:20:04
+         * @Description:
          */
 
 ### Recommended template parameters
@@ -66,19 +66,20 @@ Successfully inserted file comment in file header
 
 * Settings：
 
-![](https://user-gold-cdn.xitu.io/2018/5/15/16363b5fe692715c?w=783&h=369&f=jpeg&s=212840)
+![](https://ww1.sinaimg.cn/large/005Y4rCogy1frd5d7eg0tj30o10800ty.jpg)
+
 
 * File annotation eg
 
         /*
          * @Author: OBKoro1
-         * @Date: 2018-05-15 20:08:15
-         * @Email: obkoro1@foxmail.com
-         * @LastEditors: OBKoro2
-         * @LastEditTime: 2018-05-15 20:08:15
-         * @Description: file information
+         * @Date: 2018-05-16 12:33:57
+         * @LastEditors: OBKoro1
+         * @LastEditTime: 2018-05-16 12:33:57
+         * @Description: 
+         * @Email: your Email
          * @Company: your company
-         * @youWant: you want info
+         * @youWant: add you want
          */
 
 ## Automatically update editing time eg:
