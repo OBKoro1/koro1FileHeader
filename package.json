@@ -1,82 +1,93 @@
 {
-    "name": "korofileheader",
-    "displayName": "koroFileHeader",
-    "description": "insert header comment,and custom edit information and automatically update the time.",
-    "version": "1.0.2",
-    "publisher": "OBKoro1",
-    "author": {
-        "name": "OBKoro1",
-        "url": "http://obkoro1.com/"
-    },
-    "galleryBanner": {
-        "color": "#3B4859",
-        "theme": "dark"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/OBKoro1/koro1FileHeader"
-    },
-    "bugs": {
-        "url": "https://github.com/OBKoro1/koro1FileHeader/issues",
-        "email": "obkoro1@foxmail.com"
-    },
-    "icon": "images/icon.png",
-    "engines": {
-        "vscode": "^1.23.0"
-    },
-    "categories": [
-        "Other"
-    ],
-    "keywords": [
-        "vscode",
-        "vscode-fileheader",
-        "fileheader"
-    ],
-    "activationEvents": [
-        "onCommand:extension.fileheader"
-    ],
-    "main": "./extension",
-    "contributes": {
-        "configuration": {
-            "type": "object",
-            "title": "File header Configuration",
-            "properties": {
-                "fileheader.customMade": {
-                    "type": "object",
-                    "default": {
-                        "Author": "OBKoro1",
-                        "Date": "Do not edit",
-                        "LastEditors": "OBKoro1",
-                        "LastEditTime": "Do not edit",
-                        "Description": ""
-                    },
-                    "description": "By default, here customMade file header "
-                }
-            }
+  "name": "korofileheader",
+  "displayName": "koroFileHeader",
+  "description": "insert header comment,and custom edit information and automatically update the time.",
+  "version": "2.0.0",
+  "publisher": "OBKoro1",
+  "author": {
+    "name": "OBKoro1",
+    "url": "http://obkoro1.com/"
+  },
+  "galleryBanner": {
+    "color": "#3B4859",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OBKoro1/koro1FileHeader"
+  },
+  "bugs": {
+    "url": "https://github.com/OBKoro1/koro1FileHeader/issues",
+    "email": "obkoro1@foxmail.com"
+  },
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "vscode",
+    "vscode-fileheader",
+    "fileheader"
+  ],
+  "activationEvents": [
+    "onCommand:extension.fileheader",
+    "onCommand:extension.cursorTip"
+  ],
+  "main": "./extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "File header Configuration",
+      "properties": {
+        "fileheader.customMade": {
+          "type": "object",
+          "default": {},
+          "description": "default setsetting/默认设置：{'Author':'OBKoro1(your name)','Date':'Do not edit','LastEditors':'OBKoro1(your name)','LastEditTime':'Do not edit','Description':'file content'}"
         },
-        "commands": [
-            {
-                "command": "extension.fileheader",
-                "title": "fileheader"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "extension.fileheader",
-                "key": "ctrl+alt+i",
-                "when": "editorTextFocus"
-            }
-        ]
+        "fileheader.cursorMode": {
+          "type": "object",
+          "default": {},
+          "description": "Insert the comment at the cursor"
+        }
+      }
     },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.6",
-        "eslint": "^4.11.0",
-        "@types/node": "^7.0.43",
-        "@types/mocha": "^2.2.42"
-    }
+    "commands": [
+      {
+        "command": "extension.fileheader",
+        "title": "fileheader"
+      },
+      {
+        "command": "extension.cursorTip",
+        "title": "cursorTip"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.fileheader",
+        "key": "ctrl+alt+i",
+        "mac": "ctrl+cmd+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.cursorTip",
+        "key": "ctrl+alt+t",
+        "mac": "ctrl+cmd+t",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6",
+    "eslint": "^4.11.0",
+    "@types/node": "^7.0.43",
+    "@types/mocha": "^2.2.42"
+  }
 }

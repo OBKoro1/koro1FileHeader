@@ -8,8 +8,6 @@ The plug-in is based on the [vscode-fileheader](https://github.com/zhaopengme/vs
 
 English | [简体中文](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_zh-cn.md)
 
-
-
 ## Introduction
 
 * Vscode extension

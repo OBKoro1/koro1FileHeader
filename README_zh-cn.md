@@ -4,10 +4,15 @@
 
 插件是参照 [vscode-fileheader](https://github.com/zhaopengme/vscode-fileheader.git)扩展并增加了用户自定义注释功能。
 
-
 ## language
 
 [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README.md) | 简体中文
+
+## 最新更新：
+
+<!-- TODO: 翻译成英文 -->
+更具体的推荐查看：[更新日志]()
+
 
 ## 简介
 

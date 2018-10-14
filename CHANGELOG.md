@@ -1,7 +1,5 @@
-# Change Log
-All notable changes to the "korofileheader" extension will be documented in this file.
+# 更新日志
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+### [V1.1]
 
-## [Unreleased]
-- Initial release
+  * 
