@@ -12,6 +12,8 @@
 
 const vscode = require('vscode');
 
+// TODO: 中英文readme 写一个文章介绍 再问一个问题ES6
+
 // 模板
 function fontTemplate(tpl) {
   let fn,
@@ -202,7 +204,8 @@ function activate(context) {
           if (line.indexOf('@LastEditors') > -1) {
             //表示是修改人
             authorRange = range;
-            authorText = ' * @LastEditors: ' + config.customMade.LastEditors;
+            let LastEditors = config.customMade.LastEditors || 'your name';
+            authorText = ' * @LastEditors: ' + LastEditors;
           } else if (line.indexOf('@LastEditTime') > -1) {
             //最后修改时间
             let time = line.replace('@LastEditTime:', '').replace('*', '');

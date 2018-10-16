@@ -1,89 +1,102 @@
-# koroFileHeader
+# koroFileHeader 
 
-[koroFileHeader](https://github.com/OBKoro1/koro1FileHeader)Plugins developed for vscode, Add comments in the file header with the shortcut key ctrl+alt+i in VsCode.
-
-The plug-in is based on the [vscode-fileheader](https://github.com/zhaopengme/vscode-fileheader.git) extension and adds user-defined annotations.
+> 一个读取用户自定义模板，通过快捷键添加文件头部注释、在光标处添加函数注释的`VsCode`插件
 
 ## language
 
-English | [简体中文](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_zh-cn.md)
+简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README.md)
 
-## Introduction
+## 简介
 
-* Vscode extension
-* Add notes to the file header
-* Support user-defined file annotation template
-* Automatically update the edit time when you save the file.
+1. **文件头部添加注释**:
+   
+   *  在文件开头添加注释，记录文件信息
+   *  读取用户设置，生成注释模板
+   *  保存文件的时候，自动更新最后的编辑时间和编辑人
+   *  快捷键：`window`：`ctrl+alt+i`,`mac`：`ctrl+cmd+i`
 
-## install
+2. **在光标处添加函数注释**:
 
-In Vscode extend the shop search `koroFileHeader`
+    * 在光标处自动生成一个注释模板，下方有栗子
+    * 支持用户自定义文件注释模板
+    * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
 
-## Use
+## 安装
 
-1. Open the file in vscode 
-2. Press `ctrl+alt+i`
+在 Vscode 扩展商店中搜索`koroFileHeader`,点击安装即可。
 
-Successfully inserted file comment in file header
+## 使用
 
-## Comment template
+1. 文件头部注释：
 
-### Default comment template
+    在当前编辑文件中使用快捷键:`window`：`ctrl+alt+t`/`mac`：`ctrl+cmd+t`,即可生成文件头部注释。
+    
+2. 函数注释：
+   
+    1. 将光标放在函数行或者将光标放在函数上方的空白行
+    2. 使用快捷键`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`，即可生成函数注释。
+    3. 事实上，函数注释在文件的任意位置都可生成，这里需要自己控制。
 
-* default allocation:
+## 注释模板的设置
 
-        "fileheader.customMade": {
-            "Author": "OBKoro1",
-            "Date": "Do not edit",
-            "LastEditors": "OBKoro1",
-            "LastEditTime": "Do not edit",
-            "Description": "",
-        }
+* 默认配置:
+  
+  在用户首选项中搜索`fileheader`，默认配置为：
 
-* File annotation eg:
+        "fileheader.customMade": {} // 头部注释
+        "fileheader.cursorMode": {} // 函数注释 
 
+  用户未设置的情况下，头部注释和函数注释模板为：
+
+    ![](https://user-gold-cdn.xitu.io/2018/10/15/166779bbd32b2eb8?w=835&h=669&f=gif&s=110037)
+
+ * 自定义模板：
+    
+   1. 在用户设置中，搜索`fileheader`
+   2. 复制默认配置+修改配置,重启生效
+    
+      ![](https://user-gold-cdn.xitu.io/2018/10/15/16677ca54d2fd641?w=1904&h=1418&f=png&s=483788)
+      
+    如上设置，生成注释：
+
+        // 文件头部注释
         /*
-         * @Author:OBKoro1
-         * @Date:2018-05-15 16:20:04
-         * @LastEditors:OBKoro1
-         * @LastEditTime:2018-05-15 16:20:04
-         * @Description:
-         */
-
-### Recommended template parameters
-
-`Email`、`Company `、`version` and so on.
-
-### Custom annotation template
-
-1. Search for `fileheader.customMade` in the VsCode setting
-2. Copy the default configuration + modify the configuration
-3. Restart VsCode takes effect
-
-#### Example
-
-* Settings：
-
-![](https://ww1.sinaimg.cn/large/005Y4rCogy1frd5d7eg0tj30o10800ty.jpg)
-
-
-* File annotation eg
-
-        /*
-         * @Author: OBKoro1
-         * @Date: 2018-05-16 12:33:57
-         * @LastEditors: OBKoro1
-         * @LastEditTime: 2018-05-16 12:33:57
          * @Description: 
-         * @Email: your Email
-         * @Company: your company
-         * @youWant: add you want
+         * @version: 
+         * @Company: BAT
+         * @Author: OBKoro1
+         * @Date: 2018-10-15 20:59:57
+         * @LastEditors: OBKoro1
+         * @LastEditTime: 2018-10-15 20:59:57
+         */
+        // 函数注释
+        /**
+         * @name: 
+         * @test: test font
+         * @msg: 
+         * @param {type} 
+         * @return: 
          */
 
-## Automatically update editing time eg:
+### 自动更新最后编辑时间、编辑人：
 
-![](https://ww1.sinaimg.cn/large/005Y4rCogy1fr8oubn0d3j309k09k3yg.jpg)
+要开启这个功能，需要在首选项设置中填写对应的属性：
 
-## last
+      "fileheader.customMade": {
+        "Date": "Do not edit", // 文件创建时间(不变)
+        "LastEditors": "OBKoro1", // 文件最后编辑者
+        "LastEditTime": "Do not edit" // 文件最后编辑时间
+      }
+      // 不填写对应属性即关闭对应功能
 
-If my project solves your problem or feels good, give a star ⭐️ encourage it~
+
+## 自动更新编辑时间
+ 示例:
+
+   ![](https://user-gold-cdn.xitu.io/2018/10/15/16677021413214ca?w=413&h=270&f=gif&s=49647)
+
+## 最后
+
+如果觉得还不错的话，就给个 [Star](https://github.com/OBKoro1/koro1FileHeader) ⭐️ 鼓励一下我吧~
+
+[博客](http://obkoro1.com/)、[前端积累文档](http://obkoro1.com/web_accumulate/accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)
