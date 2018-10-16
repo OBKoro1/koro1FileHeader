@@ -1,18 +1,4 @@
-/*
- * @Author: OBKoro1
- * @Date: 2018-10-11 17:07:14
- * @LastEditors: OBKoro1
- * @LastEditTime: 2018-10-14 16:37:08
- * @Description: 
- */
-
-// 1. mac快捷键
-// 2. 修改默认配置不可删除，配置顺序不配移动的问题
-// 3. 新增在光标出添加注释功能(通常用于函数/方法注释)，同样的可自定义注释模板
-
 const vscode = require('vscode');
-
-// TODO: 中英文readme 写一个文章介绍 再问一个问题ES6
 
 // 模板
 function fontTemplate(tpl) {

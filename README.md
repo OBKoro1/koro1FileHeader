@@ -4,7 +4,7 @@
 
 ## language
 
-简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README.md)
+简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_en-us.md)
 
 ## 简介
 

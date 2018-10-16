@@ -1,17 +1,20 @@
 {
   "name": "korofileheader",
   "displayName": "koroFileHeader",
-  "description": "insert header comment,and custom edit information and automatically update the time.",
-  "version": "2.0.0",
+  "description": "一个通过快捷键,添加文件头部注释和函数注释的插件",
+  "version": "2.0.1",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",
+    "email": "obkoro1@foxmail.com",
     "url": "http://obkoro1.com/"
   },
   "galleryBanner": {
     "color": "#3B4859",
     "theme": "dark"
   },
+  "homepage": "https://github.com/OBKoro1/koro1FileHeader",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/OBKoro1/koro1FileHeader"
