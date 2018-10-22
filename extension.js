@@ -179,7 +179,6 @@ function activate(context) {
 
   // 文件保存时 触发
   vscode.workspace.onDidSaveTextDocument(function(file) {
-    console.log('-------------保存');
     setTimeout(function() {
       let editor = vscode.editor || vscode.window.activeTextEditor;
       let document = editor.document;
