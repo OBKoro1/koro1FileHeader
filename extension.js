@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const fs = require('fs');
 
 // 模板
 function fontTemplate(tpl) {
@@ -76,7 +77,14 @@ function activate(context) {
       const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
       editor.edit(function(editBuilder) {
         let [data, fontTpl, strContent] = [{}, '', ''];
-        let time = new Date().format('yyyy-MM-dd hh:mm:ss');
+        // 获取当前激活文件的路径，并获取创建时间
+        // time赋值给Date，nowTime赋值给LastEditTime
+        const filepath =
+          vscode.window.activeTextEditor._documentData._document.fileName;
+        const time = new Date(fs.statSync(filepath).birthtime).format(
+          'yyyy-MM-dd hh:mm:ss'
+        );
+        const nowTime = new Date().format('yyyy-MM-dd hh:mm:ss');
         let userSet = Object.keys(config.customMade);
         if (userSet.length === 0) {
           // 默认模板
@@ -95,7 +103,7 @@ function activate(context) {
           data.Date = time; //  用户设置了时间选项
         }
         if (data.LastEditTime !== undefined) {
-          data.LastEditTime = time; // 用户设置了最后编辑时间选项
+          data.LastEditTime = nowTime; // 用户设置了最后编辑时间选项
         }
 
         // 生成模板
