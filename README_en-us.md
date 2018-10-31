@@ -20,6 +20,7 @@
     * An annotation template is automatically generated at the cursor, with examples below
     * Support user - defined file annotation templates
     * shortcuts：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
+    * Be careful that the shortcut key is occupied
 
 ## The installation
 
