@@ -8,7 +8,7 @@
 
 ## changelog
 
-[address](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG.md)
+[address](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG_en.md)
 
 ## Introduction to the
 
@@ -25,6 +25,31 @@
     * Support user - defined file annotation templates
     * shortcuts：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
     * Be careful that the shortcut key is occupied
+
+## Support for comment formatting：
+
+Header annotations and function annotations currently support the following two forms of annotations:
+
+` / * * / ` form, by default will generate such comments:
+
+    /*
+     * @Description: 
+     * @Author: OBKoro1
+     * @Date: 2018-08-20 00:26:26
+     * @LastEditors: OBKoro1
+     * @LastEditTime: 2018-11-01 10:34:14
+     */
+
+` "' ` form, read `. Py ` suffix, automatically generated ` python ` form comments, without having to configure:
+
+    '''
+    @Description: 
+    @Author: OBKoro1
+    @Date: 2018-10-24 21:57:52
+    @LastEditors: OBKoro1
+    @LastEditTime: 2018-11-01 10:35:54
+    '''
+
 
 ## The installation
 

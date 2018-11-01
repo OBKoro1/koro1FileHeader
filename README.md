@@ -26,6 +26,30 @@
     * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
     * 快捷键不可用很可能是被占用了,[参考这里](https://github.com/OBKoro1/koro1FileHeader/issues/5)
 
+## 支持注释格式：
+
+头部注释和函数注释目前支持以下两种形式的注释：
+
+`/**/`形式，默认情况下将生成此类注释：
+
+    /*
+     * @Description: 
+     * @Author: OBKoro1
+     * @Date: 2018-08-20 00:26:26
+     * @LastEditors: OBKoro1
+     * @LastEditTime: 2018-11-01 10:34:14
+     */
+
+`'''`形式,读取`.py`后缀，自动生成`python`形式注释，无需配置：
+
+    '''
+    @Description: 
+    @Author: OBKoro1
+    @Date: 2018-10-24 21:57:52
+    @LastEditors: OBKoro1
+    @LastEditTime: 2018-11-01 10:35:54
+    '''
+
 ## 安装
 
 在 Vscode 扩展商店中搜索`koroFileHeader`,点击安装即可。
