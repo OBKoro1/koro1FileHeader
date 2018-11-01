@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "一个通过快捷键,添加文件头部注释和函数注释的插件",
-  "version": "2.0.2",
+  "version": "2.5.0",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",
@@ -37,10 +37,11 @@
     "Document This"
   ],
   "activationEvents": [
+    "*",
     "onCommand:extension.fileheader",
     "onCommand:extension.cursorTip"
   ],
-  "main": "./src/extension.js",
+  "main": "./src/koroFileHead.js",
   "contributes": {
     "configuration": {
       "type": "object",
@@ -85,7 +86,8 @@
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
+    "test": "node ./node_modules/vscode/bin/test",
+    "d": "bash deploy.sh"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",

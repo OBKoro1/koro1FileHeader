@@ -37,6 +37,10 @@ function fontTemplate(tpl) {
   };
 }
 
+
+
+
+
 Date.prototype.format = function(format) {
   // 处理时间格式
   let o = {
@@ -66,5 +70,5 @@ Date.prototype.format = function(format) {
 };
 
 module.exports = {
-    fontTemplate
-}
+  fontTemplate
+};

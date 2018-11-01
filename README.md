@@ -6,6 +6,10 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_en-us.md)
 
+## 更新日志
+
+[传送门](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG.md)
+
 ## 简介
 
 1. **文件头部添加注释**:
