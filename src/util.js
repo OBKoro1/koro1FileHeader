@@ -1,3 +1,8 @@
+module.exports = {
+  fontTemplate,
+  throttle
+};
+
 // 模板
 function fontTemplate(tpl) {
   let fn,
@@ -37,9 +42,19 @@ function fontTemplate(tpl) {
   };
 }
 
-
-
-
+// 节流函数 单位时间内有事件被多次触发则，只生效一次
+function throttle(fn, gapTime, _lastTime = null) {
+  return function() {
+    let _nowTime = +new Date();
+    if (_nowTime - _lastTime > gapTime || !_lastTime) {
+      // !_lastTime 第一次进入
+      fn(); // 当前时间- 上次执行的时间 超过 给定时间间隔 就执行回调
+      _lastTime = _nowTime; // 触发后，上次执行时间赋值为当前时间
+      return _lastTime;
+    }
+    return _lastTime
+  };
+}
 
 Date.prototype.format = function(format) {
   // 处理时间格式
@@ -67,8 +82,4 @@ Date.prototype.format = function(format) {
     }
   }
   return format;
-};
-
-module.exports = {
-  fontTemplate
 };

@@ -6,9 +6,12 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_en-us.md)
 
+
 ## 更新日志
 
-[传送门](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG.md)
+[更新日志](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG.md)
+
+[常见问题](https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems.md)
 
 ## 简介
 

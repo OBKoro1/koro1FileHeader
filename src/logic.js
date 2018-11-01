@@ -154,8 +154,6 @@ function FnTplStr(data, fileEnd, lineSpace, nextLine, frontStr) {
  */
 function saveReplaceTime(document, userObj, fileEnd) {
   let authorRange, authorText, lastTimeRange, lastTimeText;
-  let LastEditors = userObj.LastEditors || 'Please set LastEditors';
-
   let annotationStarts = '/*';
   let annotationEnd = '*/';
   // 不同语言兼容
@@ -181,17 +179,18 @@ function saveReplaceTime(document, userObj, fileEnd) {
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = ' * @LastEditors: ' + LastEditors;
         if (fileEnd === 'python') {
-          authorText = ' @LastEditors: ' + LastEditors;
+          authorText = '@LastEditors: ' + LastEditors;
         }
       } else if (line.indexOf('@LastEditTime') > -1) {
         //最后修改时间
         lastTimeRange = range;
         lastTimeText =
-          ' @LastEditTime: ' + curTime.format('yyyy-MM-dd hh:mm:ss');
+          ' * @LastEditTime: ' + new Date().format('yyyy-MM-dd hh:mm:ss');
         if (fileEnd === 'python') {
           lastTimeText =
-            ' @LastEditTime: ' + curTime.format('yyyy-MM-dd hh:mm:ss');
+            '@LastEditTime: ' + new Date().format('yyyy-MM-dd hh:mm:ss');
         }
+        comment = false; // 结束注释
       }
       if (!comment) {
         break; // 结束 退出循环

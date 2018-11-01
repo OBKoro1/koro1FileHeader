@@ -74,9 +74,19 @@ function activate(context) {
   // 当插件关闭时被清理的可清理列表
   context.subscriptions.push(cursorTip);
 
+  let intervalVal = null; // 保存上次触发时间，用于节流
+  let fileName = ''; // 保存操作的文件
   // 文件保存时 触发
   vscode.workspace.onDidSaveTextDocument(function(file) {
-    setTimeout(function() {
+    if (file.fileName === fileName) {
+      // 同一个文件操作 节流
+      intervalVal = util.throttle(documentSÏÏaveFn, 6666, intervalVal)();
+    } else {
+      console.log(fileName, 'fileName');
+      fileName = file.fileName; // 保存上次编辑的文件
+      documentSÏÏaveFn();
+    }
+    function documentSÏÏaveFn() {
       try {
         let editor = vscode.editor || vscode.window.activeTextEditor;
         const fileEnd = editor._documentData._languageId; // 文件后缀
@@ -99,7 +109,7 @@ function activate(context) {
       } catch (err) {
         console.log('保存文件:', err);
       }
-    }, 300);
+    }
   });
 }
 

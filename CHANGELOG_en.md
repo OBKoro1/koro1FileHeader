@@ -1,10 +1,9 @@
 # CHANGELOG
 
-### [V2.0.5]
+### [V2.5.0]
 
   * Support python annotation, press the shortcut key detection in py extension file, generate ` "' ` forms of comments and function annotations file head.
   * The header comment Date field (file creation time) is changed from the current time to the file creation time
-  * Remove the 20-second change limit and update the final edit time in real time
 
 ### [V2.0.0]
 
