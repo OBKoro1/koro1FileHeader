@@ -12,7 +12,7 @@
 
 [change log](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
-[FAQ] (https://github.com/OBKoro1/koro1FileHeader/wiki/FAQ)
+[FAQ](https://github.com/OBKoro1/koro1FileHeader/wiki/FAQ)
 
 ## Introduction to the
 
@@ -34,7 +34,7 @@
 
 ## Support for comment formatting：
 
-[Here](https://github.com/OBKoro1/koro1FileHeader/blob/master/document/supportNotes-en.md)
+[Here](https://github.com/OBKoro1/koro1FileHeader/wiki/Support-language)
 
 ## The installation
 
