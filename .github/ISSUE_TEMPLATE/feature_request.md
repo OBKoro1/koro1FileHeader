@@ -4,14 +4,17 @@ about: Suggest an idea for this project
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+**您的特性请求是否与问题相关?请描述**
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+清楚而简明地描述问题所在,当...不能做到的时候，我总是很沮丧。
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+**描述一下你想要的解决方案.**
+
+对你想要发生的事情的清晰而简明的描述。
+
+**描述你考虑过的备选方案**
+对您考虑过的任何替代解决方案或特性的清晰而简明的描述。
+
+**其他相关**
+在这里添加关于特性请求的任何其他上下文或屏幕截图。
