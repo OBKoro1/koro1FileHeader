@@ -1,14 +1,18 @@
 # koroFileHeader 
 
-> Read a user-defined template, by adding the file header comments shortcuts, add function annotations at the cursor ` VsCode ` plug-in
+> A support for multiple languages, read the user set custom templates, by adding the file header comments shortcuts, add function annotations at the cursor ` VsCode ` plug-in
 
 ## language
 
 [简体中文](https://github.com/OBKoro1/koro1FileHeader/blob/master/README.md) | English
 
-## changelog
+## Some documents
 
-[address](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG_en.md)
+[Support language](https://github.com/OBKoro1/koro1FileHeader/wiki/Support-language)
+
+[change log](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
+
+[FAQ] (https://github.com/OBKoro1/koro1FileHeader/wiki/FAQ)
 
 ## Introduction to the
 
@@ -30,28 +34,7 @@
 
 ## Support for comment formatting：
 
-Header annotations and function annotations currently support the following two forms of annotations:
-
-` / * * / ` form, by default will generate such comments:
-
-    /*
-     * @Description: 
-     * @Author: OBKoro1
-     * @Date: 2018-08-20 00:26:26
-     * @LastEditors: OBKoro1
-     * @LastEditTime: 2018-11-01 10:34:14
-     */
-
-` "' ` form, read `. Py ` suffix, automatically generated ` python ` form comments, without having to configure:
-
-    '''
-    @Description: 
-    @Author: OBKoro1
-    @Date: 2018-10-24 21:57:52
-    @LastEditors: OBKoro1
-    @LastEditTime: 2018-11-01 10:35:54
-    '''
-
+[Here](https://github.com/OBKoro1/koro1FileHeader/blob/master/document/supportNotes-en.md)
 
 ## The installation
 

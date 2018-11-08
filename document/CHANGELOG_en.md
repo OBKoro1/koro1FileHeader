@@ -1,10 +1,8 @@
 # CHANGELOG
 
-# # # [V2.7.0]
+### [V2.7.0]
 
-* must repair ` LastEditors ` and ` LastEditTime ` fields exist at the same time will update the last edit time bug
-
-  Exist at the same time or used separately ` LastEditors `, ` LastEditTime ` field support to update the last edit time and final editing
+New [WiKi](https://github.com/OBKoro1/koro1FileHeader/wiki), about plug-in every thing.
 
 * support ` vb ` suffix file annotation, press the shortcut key detection for ` vb ` file suffix, results are as follows
 
@@ -22,10 +20,15 @@
         ' param {type} 
         ' return: 
         '
+* must repair ` LastEditors ` and ` LastEditTime ` fields exist at the same time will update the last edit time bug
 
-# # # [V2.6.0]
+  Exist at the same time or used separately ` LastEditors `, ` LastEditTime ` field support to update the last edit time and final editing
 
-* new [FAQ readme] (https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems.md)
+* new [supports annotation format] (https://github.com/OBKoro1/koro1FileHeader/blob/master/document/supportNotes-en.md)
+
+### [V2.6.0]
+
+* new [FAQ readme] (https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems-en.md)
 * the last edit time under fixed part of the scenario is not updated
 * for a single file, the last edit time is 6666 milliseconds from the last edit time before it is updated
 

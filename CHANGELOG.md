@@ -1,10 +1,12 @@
 # 更新日志
 
+## language
+
+简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
+
 ### [V2.7.0]
   
-  * 修复必须`LastEditors`和`LastEditTime`字段同时存在才会更新最后编辑时间的bug
-    
-    同时存在或者单独使用`LastEditors`、`LastEditTime`字段都支持更新最后编辑时间和最后编辑人
+  * 新增[WiKi](https://github.com/OBKoro1/koro1FileHeader/wiki),关于插件的文档都在这里!
 
   * 支持`vb`后缀文件注释,按下快捷键检测为`vb`后缀的文件,效果如下
     
@@ -22,10 +24,15 @@
         ' param {type} 
         ' return: 
         '
+  * 修复必须`LastEditors`和`LastEditTime`字段同时存在才会更新最后编辑时间的bug
+    
+    同时存在或者单独使用`LastEditors`、`LastEditTime`字段都支持更新最后编辑时间和最后编辑人
+
+  * 新增[支持注释格式](https://github.com/OBKoro1/koro1FileHeader/blob/master/document/supportNotes.md)
 
 ### [V2.6.0]
 
-  * 新增[常见问题readme](https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems.md)
+  * 新增[常见问题readme](https://github.com/OBKoro1/koro1FileHeader/blob/master/document/commonProblems.md)
   * 修复部分场景下最后编辑时间不更新问题
   * 对单个文件连续操作，最后编辑时间与上次的最后编辑时间相差6666毫秒才会更新
 

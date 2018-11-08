@@ -1,19 +1,19 @@
 # koroFileHeader 
 
-> 一个读取用户自定义模板，通过快捷键添加文件头部注释、在光标处添加函数注释的`VsCode`插件
+> 一个支持多语言,读取用户设置的自定义模板，通过快捷键添加文件头部注释、在光标处添加函数注释的`VsCode`插件
 
 ## language
 
-简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/blob/master/README_en-us.md)
+简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/Readme)
 
 
 ## 一些文档
 
-[支持语言](https://github.com/OBKoro1/koro1FileHeader/blob/master/supportNotes.md)
+[支持语言](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
 
-[更新日志](https://github.com/OBKoro1/koro1FileHeader/blob/master/CHANGELOG.md)
+[更新日志](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
 
-[常见问题](https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems.md)
+[常见问题](https://github.com/OBKoro1/koro1FileHeader/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 ## 简介
 
@@ -35,7 +35,7 @@
 
 ## 支持注释格式：
 
-[传送门](https://github.com/OBKoro1/koro1FileHeader/blob/master/supportNotes.md)
+[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
 
 ## 安装
 

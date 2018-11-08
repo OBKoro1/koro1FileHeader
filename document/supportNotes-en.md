@@ -1,14 +1,12 @@
-# 支持注释格式：
+### Support language：
 
-### 支持语言：
+* `/**/`：`Javascript`/`Java`/`go`/`C++`/`C`
 
-* `/**/`形式：`Javascript`/`Java`/`go`/`C++`/`C`
+* `'''`：`python`
 
-* `'''`形式：`python`
+* `'`： `vba`
 
-* `'`形式： `vba`
-
-### 示例设置：
+### The sample set：
 
     "fileheader.customMade": {
         "Description": "",
@@ -24,12 +22,12 @@
         "return": ""
     },
 
-### `/**/`形式
+### `/**/`
 
 
-默认情况下，将生成`/**/`形式的注释，**此形式注释支持`Javascript`/`Java`/`go`/`C++`/`C`语言**：
+By default, will generate `/**/` annotation, **in the form of annotation support `Javascript`/`Java`/`go`/`C++`/ `C` language** :
 
-* 头部注释
+* The head notes
 
         /*
          * @Description: 
@@ -40,7 +38,7 @@
          * @LastEditTime: 2018-11-08 16:10:19
          */
 
-* 函数注释
+* Function annotations
 
         /**
          * @description: 
@@ -48,9 +46,9 @@
          * @return: 
          */
 
-### `'''`形式:
+### `'''`:
 
-* 头部注释
+* The head notes
 
         '''
         @Description: 
@@ -61,7 +59,7 @@
         @LastEditTime: 2018-11-08 16:15:14
         '''
 
-* 函数注释
+* Function annotations
 
         '''
         @description: 
@@ -69,9 +67,9 @@
         @return: 
         '''
 
-### `'`形式：
+### `'`：
 
-* 头部注释
+* The head notes
 
         '
         ' @Description: 
@@ -82,7 +80,7 @@
         ' @LastEditTime: 2018-11-08 16:39:03
         '
 
-* 函数注释
+* Function annotations
 
         '
         ' description: 
