@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "一个通过快捷键,添加文件头部注释和函数注释的插件",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",

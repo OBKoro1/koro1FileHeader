@@ -1,5 +1,28 @@
 # 更新日志
 
+### [V2.7.0]
+  
+  * 修复必须`LastEditors`和`LastEditTime`字段同时存在才会更新最后编辑时间的bug
+    
+    同时存在或者单独使用`LastEditors`、`LastEditTime`字段都支持更新最后编辑时间和最后编辑人
+
+  * 支持`vb`后缀文件注释,按下快捷键检测为`vb`后缀的文件,效果如下
+    
+        // 头部注释  
+        '
+        ' @Description: 
+        ' @Author: OBKoro1
+        ' @Github: https://github.com/OBKoro1
+        ' @Date: 2018-11-08 11:09:02
+        ' @LastEditTime: 2018-11-08 13:49:26
+        '
+        // 函数注释
+        '
+        ' description: 
+        ' param {type} 
+        ' return: 
+        '
+
 ### [V2.6.0]
 
   * 新增[常见问题readme](https://github.com/OBKoro1/koro1FileHeader/blob/master/commonProblems.md)

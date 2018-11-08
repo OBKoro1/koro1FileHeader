@@ -1,3 +1,10 @@
+/*
+ * @Description: 公共函数
+ * @Author: OBKoro1
+ * @Date: 2018-10-31 14:18:17
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2018-11-01 18:03:08
+ */
 module.exports = {
   fontTemplate,
   throttle

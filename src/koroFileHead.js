@@ -1,7 +1,15 @@
+/*
+ * @Description: 入口
+ * @Author: OBKoro1
+ * @Date: 2018-10-31 14:18:17
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2018-11-08 14:55:54
+ */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
 const fs = require('fs');
+const languageOutput = require('./languageOutput');
 
 // 扩展激活 默认运行
 function activate(context) {
@@ -23,7 +31,7 @@ function activate(context) {
           const data = logic.userSet(config.customMade, time);
           // 文件后缀
           const fileEnd = editor._documentData._languageId;
-          const fontTpl = logic.fontTplStr(data, fileEnd);
+          const fontTpl = languageOutput.headNotes(data, fileEnd);
           // 生成模板
           const tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
           editBuilder.insert(new vscode.Position(0, 0), tpl); // 插入
@@ -55,13 +63,13 @@ function activate(context) {
             // 如果用户设置了模板，那将默认根据用户设置模板
             data = Object.assign({}, config.cursorMode); // 复制对象，否则对象不能更改值
           }
-          fontTpl = logic.FnTplStr(
+          fontTpl = new languageOutput.functionTplStr(
             data,
             fileEnd,
             lineSpace,
             nextLine,
             frontStr
-          ); // 函数注释的模板字符串
+          ).generate(); // 函数注释的模板字符串
           let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
           editBuilder.insert(new vscode.Position(line, lineSpace), tpl); // 插入
         });
@@ -78,36 +86,53 @@ function activate(context) {
   let fileName = ''; // 保存操作的文件
   // 文件保存时 触发
   vscode.workspace.onDidSaveTextDocument(function(file) {
-    if (file.fileName === fileName) {
-      // 同一个文件操作 节流
-      intervalVal = util.throttle(documentSÏÏaveFn, 6666, intervalVal)();
-    } else {
-      console.log(fileName, 'fileName');
-      fileName = file.fileName; // 保存上次编辑的文件
-      documentSÏÏaveFn();
+    try {
+      if (file.fileName === fileName) {
+        // 同一个文件操作 节流
+        intervalVal = util.throttle(documentSÏÏaveFn, 6666, intervalVal)();
+      } else {
+        fileName = file.fileName; // 保存上次编辑的文件
+        documentSÏÏaveFn();
+      }
+    } catch (err) {
+      console.log('保存文件:', err);
     }
+
     function documentSÏÏaveFn() {
-      try {
-        let editor = vscode.editor || vscode.window.activeTextEditor;
-        const fileEnd = editor._documentData._languageId; // 文件后缀
-        const document = editor.document;
-        const [
-          authorRange,
-          authorText,
-          lastTimeRange,
-          lastTimeText
-        ] = logic.saveReplaceTime(document, config.customMade, fileEnd);
-        if (authorRange !== undefined && lastTimeRange !== undefined) {
-          setTimeout(function() {
-            editor.edit(function(edit) {
-              edit.replace(authorRange, authorText);
-              edit.replace(lastTimeRange, lastTimeText);
-            });
-            document.save(); // 保存
-          }, 200);
-        }
-      } catch (err) {
-        console.log('保存文件:', err);
+      let editor = vscode.editor || vscode.window.activeTextEditor;
+      const fileEnd = editor._documentData._languageId; // 文件后缀
+      const document = editor.document;
+      const [
+        authorRange,
+        authorText,
+        lastTimeRange,
+        lastTimeText
+      ] = logic.saveReplaceTime(document, config.customMade, fileEnd);
+      if (authorRange !== undefined && lastTimeRange !== undefined) {
+        // 变更最后编辑人和最后编辑时间
+        setTimeout(function() {
+          editor.edit(function(edit) {
+            edit.replace(authorRange, authorText);
+            edit.replace(lastTimeRange, lastTimeText);
+          });
+          document.save(); // 保存
+        }, 200);
+      } else if (lastTimeRange !== undefined) {
+        // 只变更最后编辑时间
+        setTimeout(function() {
+          editor.edit(function(edit) {
+            edit.replace(lastTimeRange, lastTimeText);
+          });
+          document.save();
+        }, 200);
+      } else if (authorRange !== undefined) {
+        // 只变更最后编辑人
+        setTimeout(function() {
+          editor.edit(function(edit) {
+            edit.replace(lastTimeRange, lastTimeText);
+          });
+          document.save();
+        }, 200);
       }
     }
   });
