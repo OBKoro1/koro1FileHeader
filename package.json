@@ -94,6 +94,9 @@
     "@types/node": "^7.0.43",
     "eslint": "^4.11.0",
     "typescript": "^2.6.1",
-    "vscode": "^1.1.6"
+    "vscode": "^1.1.21"
+  },
+  "dependencies": {
+    "hoek": "^6.0.2"
   }
 }
