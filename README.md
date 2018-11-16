@@ -4,7 +4,7 @@
 
 ## language
 
-简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/Readme)
+简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/README_en-us)
 
 
 ## 一些文档
@@ -44,6 +44,7 @@
 1.  栗子：
 
     ![](https://user-gold-cdn.xitu.io/2018/11/16/1671bdd20f313a29?w=662&h=744&f=gif&s=448070)
+
 
 2. 文件头部注释：
 
