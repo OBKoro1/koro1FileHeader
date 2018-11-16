@@ -1,29 +1,23 @@
 /*
  * @Description: 
- * @version: 
- * @Company: BAT
  * @Author: OBKoro1
- * @Date: 2018-10-15 20:59:57
+ * @Github: https://github.com/OBKoro1
+ * @Date: 2018-10-14 17:04:37
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-10-15 20:59:57
+ * @LastEditTime: 2018-11-16 16:04:42
  */
-
- 
-const test = val =>{
-    // your code 
-}
 
 /**
- * @msg: 
+ * @description: 
  * @param {type} 
  * @return: 
- */
+ */ 
 function test(value){
     // your code
 }
 
 /**
- * @msg: 
+ * @description: 
  * @param {type} 
  * @return: 
  */

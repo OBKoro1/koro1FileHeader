@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "一个通过快捷键,添加文件头部注释和函数注释的插件",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",
@@ -50,12 +50,19 @@
         "fileheader.customMade": {
           "type": "object",
           "default": {},
-          "description": "default setsetting/默认设置：{'Author':'OBKoro1(your name)','Date':'Do not edit','LastEditors':'OBKoro1(your name)','LastEditTime':'Do not edit','Description':'file content'}"
+          "description": "头部注释,默认设置：{'Author':'your name','Date':'Do not edit','LastEditors':'your name','LastEditTime':'Do not edit','Description':'file content'}"
         },
         "fileheader.cursorMode": {
           "type": "object",
           "default": {},
-          "description": "Insert the comment at the cursor"
+          "description": "在光标处插入函数注释,默认配置:{'msg':'','param':'','return':''}"
+        },
+        "fileheader.configObj":{
+          "type": "object",
+          "default": {
+            "createFileTime": true
+          },
+          "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }
       }
     },

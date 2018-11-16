@@ -4,11 +4,24 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
+### [V2.8.0]
+
+  * 插件新增支持`html`后缀文件的头部注释，效果如下:
+
+        <!--
+        @Description: 
+        @Author: OBKoro1
+        @Github: https://github.com/OBKoro1
+        @Date: 2018-11-16 14:38:05
+        @LastEditors: OBKoro1
+        @LastEditTime: 2018-11-16 14:55:03
+        -->
+
 ### [V2.7.0]
   
   * 新增[WiKi](https://github.com/OBKoro1/koro1FileHeader/wiki),关于插件的文档都在这里!
 
-  * 支持`vb`后缀文件注释,按下快捷键检测为`vb`后缀的文件,效果如下
+  * 插件新增支持`vb`后缀文件注释,按下快捷键检测为`vb`后缀的文件,效果如下
     
         // 头部注释  
         '

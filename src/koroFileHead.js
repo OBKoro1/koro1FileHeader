@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-08 14:55:54
+ * @LastEditTime: 2018-11-16 16:56:12
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -20,13 +20,17 @@ function activate(context) {
       const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
       editor.edit(function(editBuilder) {
         try {
-          // 获取当前激活文件的路径
-          const filepath =
-            vscode.window.activeTextEditor._documentData._document.fileName;
-          // 获取文件创建时间
-          const time = new Date(fs.statSync(filepath).birthtime).format(
-            'yyyy-MM-dd hh:mm:ss'
-          );
+          let time = new Date().format('yyyy-MM-dd hh:mm:ss');
+          // 文件创建时间
+          if (config.configObj.createFileTime) {
+            // 获取当前激活文件的路径
+            const filepath =
+              vscode.window.activeTextEditor._documentData._document.fileName;
+            time = new Date(fs.statSync(filepath).birthtime).format(
+              'yyyy-MM-dd hh:mm:ss'
+            );
+          }
+
           // 返回生成模板的数据对象
           const data = logic.userSet(config.customMade, time);
           // 文件后缀

@@ -4,7 +4,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-08 15:30:22
+ * @LastEditTime: 2018-11-16 14:49:59
  */
 
 // 头部注释中间部分生成
@@ -13,6 +13,7 @@ const middleTpl = (data, fileEnd) => {
   Object.keys(data).forEach(key => {
     const obj = {
       python: `@${key}: &${key}&\r\n`,
+      html: `@${key}: &${key}&\r\n`,
       vb: `' @${key}: &${key}&\r\n`,
       default: `* @${key}: &${key}&\r\n `
     };
@@ -22,7 +23,7 @@ const middleTpl = (data, fileEnd) => {
 };
 
 /**
- * @description:
+ * @description: 文件头部注释生成
  * @param {Object} data 模板数据对象
  * @param {String} fileEnd 文件采用语言
  * @return: 字符串
@@ -32,6 +33,7 @@ const headNotes = (data, fileEnd) => {
   // 头部 中间模板 尾部合并
   const headEnd = {
     python: `'''\r\n${str}'''\r\n`,
+    html: `<!--\r\n${str}-->\r\n`,
     vb: `'\r\n${str}'\r\n`,
     default: `/*\r\n ${str}*/\r\n`
   };
@@ -40,6 +42,7 @@ const headNotes = (data, fileEnd) => {
 
 class functionTplStr {
   /**
+   * @description: 函数注释模板生成
    * @param {Object} data 模板数据对象
    * @param {String} fileEnd 文件采用语言
    * @param {Number} lineSpace 每行前面的长度
@@ -118,8 +121,7 @@ class functionTplStr {
 
 /**
  * @description: 保存触发修改时的需要的字符输出
- * @param {type} 
- * @return: 
+ * @param {String} fileEnd 文件语言
  */
 class changeFont {
   constructor(fileEnd) {
@@ -129,6 +131,7 @@ class changeFont {
   star() {
     const annotationStarts = {
       python: `'''`,
+      html: `<!--`,
       vb: `'`,
       default: `/*`
     };
@@ -138,6 +141,7 @@ class changeFont {
   LastEditorsStr(LastEditors) {
     const obj = {
       python: `@LastEditors: ${LastEditors}`,
+      html: `@LastEditors: ${LastEditors}`,
       vb: `' @LastEditors: ${LastEditors}`,
       default: ` * @LastEditors: ${LastEditors}`
     };
@@ -147,6 +151,7 @@ class changeFont {
   lastTimeStr() {
     const lastTimeText = {
       python: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
+      html: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
       vb: `' @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
       default: ` * @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`
     };
