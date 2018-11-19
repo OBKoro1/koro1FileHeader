@@ -4,17 +4,30 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
+### [V2.9.0]
+
+  * 插件新增支持`vue`后缀文件的头部注释，效果如下:
+
+        <!--
+        * @Description: 
+        * @Author: OBKoro1
+        * @Github: https://github.com/OBKoro1
+        * @Date: 2018-11-16 14:38:05
+        * @LastEditors: OBKoro1
+        * @LastEditTime: 2018-11-19 14:32:45
+        -->
+
 ### [V2.8.0]
 
   * 插件新增支持`html`后缀文件的头部注释，效果如下:
 
         <!--
-        @Description: 
-        @Author: OBKoro1
-        @Github: https://github.com/OBKoro1
-        @Date: 2018-11-16 14:38:05
-        @LastEditors: OBKoro1
-        @LastEditTime: 2018-11-16 14:55:03
+        * @Description: 
+        * @Author: OBKoro1
+        * @Github: https://github.com/OBKoro1
+        * @Date: 2018-11-16 14:38:05
+        * @LastEditors: OBKoro1
+        * @LastEditTime: 2018-11-19 14:32:45
         -->
 
 ### [V2.7.0]

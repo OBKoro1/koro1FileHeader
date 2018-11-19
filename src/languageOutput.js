@@ -4,7 +4,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-16 14:49:59
+ * @LastEditTime: 2018-11-19 14:30:12
  */
 
 // 头部注释中间部分生成
@@ -13,7 +13,6 @@ const middleTpl = (data, fileEnd) => {
   Object.keys(data).forEach(key => {
     const obj = {
       python: `@${key}: &${key}&\r\n`,
-      html: `@${key}: &${key}&\r\n`,
       vb: `' @${key}: &${key}&\r\n`,
       default: `* @${key}: &${key}&\r\n `
     };
@@ -33,7 +32,8 @@ const headNotes = (data, fileEnd) => {
   // 头部 中间模板 尾部合并
   const headEnd = {
     python: `'''\r\n${str}'''\r\n`,
-    html: `<!--\r\n${str}-->\r\n`,
+    html: `<!--\r\n ${str}-->\r\n`,
+    vue: `<!--\r\n ${str}-->\r\n`,
     vb: `'\r\n${str}'\r\n`,
     default: `/*\r\n ${str}*/\r\n`
   };
@@ -132,6 +132,7 @@ class changeFont {
     const annotationStarts = {
       python: `'''`,
       html: `<!--`,
+      vue: `<!--`,
       vb: `'`,
       default: `/*`
     };
@@ -141,7 +142,6 @@ class changeFont {
   LastEditorsStr(LastEditors) {
     const obj = {
       python: `@LastEditors: ${LastEditors}`,
-      html: `@LastEditors: ${LastEditors}`,
       vb: `' @LastEditors: ${LastEditors}`,
       default: ` * @LastEditors: ${LastEditors}`
     };
@@ -151,7 +151,6 @@ class changeFont {
   lastTimeStr() {
     const lastTimeText = {
       python: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
-      html: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
       vb: `' @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
       default: ` * @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`
     };
