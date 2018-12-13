@@ -4,6 +4,24 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
+### [V3.0.0]
+
+  * 新增自定义注释的符号，注释生成的样子，全部由你掌控，详情请看[插件配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE)。
+
+  * 头部注释和函数注释现在**支持中文做为注释属性了**,比如：
+
+        "fileheader.cursorMode": {
+          "Date": "Do not edit",
+          "作者": "your name",
+          "功能": ""
+        }
+
+  * 函数注释新增Date字段，设置该字段可生成函数注释的时间
+
+  * 修复文件行数不够20行时，无法更新最后编辑时间的bug
+
+  * 修复函数注释在最后一行无法生成的bug
+
 ### [V2.9.0]
 
   * 插件新增支持`vue`后缀文件的头部注释，效果如下:

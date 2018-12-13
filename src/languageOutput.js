@@ -1,22 +1,24 @@
 /*
- * @Description: 不同语言的输出
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-19 14:30:12
+ * @LastEditTime: 2018-12-13 15:49:02
+ * @Description: 不同语言的逻辑
  */
+const languageDifferent = require('./languageDifferent');
 
 // 头部注释中间部分生成
 const middleTpl = (data, fileEnd) => {
   let str = '';
+
   Object.keys(data).forEach(key => {
     const obj = {
-      python: `@${key}: &${key}&\r\n`,
-      vb: `' @${key}: &${key}&\r\n`,
-      default: `* @${key}: &${key}&\r\n `
+      fileEnd,
+      type: 'topMiddle',
+      key
     };
-    str += obj[fileEnd] || obj['default'];
+    str = str + languageDifferent.tplJudge(obj);
   });
   return str;
 };
@@ -30,14 +32,12 @@ const middleTpl = (data, fileEnd) => {
 const headNotes = (data, fileEnd) => {
   let str = middleTpl(data, fileEnd);
   // 头部 中间模板 尾部合并
-  const headEnd = {
-    python: `'''\r\n${str}'''\r\n`,
-    html: `<!--\r\n ${str}-->\r\n`,
-    vue: `<!--\r\n ${str}-->\r\n`,
-    vb: `'\r\n${str}'\r\n`,
-    default: `/*\r\n ${str}*/\r\n`
+  const obj = {
+    fileEnd,
+    type: 'topHeadEnd',
+    str
   };
-  return headEnd[fileEnd] || headEnd['default'];
+  return languageDifferent.tplJudge(obj);
 };
 
 class functionTplStr {
@@ -71,51 +71,35 @@ class functionTplStr {
    * @param {String} key 数据对象的key
    */
   paramStr(key) {
-    const type = '{type}';
-    const paramObj = {
-      python: `${this.str}@${key} ${type} &${key}&\r\n`,
-      vb: `${this.str}' ${key} ${type} &${key}&\r\n`,
-      default: `${this.str}* @${key} ${type} &${key}&\r\n `
+    const obj = {
+      fileEnd: this.fileEnd,
+      str: this.str,
+      key
     };
-    const keyObj = {
-      python: `${this.str}@${key}: &${key}&\r\n`,
-      vb: `${this.str}' ${key}: &${key}&\r\n`,
-      default: `${this.str}* @${key}: &${key}&\r\n `
-    };
+    // 注释是参数的话 多加一个参数的属性
     if (key === 'param') {
-      return paramObj[this.fileEnd] || paramObj['default'];
+      obj.type = 'fnMiddle_param';
+      obj.typeVal = '{type}';
     } else {
-      return keyObj[this.fileEnd] || keyObj['default'];
+      obj.type = 'fnMiddle_key';
     }
+    return languageDifferent.tplJudge(obj);
   }
   mergeStr() {
+    const obj = {
+      fileEnd: this.fileEnd,
+      frontStr: this.frontStr,
+      strContent: this.strContent,
+      str: this.str
+    };
     if (this.nextLine === undefined) {
       // 当前行不为空
-      return this.nextLineNo();
+      obj.type = 'topHeadEnd_nextLineNo';
     } else {
-        // 当前行为空
-      return this.nextLineYes();
+      // 当前行为空
+      obj.type = 'topHeadEnd_nextLineYes';
     }
-  }
-  nextLineNo() {
-    const obj = {
-      python: `${this.frontStr}'''\r\n${this.strContent}${this.str}'''\r\n${
-        this.str
-      }`,
-      vb: `${this.frontStr}'\r\n${this.strContent}${this.str}'\r\n${this.str}`,
-      default: `${this.frontStr}/**\r\n ${this.strContent}${this.str}*/\r\n${
-        this.str
-      }`
-    };
-    return obj[this.fileEnd] || obj['default'];
-  }
-  nextLineYes() {
-    const obj = {
-      python: `${this.frontStr}'''\r\n${this.strContent}${this.str}'''`,
-      vb: `${this.frontStr}'\r\n${this.strContent}${this.str}'`,
-      default: `${this.frontStr}/**\r\n ${this.strContent}${this.str}*/`
-    };
-    return obj[this.fileEnd] || obj['default'];
+    return languageDifferent.tplJudge(obj);
   }
 }
 
@@ -127,34 +111,30 @@ class changeFont {
   constructor(fileEnd) {
     this.fileEnd = fileEnd;
   }
-  // 输出注释开头：用以判断是否进入注释   
+  // 输出注释开头：用以判断是否进入注释
   star() {
-    const annotationStarts = {
-      python: `'''`,
-      html: `<!--`,
-      vue: `<!--`,
-      vb: `'`,
-      default: `/*`
+    const obj = {
+      fileEnd: this.fileEnd,
+      type: 'annotationStarts'
     };
-    return annotationStarts[this.fileEnd] || annotationStarts['default'];
+    return languageDifferent.tplJudge(obj);
   }
-  // 最后编辑人   
+  // 最后编辑人
   LastEditorsStr(LastEditors) {
     const obj = {
-      python: `@LastEditors: ${LastEditors}`,
-      vb: `' @LastEditors: ${LastEditors}`,
-      default: ` * @LastEditors: ${LastEditors}`
+      fileEnd: this.fileEnd,
+      type: 'LastEditorsStr',
+      LastEditors
     };
-    return obj[this.fileEnd] || obj['default'];
+    return languageDifferent.tplJudge(obj);
   }
-   // 最后编辑时间   
+  // 最后编辑时间
   lastTimeStr() {
-    const lastTimeText = {
-      python: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
-      vb: `' @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`,
-      default: ` * @LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`
+    const obj = {
+      fileEnd: this.fileEnd,
+      type: 'lastTimeStr'
     };
-    return lastTimeText[this.fileEnd] || lastTimeText['default'];
+    return languageDifferent.tplJudge(obj);
   }
 }
 

@@ -3,14 +3,10 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-01 18:03:08
+ * @LastEditTime: 2018-12-10 16:54:16
  */
-module.exports = {
-  fontTemplate,
-  throttle
-};
 
-// 模板
+ // 模板
 function fontTemplate(tpl) {
   let fn,
     match,
@@ -18,7 +14,8 @@ function fontTemplate(tpl) {
       "let r=[];\nlet _html = function (str) { return str.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };"
     ],
     // 取出由&包裹的属性名 替换为值
-    re = /\&\s*([a-zA-Z\.\_0-9()]+)(\s*\|\s*safe)?\s*\&/m,
+    re = /\&\s*([\S]+)?\s*\&/m,
+    
     addLine = function(text) {
       code.push(
         "r.push('" +
@@ -89,4 +86,9 @@ Date.prototype.format = function(format) {
     }
   }
   return format;
+};
+
+module.exports = {
+  fontTemplate,
+  throttle
 };

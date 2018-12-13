@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-08 15:24:45
+ * @LastEditTime: 2018-12-13 13:54:51
  */
 const languageOutput = require('./languageOutput');
 
@@ -31,7 +31,6 @@ const userSet = (userObj, time) => {
   }
   // 判断是否设置
   if (data.Date !== undefined) {
-    // 文件创建时间
     data.Date = time;
   }
   if (data.LastEditTime !== undefined) {
@@ -53,9 +52,10 @@ const lineSpaceFn = editor => {
   let lineSpace,
     nextLine,
     frontStr = ''; // 前面空几行
+  const activeLine = editor.selection.active.line; // 激活行 行号
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
-  if (lineProperty.isEmptyOrWhitespace) {
-    nextLine = editor.selection.active.line + 1;
+  if (lineProperty.isEmptyOrWhitespace && editor._documentData.document.lineCount !== activeLine+1) {
+    nextLine = activeLine + 1;
     lineSpace = editor.document.lineAt(nextLine)
       .firstNonWhitespaceCharacterIndex;
     lineFirst = lineFirst === 0 ? lineSpace : 0;
@@ -80,6 +80,7 @@ function saveReplaceTime(document, userObj, fileEnd) {
   let authorRange, authorText, lastTimeRange, lastTimeText;
   let changeFont = new languageOutput.changeFont(fileEnd);
   let annotationStarts = changeFont.star();
+  let totalLine = document.lineCount -1; // 总行数
   let enter = false;
   for (let i = 0; i < 21; i++) {
     // 只遍历前20行没有文件头部注释内容即退出
@@ -92,17 +93,18 @@ function saveReplaceTime(document, userObj, fileEnd) {
       }
     } else {
       let range = linetAt.range;
-      if (line.indexOf('@LastEditors') > -1) {
+      if (line.indexOf('LastEditors') > -1) {
         //表示是修改人
         authorRange = range;
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (line.indexOf('@LastEditTime') > -1) {
+      } else if (line.indexOf('LastEditTime') > -1) {
         //最后修改时间
         lastTimeRange = range;
         lastTimeText = changeFont.lastTimeStr();
       }
     }
+    if(totalLine === i) break; // 行数不够则退出循环
   }
   return [authorRange, authorText, lastTimeRange, lastTimeText];
 }

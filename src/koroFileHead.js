@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-11-16 16:56:12
+ * @LastEditTime: 2018-12-13 19:43:26
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -30,7 +30,6 @@ function activate(context) {
               'yyyy-MM-dd hh:mm:ss'
             );
           }
-
           // 返回生成模板的数据对象
           const data = logic.userSet(config.customMade, time);
           // 文件后缀
@@ -40,7 +39,7 @@ function activate(context) {
           const tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
           editBuilder.insert(new vscode.Position(0, 0), tpl); // 插入
         } catch (err) {
-          console.log('head:', err);
+          console.log('头部注释错误:', err);
         }
       });
     }
@@ -55,7 +54,7 @@ function activate(context) {
         let fileEnd = editor._documentData._languageId; // 文件后缀
         const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
         editor.edit(function(editBuilder) {
-          let [data, fontTpl, strContent] = [{}, '', ''];
+          let [data, fontTpl] = [{}, ''];
           let userSet = Object.keys(config.cursorMode);
           if (userSet.length === 0) {
             data = {
@@ -66,6 +65,10 @@ function activate(context) {
           } else {
             // 如果用户设置了模板，那将默认根据用户设置模板
             data = Object.assign({}, config.cursorMode); // 复制对象，否则对象不能更改值
+          }
+          // 函数注释生成时间
+          if (data.Date !== undefined) {
+            data.Date = new Date().format('yyyy-MM-dd hh:mm:ss');
           }
           fontTpl = new languageOutput.functionTplStr(
             data,
@@ -93,16 +96,16 @@ function activate(context) {
     try {
       if (file.fileName === fileName) {
         // 同一个文件操作 节流
-        intervalVal = util.throttle(documentSÏÏaveFn, 6666, intervalVal)();
+        intervalVal = util.throttle(documentSaveFn, 6666, intervalVal)();
       } else {
         fileName = file.fileName; // 保存上次编辑的文件
-        documentSÏÏaveFn();
+        documentSaveFn();
       }
     } catch (err) {
       console.log('保存文件:', err);
     }
 
-    function documentSÏÏaveFn() {
+    function documentSaveFn() {
       let editor = vscode.editor || vscode.window.activeTextEditor;
       const fileEnd = editor._documentData._languageId; // 文件后缀
       const document = editor.document;
