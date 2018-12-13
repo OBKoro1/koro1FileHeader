@@ -3,14 +3,17 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-13 20:46:38
- * @Description: 每个语言不同情况下的输出
+ * @LastEditTime: 2018-12-13 21:07:16
+ * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
 const vscode = require('vscode');
 const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
 const userAnnotationStr = config.configObj.annotationStr; // 用户自定义注释的配置
 
+/**
+ * @description: 用户自定义注释符号
+ */
 const userAnnotationStrFn = (obj) => {
   const userObj = {
     topMiddle: `${userAnnotationStr.middle}${obj.key}: &${obj.key}&\r\n`,
@@ -30,6 +33,13 @@ const userAnnotationStrFn = (obj) => {
   return userObj[obj.type];
 };
 
+/**
+ * @description: 通过fileEnd使用正则匹配各个语言已调好的注释符号
+ * @param {String} obj.fileEnd 语言后缀
+ * @param {String} obj.type 匹配成功后，输出哪个属性下的字符串
+ * @param {String} else 逻辑下需要的参数
+ * @return: 不同逻辑下的字符串
+ */
 const tplJudge = obj => {
   const languageObj = {
     '/^java$|^javascript$|^go$|^cpp$|^c$/': {
