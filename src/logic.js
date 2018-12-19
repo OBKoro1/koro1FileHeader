@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-13 13:54:51
+ * @LastEditTime: 2018-12-19 18:22:28
  */
 const languageOutput = require('./languageOutput');
 
@@ -54,7 +54,10 @@ const lineSpaceFn = editor => {
     frontStr = ''; // 前面空几行
   const activeLine = editor.selection.active.line; // 激活行 行号
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
-  if (lineProperty.isEmptyOrWhitespace && editor._documentData.document.lineCount !== activeLine+1) {
+  if (
+    lineProperty.isEmptyOrWhitespace &&
+    editor._documentData.document.lineCount !== activeLine + 1
+  ) {
     nextLine = activeLine + 1;
     lineSpace = editor.document.lineAt(nextLine)
       .firstNonWhitespaceCharacterIndex;
@@ -75,14 +78,16 @@ const lineSpaceFn = editor => {
  * @return: authorText  当前修改人
  * @return: lastTimeRange  原最后编辑时间
  * @return: lastTimeText 当前编辑时间
+ * @return:
  */
 function saveReplaceTime(document, userObj, fileEnd) {
   let authorRange, authorText, lastTimeRange, lastTimeText;
   let changeFont = new languageOutput.changeFont(fileEnd);
   let annotationStarts = changeFont.star();
-  let totalLine = document.lineCount -1; // 总行数
+  let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
-  for (let i = 0; i < 21; i++) {
+  let hasAnnotation = false; // 默认没有
+  for (let i = 0; i < 15; i++) {
     // 只遍历前20行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
     let line = linetAt.text.trim();
@@ -93,20 +98,24 @@ function saveReplaceTime(document, userObj, fileEnd) {
       }
     } else {
       let range = linetAt.range;
-      if (line.indexOf('LastEditors') > -1) {
+      if (line.indexOf('LastEditors:') > -1) {
         //表示是修改人
+        hasAnnotation = true;
         authorRange = range;
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (line.indexOf('LastEditTime') > -1) {
+      } else if (line.indexOf('LastEditTime:') > -1) {
         //最后修改时间
+        hasAnnotation = true;
         lastTimeRange = range;
         lastTimeText = changeFont.lastTimeStr();
+      } else if (line.indexOf('Date:') > -1) {
+        hasAnnotation = true;
       }
     }
-    if(totalLine === i) break; // 行数不够则退出循环
+    if (totalLine === i) break; // 行数不够则退出循环
   }
-  return [authorRange, authorText, lastTimeRange, lastTimeText];
+  return [authorRange, authorText, lastTimeRange, lastTimeText, hasAnnotation];
 }
 
 module.exports = {

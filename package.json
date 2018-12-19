@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "一个支持多语言,读取用户设置的自定义模板，通过快捷键添加文件头部注释、在光标处添加函数注释的VsCode插件",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",
@@ -61,6 +61,7 @@
           "type": "object",
           "default": {
             "createFileTime": true,
+            "autoAdd": false,
             "annotationStr":{
               "head": "/*",
               "middle": " * @",
