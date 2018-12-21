@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-13 21:07:16
+ * @LastEditTime: 2018-12-20 13:48:19
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
@@ -95,7 +95,7 @@ const tplJudge = obj => {
         'yyyy-MM-dd hh:mm:ss'
       )}`
     },
-    '/^vue$|^html$/': {
+    '/^vue$|^html$|^markdown$/': {
       topMiddle: `* @${obj.key}: &${obj.key}&\r\n `,
       topHeadEnd: `<!--\r\n ${obj.str}-->\r\n`,
       fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} &${

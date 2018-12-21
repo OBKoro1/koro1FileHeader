@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-19 18:22:28
+ * @LastEditTime: 2018-12-21 15:37:18
  */
 const languageOutput = require('./languageOutput');
 
@@ -118,8 +118,28 @@ function saveReplaceTime(document, userObj, fileEnd) {
   return [authorRange, authorText, lastTimeRange, lastTimeText, hasAnnotation];
 }
 
+/**
+ * @description: 取出文件后缀
+ * @param {String} fsPath 文件路径
+ * @param {Object} config 用户设置
+ * @return: 生成注释的行数
+ */
+const editLineFn = (fsPath, config) => {
+  // 切割文件路径 获取文件后缀
+  const pathArr = fsPath.split('/');
+  const fileName = pathArr[pathArr.length - 1];
+  const fileNameArr = fileName.split('.');
+  const fileEnd = fileNameArr[1]; // 文件后缀
+  const headInsertLineObj = config.configObj.headInsertLine;
+  if (headInsertLineObj[fileEnd]) {
+    return headInsertLineObj[fileEnd] - 1;
+  }
+  return 0;
+};
+
 module.exports = {
   userSet,
   lineSpaceFn,
-  saveReplaceTime
+  saveReplaceTime,
+  editLineFn
 };

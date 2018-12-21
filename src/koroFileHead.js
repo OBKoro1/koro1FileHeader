@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-19 18:15:04
+ * @LastEditTime: 2018-12-21 13:09:46
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -13,9 +13,9 @@ const languageOutput = require('./languageOutput');
 
 // 扩展激活 默认运行
 function activate(context) {
-  const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
   // 头部注释
   const fileheaderFn = () => {
+    const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(function(editBuilder) {
       try {
@@ -31,12 +31,13 @@ function activate(context) {
         }
         // 返回生成模板的数据对象
         const data = logic.userSet(config.customMade, time);
+        const lineNum = logic.editLineFn(editor._documentData._uri.fsPath,config)
         // 文件后缀
         const fileEnd = editor._documentData._languageId;
         const fontTpl = languageOutput.headNotes(data, fileEnd);
         // 生成模板
         const tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
-        editBuilder.insert(new vscode.Position(0, 0), tpl); // 插入
+        editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
       } catch (err) {
         console.log('头部注释错误:', err);
       }
@@ -45,6 +46,7 @@ function activate(context) {
   // 函数注释
   const cursorTipFn = () => {
     try {
+      const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
       let fileEnd = editor._documentData._languageId; // 文件后缀
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
@@ -53,7 +55,7 @@ function activate(context) {
         let userSet = Object.keys(config.cursorMode);
         if (userSet.length === 0) {
           data = {
-            msg: '',
+            description: '',
             param: '',
             return: ''
           };
@@ -109,6 +111,7 @@ function activate(context) {
     }
 
     function documentSaveFn() {
+      const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       let editor = vscode.editor || vscode.window.activeTextEditor;
       const fileEnd = editor._documentData._languageId; // 文件后缀
       const document = editor.document;
@@ -120,7 +123,7 @@ function activate(context) {
         hasAnnotation
       ] = logic.saveReplaceTime(document, config.customMade, fileEnd);
       // 检测文件注释,自动添加注释
-      if(!hasAnnotation && config.configObj.autoAdd) fileheaderFn();
+      if (!hasAnnotation && config.configObj.autoAdd) fileheaderFn();
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
         setTimeout(function() {

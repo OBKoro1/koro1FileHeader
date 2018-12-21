@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "一个支持多语言,读取用户设置的自定义模板，通过快捷键添加文件头部注释、在光标处添加函数注释的VsCode插件",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "publisher": "OBKoro1",
   "author": {
     "name": "OBKoro1",
@@ -55,7 +55,7 @@
         "fileheader.cursorMode": {
           "type": "object",
           "default": {},
-          "description": "在光标处插入函数注释,默认配置:{'msg':'','param':'','return':''}"
+          "description": "在光标处插入函数注释,默认配置:{'description':'','param':'','return':''}"
         },
         "fileheader.configObj": {
           "type": "object",
@@ -67,6 +67,9 @@
               "middle": " * @",
               "end": " */",
               "use": false
+            },
+            "headInsertLine":{
+              "php": 2
             }
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
