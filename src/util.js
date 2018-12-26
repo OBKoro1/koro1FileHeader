@@ -3,11 +3,11 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-10 16:54:16
+ * @LastEditTime: 2018-12-25 20:29:14
  */
 
- // 模板
-function fontTemplate(tpl) {
+// 模板
+function fontTemplate (tpl) {
   let fn,
     match,
     code = [
@@ -15,7 +15,6 @@ function fontTemplate(tpl) {
     ],
     // 取出由&包裹的属性名 替换为值
     re = /\&\s*([\S]+)?\s*\&/m,
-    
     addLine = function(text) {
       code.push(
         "r.push('" +
@@ -44,10 +43,10 @@ function fontTemplate(tpl) {
     // 采用配置数据
     return fn.apply(model);
   };
-}
+};
 
 // 节流函数 单位时间内有事件被多次触发则，只生效一次
-function throttle(fn, gapTime, _lastTime = null) {
+const throttle = (fn, gapTime, _lastTime = null) => {
   return function() {
     let _nowTime = +new Date();
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
@@ -56,9 +55,32 @@ function throttle(fn, gapTime, _lastTime = null) {
       _lastTime = _nowTime; // 触发后，上次执行时间赋值为当前时间
       return _lastTime;
     }
-    return _lastTime
+    return _lastTime;
   };
-}
+};
+
+/**
+ * @description: 文件后缀匹配
+ * @param {String}
+ * @return:
+ */
+const fileEndMatch = fileEnd => {
+  const obj = {
+    '/^java$|^javascript$|^go$|^cpp$|^c$/': 'javascript',
+    '/^python$/': 'python',
+    '/^vb$/': 'vb',
+    '/^vue$|^html$|^markdown$/': 'html'
+  };
+  for (let key in obj) {
+    // 正则匹配
+    const reg = eval(key);
+    const a = reg.test(fileEnd);
+    if (a) {
+      return obj[key];
+    }
+  }
+  return 'default_str';
+};
 
 Date.prototype.format = function(format) {
   // 处理时间格式
@@ -90,5 +112,6 @@ Date.prototype.format = function(format) {
 
 module.exports = {
   fontTemplate,
-  throttle
+  throttle,
+  fileEndMatch
 };
