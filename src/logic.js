@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-21 15:37:18
+ * @LastEditTime: 2019-01-19 16:14:02
  */
 const languageOutput = require('./languageOutput');
 
@@ -35,7 +35,7 @@ const userSet = (userObj, time) => {
   }
   if (data.LastEditTime !== undefined) {
     // 最后编辑时间
-    data.LastEditTime = new Date().format('yyyy-MM-dd hh:mm:ss');
+    data.LastEditTime = new Date().format();
   }
   return data;
 };
@@ -98,13 +98,13 @@ function saveReplaceTime(document, userObj, fileEnd) {
       }
     } else {
       let range = linetAt.range;
-      if (line.indexOf('LastEditors:') > -1) {
+      if (line.indexOf('@LastEditors:') > -1) {
         //表示是修改人
         hasAnnotation = true;
         authorRange = range;
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (line.indexOf('LastEditTime:') > -1) {
+      } else if (line.indexOf('@LastEditTime:') > -1) {
         //最后修改时间
         hasAnnotation = true;
         lastTimeRange = range;

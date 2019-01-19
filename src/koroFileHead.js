@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-25 20:37:26
+ * @LastEditTime: 2019-01-19 15:44:11
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -18,15 +18,13 @@ function activate(context) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(function(editBuilder) {
       try {
-        let time = new Date().format('yyyy-MM-dd hh:mm:ss');
+        let time = new Date().format();
         // 文件创建时间
         if (config.configObj.createFileTime) {
           // 获取当前激活文件的路径
           const filepath =
             vscode.window.activeTextEditor._documentData._document.fileName;
-          time = new Date(fs.statSync(filepath).birthtime).format(
-            'yyyy-MM-dd hh:mm:ss'
-          );
+          time = new Date(fs.statSync(filepath).birthtime).format();
         }
         // 返回生成模板的数据对象
         const data = logic.userSet(config.customMade, time);
@@ -35,7 +33,7 @@ function activate(context) {
           config
         );
         // 文件后缀
-        let fileEnd = editor._documentData._languageId;
+        let fileEnd = editor._documentData._languageId; // 语言
         fileEnd = util.fileEndMatch(fileEnd)
         const fontTpl = languageOutput.headNotes(data, fileEnd);
         // 生成模板
@@ -51,7 +49,7 @@ function activate(context) {
     try {
       const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-      let fileEnd = editor._documentData._languageId; // 文件后缀
+      let fileEnd = editor._documentData._languageId; // 语言
       fileEnd = util.fileEndMatch(fileEnd)
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
       editor.edit(function(editBuilder) {
@@ -69,7 +67,7 @@ function activate(context) {
         }
         // 函数注释生成时间
         if (data.Date !== undefined) {
-          data.Date = new Date().format('yyyy-MM-dd hh:mm:ss');
+          data.Date = new Date().format();
         }
         fontTpl = new languageOutput.functionTplStr(
           data,

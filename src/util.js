@@ -3,11 +3,13 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-25 20:29:14
+ * @LastEditTime: 2019-01-19 18:18:04
  */
 
+const vscode = require('vscode');
+
 // 模板
-function fontTemplate (tpl) {
+function fontTemplate(tpl) {
   let fn,
     match,
     code = [
@@ -43,9 +45,15 @@ function fontTemplate (tpl) {
     // 采用配置数据
     return fn.apply(model);
   };
-};
+}
 
-// 节流函数 单位时间内有事件被多次触发则，只生效一次
+/**
+ * @description: 节流函数 单位时间内有事件被多次触发则，只生效一次
+ * @param {Function} fn 节流的函数
+ * @param {Number} gapTime 节流执行间隔
+ * @param {Number} _lastTime 上次执行时间
+ * @return: 上次触发time
+ */
 const throttle = (fn, gapTime, _lastTime = null) => {
   return function() {
     let _nowTime = +new Date();
@@ -60,11 +68,41 @@ const throttle = (fn, gapTime, _lastTime = null) => {
 };
 
 /**
- * @description: 文件后缀匹配
- * @param {String}
- * @return:
+ * @description: 切割文件路径 获取文件后缀
+ * @param {String} fsPath 文件路径
+ * @return: 文件后缀
+ */
+const fsPathFn = fsPath => {
+  const pathArr = fsPath.split('/');
+  const fileName = pathArr[pathArr.length - 1];
+  const fileNameArr = fileName.split('.');
+  return fileNameArr[1]; // 文件后缀
+};
+
+/**
+ * 以哪种形式生成注释
+ * 1. 用户定义的语言符号
+ * 2. 插件自带的语言符号
+ * 3. 无法识别的语言 默认的注释符号
  */
 const fileEndMatch = fileEnd => {
+  const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
+  const language = config.configObj.language; // 自定义语言项
+  // 未知语言
+  if (fileEnd === 'plaintext') {
+    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+    fileEnd = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
+  }
+  // 检查用户是否设置 匹配语言或文件后缀
+   const isUserLanguage = language[fileEnd] || false
+  if(isUserLanguage){
+    // 返回一个对象 userLanguage表达匹配到 
+    // fileEnd 是文件后缀/ 语言
+    return {
+      fileEnd,
+      userLanguage: true
+    }
+  } 
   const obj = {
     '/^java$|^javascript$|^go$|^cpp$|^c$/': 'javascript',
     '/^python$/': 'python',
@@ -74,15 +112,20 @@ const fileEndMatch = fileEnd => {
   for (let key in obj) {
     // 正则匹配
     const reg = eval(key);
-    const a = reg.test(fileEnd);
-    if (a) {
+    const isMatch = reg.test(fileEnd);
+    if (isMatch) {
       return obj[key];
     }
   }
   return 'default_str';
 };
 
-Date.prototype.format = function(format) {
+Date.prototype.format = function() {
+  const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
+  let format = 'yyyy-MM-dd hh:mm:ss'; // 具体到秒
+  if (config.configObj.timeNoDetail) {
+    format = 'yyyy-MM-dd'; // 具体到日期
+  }
   // 处理时间格式
   let o = {
     'M+': this.getMonth() + 1,

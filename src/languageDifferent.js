@@ -3,42 +3,50 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-26 14:32:25
+ * @LastEditTime: 2019-01-19 20:23:22
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
 const vscode = require('vscode');
 const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
 const userAnnotationStr = config.configObj.annotationStr; // 用户自定义注释的配置
+const languageObj = config.configObj.language; // 自定义语言项
 
 /**
- * @description: 用户自定义注释符号
+ * @description: 用户自定义语言注释符号和未设置下的默认注释符号
+ * @param {String} obj.type 匹配成功后，输出哪个属性下的字符串
+ * @param {String} else 逻辑下需要的参数
+ * @param {Boolean} isDefault 默认的注释形式和自定义的语言注释形式
  */
-const userAnnotationStrFn = obj => {
+const userLanguageSetFn = (obj, isDefault = true) => {
+  let annotationSymbol = userAnnotationStr; // 注释符号
+  if (!isDefault) {
+    annotationSymbol = languageObj[obj.fileEnd.fileEnd]
+  }
   const userObj = {
-    topMiddle: `${userAnnotationStr.middle}${obj.key}: &${obj.key}&\r\n`,
-    topHeadEnd: `${userAnnotationStr.head}\r\n${obj.str}${
-      userAnnotationStr.end
+    topMiddle: `${annotationSymbol.middle}${obj.key}: &${obj.key}&\r\n`,
+    topHeadEnd: `${annotationSymbol.head}\r\n${obj.str}${
+      annotationSymbol.end
     }\r\n`,
-    fnMiddle_param: `${obj.str}${userAnnotationStr.middle}${obj.key} ${
+    fnMiddle_param: `${obj.str}${annotationSymbol.middle}${obj.key} ${
       obj.typeVal
     } &${obj.key}&\r\n`,
-    fnMiddle_key: `${obj.str}${userAnnotationStr.middle}${obj.key}: &${
+    fnMiddle_key: `${obj.str}${annotationSymbol.middle}${obj.key}: &${
       obj.key
     }&\r\n`,
-    topHeadEnd_nextLineNo: `${obj.frontStr}${userAnnotationStr.head}\r\n ${
+    topHeadEnd_nextLineNo: `${obj.frontStr}${annotationSymbol.head}\r\n${
       obj.strContent
-    }${obj.str}${userAnnotationStr.end}\r\n${obj.str}`,
-    topHeadEnd_nextLineYes: `${obj.frontStr}${userAnnotationStr.head}\r\n ${
+    }${obj.str}${annotationSymbol.end}\r\n${obj.str}`,
+    topHeadEnd_nextLineYes: `${obj.frontStr}${annotationSymbol.head}\r\n${
       obj.strContent
-    }${obj.str}${userAnnotationStr.end}`,
-    annotationStarts: `${userAnnotationStr.head}`,
-    LastEditorsStr: `${userAnnotationStr.middle}LastEditors: ${
+    }${obj.str}${annotationSymbol.end}`,
+    annotationStarts: `${annotationSymbol.head}`,
+    LastEditorsStr: `${annotationSymbol.middle}LastEditors: ${
       obj.LastEditors
     }`,
-    lastTimeStr: `${userAnnotationStr.middle}LastEditTime: ${new Date().format(
-      'yyyy-MM-dd hh:mm:ss'
-    )}`
+    lastTimeStr: `${
+      annotationSymbol.middle
+    }LastEditTime: ${new Date().format()}`
   };
   return userObj[obj.type];
 };
@@ -69,9 +77,7 @@ const tplJudge = obj => {
       }*/`,
       annotationStarts: `/*`,
       LastEditorsStr: ` * @LastEditors: ${obj.LastEditors}`,
-      lastTimeStr: ` * @LastEditTime: ${new Date().format(
-        'yyyy-MM-dd hh:mm:ss'
-      )}`
+      lastTimeStr: ` * @LastEditTime: ${new Date().format()}`
     },
     python: {
       topMiddle: `@${obj.key}: &${obj.key}&\r\n`,
@@ -86,7 +92,7 @@ const tplJudge = obj => {
       }'''`,
       annotationStarts: `'''`,
       LastEditorsStr: `@LastEditors: ${obj.LastEditors}`,
-      lastTimeStr: `@LastEditTime: ${new Date().format('yyyy-MM-dd hh:mm:ss')}`
+      lastTimeStr: `@LastEditTime: ${new Date().format()}`
     },
     vb: {
       topMiddle: `' @${obj.key}: &${obj.key}&\r\n`,
@@ -101,9 +107,7 @@ const tplJudge = obj => {
       }'`,
       annotationStarts: `'`,
       LastEditorsStr: `' @LastEditors: ${obj.LastEditors}`,
-      lastTimeStr: `' @LastEditTime: ${new Date().format(
-        'yyyy-MM-dd hh:mm:ss'
-      )}`
+      lastTimeStr: `' @LastEditTime: ${new Date().format()}`
     },
     html: {
       topMiddle: `* @${obj.key}: &${obj.key}&\r\n `,
@@ -120,23 +124,26 @@ const tplJudge = obj => {
       }*/`,
       annotationStarts: `<!--`,
       LastEditorsStr: ` * @LastEditors: ${obj.LastEditors}`,
-      lastTimeStr: ` * @LastEditTime: ${new Date().format(
-        'yyyy-MM-dd hh:mm:ss'
-      )}`
+      lastTimeStr: ` * @LastEditTime: ${new Date().format()}`
     }
   };
+  // 匹配自己定义语言符号
+  if (obj.fileEnd.userLanguage) {
+    return userLanguageSetFn(obj, false);
+  }
+  
+  // 匹配插件的符号
   if (obj.fileEnd !== 'default_str') {
     return languageObj[obj.fileEnd][obj.type];
+  }
+  // 默认注释符号
+  if (userAnnotationStr.use) {
+    // 调用用户自己的设置
+    return userLanguageSetFn(obj);
   } else {
-    // 判断用户有没有设置
-    if (userAnnotationStr.use) {
-      // 调用用户自己的设置
-      return userAnnotationStrFn(obj);
-    } else {
-      // 调用默认设置
-      obj.fileEnd = 'javascript';
-      return tplJudge(obj);
-    }
+    // 调用默认设置
+    obj.fileEnd = 'javascript';
+    return tplJudge(obj);
   }
 };
 
