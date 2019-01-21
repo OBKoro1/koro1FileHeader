@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-01-19 20:23:28
+ * @LastEditTime: 2019-01-21 11:09:57
  -->
 
 # 更新日志
@@ -16,10 +16,10 @@
 
 * 自定义语言注释，更多详情，参见[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7),以下是一些须知：
    1. **此项配置是最高级别的，会覆盖插件的[语言注释格式](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)** 
-   2. **任何语言/文件(新的语言、特殊的文件)，用户都可以设置对应的注释符号
+   2. 任何语言/文件(新的语言、特殊的文件)，用户都可以设置对应的注释符号
    3. 还有一种场景：像[issue](https://github.com/OBKoro1/koro1FileHeader/issues/18)中提到的，**某些库会对注释格式有特殊要求，库会对其识别、处理**。插件标准的注释格式并不能满足需求，此时在`config.language`里添加一项配置即可。
   
-* 时间格式自定义，两种形式:
+* [时间格式自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%B2%BE%E7%A1%AE%E5%88%B0%E6%97%A5%E6%9C%9F)，两种形式:
   1.  `2019-01-19 21:29:11`
   2.  `2019-01-19`
 
