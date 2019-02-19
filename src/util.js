@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-01-19 18:18:04
+ * @LastEditTime: 2019-02-19 14:27:33
  */
 
 const vscode = require('vscode');
@@ -94,8 +94,7 @@ const fileEndMatch = fileEnd => {
     fileEnd = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
   }
   // 检查用户是否设置 匹配语言或文件后缀
-   const isUserLanguage = language[fileEnd] || false
-  if(isUserLanguage){
+  if(language[fileEnd]){
     // 返回一个对象 userLanguage表达匹配到 
     // fileEnd 是文件后缀/ 语言
     return {
@@ -109,6 +108,7 @@ const fileEndMatch = fileEnd => {
     '/^vb$/': 'vb',
     '/^vue$|^html$|^markdown$/': 'html'
   };
+  // 匹配插件支持的注释符号
   for (let key in obj) {
     // 正则匹配
     const reg = eval(key);
@@ -117,6 +117,7 @@ const fileEndMatch = fileEnd => {
       return obj[key];
     }
   }
+  // 默认注释符号
   return 'default_str';
 };
 

@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-01-19 16:14:02
+ * @LastEditTime: 2019-02-19 13:55:41
  */
 const languageOutput = require('./languageOutput');
 
@@ -13,7 +13,9 @@ const languageOutput = require('./languageOutput');
  * @param {String} time 文件创建时间
  * @return: 返回生成模板的数据对象
  */
-const userSet = (userObj, time) => {
+const userSet = (config, time) => {
+  const userObj = config.customMade;
+
   let data = {};
   let userSet = Object.keys(userObj);
   if (userSet.length === 0) {
@@ -29,13 +31,20 @@ const userSet = (userObj, time) => {
     // 如果用户设置了模板，那将默认根据用户设置模板
     data = Object.assign({}, userObj); // 复制对象，否则对象不能更改值
   }
+  let specialOptions = config.configObj.specialOptions;
   // 判断是否设置
   if (data.Date !== undefined) {
-    data.Date = time;
+    delete data.Date;
+    const DateName = specialOptions.Date ? specialOptions.Date : `Date`;
+    data[DateName] = time;
   }
   if (data.LastEditTime !== undefined) {
     // 最后编辑时间
-    data.LastEditTime = new Date().format();
+    delete data.LastEditTime;
+    const LastEditTimeName = specialOptions.LastEditTime
+      ? specialOptions.LastEditTime
+      : 'LastEditTime';
+    data[LastEditTimeName] = new Date().format();
   }
   return data;
 };
@@ -78,15 +87,34 @@ const lineSpaceFn = editor => {
  * @return: authorText  当前修改人
  * @return: lastTimeRange  原最后编辑时间
  * @return: lastTimeText 当前编辑时间
- * @return:
+ * @return: hasAnnotation 是否自动添加头部注释
  */
-function saveReplaceTime(document, userObj, fileEnd) {
+function saveReplaceTime(document, config, fileEnd) {
+  const userObj = config.customMade;
   let authorRange, authorText, lastTimeRange, lastTimeText;
   let changeFont = new languageOutput.changeFont(fileEnd);
   let annotationStarts = changeFont.star();
   let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
   let hasAnnotation = false; // 默认没有
+
+  // 有没有更改特殊变量
+  const checkHasAnnotation = (name, line) => {
+    let userSetName = config.configObj.specialOptions[name];
+    if (userSetName) {
+      if (line.indexOf(`@${userSetName}`) === -1) {
+        // 没有检测用户自己更改的 再检测特殊变量
+        return line.indexOf(`@${name}`) !== -1;
+      } else {
+        // 检测用户自己更改的
+        return true;
+      }
+    } else {
+      // 检测特殊变量
+      return line.indexOf(`@${name}`) !== -1;
+    }
+  };
+
   for (let i = 0; i < 15; i++) {
     // 只遍历前20行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
@@ -98,18 +126,18 @@ function saveReplaceTime(document, userObj, fileEnd) {
       }
     } else {
       let range = linetAt.range;
-      if (line.indexOf('@LastEditors:') > -1) {
+      if (checkHasAnnotation('LastEditors', line)) {
         //表示是修改人
         hasAnnotation = true;
         authorRange = range;
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (line.indexOf('@LastEditTime:') > -1) {
+      } else if (checkHasAnnotation('LastEditTime', line)) {
         //最后修改时间
         hasAnnotation = true;
         lastTimeRange = range;
         lastTimeText = changeFont.lastTimeStr();
-      } else if (line.indexOf('Date:') > -1) {
+      } else if (checkHasAnnotation('Date', line)) {
         hasAnnotation = true;
       }
     }
@@ -122,7 +150,7 @@ function saveReplaceTime(document, userObj, fileEnd) {
  * @description: 取出文件后缀
  * @param {String} fsPath 文件路径
  * @param {Object} config 用户设置
- * @return: 生成注释的行数
+ * @return: [生成注释的行数,注释之前添加的内容]
  */
 const editLineFn = (fsPath, config) => {
   // 切割文件路径 获取文件后缀
@@ -131,10 +159,13 @@ const editLineFn = (fsPath, config) => {
   const fileNameArr = fileName.split('.');
   const fileEnd = fileNameArr[1]; // 文件后缀
   const headInsertLineObj = config.configObj.headInsertLine;
+  let lineNum = 0;
   if (headInsertLineObj[fileEnd]) {
-    return headInsertLineObj[fileEnd] - 1;
+    lineNum = headInsertLineObj[fileEnd] - 1;
   }
-  return 0;
+  // 是否设置在注释之前添加内容
+  let isSetAdd = config.configObj.beforeAnnotation[fileEnd];
+  return [lineNum, isSetAdd];
 };
 
 module.exports = {

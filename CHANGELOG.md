@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-01-21 11:09:57
+ * @LastEditTime: 2019-02-19 14:18:11
  -->
 
 # 更新日志
@@ -11,6 +11,24 @@
 ## language
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
+
+### [V3.5.0]
+
+* [文件头部注释前面增加内容](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#5-%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%89%8D%E9%9D%A2%E6%8F%92%E5%85%A5%E5%86%85%E5%AE%B9),`py`文件前面一般要加两行内容，如：
+
+```
+#!/usr/bin/env python
+# coding=UTF-8
+'''
+@Author: TavisD
+@Date: 2017-10-16 13:03:37
+@LastEditors: TavisD
+@LastEditTime: 2019-01-11 12:26:24
+@Description: file content
+'''
+```
+
+* 特殊字段：`Date`、`LastEditTime`、`LastEditors`,[允许用户自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89) 。
 
 ### [V3.4.0]
 

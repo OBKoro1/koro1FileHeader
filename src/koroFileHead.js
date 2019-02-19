@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-01-19 15:44:11
+ * @LastEditTime: 2019-02-19 11:42:56
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -16,7 +16,7 @@ function activate(context) {
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
-    editor.edit(function(editBuilder) {
+    editor.edit(editBuilder => {
       try {
         let time = new Date().format();
         // 文件创建时间
@@ -27,17 +27,20 @@ function activate(context) {
           time = new Date(fs.statSync(filepath).birthtime).format();
         }
         // 返回生成模板的数据对象
-        const data = logic.userSet(config.customMade, time);
-        const lineNum = logic.editLineFn(
+        const data = logic.userSet(config, time);
+        const [lineNum, beforeAnnotation] = logic.editLineFn(
           editor._documentData._uri.fsPath,
           config
         );
         // 文件后缀
         let fileEnd = editor._documentData._languageId; // 语言
-        fileEnd = util.fileEndMatch(fileEnd)
+        fileEnd = util.fileEndMatch(fileEnd);
         const fontTpl = languageOutput.headNotes(data, fileEnd);
         // 生成模板
-        const tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
+        let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
+        if (beforeAnnotation) {
+          tpl = `${beforeAnnotation}\n${tpl}`;
+        }
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
       } catch (err) {
         console.log('头部注释错误:', err);
@@ -50,9 +53,9 @@ function activate(context) {
       const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
       let fileEnd = editor._documentData._languageId; // 语言
-      fileEnd = util.fileEndMatch(fileEnd)
+      fileEnd = util.fileEndMatch(fileEnd);
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
-      editor.edit(function(editBuilder) {
+      editor.edit(editBuilder => {
         let [data, fontTpl] = [{}, ''];
         let userSet = Object.keys(config.cursorMode);
         if (userSet.length === 0) {
@@ -67,7 +70,10 @@ function activate(context) {
         }
         // 函数注释生成时间
         if (data.Date !== undefined) {
-          data.Date = new Date().format();
+          delete data.Date;
+          let DateName = config.configObj.specialOptions.Date;
+          DateName = DateName ? DateName : `Date`;
+          data[DateName] = new Date().format();
         }
         fontTpl = new languageOutput.functionTplStr(
           data,
@@ -99,7 +105,7 @@ function activate(context) {
   let intervalVal = null; // 保存上次触发时间，用于节流
   let fileName = ''; // 保存操作的文件
   // 文件保存时 触发
-  vscode.workspace.onDidSaveTextDocument(function(file) {
+  vscode.workspace.onDidSaveTextDocument(file => {
     try {
       if (file.fileName === fileName) {
         // 同一个文件操作 节流
@@ -116,7 +122,7 @@ function activate(context) {
       const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       let editor = vscode.editor || vscode.window.activeTextEditor;
       let fileEnd = editor._documentData._languageId; // 文件后缀
-      fileEnd = util.fileEndMatch(fileEnd)
+      fileEnd = util.fileEndMatch(fileEnd);
       const document = editor.document;
       const [
         authorRange,
@@ -124,20 +130,20 @@ function activate(context) {
         lastTimeRange,
         lastTimeText,
         hasAnnotation
-      ] = logic.saveReplaceTime(document, config.customMade, fileEnd);
+      ] = logic.saveReplaceTime(document, config, fileEnd);
       // 检测文件注释,自动添加注释
       if (!hasAnnotation && config.configObj.autoAdd) {
         // 只自动添加支持的语言
         if (config.configObj.autoAlready) {
-          fileEnd !== 'default_str' && fileheaderFn() // 支持语言
+          fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
         } else {
           fileheaderFn(); // 任何文件自动添加头部注释
         }
       }
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
-        setTimeout(function() {
-          editor.edit(function(edit) {
+        setTimeout(() => {
+          editor.edit(edit => {
             edit.replace(authorRange, authorText);
             edit.replace(lastTimeRange, lastTimeText);
           });
@@ -145,16 +151,16 @@ function activate(context) {
         }, 200);
       } else if (lastTimeRange !== undefined) {
         // 只变更最后编辑时间
-        setTimeout(function() {
-          editor.edit(function(edit) {
+        setTimeout(() => {
+          editor.edit(edit => {
             edit.replace(lastTimeRange, lastTimeText);
           });
           document.save();
         }, 200);
       } else if (authorRange !== undefined) {
         // 只变更最后编辑人
-        setTimeout(function() {
-          editor.edit(function(edit) {
+        setTimeout(() => {
+          editor.edit(edit => {
             edit.replace(lastTimeRange, lastTimeText);
           });
           document.save();
