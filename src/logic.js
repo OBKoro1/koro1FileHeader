@@ -2,8 +2,8 @@
  * @Description: 逻辑输出
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-02-19 13:55:41
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-02-22 13:17:48
  */
 const languageOutput = require('./languageOutput');
 
@@ -102,21 +102,21 @@ function saveReplaceTime(document, config, fileEnd) {
   const checkHasAnnotation = (name, line) => {
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
-      if (line.indexOf(`@${userSetName}`) === -1) {
+      if (line.indexOf(`${userSetName}:`) === -1) {
         // 没有检测用户自己更改的 再检测特殊变量
-        return line.indexOf(`@${name}`) !== -1;
+        return line.indexOf(`${name}:`) !== -1;
       } else {
         // 检测用户自己更改的
         return true;
       }
     } else {
       // 检测特殊变量
-      return line.indexOf(`@${name}`) !== -1;
+      return line.indexOf(`${name}:`) !== -1;
     }
   };
 
   for (let i = 0; i < 15; i++) {
-    // 只遍历前20行没有文件头部注释内容即退出
+    // 只遍历前15行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
     let line = linetAt.text.trim();
     if (!enter) {
