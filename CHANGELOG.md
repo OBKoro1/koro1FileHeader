@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-02-22 13:33:26
+ * @LastEditTime: 2019-05-08 19:07:03
  -->
 
 # 更新日志
@@ -12,7 +12,21 @@
 
 简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
-<!-- TODO: 插件功能 readme，读取插件参数，生成注释 -->
+<!-- todo: 文件的时间的顺序 -->
+<!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
+<!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V3.8.0]
+
+* 
+
+
+### [V3.7.0]
+
+* 新增afterAnnotation配置，用于在注释后方添加配置，场景类似于[issue](https://github.com/OBKoro1/koro1FileHeader/issues/32)
+* 修复`Date`和`LastEditTime`字段的顺序与配置中的[顺序不同](https://github.com/OBKoro1/koro1FileHeader/issues/38)(总是插入到最后)
+* 修复自定义注释有多余空格时，无法自动更新时间的[bug](https://github.com/OBKoro1/koro1FileHeader/issues/27)
+* 默认在`py`文件头部注释前面增加内容去掉，有需要的[自行添加](https://github.com/OBKoro1/koro1FileHeader/issues/21)。
 
 ### [V3.6.0]
 

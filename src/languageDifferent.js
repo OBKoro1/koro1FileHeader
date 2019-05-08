@@ -3,20 +3,37 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-02-19 11:12:19
+ * @LastEditTime: 2019-03-22 00:12:40
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
-const vscode = require('vscode');
-const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-const userAnnotationStr = config.configObj.annotationStr; // 用户自定义注释的配置
-const languageObj = config.configObj.language; // 自定义语言项
+let vscode,
+  config,
+  annotationSymbol,
+  languageObj,
+  specialOptions,
+  LastEditTimeName,
+  LastEditorsName;
 
-// LastEditTime、LastEditors 特殊字段用户有没有设置
-const specialOptions = config.configObj.specialOptions
-const LastEditTimeName = specialOptions.LastEditTime ? specialOptions.LastEditTime : 'LastEditTime';
-const LastEditorsName = specialOptions.LastEditors ? specialOptions.LastEditors : 'LastEditors';
+/**
+ * 防止用户在使用期间更改配置导致的没有同步的问题
+ * 在每次运行的时候都重新读取一下配置就不会出现这个问题了。
+ */
+let initConfig = () => {
+  vscode = require('vscode');
+  config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
+  annotationSymbol = config.configObj.annotationStr; // 用户自定义注释的配置
+  languageObj = config.configObj.language; // 自定义语言项
 
+  // LastEditTime、LastEditors 特殊字段用户有没有设置
+  specialOptions = config.configObj.specialOptions;
+  LastEditTimeName = specialOptions.LastEditTime
+    ? specialOptions.LastEditTime
+    : 'LastEditTime';
+  LastEditorsName = specialOptions.LastEditors
+    ? specialOptions.LastEditors
+    : 'LastEditors';
+};
 
 /**
  * @description: 用户自定义语言注释符号和未设置下的默认注释符号
@@ -25,9 +42,8 @@ const LastEditorsName = specialOptions.LastEditors ? specialOptions.LastEditors 
  * @param {Boolean} isDefault 默认的注释形式和自定义的语言注释形式
  */
 const userLanguageSetFn = (obj, isDefault = true) => {
-  let annotationSymbol = userAnnotationStr; // 注释符号
   if (!isDefault) {
-    annotationSymbol = languageObj[obj.fileEnd.fileEnd]
+    annotationSymbol = languageObj[obj.fileEnd.fileEnd];
   }
   const userObj = {
     topMiddle: `${annotationSymbol.middle}${obj.key}: &${obj.key}&\r\n`,
@@ -52,7 +68,7 @@ const userLanguageSetFn = (obj, isDefault = true) => {
     }${LastEditTimeName}: ${new Date().format()}`,
     LastEditorsStr: `${annotationSymbol.middle}${LastEditorsName}: ${
       obj.LastEditors
-    }`,
+    }`
   };
   return userObj[obj.type];
 };
@@ -65,7 +81,7 @@ const userLanguageSetFn = (obj, isDefault = true) => {
  * @return: 不同逻辑下的字符串
  */
 const tplJudge = obj => {
-
+  initConfig();
   const languageObj = {
     javascript: {
       topMiddle: `* @${obj.key}: &${obj.key}&\r\n `,
@@ -138,13 +154,13 @@ const tplJudge = obj => {
   if (obj.fileEnd.userLanguage) {
     return userLanguageSetFn(obj, false);
   }
-  
+
   // 匹配插件的符号
   if (obj.fileEnd !== 'default_str') {
     return languageObj[obj.fileEnd][obj.type];
   }
   // 默认注释符号
-  if (userAnnotationStr.use) {
+  if (annotationSymbol.use) {
     // 调用用户自己的设置
     return userLanguageSetFn(obj);
   } else {

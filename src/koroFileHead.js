@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-02-19 11:42:56
+ * @LastEditTime: 2019-05-08 19:42:32
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -27,8 +27,9 @@ function activate(context) {
           time = new Date(fs.statSync(filepath).birthtime).format();
         }
         // 返回生成模板的数据对象
-        const data = logic.userSet(config, time);
-        const [lineNum, beforeAnnotation] = logic.editLineFn(
+        let data = logic.userSet(config, time);
+        data = logic.changeTimeStringFn(data, config)
+        const [lineNum, beforeAnnotation, afterAnnotation] = logic.editLineFn(
           editor._documentData._uri.fsPath,
           config
         );
@@ -37,9 +38,13 @@ function activate(context) {
         fileEnd = util.fileEndMatch(fileEnd);
         const fontTpl = languageOutput.headNotes(data, fileEnd);
         // 生成模板
-        let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
+        let fn = new util.fontTemplate(fontTpl);
+        let tpl = fn.render(data)
         if (beforeAnnotation) {
           tpl = `${beforeAnnotation}\n${tpl}`;
+        }
+        if (afterAnnotation) {
+          tpl = `${tpl}${afterAnnotation}\n`;
         }
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
       } catch (err) {
@@ -173,5 +178,5 @@ function activate(context) {
 exports.activate = activate;
 
 // 扩展被禁用 调用
-function deactivate() {}
+function deactivate() { }
 exports.deactivate = deactivate;

@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-02-19 14:27:33
+ * @LastEditTime: 2019-05-08 19:44:22
  */
 
 const vscode = require('vscode');
@@ -17,14 +17,14 @@ function fontTemplate(tpl) {
     ],
     // 取出由&包裹的属性名 替换为值
     re = /\&\s*([\S]+)?\s*\&/m,
-    addLine = function(text) {
+    addLine = function (text) {
       code.push(
         "r.push('" +
-          text
-            .replace(/\'/g, "\\'")
-            .replace(/\n/g, '\\n')
-            .replace(/\r/g, '\\r') +
-          "');"
+        text
+          .replace(/\'/g, "\\'")
+          .replace(/\n/g, '\\n')
+          .replace(/\r/g, '\\r') +
+        "');"
       );
     };
   while ((match = re.exec(tpl))) {
@@ -40,8 +40,11 @@ function fontTemplate(tpl) {
   }
   addLine(tpl);
   code.push("return r.join('');");
+  console.log(code, 'code')
+  // console.log(code.join('\n'),'111')
   fn = new Function(code.join('\n'));
-  this.render = function(model) {
+  console.log(fn, 'fn')
+  this.render = function (model) {
     // 采用配置数据
     return fn.apply(model);
   };
@@ -55,7 +58,7 @@ function fontTemplate(tpl) {
  * @return: 上次触发time
  */
 const throttle = (fn, gapTime, _lastTime = null) => {
-  return function() {
+  return function () {
     let _nowTime = +new Date();
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
       // !_lastTime 第一次进入
@@ -94,14 +97,14 @@ const fileEndMatch = fileEnd => {
     fileEnd = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
   }
   // 检查用户是否设置 匹配语言或文件后缀
-  if(language[fileEnd]){
+  if (language[fileEnd]) {
     // 返回一个对象 userLanguage表达匹配到 
     // fileEnd 是文件后缀/ 语言
     return {
       fileEnd,
       userLanguage: true
     }
-  } 
+  }
   const obj = {
     '/^java$|^javascript$|^go$|^cpp$|^c$/': 'javascript',
     '/^python$/': 'python',
@@ -121,7 +124,7 @@ const fileEndMatch = fileEnd => {
   return 'default_str';
 };
 
-Date.prototype.format = function() {
+Date.prototype.format = function () {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
   let format = 'yyyy-MM-dd hh:mm:ss'; // 具体到秒
   if (config.configObj.timeNoDetail) {

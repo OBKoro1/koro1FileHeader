@@ -2,8 +2,8 @@
  * @Description: 逻辑输出
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-02-22 13:17:48
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-05-08 19:19:22
  */
 const languageOutput = require('./languageOutput');
 
@@ -31,20 +31,13 @@ const userSet = (config, time) => {
     // 如果用户设置了模板，那将默认根据用户设置模板
     data = Object.assign({}, userObj); // 复制对象，否则对象不能更改值
   }
-  let specialOptions = config.configObj.specialOptions;
   // 判断是否设置
   if (data.Date !== undefined) {
-    delete data.Date;
-    const DateName = specialOptions.Date ? specialOptions.Date : `Date`;
-    data[DateName] = time;
+    data.Date = time;
   }
   if (data.LastEditTime !== undefined) {
     // 最后编辑时间
-    delete data.LastEditTime;
-    const LastEditTimeName = specialOptions.LastEditTime
-      ? specialOptions.LastEditTime
-      : 'LastEditTime';
-    data[LastEditTimeName] = new Date().format();
+    data.LastEditTime = time
   }
   return data;
 };
@@ -118,10 +111,11 @@ function saveReplaceTime(document, config, fileEnd) {
   for (let i = 0; i < 15; i++) {
     // 只遍历前15行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
+    let lineNoTrim = linetAt.text; // line 
     let line = linetAt.text.trim();
     if (!enter) {
       // 判断进入注释
-      if (annotationStarts === line) {
+      if (annotationStarts === line || annotationStarts === lineNoTrim) {
         enter = true;
       }
     } else {
@@ -165,12 +159,35 @@ const editLineFn = (fsPath, config) => {
   }
   // 是否设置在注释之前添加内容
   let isSetAdd = config.configObj.beforeAnnotation[fileEnd];
-  return [lineNum, isSetAdd];
+  let isAfterAdd = config.configObj.afterAnnotation[fileEnd];
+  return [lineNum, isSetAdd, isAfterAdd];
 };
+/**
+ * 更改时间字段，不改变他们的顺序
+ * @Created_time: 2019-05-07 19:36:20
+ * @return {Object} 更换字段后的对象 
+ */
+const changeTimeStringFn = (data, config) => {
+  let keysArr = Object.keys(data);
+  let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
+  let objData = {};
+  keysArr.forEach((item) => {
+    // 在配置中有 && 要修改它的字段
+    if (item === 'Date' && specialOptions[item]) {
+      objData[specialOptions.Date] = data[item]
+    } else if (item === 'LastEditTime' && specialOptions[item]) {
+      objData[specialOptions.LastEditTime] = data[item]
+    } else {
+      objData[item] = data[item]
+    }
+  })
+  return objData
+}
 
 module.exports = {
   userSet,
   lineSpaceFn,
   saveReplaceTime,
-  editLineFn
+  editLineFn,
+  changeTimeStringFn
 };

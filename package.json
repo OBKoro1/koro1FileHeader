@@ -71,19 +71,18 @@
             },
             "autoAdd": false,
             "autoAlready": true,
-            "annotationStr":{
+            "annotationStr": {
               "head": "/*",
               "middle": " * @",
-              "end": " */", 
+              "end": " */",
               "use": false
             },
-            "headInsertLine":{
+            "headInsertLine": {
               "php": 2
             },
-            "beforeAnnotation":{
-              "py": "#!/usr/bin/env python\n# coding=UTF-8"
-            },
-            "specialOptions":{}
+            "beforeAnnotation": {},
+            "afterAnnotation": {},
+            "specialOptions": {}
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }

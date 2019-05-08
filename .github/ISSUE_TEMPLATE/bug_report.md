@@ -4,14 +4,13 @@ about: Create a report to help us improve
 
 ---
 
+### 注意： 
+
+1. 提bug之前，请认真阅读[配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)。
+2. issue提的越清晰，越容易定位问题/找到bug，越快速的解决问题。 
+
 **描述bug(必填)**
 一个清楚而简洁的bug描述。
-
-**复现步骤**
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
 
 **注释设置(必填):**
 
