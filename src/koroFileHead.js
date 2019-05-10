@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-08 19:42:32
+ * @LastEditTime: 2019-05-10 18:04:53
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -35,11 +35,9 @@ function activate(context) {
         );
         // 文件后缀
         let fileEnd = editor._documentData._languageId; // 语言
-        fileEnd = util.fileEndMatch(fileEnd);
-        const fontTpl = languageOutput.headNotes(data, fileEnd);
-        // 生成模板
-        let fn = new util.fontTemplate(fontTpl);
-        let tpl = fn.render(data)
+        fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
+        // 生成
+        let tpl = languageOutput.headNotes(data, fileEnd);
         if (beforeAnnotation) {
           tpl = `${beforeAnnotation}\n${tpl}`;
         }
@@ -87,8 +85,8 @@ function activate(context) {
           nextLine,
           frontStr
         ).generate(); // 函数注释的模板字符串
-        let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
-        editBuilder.insert(new vscode.Position(line, lineSpace), tpl); // 插入
+        // let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
+        editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
       });
     } catch (err) {
       console.log('函数注释错误信息：', err);

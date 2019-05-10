@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-08 19:07:03
+ * @LastEditTime: 2019-05-10 18:16:58
  -->
 
 # 更新日志
@@ -16,10 +16,9 @@
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
 
-### [V3.8.0]
+<!-- ### [V3.8.0]
 
-* 
-
+* 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 
 ### [V3.7.0]
 

@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-08 19:44:22
+ * @LastEditTime: 2019-05-09 19:43:28
  */
 
 const vscode = require('vscode');
@@ -40,7 +40,7 @@ function fontTemplate(tpl) {
   }
   addLine(tpl);
   code.push("return r.join('');");
-  console.log(code, 'code')
+  console.log(JSON.stringify(code), 'code')
   // console.log(code.join('\n'),'111')
   fn = new Function(code.join('\n'));
   console.log(fn, 'fn')

@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-03-22 00:12:40
+ * @LastEditTime: 2019-05-10 18:08:55
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
@@ -46,16 +46,16 @@ const userLanguageSetFn = (obj, isDefault = true) => {
     annotationSymbol = languageObj[obj.fileEnd.fileEnd];
   }
   const userObj = {
-    topMiddle: `${annotationSymbol.middle}${obj.key}: &${obj.key}&\r\n`,
+    topMiddle: `${annotationSymbol.middle}${obj.key}: ${obj.value}\r\n`,
     topHeadEnd: `${annotationSymbol.head}\r\n${obj.str}${
       annotationSymbol.end
     }\r\n`,
     fnMiddle_param: `${obj.str}${annotationSymbol.middle}${obj.key} ${
       obj.typeVal
-    } &${obj.key}&\r\n`,
-    fnMiddle_key: `${obj.str}${annotationSymbol.middle}${obj.key}: &${
-      obj.key
-    }&\r\n`,
+    } ${obj.value}\r\n`,
+    fnMiddle_key: `${obj.str}${annotationSymbol.middle}${obj.key}: ${
+      obj.value
+    }\r\n`,
     topHeadEnd_nextLineNo: `${obj.frontStr}${annotationSymbol.head}\r\n${
       obj.strContent
     }${obj.str}${annotationSymbol.end}\r\n${obj.str}`,
@@ -84,13 +84,13 @@ const tplJudge = obj => {
   initConfig();
   const languageObj = {
     javascript: {
-      topMiddle: `* @${obj.key}: &${obj.key}&\r\n `,
+      topMiddle: `* @${obj.key}: ${obj.value}\r\n `,
       topHeadEnd: `/*\r\n ${obj.str}*/\r\n`,
       // fnMiddle_param、fnMiddle_key当参数是param 多加一个type
-      fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} &${
-        obj.key
-      }&\r\n `,
-      fnMiddle_key: `${obj.str}* @${obj.key}: &${obj.key}&\r\n `,
+      fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} ${
+        obj.value
+      }\r\n `,
+      fnMiddle_key: `${obj.str}* @${obj.key}: ${obj.value}\r\n `,
       // nextLine 下一行是否存在
       topHeadEnd_nextLineNo: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
@@ -103,10 +103,10 @@ const tplJudge = obj => {
       lastTimeStr: ` * @${LastEditTimeName}: ${new Date().format()}`
     },
     python: {
-      topMiddle: `@${obj.key}: &${obj.key}&\r\n`,
+      topMiddle: `@${obj.key}: ${obj.value}\r\n`,
       topHeadEnd: `'''\r\n${obj.str}'''\r\n`,
-      fnMiddle_param: `${obj.str}@${obj.key} ${obj.typeVal} &${obj.key}&\r\n`,
-      fnMiddle_key: `${obj.str}@${obj.key}: &${obj.key}&\r\n`,
+      fnMiddle_param: `${obj.str}@${obj.key} ${obj.typeVal} ${obj.value}\r\n`,
+      fnMiddle_key: `${obj.str}@${obj.key}: ${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}'''\r\n${obj.strContent}${
         obj.str
       }'''\r\n${obj.str}`,
@@ -118,10 +118,10 @@ const tplJudge = obj => {
       lastTimeStr: `@${LastEditTimeName}: ${new Date().format()}`
     },
     vb: {
-      topMiddle: `' @${obj.key}: &${obj.key}&\r\n`,
+      topMiddle: `' @${obj.key}: ${obj.value}\r\n`,
       topHeadEnd: `'\r\n${obj.str}'\r\n`,
-      fnMiddle_param: `${obj.str}' ${obj.key} ${obj.typeVal} &${obj.key}&\r\n`,
-      fnMiddle_key: `${obj.str}' ${obj.key}: &${obj.key}&\r\n`,
+      fnMiddle_param: `${obj.str}' ${obj.key} ${obj.typeVal} ${obj.value}\r\n`,
+      fnMiddle_key: `${obj.str}' ${obj.key}: ${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}'\r\n${obj.strContent}${
         obj.str
       }'\r\n${obj.str}`,
@@ -133,12 +133,12 @@ const tplJudge = obj => {
       lastTimeStr: `' @${LastEditTimeName}: ${new Date().format()}`
     },
     html: {
-      topMiddle: `* @${obj.key}: &${obj.key}&\r\n `,
+      topMiddle: `* @${obj.key}: ${obj.value}\r\n `,
       topHeadEnd: `<!--\r\n ${obj.str}-->\r\n`,
-      fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} &${
-        obj.key
-      }&\r\n `,
-      fnMiddle_key: `${obj.str}* @${obj.key}: &${obj.key}&\r\n `,
+      fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} ${
+        obj.value
+      }\r\n `,
+      fnMiddle_key: `${obj.str}* @${obj.key}: ${obj.value}\r\n `,
       topHeadEnd_nextLineNo: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
       }*/\r\n${obj.str}`,

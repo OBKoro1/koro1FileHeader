@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2018-12-13 15:49:02
+ * @LastEditTime: 2019-05-10 18:08:56
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
@@ -16,7 +16,8 @@ const middleTpl = (data, fileEnd) => {
     const obj = {
       fileEnd,
       type: 'topMiddle',
-      key
+      key,
+      value: data[key]
     };
     str = str + languageDifferent.tplJudge(obj);
   });
@@ -74,7 +75,8 @@ class functionTplStr {
     const obj = {
       fileEnd: this.fileEnd,
       str: this.str,
-      key
+      key,
+      value: this.data[key]
     };
     // 注释是参数的话 多加一个参数的属性
     if (key === 'param') {
