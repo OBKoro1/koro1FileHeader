@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-10 18:08:55
+ * @LastEditTime: 2019-05-13 19:34:51
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
@@ -49,26 +49,26 @@ const userLanguageSetFn = (obj, isDefault = true) => {
     topMiddle: `${annotationSymbol.middle}${obj.key}: ${obj.value}\r\n`,
     topHeadEnd: `${annotationSymbol.head}\r\n${obj.str}${
       annotationSymbol.end
-    }\r\n`,
+      }\r\n`,
     fnMiddle_param: `${obj.str}${annotationSymbol.middle}${obj.key} ${
       obj.typeVal
-    } ${obj.value}\r\n`,
+      } ${obj.value}\r\n`,
     fnMiddle_key: `${obj.str}${annotationSymbol.middle}${obj.key}: ${
       obj.value
-    }\r\n`,
+      }\r\n`,
     topHeadEnd_nextLineNo: `${obj.frontStr}${annotationSymbol.head}\r\n${
       obj.strContent
-    }${obj.str}${annotationSymbol.end}\r\n${obj.str}`,
+      }${obj.str}${annotationSymbol.end}\r\n${obj.str}`,
     topHeadEnd_nextLineYes: `${obj.frontStr}${annotationSymbol.head}\r\n${
       obj.strContent
-    }${obj.str}${annotationSymbol.end}`,
+      }${obj.str}${annotationSymbol.end}`,
     annotationStarts: `${annotationSymbol.head}`,
     lastTimeStr: `${
       annotationSymbol.middle
-    }${LastEditTimeName}: ${new Date().format()}`,
+      }${LastEditTimeName}: ${new Date().format()}`,
     LastEditorsStr: `${annotationSymbol.middle}${LastEditorsName}: ${
       obj.LastEditors
-    }`
+      }`
   };
   return userObj[obj.type];
 };
@@ -89,15 +89,15 @@ const tplJudge = obj => {
       // fnMiddle_param、fnMiddle_key当参数是param 多加一个type
       fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} ${
         obj.value
-      }\r\n `,
+        }\r\n `,
       fnMiddle_key: `${obj.str}* @${obj.key}: ${obj.value}\r\n `,
       // nextLine 下一行是否存在
       topHeadEnd_nextLineNo: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
-      }*/\r\n${obj.str}`,
+        }*/\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
-      }*/`,
+        }*/`,
       annotationStarts: `/*`,
       LastEditorsStr: ` * @${LastEditorsName}: ${obj.LastEditors}`,
       lastTimeStr: ` * @${LastEditTimeName}: ${new Date().format()}`
@@ -109,10 +109,10 @@ const tplJudge = obj => {
       fnMiddle_key: `${obj.str}@${obj.key}: ${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}'''\r\n${obj.strContent}${
         obj.str
-      }'''\r\n${obj.str}`,
+        }'''\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}'''\r\n${obj.strContent}${
         obj.str
-      }'''`,
+        }'''`,
       annotationStarts: `'''`,
       LastEditorsStr: `@${LastEditorsName}: ${obj.LastEditors}`,
       lastTimeStr: `@${LastEditTimeName}: ${new Date().format()}`
@@ -124,10 +124,10 @@ const tplJudge = obj => {
       fnMiddle_key: `${obj.str}' ${obj.key}: ${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}'\r\n${obj.strContent}${
         obj.str
-      }'\r\n${obj.str}`,
+        }'\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}'\r\n${obj.strContent}${
         obj.str
-      }'`,
+        }'`,
       annotationStarts: `'`,
       LastEditorsStr: `' @${LastEditorsName}: ${obj.LastEditors}`,
       lastTimeStr: `' @${LastEditTimeName}: ${new Date().format()}`
@@ -137,14 +137,14 @@ const tplJudge = obj => {
       topHeadEnd: `<!--\r\n ${obj.str}-->\r\n`,
       fnMiddle_param: `${obj.str}* @${obj.key} ${obj.typeVal} ${
         obj.value
-      }\r\n `,
+        }\r\n `,
       fnMiddle_key: `${obj.str}* @${obj.key}: ${obj.value}\r\n `,
       topHeadEnd_nextLineNo: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
-      }*/\r\n${obj.str}`,
+        }*/\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}/**\r\n ${obj.strContent}${
         obj.str
-      }*/`,
+        }*/`,
       annotationStarts: `<!--`,
       LastEditorsStr: ` * @${LastEditorsName}: ${obj.LastEditors}`,
       lastTimeStr: ` * @${LastEditTimeName}: ${new Date().format()}`
@@ -169,6 +169,18 @@ const tplJudge = obj => {
     return tplJudge(obj);
   }
 };
+
+// 中间的注释符号，用以生成单行
+function middleAnnotation() {
+  let obj = {
+    javascript: '* @',
+    python: '@',
+    vb: "' @",
+    html: '* @',
+    // userLanguage: ''
+  }
+  return
+}
 
 module.exports = {
   tplJudge

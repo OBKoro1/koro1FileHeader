@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-09 19:43:28
+ * @LastEditTime: 2019-05-13 16:45:32
  */
 
 const vscode = require('vscode');
@@ -91,17 +91,18 @@ const fsPathFn = fsPath => {
 const fileEndMatch = fileEnd => {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
   const language = config.configObj.language; // 自定义语言项
-  // 未知语言
-  if (fileEnd === 'plaintext') {
-    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-    fileEnd = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
-  }
-  // 检查用户是否设置 匹配语言或文件后缀
+  const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+  let fsName = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
+  // 检查用户是否设自定义语言 匹配语言
   if (language[fileEnd]) {
-    // 返回一个对象 userLanguage表达匹配到 
-    // fileEnd 是文件后缀/ 语言
     return {
       fileEnd,
+      userLanguage: true // 使用用户的配置
+    }
+  } else if (language[fsName]) {
+    // 语言没有匹配到 单独匹配一下文件后缀
+    return {
+      fileEnd: fsName,
       userLanguage: true
     }
   }

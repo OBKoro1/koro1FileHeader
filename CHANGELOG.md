@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-13 10:12:58
+ * @LastEditTime: 2019-05-13 16:52:20
  -->
 
 # 更新日志
@@ -18,9 +18,10 @@
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
 
-<!-- ### [V3.8.0]
+### [V3.8.0]
 
-* 光标位置，匹配指定属性，将光标移到该属性后面。 -->
+<!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
+* 修复自定义语言匹配bug，匹配不到自定义语言，将会匹配一次文件名后缀.类似这个[issue](https://github.com/OBKoro1/koro1FileHeader/issues/39)提的。
 
 ### [V3.7.0]
 
