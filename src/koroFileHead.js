@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-10 18:04:53
+ * @LastEditTime: 2019-05-16 19:29:34
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -17,6 +17,7 @@ function activate(context) {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
+      console.log(editor,editBuilder,'edit')
       try {
         let time = new Date().format();
         // 文件创建时间
@@ -28,7 +29,7 @@ function activate(context) {
         }
         // 返回生成模板的数据对象
         let data = logic.userSet(config, time);
-        data = logic.changeTimeStringFn(data, config)
+        data = logic.changePrototypeNameFn(data, config)
         const [lineNum, beforeAnnotation, afterAnnotation] = logic.editLineFn(
           editor._documentData._uri.fsPath,
           config
@@ -37,14 +38,16 @@ function activate(context) {
         let fileEnd = editor._documentData._languageId; // 语言
         fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
         // 生成
-        let tpl = languageOutput.headNotes(data, fileEnd);
-        if (beforeAnnotation) {
-          tpl = `${beforeAnnotation}\n${tpl}`;
+        let tpl = languageOutput.headNotes(data, fileEnd, config);
+        // 预处理的参数
+        let beforehand = {
+          tpl,
+          beforeAnnotation,
+          afterAnnotation,
         }
-        if (afterAnnotation) {
-          tpl = `${tpl}${afterAnnotation}\n`;
-        }
+        tpl = logic.handleTplFn(beforehand, config)
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
+        editBuilder.gotoLine(1,1)
       } catch (err) {
         console.log('头部注释错误:', err);
       }

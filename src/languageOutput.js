@@ -3,21 +3,21 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-10 18:08:56
+ * @LastEditTime: 2019-05-14 16:46:15
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
+const constFile = require('./CONST');
 
 // 头部注释中间部分生成
-const middleTpl = (data, fileEnd) => {
+const middleTpl = (data, fileEnd, config) => {
   let str = '';
-
   Object.keys(data).forEach(key => {
     const obj = {
       fileEnd,
       type: 'topMiddle',
       key,
-      value: data[key]
+      value: newlineAddAnnotationFn(data[key], fileEnd, config)
     };
     str = str + languageDifferent.tplJudge(obj);
   });
@@ -30,8 +30,8 @@ const middleTpl = (data, fileEnd) => {
  * @param {String} fileEnd 文件采用语言
  * @return: 字符串
  */
-const headNotes = (data, fileEnd) => {
-  let str = middleTpl(data, fileEnd);
+const headNotes = (data, fileEnd, config) => {
+  let str = middleTpl(data, fileEnd, config);
   // 头部 中间模板 尾部合并
   const obj = {
     fileEnd,
@@ -138,6 +138,36 @@ class changeFont {
     };
     return languageDifferent.tplJudge(obj);
   }
+}
+
+// 换行符加注释符号
+function newlineAddAnnotationFn(value, fileEnd, config) {
+  if (config.configObj.switch.newlineAddAnnotation) {
+    let middle = null;
+    // 匹配用户定义语言符号
+    if (fileEnd.userLanguage) {
+      middle = config.configObj.language[fileEnd.fileEnd].middle
+    } else if (fileEnd !== 'default_str') {
+      // 匹配插件的符号
+      middle = constFile.middleAnnotation[fileEnd]
+    } else if (config.configObj.annotationStr.use) {
+      // 调用用户设置的默认注释符号
+      middle = config.configObj.language.middle
+    } else {
+      // 插件默认设置
+      middle = constFile.middleAnnotation.javascript
+    }
+    if (middle !== null) {
+      // \n 换行
+      // \r 回车
+      // \r\n Windows系统里面，每行结尾是“<回车><换行>”
+      value = value.replace('\r\n', `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
+      value = value.replace('\n', `\n${middle}`) 
+      value = value.replace('\r', `\r${middle}`)
+      value = value.replace('\obkoro1\obkoro1', `\r\n`) // 转化回来
+    }
+  }
+  return value
 }
 
 module.exports = {

@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-13 16:52:20
+ * @LastEditTime: 2019-05-14 16:52:21
  -->
 
 # 更新日志
@@ -21,6 +21,8 @@
 ### [V3.8.0]
 
 <!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
+* 新增功能：在`customMade`(文件头部注释)中，遇到回车、换行情况时，自动在下一行开头添加对应的注释标识符，插件提供了一个开关来关闭它。
+* 新增功能：在`customMade`配置中，使用`custom_string_obkoro1`属性,允许输出一段自定义的字段。
 * 修复自定义语言匹配bug，匹配不到自定义语言，将会匹配一次文件名后缀.类似这个[issue](https://github.com/OBKoro1/koro1FileHeader/issues/39)提的。
 
 ### [V3.7.0]

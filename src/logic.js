@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-08 19:19:22
+ * @LastEditTime: 2019-05-14 14:51:47
  */
 const languageOutput = require('./languageOutput');
 
@@ -163,20 +163,24 @@ const editLineFn = (fsPath, config) => {
   return [lineNum, isSetAdd, isAfterAdd];
 };
 /**
- * 更改时间字段，不改变他们的顺序
+ * 更改字段，不改变他们的顺序
  * @Created_time: 2019-05-07 19:36:20
  * @return {Object} 更换字段后的对象 
  */
-const changeTimeStringFn = (data, config) => {
+const changePrototypeNameFn = (data, config) => {
   let keysArr = Object.keys(data);
   let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   let objData = {};
   keysArr.forEach((item) => {
-    // 在配置中有 && 要修改它的字段
     if (item === 'Date' && specialOptions[item]) {
+      // 用户自定义时间字段
       objData[specialOptions.Date] = data[item]
     } else if (item === 'LastEditTime' && specialOptions[item]) {
+      // 用户自定义最后编辑时间字段
       objData[specialOptions.LastEditTime] = data[item]
+    } else if (item === 'custom_string_obkoro1') {
+      // 更改用户自定义输出字段 后期需要切割它
+      objData.symbol_custom_string_obkoro1 = data[item]
     } else {
       objData[item] = data[item]
     }
@@ -184,10 +188,38 @@ const changeTimeStringFn = (data, config) => {
   return objData
 }
 
+/**
+ * @description: 处理生成的模板 比如添加信息，删除信息等。
+ * @param {Object} beforehand 模板和预处理的参数
+ * {string} tpl 模板
+ * {Boolean} beforeAnnotation 是否在模板之前添加内容
+ * {Boolean} afterAnnotation 是否在模板之后添加内容
+ * @param {Object} config 配置项
+ * @return: {String} tpl
+ * @Created_time: 2019-05-14 14:25:26
+ */
+const handleTplFn = (beforehand, config) => {
+  let res = beforehand.tpl
+  // 切割用户自定义输出字段的属性名
+  let sinceOut = res.indexOf('symbol_custom_string_obkoro1');
+  if (sinceOut !== -1) {
+    res = res.replace('symbol_custom_string_obkoro1: ', '')
+  }
+
+  if (beforehand.beforeAnnotation) {
+    res = `${beforehand.beforeAnnotation}\n${res}`;
+  }
+  if (beforehand.afterAnnotation) {
+    res = `${beforehand.afterAnnotation}\n${res}`;
+  }
+  return res
+}
+
 module.exports = {
   userSet,
   lineSpaceFn,
   saveReplaceTime,
   editLineFn,
-  changeTimeStringFn
+  changePrototypeNameFn,
+  handleTplFn
 };

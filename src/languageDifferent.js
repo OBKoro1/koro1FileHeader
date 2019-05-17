@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-13 19:34:51
+ * @LastEditTime: 2019-05-14 16:31:54
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
@@ -22,7 +22,7 @@ let vscode,
 let initConfig = () => {
   vscode = require('vscode');
   config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-  annotationSymbol = config.configObj.annotationStr; // 用户自定义注释的配置
+  annotationSymbol = config.configObj.annotationStr; // 默认注释配置
   languageObj = config.configObj.language; // 自定义语言项
 
   // LastEditTime、LastEditors 特殊字段用户有没有设置
@@ -43,6 +43,7 @@ let initConfig = () => {
  */
 const userLanguageSetFn = (obj, isDefault = true) => {
   if (!isDefault) {
+    // 自定义语言注释
     annotationSymbol = languageObj[obj.fileEnd.fileEnd];
   }
   const userObj = {
@@ -153,34 +154,18 @@ const tplJudge = obj => {
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
   if (obj.fileEnd.userLanguage) {
     return userLanguageSetFn(obj, false);
-  }
-
-  // 匹配插件的符号
-  if (obj.fileEnd !== 'default_str') {
+  }else if (obj.fileEnd !== 'default_str') {
+     // 匹配插件的符号
     return languageObj[obj.fileEnd][obj.type];
-  }
-  // 默认注释符号
-  if (annotationSymbol.use) {
-    // 调用用户自己的设置
+  }else if (annotationSymbol.use) {
+    // 调用用户设置的默认注释符号
     return userLanguageSetFn(obj);
   } else {
-    // 调用默认设置
+    // 插件默认设置
     obj.fileEnd = 'javascript';
     return tplJudge(obj);
   }
 };
-
-// 中间的注释符号，用以生成单行
-function middleAnnotation() {
-  let obj = {
-    javascript: '* @',
-    python: '@',
-    vb: "' @",
-    html: '* @',
-    // userLanguage: ''
-  }
-  return
-}
 
 module.exports = {
   tplJudge
