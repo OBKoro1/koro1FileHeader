@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-12-11 21:29:11
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-14 16:31:54
+ * @LastEditTime: 2019-05-27 17:25:48
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
@@ -149,15 +149,32 @@ const tplJudge = obj => {
       annotationStarts: `<!--`,
       LastEditorsStr: ` * @${LastEditorsName}: ${obj.LastEditors}`,
       lastTimeStr: ` * @${LastEditTimeName}: ${new Date().format()}`
+    },
+    shellscript: {
+      topMiddle: ` # @${obj.key}: ${obj.value}\r\n`,
+      topHeadEnd: `###\r\n${obj.str}###\r\n`,
+      fnMiddle_param: `${obj.str} # @${obj.key} ${obj.typeVal} ${
+        obj.value
+        }\r\n`,
+      fnMiddle_key: `${obj.str} # @${obj.key}: ${obj.value}\r\n`,
+      topHeadEnd_nextLineNo: `${obj.frontStr}###\r\n${obj.strContent}${
+        obj.str
+        }###\r\n${obj.str}`,
+      topHeadEnd_nextLineYes: `${obj.frontStr}###\r\n${obj.strContent}${
+        obj.str
+        }###`,
+      annotationStarts: `###`,
+      LastEditorsStr: ` # @${LastEditorsName}: ${obj.LastEditors}`,
+      lastTimeStr: ` # @${LastEditTimeName}: ${new Date().format()}`
     }
   };
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
   if (obj.fileEnd.userLanguage) {
     return userLanguageSetFn(obj, false);
-  }else if (obj.fileEnd !== 'default_str') {
-     // 匹配插件的符号
+  } else if (obj.fileEnd !== 'default_str') {
+    // 匹配插件的符号
     return languageObj[obj.fileEnd][obj.type];
-  }else if (annotationSymbol.use) {
+  } else if (annotationSymbol.use) {
     // 调用用户设置的默认注释符号
     return userLanguageSetFn(obj);
   } else {

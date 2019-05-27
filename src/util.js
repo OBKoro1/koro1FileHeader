@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-13 16:45:32
+ * @LastEditTime: 2019-05-27 16:16:58
  */
 
 const vscode = require('vscode');
@@ -110,7 +110,8 @@ const fileEndMatch = fileEnd => {
     '/^java$|^javascript$|^go$|^cpp$|^c$/': 'javascript',
     '/^python$/': 'python',
     '/^vb$/': 'vb',
-    '/^vue$|^html$|^markdown$/': 'html'
+    '/^vue$|^html$|^markdown$/': 'html',
+    '/^shellscript$/': 'shellscript'
   };
   // 匹配插件支持的注释符号
   for (let key in obj) {

@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-16 19:29:34
+ * @LastEditTime: 2019-05-27 16:15:48
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -17,7 +17,6 @@ function activate(context) {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
-      console.log(editor,editBuilder,'edit')
       try {
         let time = new Date().format();
         // 文件创建时间
@@ -47,7 +46,7 @@ function activate(context) {
         }
         tpl = logic.handleTplFn(beforehand, config)
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
-        editBuilder.gotoLine(1,1)
+        // editBuilder.gotoLine(1,1)
       } catch (err) {
         console.log('头部注释错误:', err);
       }

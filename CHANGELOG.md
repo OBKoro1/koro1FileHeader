@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-14 16:52:21
+ * @LastEditTime: 2019-05-27 17:31:52
  -->
 
 # 更新日志
@@ -14,16 +14,20 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
-<!-- todo: 文件的时间的顺序 -->
+<!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
 
 ### [V3.8.0]
 
-<!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
-* 新增功能：在`customMade`(文件头部注释)中，遇到回车、换行情况时，自动在下一行开头添加对应的注释标识符，插件提供了一个开关来关闭它。
-* 新增功能：在`customMade`配置中，使用`custom_string_obkoro1`属性,允许输出一段自定义的字段。
-* 修复自定义语言匹配bug，匹配不到自定义语言，将会匹配一次文件名后缀.类似这个[issue](https://github.com/OBKoro1/koro1FileHeader/issues/39)提的。
+* 新增支持`a.sh`[类型注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80#%E5%BD%A2%E5%BC%8F-2)。
+* 新增功能：在`customMade`(文件头部注释)中，遇到回车、换行情况时，自动在下一行开头添加对应的注释标识符，插件提供了一个开关来关闭它，[详情](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#8--%E9%81%87%E5%88%B0%E6%8D%A2%E8%A1%8C%E6%B7%BB%E5%8A%A0%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7)。
+* 新增功能：在`customMade`配置中，使用`custom_string_obkoro1`属性,允许输出一段自定义的字段，[配置信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#7-%E5%9C%A8%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E4%B8%AD%E8%BE%93%E5%87%BA%E4%B8%80%E6%AE%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)。
+* 修复了`---aaaa`、`===aaaa`、`for test`这类~~乱七八糟的~~配置，插件模板不能工作的问题。
+* 修改了自定义语言匹配逻辑，匹配不到语言，将会匹配一次文件名后缀.类似这个[issue](https://github.com/OBKoro1/koro1FileHeader/issues/39)提的。
+  * 还有一种情况是，比如`a.sh`文件，实际上，vscode中的语言为：`shellscript`不是`shell`，**但是用户不知道该语言的名字，导致配置无法生效**，所以会在匹配不到语言的时候会再去匹配一下后缀，用户食用起来比较简单。
+
+
 
 ### [V3.7.0]
 
