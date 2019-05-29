@@ -3,14 +3,10 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-27 17:31:52
+ * @LastEditTime: 2019-05-29 10:21:15
  -->
 
 # 更新日志
-
-## language
-
-简体中文 | [English](https://github.com/OBKoro1/koro1FileHeader/wiki/change-log)
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
