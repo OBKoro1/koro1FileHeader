@@ -3,10 +3,11 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-27 16:16:58
+ * @LastEditTime: 2019-06-14 14:02:52
  */
 
 const vscode = require('vscode');
+const moment = require('moment');
 
 // 模板
 function fontTemplate(tpl) {
@@ -126,41 +127,26 @@ const fileEndMatch = fileEnd => {
   return 'default_str';
 };
 
+// 修改内容保存编辑器
+const saveEditor = (editor,callBack)=>{
+  setTimeout(() => {
+    editor.edit(edit => {
+      callBack(edit)
+    });
+    editor.document.save();
+  }, 200);
+}
+
+// 修改时间格式
 Date.prototype.format = function () {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
-  let format = 'yyyy-MM-dd hh:mm:ss'; // 具体到秒
-  if (config.configObj.timeNoDetail) {
-    format = 'yyyy-MM-dd'; // 具体到日期
-  }
-  // 处理时间格式
-  let o = {
-    'M+': this.getMonth() + 1,
-    'd+': this.getDate(),
-    'h+': this.getHours(),
-    'm+': this.getMinutes(),
-    's+': this.getSeconds(),
-    'q+': Math.floor((this.getMonth() + 3) / 3),
-    S: this.getMilliseconds()
-  };
-  if (/(y+)/.test(format)) {
-    format = format.replace(
-      RegExp.$1,
-      (this.getFullYear() + '').substr(4 - RegExp.$1.length)
-    );
-  }
-  for (let k in o) {
-    if (new RegExp('(' + k + ')').test(format)) {
-      format = format.replace(
-        RegExp.$1,
-        RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length)
-      );
-    }
-  }
-  return format;
+  return moment(this).format(config.configObj.config.dateFormat)
 };
 
 module.exports = {
   fontTemplate,
   throttle,
-  fileEndMatch
+  fileEndMatch,
+  fsPathFn,
+  saveEditor
 };

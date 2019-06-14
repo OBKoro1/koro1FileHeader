@@ -6,6 +6,7 @@
  * @LastEditTime: 2019-05-14 14:51:47
  */
 const languageOutput = require('./languageOutput');
+const util = require('./util');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -215,11 +216,23 @@ const handleTplFn = (beforehand, config) => {
   return res
 }
 
+// 自动添加是否匹配黑名单
+const isMatchProhibit = (fsPath, config) => {
+  let match = false;
+  let prohibit = config.configObj.config.prohibitAutoAdd
+  let fsName = util.fsPathFn(fsPath)
+  if (prohibit && prohibit.length > 0) {
+    match = prohibit.includes(fsName)
+  }
+  return match
+}
+
 module.exports = {
   userSet,
   lineSpaceFn,
   saveReplaceTime,
   editLineFn,
   changePrototypeNameFn,
-  handleTplFn
+  handleTplFn,
+  isMatchProhibit
 };

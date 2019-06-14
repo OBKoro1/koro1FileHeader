@@ -18,13 +18,13 @@ function activate(context) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
       try {
-        let time = new Date().format();
+        let time = new Date().format(config);
         // 文件创建时间
         if (config.configObj.createFileTime) {
           // 获取当前激活文件的路径
           const filepath =
             vscode.window.activeTextEditor._documentData._document.fileName;
-          time = new Date(fs.statSync(filepath).birthtime).format();
+          time = new Date(fs.statSync(filepath).birthtime).format(config);
         }
         // 返回生成模板的数据对象
         let data = logic.userSet(config, time);
@@ -46,7 +46,9 @@ function activate(context) {
         }
         tpl = logic.handleTplFn(beforehand, config)
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
-        // editBuilder.gotoLine(1,1)
+        setTimeout(() => {
+          editor.document.save()
+        }, 200)
       } catch (err) {
         console.log('头部注释错误:', err);
       }
@@ -136,40 +138,37 @@ function activate(context) {
         lastTimeText,
         hasAnnotation
       ] = logic.saveReplaceTime(document, config, fileEnd);
+
       // 检测文件注释,自动添加注释
-      if (!hasAnnotation && config.configObj.autoAdd) {
-        // 只自动添加支持的语言
-        if (config.configObj.autoAlready) {
-          fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
-        } else {
-          fileheaderFn(); // 任何文件自动添加头部注释
+      if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
+        // 文件没被添加进黑名单
+        if (!hasAnnotation && config.configObj.autoAdd) {
+          // 只自动添加支持的语言
+          if (config.configObj.autoAlready) {
+            fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
+          } else {
+            fileheaderFn(); // 任何文件自动添加头部注释
+          }
         }
       }
+
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
-        setTimeout(() => {
-          editor.edit(edit => {
-            edit.replace(authorRange, authorText);
-            edit.replace(lastTimeRange, lastTimeText);
-          });
-          document.save(); // 保存
-        }, 200);
+        util.saveEditor(editor,(edit)=>{
+          edit.replace(authorRange, authorText);
+          edit.replace(lastTimeRange, lastTimeText);
+        })
       } else if (lastTimeRange !== undefined) {
         // 只变更最后编辑时间
-        setTimeout(() => {
-          editor.edit(edit => {
-            edit.replace(lastTimeRange, lastTimeText);
-          });
-          document.save();
-        }, 200);
+
+        util.saveEditor(editor,(edit)=>{
+          edit.replace(lastTimeRange, lastTimeText);
+        })
       } else if (authorRange !== undefined) {
         // 只变更最后编辑人
-        setTimeout(() => {
-          editor.edit(edit => {
-            edit.replace(lastTimeRange, lastTimeText);
-          });
-          document.save();
-        }, 200);
+        util.saveEditor(editor,(edit)=>{
+          edit.replace(authorRange, authorText);
+        })
       }
     }
   });

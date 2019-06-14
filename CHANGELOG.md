@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-29 10:21:15
+ * @LastEditTime: 2019-06-14 14:01:45
  -->
 
 # 更新日志
@@ -13,6 +13,11 @@
 <!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V3.9.0]
+
+* 新增功能：[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%BB%91%E5%90%8D%E5%8D%95)：禁用特殊某些文件类型下的自动添加。
+* 新增功能：[时间格式化](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E5%8C%96)：用户可以自行设定要修改的时间格式，时间格式化使用[moment](http://momentjs.cn/docs/#/displaying/format/)库，同时`configObj.timeNoDetail`配置删除。
 
 ### [V3.8.0]
 
