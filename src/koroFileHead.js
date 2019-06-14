@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-27 16:15:48
+ * @LastEditTime: 2019-06-14 16:30:31 +0800
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -11,9 +11,20 @@ const logic = require('./logic');
 const fs = require('fs');
 const languageOutput = require('./languageOutput');
 
+
 // 扩展激活 默认运行
 function activate(context) {
   const fileheaderFn = () => {
+    let test = () => {
+      // 读取粘贴板
+      vscode.env.clipboard.readText().then(res => {
+        console.log('re', res, vscode.env.clipboard.readText())
+      })
+      let Position = new vscode.Position(1, 2)
+      const range = new vscode.Range(5, 7);
+      console.log('环境变量', Position, range)
+    }
+    test()
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
@@ -154,19 +165,19 @@ function activate(context) {
 
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
-        util.saveEditor(editor,(edit)=>{
+        util.saveEditor(editor, (edit) => {
           edit.replace(authorRange, authorText);
           edit.replace(lastTimeRange, lastTimeText);
         })
       } else if (lastTimeRange !== undefined) {
         // 只变更最后编辑时间
 
-        util.saveEditor(editor,(edit)=>{
+        util.saveEditor(editor, (edit) => {
           edit.replace(lastTimeRange, lastTimeText);
         })
       } else if (authorRange !== undefined) {
         // 只变更最后编辑人
-        util.saveEditor(editor,(edit)=>{
+        util.saveEditor(editor, (edit) => {
           edit.replace(authorRange, authorText);
         })
       }
