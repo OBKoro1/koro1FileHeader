@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-14 14:02:52
+ * @LastEditTime: 2019-06-17 15:44:11
  */
 
 const vscode = require('vscode');
@@ -78,9 +78,9 @@ const throttle = (fn, gapTime, _lastTime = null) => {
  */
 const fsPathFn = fsPath => {
   const pathArr = fsPath.split('/');
-  const fileName = pathArr[pathArr.length - 1];
+  const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
   const fileNameArr = fileName.split('.');
-  return fileNameArr[1]; // 文件后缀
+  return fileNameArr[fileNameArr.length - 1]; // 取.最后一位
 };
 
 /**
@@ -128,7 +128,7 @@ const fileEndMatch = fileEnd => {
 };
 
 // 修改内容保存编辑器
-const saveEditor = (editor,callBack)=>{
+const saveEditor = (editor, callBack) => {
   setTimeout(() => {
     editor.edit(edit => {
       callBack(edit)

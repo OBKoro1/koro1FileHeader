@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-14 14:01:45
+ * @LastEditTime: 2019-06-17 15:47:33
  -->
 
 # 更新日志
@@ -13,6 +13,14 @@
 <!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V3.9.2]
+
+* 修复`xxx.component.html`匹配不到`html`类型的bug
+
+### [V3.9.1]
+
+* 修复`afterAnnotation`添加在前面的bug
 
 ### [V3.9.0]
 
