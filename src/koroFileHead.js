@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-14 16:30:31 +0800
+ * @LastEditTime: 2019-06-17 15:14:54 +0800
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -11,20 +11,35 @@ const logic = require('./logic');
 const fs = require('fs');
 const languageOutput = require('./languageOutput');
 
+let test = () => {
+  // 读取粘贴板
+  vscode.env.clipboard.readText().then(res => {
+    console.log('re', res, vscode.env.clipboard.readText())
+  })
+  let Position = new vscode.Position(1, 2)
+  const range = new vscode.Range(5, 7);
+  console.log('环境变量', Position, range)
+}
+
+const webviewFn = () => {
+  // 创建webview
+  const panel = vscode.window.createWebviewPanel(
+    'testWebview', // viewType
+    "WebView演示", // 视图标题
+    vscode.ViewColumn.One, // 显示在编辑器的哪个部位
+    {
+      enableScripts: true, // 启用JS，默认禁用
+      retainContextWhenHidden: true, // webview被隐藏时保持状态，避免被重置
+    }
+  );
+  panel.webview.html = `<html><body>你好，我是Webview</body></html>`
+
+}
+
 
 // 扩展激活 默认运行
 function activate(context) {
   const fileheaderFn = () => {
-    let test = () => {
-      // 读取粘贴板
-      vscode.env.clipboard.readText().then(res => {
-        console.log('re', res, vscode.env.clipboard.readText())
-      })
-      let Position = new vscode.Position(1, 2)
-      const range = new vscode.Range(5, 7);
-      console.log('环境变量', Position, range)
-    }
-    test()
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
@@ -37,6 +52,7 @@ function activate(context) {
             vscode.window.activeTextEditor._documentData._document.fileName;
           time = new Date(fs.statSync(filepath).birthtime).format(config);
         }
+        console.log('config', config, vscode.Range)
         // 返回生成模板的数据对象
         let data = logic.userSet(config, time);
         data = logic.changePrototypeNameFn(data, config)
@@ -71,6 +87,9 @@ function activate(context) {
       const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
       const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
       let fileEnd = editor._documentData._languageId; // 语言
+      // TODO:  webview
+
+
       fileEnd = util.fileEndMatch(fileEnd);
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
       editor.edit(editBuilder => {
@@ -102,6 +121,13 @@ function activate(context) {
         ).generate(); // 函数注释的模板字符串
         // let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
         editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
+
+        vscode.commands.executeCommand('cursorMove', {
+          to: "up",
+          by: "wrappedLine",
+          value: 5,
+          select: true
+        });
       });
     } catch (err) {
       console.log('函数注释错误信息：', err);
@@ -149,7 +175,7 @@ function activate(context) {
         lastTimeText,
         hasAnnotation
       ] = logic.saveReplaceTime(document, config, fileEnd);
-
+      console.log('config', config)
       // 检测文件注释,自动添加注释
       if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
         // 文件没被添加进黑名单
