@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-14 14:51:47
+ * @LastEditTime: 2019-06-17 15:30:47
  */
 const languageOutput = require('./languageOutput');
 
@@ -210,7 +210,7 @@ const handleTplFn = (beforehand, config) => {
     res = `${beforehand.beforeAnnotation}\n${res}`;
   }
   if (beforehand.afterAnnotation) {
-    res = `${beforehand.afterAnnotation}\n${res}`;
+    res = `${res}\n${beforehand.afterAnnotation}`;
   }
   return res
 }
