@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Created_time: 2019-06-17 16:24:20
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-17 16:25:27
+ * @LastEditTime: 2019-06-18 14:21:06
  * @Description: vscode api 测试 
  */
 const vscode = require('vscode');
@@ -31,3 +31,15 @@ const webviewFn = () => {
     );
     panel.webview.html = `<html><body>你好，我是Webview</body></html>`
 }
+
+// 移动光标到这个位置
+vscode.commands.executeCommand('cursorMove', {
+    to: "up",
+    by: "wrappedLine",
+    value: descriptionLineNum + 1, // 行数比文档数组多1
+    select: false
+});
+// 光标移到末尾
+vscode.commands.executeCommand('cursorMove', {
+    to: "wrappedLineEnd",
+});

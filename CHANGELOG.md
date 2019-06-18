@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-17 15:47:33
+ * @LastEditTime: 2019-06-18 15:58:44
  -->
 
 # 更新日志
@@ -13,6 +13,10 @@
 <!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V4.0.0]
+
+* 新增：生成头部注释后，移动光标到`Description`所在行，具体规则：传送门
 
 ### [V3.9.2]
 

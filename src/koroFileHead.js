@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-17 16:27:06
+ * @LastEditTime: 2019-06-18 14:28:05
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -48,6 +48,8 @@ function activate(context) {
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
         setTimeout(() => {
           editor.document.save()
+          logic.moveCursor(tpl)
+
         }, 200)
       } catch (err) {
         console.log('头部注释错误:', err);
@@ -91,13 +93,6 @@ function activate(context) {
         ).generate(); // 函数注释的模板字符串
         // let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
         editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
-
-        vscode.commands.executeCommand('cursorMove', {
-          to: "up",
-          by: "wrappedLine",
-          value: 5,
-          select: true
-        });
       });
     } catch (err) {
       console.log('函数注释错误信息：', err);

@@ -3,8 +3,9 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-17 16:26:10
+ * @LastEditTime: 2019-06-18 15:57:14
  */
+const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
 const util = require('./util');
 
@@ -45,7 +46,7 @@ const userSet = (config, time) => {
 
 /**
  * @description: 函数注释前面的长度
- * @param {Object} 当前激活文件
+ * @param {Object} editor 当前激活文件
  * @return: lineSpace：前面的长度，frontStr：函数注释第一行的长度，line:当前行(数字)，nextLine 激活行的下一行是否有内容
  */
 const lineSpaceFn = editor => {
@@ -195,11 +196,10 @@ const changePrototypeNameFn = (data, config) => {
  * {string} tpl 模板
  * {Boolean} beforeAnnotation 是否在模板之前添加内容
  * {Boolean} afterAnnotation 是否在模板之后添加内容
- * @param {Object} config 配置项
  * @return: {String} tpl
  * @Created_time: 2019-05-14 14:25:26
  */
-const handleTplFn = (beforehand, config) => {
+const handleTplFn = (beforehand) => {
   let res = beforehand.tpl
   // 切割用户自定义输出字段的属性名
   let sinceOut = res.indexOf('symbol_custom_string_obkoro1');
@@ -227,6 +227,40 @@ const isMatchProhibit = (fsPath, config) => {
   return match
 }
 
+/**
+ * @description: 移动视图到顶部
+ * @param {String} tpl 最终要生成的模板
+ * @Created_time: 2019-06-18 14:28:13
+ */
+const moveCursor = (tpl) => {
+  const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
+  if (config.configObj.config.moveCursor) {
+    const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
+    // 注释总行数 最后多一行注释开头 一行注释结尾 最后一行换行
+    let strLine = tpl.split(/\r\n|\r|\n/).length
+    // 文档是从0开始 行数从1开始 要减去1
+    let descriptionLineNum = strLine - 1;
+    for (let i = 0; i < strLine; i++) {
+      let line = editor.document.lineAt(i);
+      let lineNoTrim = line.text; // line 
+      if (lineNoTrim.indexOf('Description :') !== -1) {
+        descriptionLineNum = i
+        break
+      }
+      if (editor.document.lineCount - 1 === i) break // 总行数
+    }
+    // 移动光标到指定行数
+    const position = editor.selection.active;
+    var newPosition = position.with(descriptionLineNum, 10000);
+    editor.selection = new vscode.Selection(newPosition, newPosition);
+    // 移动视图到顶部
+    vscode.commands.executeCommand('editorScroll', {
+      to: 'up',
+      value: 10000,
+    });
+  }
+}
+
 module.exports = {
   userSet,
   lineSpaceFn,
@@ -234,5 +268,6 @@ module.exports = {
   editLineFn,
   changePrototypeNameFn,
   handleTplFn,
-  isMatchProhibit
+  isMatchProhibit,
+  moveCursor
 };
