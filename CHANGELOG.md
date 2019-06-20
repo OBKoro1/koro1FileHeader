@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-18 15:58:44
+ * @LastEditTime: 2019-06-20 14:36:06
  -->
 
 # 更新日志
@@ -14,9 +14,10 @@
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
 
-### [V4.0.0]
+### [V3.9.3]
 
-* 新增：生成头部注释后，移动光标到`Description`所在行，具体规则：传送门
+* 新增：生成头部注释后，移动光标到`Description`所在行,具体规则，[点这里](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E5%88%B0description-%E6%89%80%E5%9C%A8%E8%A1%8C)
+* 近期在开发函数注释的列出参数的功能，遇到了一个正则问题，开了个[issue](https://github.com/OBKoro1/koro1FileHeader/issues/58)，正则大佬感兴趣可以帮忙看一下。
 
 ### [V3.9.2]
 

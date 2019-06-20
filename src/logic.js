@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-18 15:57:14
+ * @LastEditTime: 2019-06-20 14:19:12
  */
 const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
@@ -173,13 +173,11 @@ const changePrototypeNameFn = (data, config) => {
   let keysArr = Object.keys(data);
   let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   let objData = {};
+  let specialArr = ['Date', 'LastEditTime', 'LastEditors', 'Description']
   keysArr.forEach((item) => {
-    if (item === 'Date' && specialOptions[item]) {
-      // 用户自定义时间字段
-      objData[specialOptions.Date] = data[item]
-    } else if (item === 'LastEditTime' && specialOptions[item]) {
-      // 用户自定义最后编辑时间字段
-      objData[specialOptions.LastEditTime] = data[item]
+    // 特殊字段 且 有设置特殊字段
+    if (specialArr.includes(item) && specialOptions[item]) {
+      objData[specialOptions[item]] = data[item]
     } else if (item === 'custom_string_obkoro1') {
       // 更改用户自定义输出字段 后期需要切割它
       objData.symbol_custom_string_obkoro1 = data[item]
@@ -228,7 +226,7 @@ const isMatchProhibit = (fsPath, config) => {
 }
 
 /**
- * @description: 移动视图到顶部
+ * @description: 移动光标到description所在行 移动视图到顶部
  * @param {String} tpl 最终要生成的模板
  * @Created_time: 2019-06-18 14:28:13
  */
@@ -236,18 +234,26 @@ const moveCursor = (tpl) => {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
   if (config.configObj.config.moveCursor) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
+    const specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
+    const DescriptionName = specialOptions.Description
+      ? specialOptions.Description
+      : 'Description';
     // 注释总行数 最后多一行注释开头 一行注释结尾 最后一行换行
-    let strLine = tpl.split(/\r\n|\r|\n/).length
+    const strLine = tpl.split(/\r\n|\r|\n/).length
     // 文档是从0开始 行数从1开始 要减去1
-    let descriptionLineNum = strLine - 1;
+    let descriptionLineNum;
     for (let i = 0; i < strLine; i++) {
       let line = editor.document.lineAt(i);
       let lineNoTrim = line.text; // line 
-      if (lineNoTrim.indexOf('Description :') !== -1) {
+      if (lineNoTrim.indexOf(`${DescriptionName}:`) !== -1) {
         descriptionLineNum = i
         break
       }
       if (editor.document.lineCount - 1 === i) break // 总行数
+    }
+    // 没有Description 则不移动视图
+    if (descriptionLineNum === undefined) {
+      return
     }
     // 移动光标到指定行数
     const position = editor.selection.active;
