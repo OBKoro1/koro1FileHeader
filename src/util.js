@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-17 15:44:11
+ * @LastEditTime: 2019-07-01 16:35:21
  */
 
 const vscode = require('vscode');
@@ -108,7 +108,7 @@ const fileEndMatch = fileEnd => {
     }
   }
   const obj = {
-    '/^java$|^javascript$|^go$|^cpp$|^c$/': 'javascript',
+    '/^java$|^javascript$|^typescript$|^go$|^cpp$|^c$/': 'javascript',
     '/^python$/': 'python',
     '/^vb$/': 'vb',
     '/^vue$|^html$|^markdown$/': 'html',
