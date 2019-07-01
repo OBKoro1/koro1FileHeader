@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-20 14:36:06
+ * @LastEditTime: 2019-07-01 16:37:53
  -->
 
 # 更新日志
@@ -13,6 +13,10 @@
 <!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
 <!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
 <!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V3.9.4]
+
+* 将typescript加入默认支持语言,以使用自动添加注释的功能
 
 ### [V3.9.3]
 
