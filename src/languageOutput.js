@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-05-14 16:46:15
+ * @LastEditTime: 2019-08-06 17:01:33
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
@@ -19,7 +19,8 @@ const middleTpl = (data, fileEnd, config) => {
       key,
       value: newlineAddAnnotationFn(data[key], fileEnd, config)
     };
-    str = str + languageDifferent.tplJudge(obj);
+    const res = new languageDifferent.tplJudge(obj).res;
+    str = str + res
   });
   return str;
 };
@@ -38,7 +39,7 @@ const headNotes = (data, fileEnd, config) => {
     type: 'topHeadEnd',
     str
   };
-  return languageDifferent.tplJudge(obj);
+  return new languageDifferent.tplJudge(obj).res;
 };
 
 class functionTplStr {
@@ -85,7 +86,7 @@ class functionTplStr {
     } else {
       obj.type = 'fnMiddle_key';
     }
-    return languageDifferent.tplJudge(obj);
+    return new languageDifferent.tplJudge(obj).res;
   }
   mergeStr() {
     const obj = {
@@ -101,7 +102,7 @@ class functionTplStr {
       // 当前行为空
       obj.type = 'topHeadEnd_nextLineYes';
     }
-    return languageDifferent.tplJudge(obj);
+    return new languageDifferent.tplJudge(obj).res;
   }
 }
 
@@ -119,7 +120,7 @@ class changeFont {
       fileEnd: this.fileEnd,
       type: 'annotationStarts'
     };
-    return languageDifferent.tplJudge(obj);
+    return new languageDifferent.tplJudge(obj).res;
   }
   // 最后编辑人
   LastEditorsStr(LastEditors) {
@@ -128,7 +129,7 @@ class changeFont {
       type: 'LastEditorsStr',
       LastEditors
     };
-    return languageDifferent.tplJudge(obj);
+    return new languageDifferent.tplJudge(obj).res;
   }
   // 最后编辑时间
   lastTimeStr() {
@@ -136,7 +137,7 @@ class changeFont {
       fileEnd: this.fileEnd,
       type: 'lastTimeStr'
     };
-    return languageDifferent.tplJudge(obj);
+    return new languageDifferent.tplJudge(obj).res;
   }
 }
 
@@ -161,10 +162,10 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
       // \n 换行
       // \r 回车
       // \r\n Windows系统里面，每行结尾是“<回车><换行>”
-      value = value.replace('\r\n', `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
-      value = value.replace('\n', `\n${middle}`) 
-      value = value.replace('\r', `\r${middle}`)
-      value = value.replace('\obkoro1\obkoro1', `\r\n`) // 转化回来
+      value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
+      value = value.replace(/\n/g, `\n${middle}`)
+      value = value.replace(/\r/g, `\r${middle}`)
+      value = value.replace(/\obkoro1\obkoro1/g, `\r\n`) // 转化回来
     }
   }
   return value

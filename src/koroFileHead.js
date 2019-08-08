@@ -49,7 +49,6 @@ function activate(context) {
         setTimeout(() => {
           editor.document.save()
           logic.moveCursor(tpl)
-
         }, 200)
       } catch (err) {
         console.log('头部注释错误:', err);

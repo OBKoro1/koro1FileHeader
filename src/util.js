@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-07-01 16:35:21
+ * @LastEditTime: 2019-08-08 13:47:30
  */
 
 const vscode = require('vscode');
@@ -102,6 +102,7 @@ const fileEndMatch = fileEnd => {
     }
   } else if (language[fsName]) {
     // 语言没有匹配到 单独匹配一下文件后缀
+    // fileEnd.userLanguage 没有值 即为单独的字符串
     return {
       fileEnd: fsName,
       userLanguage: true
@@ -140,7 +141,7 @@ const saveEditor = (editor, callBack) => {
 // 修改时间格式
 Date.prototype.format = function () {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
-  return moment(this).format(config.configObj.config.dateFormat)
+  return moment(this).format(config.configObj.dateFormat)
 };
 
 module.exports = {

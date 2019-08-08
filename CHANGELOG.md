@@ -2,17 +2,58 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-07-01 16:37:53
+ * @LastAuthor: Wayne_zhy
+ * @lastTime: 2019-08-08 14:33:15
  -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
-<!-- * 光标位置，匹配指定属性，将光标移到该属性后面。 -->
-<!-- 光标位置：https://github.com/OBKoro1/koro1FileHeader/issues/38 -->
-<!-- 函数注释 改光标的位置 https://github.com/OBKoro1/koro1FileHeader/issues/22 -->
+
+### [V4.0.0]
+
+* **自定义注释中的`@`和`: `**：允许全局修改`@`和`: `，和单独为某些文件修改它们，[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E4%B8%AD%E7%9A%84%E8%89%BE%E7%89%B9%E5%92%8C%E5%86%92%E5%8F%B7)。
+
+* **自动添加注释，现在改为默认打开**：自动添加头部注释功能现在比较稳定，应该很多同学不知道这个能力，反正我非常喜欢用！不喜欢的话也可以这样关闭它：
+
+```js
+"fileheader.configObj": {
+  "autoAdd": false, // 关闭它
+}
+````
+
+* **破坏性修改**：由于配置选项对象会被覆盖，导致默认配置不生效，**将`fileheader.configObj.config`移除，并将以下三个选项移动到`fileheader.configObj`中**
+
+    * `prohibitAutoAdd`：[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%BB%91%E5%90%8D%E5%8D%95)
+    * `dateFormat`：[时间格式化](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E5%8C%96), 使用`moment `的format方法
+    * `moveCursor`：[移动光标到`Description`](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E5%88%B0description-%E6%89%80%E5%9C%A8%E8%A1%8C)
+
+```js
+// 以前
+"fileheader.configObj": {
+  "config": {
+    "prohibitAutoAdd": [
+      "json",
+      "md",
+      "js"
+    ],
+    "moveCursor": true,
+    "dateFormat": "YYYY-MM-DD HH:mm:ss",
+  }
+}
+// 现在
+"fileheader.configObj": {
+  "prohibitAutoAdd": [
+    "json",
+    "md",
+    "js"
+  ],
+  "moveCursor": true,
+  "dateFormat": "YYYY-MM-DD HH:mm:ss",
+}
+```
+
 
 ### [V3.9.4]
 

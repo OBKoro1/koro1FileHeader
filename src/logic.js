@@ -2,8 +2,8 @@
  * @Description: 逻辑输出
  * @Author: OBKoro1
  * @Date: 2018-10-31 16:22:55
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-20 14:19:12
+ * @LastAuthor: OBKoro1
+ * @lastTime: 2019-08-08 16:32:27
  */
 const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
@@ -92,21 +92,25 @@ function saveReplaceTime(document, config, fileEnd) {
   let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
   let hasAnnotation = false; // 默认没有
-
+  const fsPath =  util.fsPathFn(document.fileName)
+  let colon = config.configObj.colonObj[fsPath] // 冒号
+  if(colon === undefined){
+    colon = config.configObj.colon
+  }
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line) => {
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
-      if (line.indexOf(`${userSetName}:`) === -1) {
+      if (line.indexOf(`${userSetName}${colon}`) === -1) {
         // 没有检测用户自己更改的 再检测特殊变量
-        return line.indexOf(`${name}:`) !== -1;
+        return line.indexOf(`${name}${colon}`) !== -1;
       } else {
         // 检测用户自己更改的
         return true;
       }
     } else {
       // 检测特殊变量
-      return line.indexOf(`${name}:`) !== -1;
+      return line.indexOf(`${name}${colon}`) !== -1;
     }
   };
 
@@ -153,7 +157,7 @@ const editLineFn = (fsPath, config) => {
   const pathArr = fsPath.split('/');
   const fileName = pathArr[pathArr.length - 1];
   const fileNameArr = fileName.split('.');
-  const fileEnd = fileNameArr[1]; // 文件后缀
+  const fileEnd = fileNameArr[fileNameArr.length -1]; // 文件后缀
   const headInsertLineObj = config.configObj.headInsertLine;
   let lineNum = 0;
   if (headInsertLineObj[fileEnd]) {
@@ -217,7 +221,7 @@ const handleTplFn = (beforehand) => {
 // 自动添加是否匹配黑名单
 const isMatchProhibit = (fsPath, config) => {
   let match = false;
-  let prohibit = config.configObj.config.prohibitAutoAdd
+  let prohibit = config.configObj.prohibitAutoAdd
   let fsName = util.fsPathFn(fsPath)
   if (prohibit && prohibit.length > 0) {
     match = prohibit.includes(fsName)
@@ -232,7 +236,7 @@ const isMatchProhibit = (fsPath, config) => {
  */
 const moveCursor = (tpl) => {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-  if (config.configObj.config.moveCursor) {
+  if (config.configObj.moveCursor) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     const specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
     const DescriptionName = specialOptions.Description
