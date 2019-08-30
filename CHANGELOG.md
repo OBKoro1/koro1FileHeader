@@ -1,15 +1,26 @@
 <!--
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
- * @Date: 2018-10-31 14:18:17
- * @LastAuthor: Wayne_zhy
- * @lastTime: 2019-08-08 14:33:15
+ * @Date: 2019-08-08 19:04:51
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-08-27 17:08:32
+ * @Description: 更新日志
  -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+<!-- TODO: 读取前几行 配置 -->
+<!-- TODO: 拦截git提交 检测文件变化：https://segmentfault.com/a/1190000007820338-->
 
+<!-- 如果文件没有修改 就不更新时间 -->
+<!-- 切割文件名,以.开头的文件就不自动添加头部注释 -->
+<!-- TODO: node获取文件的修改清单 -->
+<!-- https://blog.csdn.net/weixin_34184561/article/details/87639242 -->
+
+### [V4.1.0]
+
+* 文件没更改，单独按保存的时候，不再生成注释以及更新作者和编辑时间
 
 ### [V4.0.0]
 

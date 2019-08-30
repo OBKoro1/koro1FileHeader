@@ -2,17 +2,21 @@
  * @Description: 入口
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-06-18 14:28:05
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-08-28 13:39:49
  */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
 const fs = require('fs');
 const languageOutput = require('./languageOutput');
+const PreCommit = require('./commit/precommit')
+const CONST = require('./CONST')
 
 // 扩展激活 默认运行
 function activate(context) {
+  CONST.context = context
+  new PreCommit()
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
@@ -113,7 +117,8 @@ function activate(context) {
   let intervalVal = null; // 保存上次触发时间，用于节流
   let fileName = ''; // 保存操作的文件
   // 文件保存时 触发
-  vscode.workspace.onDidSaveTextDocument(file => {
+  vscode.workspace.onWillSaveTextDocument(file => {
+    if (!file.document.isDirty) return // 文件没有修改 不操作
     try {
       if (file.fileName === fileName) {
         // 同一个文件操作 节流

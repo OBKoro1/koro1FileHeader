@@ -31,9 +31,14 @@
     "Other"
   ],
   "keywords": [
+    "vscode korofileheader",
     "korofileheader",
-    "comment",
     "annotation",
+    "comment",
+    "vscode comment",
+    "vscode annotation",
+    "vscode 注释",
+    "vscode 文件头部注释",
     "注释",
     "文件注释",
     "头部注释",
@@ -93,7 +98,9 @@
             "switch": {
               "newlineAddAnnotation": true
             },
-            "prohibitAutoAdd": [ "json" ],
+            "prohibitAutoAdd": [
+              "json"
+            ],
             "moveCursor": true,
             "dateFormat": "YYYY-MM-DD HH:mm:ss",
             "atSymbol": "@",
