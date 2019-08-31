@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
- * LastEditors: OBKoro1
- * LastEditTime: 2019-08-30 13:22:19
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-08-31 20:39:56
  * Description: git commit 拦截
  */
 
@@ -14,6 +14,8 @@ const vscode = require('vscode');
 const execSync = require('child_process').execSync
 const CONST = require('../CONST')
 const preCommitString = require('./pre-commit.js')
+const checkHeaderString = require('./checkHeader')
+
 
 console.log('执行')
 
@@ -33,16 +35,10 @@ class PreCommit {
     }
     init() {
         try {
-            this.hasGit = this.gitHas()
-            if (this.hasGit) {
-                let commitSrc = `${this.itemPath}/.git/hooks/pre-commit`; // 文件路径
-                if (this.hasFile(commitSrc)) {
-                    // do something
-                    this.addPreCommit()
-                } else {
-
-                }
-                // 克隆脚本放在最后面
+            let hasGit = this.gitHas()
+            if (hasGit) {
+                this.handlePreCommitFn()
+                // 克隆脚本
                 this.cloneFile()
             } else {
                 // 没有git管理代码
@@ -52,24 +48,26 @@ class PreCommit {
             console.log('err', err)
         }
     }
+    // 是否有.git文件
     gitHas() {
         let url = `${this.itemPath}/.git`; // 文件路径
         let isDirectory = fs.statSync(url).isDirectory(); // 判断是否为文件夹 返回布尔值
-        console.log('url', url, isDirectory)
         return isDirectory
     }
-    // 字符串化
+    /**
+     * 文件是否存在
+     * @param {string} file 文件路径
+     */
     hasFile(file) {
         let isFile = fs.existsSync(file); // 判断文件 是否存在
         return isFile
     }
-    // 添加 precommit
+    // 钩子文件存在，添加precommit命令
     addPreCommit() {
-        this.preCommitSrc = `${this.itemPath}/.git/hooks/pre-commit`
-        let res = fs.readFileSync(`${this.itemPath}/.git/hooks/pre-commit`, 'utf-8')
+        let res = fs.readFileSync(this.preCommitSrc, 'utf-8')
         let resArr = res.split(/\r\n|\r|\n/)
         // TODO: 需要有node
-        let orderString = 'node ./fileHeader-checkChange.js # koroFileHead 检测文件是否变化'
+        let orderString = 'node ./.git/hooks/fileHeader-checkChange.js # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作'
         // 文件存在，避免重复添加
         if (res.indexOf(orderString) === -1) {
             resArr.splice(1, 0, orderString)
@@ -80,20 +78,35 @@ class PreCommit {
     // 克隆脚本
     cloneFile() {
         let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
-        // 检查版本更新
-        if (!this.hasFile(checkChangeSrc)) {
+        if (this.hasFile(checkChangeSrc)) {
+            // 检查版本
             // TODO: 检查commit的逻辑
             // TODO: 写一个js 检查commit
-
+            console.log('checkChangeSrc1',checkChangeSrc)
         } else {
-
+            // TODO: 创建文件 调试 放在下面
+            // 创建fileHeader-checkChange.js
+            console.log('checkChangeSrc2',checkChangeSrc)
         }
-    }
-    cloneShell() {
+        fs.writeFileSync(checkChangeSrc, checkHeaderString, 'utf-8')
 
     }
-    createFile() {
+    // 检查版本更新
+    checkVersion() {
+        let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
 
+    }
+    handlePreCommitFn() {
+        this.preCommitSrc = `${this.itemPath}/.git/hooks/pre-commit`
+        if (this.hasFile(this.preCommitSrc)) {
+            this.addPreCommit()
+        } else {
+            // 创建文件
+            // TODO: 创建文件放上来
+        }
+        fs.writeFileSync(this.preCommitSrc, preCommitString, 'utf-8')
+        // 更改文件的权限 否则钩子不执行
+        fs.chmodSync(this.preCommitSrc, 0o0755)
     }
     myExecSync(cmd) {
         // 除了该方法直到子进程完全关闭后才返回 执行完毕 返回

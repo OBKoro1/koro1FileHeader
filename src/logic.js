@@ -92,13 +92,14 @@ function saveReplaceTime(document, config, fileEnd) {
   let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
   let hasAnnotation = false; // 默认没有
-  const fsPath =  util.fsPathFn(document.fileName)
+  const fsPath = util.fsPathFn(document.fileName)
   let colon = config.configObj.colonObj[fsPath] // 冒号
-  if(colon === undefined){
+  if (colon === undefined) {
     colon = config.configObj.colon
   }
   // 有没有更改特殊变量
-  const checkHasAnnotation = (name, line) => {
+  const checkHasAnnotation = (name, line, checked) => {
+    if (checked) return false // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
       if (line.indexOf(`${userSetName}${colon}`) === -1) {
@@ -126,13 +127,13 @@ function saveReplaceTime(document, config, fileEnd) {
       }
     } else {
       let range = linetAt.range;
-      if (checkHasAnnotation('LastEditors', line)) {
+      if (checkHasAnnotation('LastEditors', line, authorRange)) {
         //表示是修改人
         hasAnnotation = true;
         authorRange = range;
         let LastEditors = userObj.LastEditors || 'Please set LastEditors';
         authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (checkHasAnnotation('LastEditTime', line)) {
+      } else if (checkHasAnnotation('LastEditTime', line, lastTimeRange)) {
         //最后修改时间
         hasAnnotation = true;
         lastTimeRange = range;
@@ -157,7 +158,7 @@ const editLineFn = (fsPath, config) => {
   const pathArr = fsPath.split('/');
   const fileName = pathArr[pathArr.length - 1];
   const fileNameArr = fileName.split('.');
-  const fileEnd = fileNameArr[fileNameArr.length -1]; // 文件后缀
+  const fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
   const headInsertLineObj = config.configObj.headInsertLine;
   let lineNum = 0;
   if (headInsertLineObj[fileEnd]) {
