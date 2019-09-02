@@ -6,7 +6,7 @@ module.exports = `
  * @Author: OBKoro1
  * @Created_time: 2019-08-31 15:01:52
  * @LastEditors: Koro
- * @LastEditTime: 2019-09-02 20:22:47
+ * @LastEditTime: 2019-09-02 20:45:45
  * @Description: 检查commit
  * @version: 0.1.0
  */

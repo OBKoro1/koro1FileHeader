@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Created_time: 2019-08-31 15:01:52
  * @LastEditors: Koro
- * @LastEditTime: 2019-09-02 20:30:15
+ * @LastEditTime: 2019-09-02 21:06:26
  * @Description: 当没有commit文件时，默认创建的pre-commit 文件
  */
 
@@ -21,9 +21,8 @@ const preCommitString = `#!/bin/sh
  # 此文件不更新，更新的是：./.git/hooks/fileHeader-checkChange.js
  # 插件：koroFileHeader: https://github.com/OBKoro1/koro1FileHeader
 ###
-echo "执行commit hooks --- koroFileHeader"
+echo "执行node写的commit hooks --- koroFileHeader"
 ${orderString}`
-// TODO: 需要有node
 
 
 module.exports = preCommitString

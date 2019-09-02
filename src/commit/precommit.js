@@ -3,7 +3,7 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
  * @LastEditors: Koro
- * @LastEditTime: 2019-09-02 20:30:37
+ * @LastEditTime: 2019-09-02 20:43:16
  * Description: git commit 拦截
  */
 
@@ -124,7 +124,6 @@ class PreCommit {
                     env: undefined
                 }
             );
-            console.log('res', res)
         } catch (err) {
             console.log(`执行命令出错:${cmd}`)
             throw err
