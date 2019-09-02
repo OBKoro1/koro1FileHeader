@@ -2,22 +2,18 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-08-31 20:39:56
+ * @LastEditors: Koro
+ * @LastEditTime: 2019-09-02 20:30:37
  * Description: git commit 拦截
  */
 
-// TODO: 拷贝一个文件放到.git中
 const fs = require('fs');
-const path = require('path')
 const vscode = require('vscode');
 const execSync = require('child_process').execSync
 const CONST = require('../CONST')
 const preCommitString = require('./pre-commit.js')
 const checkHeaderString = require('./checkHeader')
 
-
-console.log('执行')
 
 class PreCommit {
     /**
@@ -66,8 +62,7 @@ class PreCommit {
     addPreCommit() {
         let res = fs.readFileSync(this.preCommitSrc, 'utf-8')
         let resArr = res.split(/\r\n|\r|\n/)
-        // TODO: 需要有node
-        let orderString = 'node ./.git/hooks/fileHeader-checkChange.js # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作'
+        let orderString = CONST.handleNodeString
         // 文件存在，避免重复添加
         if (res.indexOf(orderString) === -1) {
             resArr.splice(1, 0, orderString)
@@ -79,22 +74,30 @@ class PreCommit {
     cloneFile() {
         let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
         if (this.hasFile(checkChangeSrc)) {
-            // 检查版本
-            // TODO: 检查commit的逻辑
-            // TODO: 写一个js 检查commit
-            console.log('checkChangeSrc1',checkChangeSrc)
-        } else {
-            // TODO: 创建文件 调试 放在下面
-            // 创建fileHeader-checkChange.js
-            console.log('checkChangeSrc2',checkChangeSrc)
+            let versionTrue = this.checkVersion()
+            if (versionTrue) return // 版本号不变 则不更新
         }
+        // 创建文件 调试 放在下面
         fs.writeFileSync(checkChangeSrc, checkHeaderString, 'utf-8')
-
     }
     // 检查版本更新
     checkVersion() {
         let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
-
+        let oldFile = fs.readFileSync(checkChangeSrc, 'utf-8')
+        let oldVersion = this.getVersion(oldFile)
+        let newVersion = this.getVersion(checkHeaderString)
+        if (oldVersion !== newVersion) {
+            return false
+        }
+        return true
+    }
+    // 取出版本号
+    getVersion(fileString) {
+        let reg = / \* @version: (.+)/
+        let res = fileString.match(reg)
+        if (res) {
+            return res[1]
+        }
     }
     handlePreCommitFn() {
         this.preCommitSrc = `${this.itemPath}/.git/hooks/pre-commit`
@@ -102,7 +105,6 @@ class PreCommit {
             this.addPreCommit()
         } else {
             // 创建文件
-            // TODO: 创建文件放上来
         }
         fs.writeFileSync(this.preCommitSrc, preCommitString, 'utf-8')
         // 更改文件的权限 否则钩子不执行

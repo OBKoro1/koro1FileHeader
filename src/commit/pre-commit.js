@@ -2,10 +2,13 @@
  * @Github: https://github.com/OBKoro1
  * @Author: OBKoro1
  * @Created_time: 2019-08-31 15:01:52
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-08-31 20:39:24
- * @Description: 当没有commit文件时创建git拦截
+ * @LastEditors: Koro
+ * @LastEditTime: 2019-09-02 20:30:15
+ * @Description: 当没有commit文件时，默认创建的pre-commit 文件
  */
+
+const CONST = require('../CONST')
+let orderString = CONST.handleNodeString
 
 const preCommitString = `#!/bin/sh
 ###
@@ -15,10 +18,12 @@ const preCommitString = `#!/bin/sh
  # @LastEditors: OBKoro1
  # @LastEditTime: 2019-08-31 15:39:03
  # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作。
+ # 此文件不更新，更新的是：./.git/hooks/fileHeader-checkChange.js
  # 插件：koroFileHeader: https://github.com/OBKoro1/koro1FileHeader
 ###
 echo "执行commit hooks --- koroFileHeader"
-node ./.git/hooks/fileHeader-checkChange.js # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作`
-// TODO: 退出0
+${orderString}`
+// TODO: 需要有node
+
 
 module.exports = preCommitString
