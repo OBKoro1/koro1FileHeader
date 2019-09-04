@@ -1,12 +1,23 @@
-// TODO: 兼容husky
+/*
+ * Author: OBKoro1
+ * Github: https://github.com/OBKoro1
+ * Date: 2019-09-04 11:50:04
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-09-04 20:23:08
+ * Description: 检查commit文件规范的js，通过字符串写入文件
+ */
+const languageDiff = require('../languageDifferent')
+languageDiff.tplJudge.prototype.initConfig();
+let lastEditorName = languageDiff.tplJudge.prototype.LastEditorsName
+let lastTimeName = languageDiff.tplJudge.prototype.LastEditTimeName
 
 module.exports = `
 /*
  * @Github: https://github.com/OBKoro1
  * @Author: OBKoro1
  * @Created_time: 2019-08-31 15:01:52
- * @LastEditors: Koro
- * @LastEditTime: 2019-09-02 20:45:45
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-09-04 19:55:29
  * @Description: 检查commit
  * @version: 0.1.0
  */
@@ -58,12 +69,10 @@ class checkCommit {
         for (let item of stringArr.values()) {
             // 检测有变更的字符串
             if (item.match(reg) !== null) {
-                // TODO: 字段更改的情况
-                // TODO: 在node生成时 检测 并重新输入 权衡一下 或许并不需要检测
-                if (item.indexOf('LastEditors') !== -1) {
-                } else if (item.indexOf('LastEditTime') !== -1) {
+                if (item.indexOf('${lastEditorName}') !== -1) {
+                } else if (item.indexOf('${lastTimeName}') !== -1) {
                 } else {
-                    console.log(fileName + '有LastEditors/LastEditTime之外的变更,正常commit:', item +)
+                    console.log(fileName + '有LastEditors/LastEditTime之外的变更,正常commit:', item)
                     return false
                 }
             }

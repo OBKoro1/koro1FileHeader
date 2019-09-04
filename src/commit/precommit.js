@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
- * @LastEditors: Koro
- * @LastEditTime: 2019-09-02 20:43:16
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-09-04 19:54:17
  * Description: git commit 拦截
  */
 
@@ -11,7 +11,7 @@ const fs = require('fs');
 const vscode = require('vscode');
 const execSync = require('child_process').execSync
 const CONST = require('../CONST')
-const preCommitString = require('./pre-commit.js')
+const preCommitString = require('./pre-commit-shell.js')
 const checkHeaderString = require('./checkHeader')
 
 
@@ -24,10 +24,6 @@ class PreCommit {
     constructor() {
         this.itemPath = vscode.workspace.rootPath
         this.init()
-
-        // this.myExecSync(`git log --name-only -1`)
-        // this.myExecSync(`git diff --name-only HEAD~ HEAD`)
-        // this.myExecSync(`git diff`)
     }
     init() {
         try {
@@ -73,14 +69,15 @@ class PreCommit {
     // 克隆脚本
     cloneFile() {
         let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
-        if (this.hasFile(checkChangeSrc)) {
+        // 提供一项配置 取消每次都更新
+        if (false && this.hasFile(checkChangeSrc)) {
             let versionTrue = this.checkVersion()
             if (versionTrue) return // 版本号不变 则不更新
         }
         // 创建文件 调试 放在下面
         fs.writeFileSync(checkChangeSrc, checkHeaderString, 'utf-8')
     }
-    // 检查版本更新
+    // // 检查版本更新
     checkVersion() {
         let checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
         let oldFile = fs.readFileSync(checkChangeSrc, 'utf-8')
@@ -105,8 +102,8 @@ class PreCommit {
             this.addPreCommit()
         } else {
             // 创建文件
+            fs.writeFileSync(this.preCommitSrc, preCommitString, 'utf-8')
         }
-        fs.writeFileSync(this.preCommitSrc, preCommitString, 'utf-8')
         // 更改文件的权限 否则钩子不执行
         fs.chmodSync(this.preCommitSrc, 0o0755)
     }

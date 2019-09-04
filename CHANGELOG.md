@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-08-27 17:08:32
+ * @LastEditTime: 2019-09-04 20:42:30
  * @Description: 更新日志
  -->
 
@@ -20,7 +20,10 @@
 
 ### [V4.1.0]
 
+<!-- TODO: pre commit 完美兼容 husky-->
+
 * 文件没更改，单独按保存的时候，不再生成注释以及更新作者和编辑时间
+* 增加错误拦截
 
 ### [V4.0.0]
 

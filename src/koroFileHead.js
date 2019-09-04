@@ -2,8 +2,8 @@
  * @Description: 入口
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: Koro
- * @LastEditTime: 2019-09-01 18:41:08
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-09-04 20:42:10
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -12,16 +12,12 @@ const fs = require('fs');
 const languageOutput = require('./languageOutput');
 const PreCommit = require('./commit/precommit')
 const CONST = require('./CONST')
+require('./handleError')
 
 // 扩展激活 默认运行
 function activate(context) {
   CONST.context = context
   new PreCommit()
-  // TODO: 报错拦截 文件组织
-  // process.on('uncaughtException', function (e) {
-  //   /*处理异常*/
-  //   console.log('报错信息：', e.message)
-  // });
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
