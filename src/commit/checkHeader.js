@@ -3,13 +3,14 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-09-04 11:50:04
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-04 20:23:08
+ * LastEditTime: 2019-09-07 20:32:27
  * Description: 检查commit文件规范的js，通过字符串写入文件
  */
 const languageDiff = require('../languageDifferent')
 languageDiff.tplJudge.prototype.initConfig();
 let lastEditorName = languageDiff.tplJudge.prototype.LastEditorsName
 let lastTimeName = languageDiff.tplJudge.prototype.LastEditTimeName
+let showLog = languageDiff.tplJudge.prototype.config.configObj.commitHooks.showLog
 
 module.exports = `
 /*
@@ -18,8 +19,8 @@ module.exports = `
  * @Created_time: 2019-08-31 15:01:52
  * LastEditors: OBKoro1
  * LastEditTime: 2019-09-04 19:55:29
- * @Description: 检查commit
- * @version: 0.1.0
+ * @Description: 检测文件只有最后编辑人/最后编辑时间变更的情况下，将其恢复，并取消commit
+ * @version: 1.0.0
  */
 process.on('uncaughtException', function (e) {
     /*处理异常*/
@@ -34,11 +35,16 @@ class checkCommit {
     }
     init() {
         this.fileList = this.fileListFn()
-        console.log('文件列表', this.fileList)
+        this.showLogFn('文件列表', this.fileList)
         if (this.fileList.length > 0) {
             this.fileListHandle()
         } else {
             console.log('没有获取到要commit的文件')
+        }
+    }
+    showLogFn(...arr) {
+        if (${showLog}) {
+            console.log(...arr)
         }
     }
     fileListHandle() {
@@ -48,7 +54,7 @@ class checkCommit {
             if (isHandle) {
                 this.myExecSync('git reset HEAD ' + item)
                 this.myExecSync('git checkout -- ' + item)
-                console.log(item + '放弃修改')
+                this.showLogFn(item, '放弃修改')
             }
         }
     }
@@ -72,12 +78,12 @@ class checkCommit {
                 if (item.indexOf('${lastEditorName}') !== -1) {
                 } else if (item.indexOf('${lastTimeName}') !== -1) {
                 } else {
-                    console.log(fileName + '有LastEditors/LastEditTime之外的变更,正常commit:', item)
+                    this.showLogFn(fileName + \`有${lastEditorName}/${lastTimeName}之外的变更,正常commit:\`, item)
                     return false
                 }
             }
         }
-        console.log(fileName + '文件只有最后编辑人/最后编辑时间有变更取消commit，恢复文件', stringArr)
+        this.showLogFn(fileName + \`文件只有${lastEditorName}/${lastTimeName}有变更取消commit，恢复文件\`, stringArr)
         return true
     }
     /**

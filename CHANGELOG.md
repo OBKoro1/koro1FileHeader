@@ -3,27 +3,20 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-09-04 20:42:30
+ * @LastEditTime: 2019-09-07 18:50:43
  * @Description: 更新日志
  -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
-<!-- TODO: 读取前几行 配置 -->
-<!-- TODO: 拦截git提交 检测文件变化：https://segmentfault.com/a/1190000007820338-->
 
-<!-- 如果文件没有修改 就不更新时间 -->
-<!-- 切割文件名,以.开头的文件就不自动添加头部注释 -->
-<!-- TODO: node获取文件的修改清单 -->
-<!-- https://blog.csdn.net/weixin_34184561/article/details/87639242 -->
+<!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 
 ### [V4.1.0]
 
-<!-- TODO: pre commit 完美兼容 husky-->
-
+* 使用`process.on('uncaughtException',fn)`
 * 文件没更改，单独按保存的时候，不再生成注释以及更新作者和编辑时间
-* 增加错误拦截
 
 ### [V4.0.0]
 
