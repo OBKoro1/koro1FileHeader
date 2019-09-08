@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-09-07 18:50:43
+ * @LastEditTime: 2019-09-08 20:09:50
  * @Description: 更新日志
  -->
 
@@ -15,8 +15,20 @@
 
 ### [V4.1.0]
 
-* 使用`process.on('uncaughtException',fn)`
-* 文件没更改，单独按保存的时候，不再生成注释以及更新作者和编辑时间
+* **`pre-commit hooks`**:对改动的文件进行diff检查。
+
+    * 用于检测文件只有最后编辑人/最后编辑时间变更的情况下，将其恢复，并取消`commit`。
+    * 功能配置完整的`.git`文件夹检查，详细的控制台日志输出等。
+    * [配置、运行流程以及检测规则](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#commithooks)。
+
+* 更新最后编辑人、最后编辑时间以及自动添加注释的触发机制更改：
+
+    *  文件变更并且触发保存事件的情况下，才会触发以上事件。
+    *  之前是监听`vscode`保存事件，只要按`command`+`s`就会触发以上事件。
+
+* wiki新增[配置字段](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)，方便更快速查找配置
+    
+* 使用`process.on('uncaughtException',fn)`拦截错误, 弹窗显示，方便反馈问题
 
 ### [V4.0.0]
 
