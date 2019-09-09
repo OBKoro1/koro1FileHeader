@@ -108,7 +108,7 @@
             "colon": ": ",
             "colonObj": {},
             "commitHooks": {
-              "allowHooks": true,
+              "allowHooks": false,
               "noHooks": [
                 "项目名"
               ],
