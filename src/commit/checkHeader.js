@@ -3,7 +3,7 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-09-04 11:50:04
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-07 20:32:27
+ * LastEditTime: 2019-09-09 11:42:38
  * Description: 检查commit文件规范的js，通过字符串写入文件
  */
 const languageDiff = require('../languageDifferent')
@@ -71,7 +71,7 @@ class checkCommit {
         let regString = /\\r\\n|\\r|\\n/ // 切割换行字符串 转义\\
         let stringArr = diffString.split(regString) // 切割换行字符串
         // 检测每行字符串
-        let reg = /^[-+]$/
+        let reg = /^[-+]/ // 必须以 - 或者 + 开头
         for (let item of stringArr.values()) {
             // 检测有变更的字符串
             if (item.match(reg) !== null) {

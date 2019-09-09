@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-09-08 20:09:50
+ * @LastEditTime: 2019-09-09 11:45:03
  * @Description: 更新日志
  -->
 
@@ -12,6 +12,10 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
+
+### [V4.1.3]
+
+* 修复已知问题
 
 ### [V4.1.0]
 

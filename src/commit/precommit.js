@@ -3,7 +3,7 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-07 17:34:30
+ * LastEditTime: 2019-09-09 11:46:12
  * Description: git commit 拦截
  */
 
@@ -29,6 +29,12 @@ class PreCommit {
         this.itemPath = vscode.workspace.rootPath
         this.preCommitSrc = `${this.itemPath}/.git/hooks/pre-commit`
         this.checkChangeSrc = `${this.itemPath}/.git/hooks/fileHeader-checkChange.js`
+        const pathArr = this.itemPath.split('/');
+        const itemName = pathArr[pathArr.length - 1]; // 取/最后一位
+        let tip = `console.log('本项目(${itemName})不进行commit hooks检查 -- koroFileHeaders')`
+        fs.writeFileSync(this.checkChangeSrc, tip, 'utf-8')
+        return
+        // TODO: 暂时关闭
         this.init()
     }
     init() {
@@ -56,7 +62,14 @@ class PreCommit {
     }
     // 是否允许使用hooks
     allowHooks() {
-        return this.config.commitHooks.allowHooks
+        if (!this.config.commitHooks.allowHooks) {
+            const pathArr = this.itemPath.split('/');
+            const itemName = pathArr[pathArr.length - 1]; // 取/最后一位
+            let tip = `console.log('本项目(${itemName})不进行commit hooks检查 -- koroFileHeaders')`
+            fs.writeFileSync(this.checkChangeSrc, tip, 'utf-8')
+            return false
+        }
+        return true
     }
     /**
      * 文件是否存在
