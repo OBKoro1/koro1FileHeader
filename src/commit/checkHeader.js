@@ -3,7 +3,7 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-09-04 11:50:04
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-09 11:42:38
+ * LastEditTime: 2019-09-10 16:33:29
  * Description: 检查commit文件规范的js，通过字符串写入文件
  */
 const languageDiff = require('../languageDifferent')
@@ -64,6 +64,8 @@ class checkCommit {
      * @param {string} diffString 单个文件的diff string
      */
     checkDiff(diffString, fileName) {
+        console.log('diffString',diffString)
+        return false
         // 切割diff字符串
         let splitReg = /@@.*@@/m
         let splitArr = diffString.split(splitReg)

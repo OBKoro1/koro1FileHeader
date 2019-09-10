@@ -3,21 +3,21 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-04 20:42:10
+ * LastEditTime: 2019-09-10 16:37:46
  */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
 const fs = require('fs');
 const languageOutput = require('./languageOutput');
-const PreCommit = require('./commit/precommit')
+// const PreCommit = require('./commit/precommit')
 const CONST = require('./CONST')
 require('./handleError')
 
 // 扩展激活 默认运行
 function activate(context) {
   CONST.context = context
-  new PreCommit()
+  // new PreCommit()
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
