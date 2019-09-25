@@ -3,9 +3,15 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-09-09 14:48:12
+ * @LastEditTime: 2019-09-25 19:58:29
  * @Description: 更新日志
  -->
+
+<!-- 
+TODO: 邮件
+ 可以试着把description往前面放，看行不行。
+这个需求确实存在，可能是近两周我会支持该功能在函数注释中也能使用。
+准备也支持一下光标默认移动到description（目前只支持头部的description） -->
 
 # 更新日志
 
