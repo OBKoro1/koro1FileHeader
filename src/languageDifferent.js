@@ -19,7 +19,7 @@ function tplJudge(obj) {
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
   let res;
   if (obj.fileEnd.userLanguage) {
-    res = this.userLanguageSetFn(obj, false);
+    res = this.userLanguageSetFn(obj, '自定义语言注释');
   } else if (obj.fileEnd !== 'default_str') {
     // 匹配插件的符号
     res = this[obj.type]();
@@ -40,23 +40,39 @@ function tplJudge(obj) {
  */
 tplJudge.prototype = {
   fsPathEndFn: function (fsPath) {
+    let special
     const pathArr = fsPath.split('/');
     const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-    const fileNameArr = fileName.split('.');
-    return fileNameArr[fileNameArr.length - 1]; // 取.最后一位
+    for (let key of Object.keys(this.config.configObj.language).values()) {
+      if (key.indexOf('.') !== -1) {
+        // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
+        if (fileName.indexOf(key) !== -1 && fileName !== key) {
+          special = key
+        }
+      }
+    }
+    if (special) {
+      return special
+    } else {
+      const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
+      const fileNameArr = fileName.split('.');
+      return fileNameArr[fileNameArr.length - 1]; // 取.最后一位
+    }
+
   },
   initConfig: function (obj) {
     this.obj = obj
     this.vscode = require('vscode');
     const editor = this.vscode.editor || this.vscode.window.activeTextEditor; // 每次运行选中文件
-    this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
     this.config = this.vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
     this.annotationSymbol = this.config.configObj.annotationStr; // 默认注释配置
     this.languageObj = this.config.configObj.language; // 自定义语言项
+    this.specialLanguageObj = this.config.configObj['special.language']; // 自定义语言项
+    this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
     this.atSymbol = this.config.configObj.atSymbolObj[this.fsPath]; // @符号
     this.colon = this.config.configObj.colonObj[this.fsPath] // 冒号
     if (this.atSymbol === undefined) {
-      this.atSymbol =  this.config.configObj.atSymbol // 默认有
+      this.atSymbol = this.config.configObj.atSymbol // 默认有
     }
     if (this.colon === undefined) {
       this.colon = this.config.configObj.colon
@@ -76,8 +92,8 @@ tplJudge.prototype = {
    * @param {String} else 逻辑下需要的参数
    * @param {Boolean} isDefault 默认的注释形式和自定义的语言注释形式
    */
-  userLanguageSetFn: function (obj, isDefault = true) {
-    if (!isDefault) {
+  userLanguageSetFn: function (obj, type) {
+    if (type === '自定义语言注释') {
       // 自定义语言注释
       this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd];
     }

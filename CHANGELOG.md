@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-09-25 19:58:29
+ * @LastEditTime: 2019-09-29 21:47:10
  * @Description: 更新日志
  -->
 
@@ -13,6 +13,8 @@ TODO: 邮件
 这个需求确实存在，可能是近两周我会支持该功能在函数注释中也能使用。
 准备也支持一下光标默认移动到description（目前只支持头部的description） -->
 
+<!-- TODO: 函数参数，如果有括号， 将不再匹配，括号中的=号， -->
+
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
@@ -20,6 +22,11 @@ TODO: 邮件
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.2.0]
+
+* 特殊文件头部注释, 以及配套的注释之前 注释之后 在哪行添加注释
+* fileName字段
 
 ### [V4.1.4]
 

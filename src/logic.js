@@ -41,6 +41,13 @@ const userSet = (config, time) => {
     // 最后编辑时间
     data.LastEditTime = time
   }
+  if (data.Description !== undefined && data.Description === 'fileName') {
+    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+    const fsPath = editor._documentData._uri.fsPath; // 文件路径
+    const pathArr = fsPath.split('/');
+    const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
+    data.Description = fileName
+  }
   return data;
 };
 
@@ -149,16 +156,23 @@ function saveReplaceTime(document, config, fileEnd) {
 
 /**
  * @description: 取出文件后缀
- * @param {String} fsPath 文件路径
+ * @param { String } 文件后缀
  * @param {Object} config 用户设置
- * @return: [生成注释的行数,注释之前添加的内容]
+ * @return: [生成注释的行数,注释之前添加的内容,注释之前添加的内容]
  */
 const editLineFn = (fsPath, config) => {
-  // 切割文件路径 获取文件后缀
+  // TODO: 必须要在language 声明
   const pathArr = fsPath.split('/');
   const fileName = pathArr[pathArr.length - 1];
   const fileNameArr = fileName.split('.');
-  const fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
+  let fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
+  let isSpecial = util.specialLanguageFn(fsPath, config)
+  // 特殊文件
+  if(isSpecial){
+    fileEnd = isSpecial
+  }
+
+  // 切割文件路径 获取文件后缀
   const headInsertLineObj = config.configObj.headInsertLine;
   let lineNum = 0;
   if (headInsertLineObj[fileEnd]) {
@@ -214,7 +228,7 @@ const handleTplFn = (beforehand) => {
     res = `${beforehand.beforeAnnotation}\n${res}`;
   }
   if (beforehand.afterAnnotation) {
-    res = `${res}\n${beforehand.afterAnnotation}`;
+    res = `${res}${beforehand.afterAnnotation}\n`;
   }
   return res
 }

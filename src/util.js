@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-08-08 13:47:30
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-09-29 17:49:00
  */
 
 const vscode = require('vscode');
@@ -83,8 +83,11 @@ const fsPathFn = fsPath => {
   return fileNameArr[fileNameArr.length - 1]; // 取.最后一位
 };
 
+
+
 /**
  * 以哪种形式生成注释
+ * 项目使用特殊库/规则，导致文件语言跟注释形式不匹配情况
  * 1. 用户定义的语言符号
  * 2. 插件自带的语言符号
  * 3. 无法识别的语言 默认的注释符号
@@ -94,6 +97,16 @@ const fileEndMatch = fileEnd => {
   const language = config.configObj.language; // 自定义语言项
   const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
   let fsName = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
+
+  // 特殊文件
+  let isSpecial = specialLanguageFn(editor._documentData._uri.fsPath, config)
+  if (isSpecial) {
+    return {
+      fileEnd: isSpecial,
+      userLanguage: true // 使用用户的配置
+    }
+  }
+
   // 检查用户是否设自定义语言 匹配语言
   if (language[fileEnd]) {
     return {
@@ -128,6 +141,22 @@ const fileEndMatch = fileEnd => {
   return 'default_str';
 };
 
+
+// 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同
+function specialLanguageFn(fsPath, config) {
+  config = config.configObj['language']; // 自定义语言项
+  const pathArr = fsPath.split('/');
+  const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
+  for (let key of Object.keys(config).values()) {
+    if (key.indexOf('.') !== -1) {
+      // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
+      if (fileName.indexOf(key) !== -1 && fileName !== key) {
+        return key
+      }
+    }
+  }
+}
+
 // 修改内容保存编辑器
 const saveEditor = (editor, callBack) => {
   setTimeout(() => {
@@ -149,5 +178,6 @@ module.exports = {
   throttle,
   fileEndMatch,
   fsPathFn,
-  saveEditor
+  saveEditor,
+  specialLanguageFn
 };

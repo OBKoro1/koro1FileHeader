@@ -92,8 +92,10 @@
             "headInsertLine": {
               "php": 2
             },
-            "beforeAnnotation": {},
-            "afterAnnotation": {},
+            "beforeAnnotation": {
+            },
+            "afterAnnotation": {
+            },
             "specialOptions": {},
             "switch": {
               "newlineAddAnnotation": true

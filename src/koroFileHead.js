@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-10 16:37:46
+ * LastEditTime: 2019-09-29 20:37:08
  */
 const vscode = require('vscode');
 const util = require('./util');
@@ -31,6 +31,9 @@ function activate(context) {
             vscode.window.activeTextEditor._documentData._document.fileName;
           time = new Date(fs.statSync(filepath).birthtime).format(config);
         }
+        // 文件后缀
+        let fileEnd = editor._documentData._languageId; // 语言
+        fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
         // 返回生成模板的数据对象
         let data = logic.userSet(config, time);
         data = logic.changePrototypeNameFn(data, config)
@@ -38,9 +41,6 @@ function activate(context) {
           editor._documentData._uri.fsPath,
           config
         );
-        // 文件后缀
-        let fileEnd = editor._documentData._languageId; // 语言
-        fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
         // 生成
         let tpl = languageOutput.headNotes(data, fileEnd, config);
         // 预处理的参数
@@ -49,7 +49,7 @@ function activate(context) {
           beforeAnnotation,
           afterAnnotation,
         }
-        tpl = logic.handleTplFn(beforehand, config)
+        tpl = logic.handleTplFn(beforehand, fileEnd, config)
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
         setTimeout(() => {
           editor.document.save()
@@ -95,7 +95,6 @@ function activate(context) {
           nextLine,
           frontStr
         ).generate(); // 函数注释的模板字符串
-        // let tpl = new util.fontTemplate(fontTpl).render(data); // 生成模板
         editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
       });
     } catch (err) {
@@ -145,19 +144,6 @@ function activate(context) {
         lastTimeText,
         hasAnnotation
       ] = logic.saveReplaceTime(document, config, fileEnd);
-      // 检测文件注释,自动添加注释
-      if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
-        // 文件没被添加进黑名单
-        if (!hasAnnotation && config.configObj.autoAdd) {
-          // 只自动添加支持的语言
-          if (config.configObj.autoAlready) {
-            fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
-          } else {
-            fileheaderFn(); // 任何文件自动添加头部注释
-          }
-        }
-      }
-
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
         util.saveEditor(editor, (edit) => {
@@ -176,6 +162,21 @@ function activate(context) {
           edit.replace(authorRange, authorText);
         })
       }
+      setTimeout(() => {
+        // 检测文件注释,自动添加注释
+        if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
+          // 文件没被添加进黑名单
+          if (!hasAnnotation && config.configObj.autoAdd) {
+            // 只自动添加支持的语言
+            if (config.configObj.autoAlready) {
+              fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
+            } else {
+              fileheaderFn(); // 任何文件自动添加头部注释
+            }
+          }
+        }
+      }, 500)
+
     }
   });
 }
