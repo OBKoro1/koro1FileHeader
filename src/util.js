@@ -3,53 +3,12 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-29 17:49:00
+ * LastEditTime: 2019-10-08 15:57:34
  */
 
 const vscode = require('vscode');
 const moment = require('moment');
 
-// 模板
-function fontTemplate(tpl) {
-  let fn,
-    match,
-    code = [
-      "let r=[];\nlet _html = function (str) { return str.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };"
-    ],
-    // 取出由&包裹的属性名 替换为值
-    re = /\&\s*([\S]+)?\s*\&/m,
-    addLine = function (text) {
-      code.push(
-        "r.push('" +
-        text
-          .replace(/\'/g, "\\'")
-          .replace(/\n/g, '\\n')
-          .replace(/\r/g, '\\r') +
-        "');"
-      );
-    };
-  while ((match = re.exec(tpl))) {
-    if (match.index > 0) {
-      addLine(tpl.slice(0, match.index));
-    }
-    if (match[2]) {
-      code.push('r.push(String(this.' + match[1] + '));');
-    } else {
-      code.push('r.push(_html(String(this.' + match[1] + ')));');
-    }
-    tpl = tpl.substring(match.index + match[0].length);
-  }
-  addLine(tpl);
-  code.push("return r.join('');");
-  console.log(JSON.stringify(code), 'code')
-  // console.log(code.join('\n'),'111')
-  fn = new Function(code.join('\n'));
-  console.log(fn, 'fn')
-  this.render = function (model) {
-    // 采用配置数据
-    return fn.apply(model);
-  };
-}
 
 /**
  * @description: 节流函数 单位时间内有事件被多次触发则，只生效一次
@@ -138,7 +97,7 @@ const fileEndMatch = fileEnd => {
     }
   }
   // 默认注释符号
-  return 'default_str';
+  return '匹配不到_默认注释';
 };
 
 
@@ -173,8 +132,20 @@ Date.prototype.format = function () {
   return moment(this).format(config.configObj.dateFormat)
 };
 
+/**
+ * 切割特殊字符串生成空行
+ * @param {string} tpl 生成的模板
+ */
+const replaceSymbolStr = (tpl) => {
+  let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1');
+  if (sinceOut !== -1) {
+    tpl = tpl.replace('symbol_custom_string_obkoro1: ', '')
+  }
+  return tpl
+}
+
 module.exports = {
-  fontTemplate,
+  replaceSymbolStr,
   throttle,
   fileEndMatch,
   fsPathFn,

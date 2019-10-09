@@ -8,6 +8,7 @@
 const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
 const util = require('./util');
+const fs = require('fs');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -15,7 +16,7 @@ const util = require('./util');
  * @param {String} time 文件创建时间
  * @return: 返回生成模板的数据对象
  */
-const userSet = (config, time) => {
+const userSet = (config) => {
   const userObj = config.customMade;
 
   let data = {};
@@ -33,21 +34,7 @@ const userSet = (config, time) => {
     // 如果用户设置了模板，那将默认根据用户设置模板
     data = Object.assign({}, userObj); // 复制对象，否则对象不能更改值
   }
-  // 判断是否设置
-  if (data.Date !== undefined) {
-    data.Date = time;
-  }
-  if (data.LastEditTime !== undefined) {
-    // 最后编辑时间
-    data.LastEditTime = time
-  }
-  if (data.Description !== undefined && data.Description === 'fileName') {
-    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-    const fsPath = editor._documentData._uri.fsPath; // 文件路径
-    const pathArr = fsPath.split('/');
-    const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-    data.Description = fileName
-  }
+  data = changeDataOptionFn(data, config)
   return data;
 };
 
@@ -168,7 +155,7 @@ const editLineFn = (fsPath, config) => {
   let fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
   let isSpecial = util.specialLanguageFn(fsPath, config)
   // 特殊文件
-  if(isSpecial){
+  if (isSpecial) {
     fileEnd = isSpecial
   }
 
@@ -206,6 +193,87 @@ const changePrototypeNameFn = (data, config) => {
   })
   return objData
 }
+/**
+ * 修改时间，描述等配置值
+ * @param {object} data 配置项
+ */
+function changeDataOptionFn(data, config) {
+  let time = new Date().format();
+  // 文件创建时间
+  if (config.configObj.createFileTime) {
+    // 获取当前激活文件的路径
+    const filePath =
+      vscode.window.activeTextEditor._documentData._document.fileName;
+    time = new Date(fs.statSync(filePath).birthtime).format();
+  }
+  // 判断是否设置
+  if (data.Date !== undefined) {
+    data.Date = time;
+  }
+  if (data.LastEditTime !== undefined) {
+    // 最后编辑时间
+    data.LastEditTime = time
+  }
+  // 自动添加文件名字
+  if (data.Description !== undefined && data.Description === 'fileName') {
+    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+    const fsPath = editor._documentData._uri.fsPath; // 文件路径
+    const pathArr = fsPath.split('/');
+    const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
+    data.Description = fileName
+  }
+  data = changePrototypeNameFn(data, config)
+  return data
+}
+
+/**
+ * 函数注释，更改值, 
+ * @Created_time: 2019-05-07 19:36:20
+ * @return {Object} 更换字段后的对象 
+ */
+const cursorOptionHandleFn = (config) => {
+  let data = {}
+  let userSet = Object.keys(config.cursorMode);
+  if (userSet.length === 0) {
+    data = {
+      description: '',
+      param: '',
+      return: ''
+    };
+  } else {
+    // 如果用户设置了模板，那将默认根据用户设置模板
+    data = Object.assign({}, config.cursorMode); // 复制对象，否则对象不能更改值
+  }
+  if (data.Date !== undefined) {
+    data.Date = new Date().format();
+  }
+  data = changNameFn(data, config)
+  return data
+}
+
+/**
+ * 更改字段，不改变他们的顺序
+ * @param {obeject} data 函数模板配置 
+ * @param {*} config 顶层配置
+ */
+function changNameFn(data, config) {
+  let keysArr = Object.keys(data);
+  let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
+  let objData = {};
+  // 支持日期和描述
+  let specialArr = ['Date', 'Description']
+  keysArr.forEach((item) => {
+    if (specialArr.includes(item) && specialOptions[item]) {
+      // 特殊字段重新赋值
+      objData[specialOptions[item]] = data[item]
+    } else if (item === 'custom_string_obkoro1') {
+      objData.symbol_custom_string_obkoro1 = data[item]
+    } else {
+      objData[item] = data[item]
+    }
+  })
+  return objData
+}
 
 /**
  * @description: 处理生成的模板 比如添加信息，删除信息等。
@@ -217,13 +285,7 @@ const changePrototypeNameFn = (data, config) => {
  * @Created_time: 2019-05-14 14:25:26
  */
 const handleTplFn = (beforehand) => {
-  let res = beforehand.tpl
-  // 切割用户自定义输出字段的属性名
-  let sinceOut = res.indexOf('symbol_custom_string_obkoro1');
-  if (sinceOut !== -1) {
-    res = res.replace('symbol_custom_string_obkoro1: ', '')
-  }
-
+  let res = util.replaceSymbolStr(beforehand.tpl)
   if (beforehand.beforeAnnotation) {
     res = `${beforehand.beforeAnnotation}\n${res}`;
   }
@@ -242,6 +304,46 @@ const isMatchProhibit = (fsPath, config) => {
     match = prohibit.includes(fsName)
   }
   return match
+}
+
+/**
+ * @description: 函数注释移动光标到description所在行
+ * @param {String} tpl 最终要生成的模板
+ * @Created_time: 2019-06-18 14:28:13
+ */
+const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
+  // 生成Description行
+  const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
+  const specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
+  const DescriptionName = specialOptions.Description
+    ? specialOptions.Description
+    : 'Description';
+  let data = {
+    [DescriptionName]: '',
+  }
+  let str = languageOutput.middleTpl(data, fileEnd, config)
+  str = str.trim()
+  // 计算函数注释模板行数
+  let newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1
+  let i = lineNum - 1 // 初始行数
+  let descriptionLineNum; // 目标行
+  for (i < i + newLineNum; i++;) {
+    let line = editor.document.lineAt(i);
+    let lineNoTrim = line.text; // line 
+    if (lineNoTrim.indexOf(str) !== -1) {
+      descriptionLineNum = i
+      break
+    }
+    if (editor.document.lineCount - 1 === i) break // 总行数
+  }
+  // 没有Description 则不移动视图
+  if (descriptionLineNum === undefined) {
+    return
+  }
+  // 移动光标到指定行数
+  const position = editor.selection.active;
+  var newPosition = position.with(descriptionLineNum, 10000);
+  editor.selection = new vscode.Selection(newPosition, newPosition);
 }
 
 /**
@@ -290,9 +392,10 @@ module.exports = {
   userSet,
   lineSpaceFn,
   saveReplaceTime,
+  cursorOptionHandleFn,
   editLineFn,
-  changePrototypeNameFn,
   handleTplFn,
   isMatchProhibit,
-  moveCursor
+  moveCursor,
+  moveCursorDesFn
 };

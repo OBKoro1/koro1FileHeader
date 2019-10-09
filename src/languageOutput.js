@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-08-06 17:01:33
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-10-09 13:48:56
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
@@ -66,7 +66,8 @@ class functionTplStr {
     Object.keys(this.data).forEach(key => {
       this.strContent += this.paramStr(key);
     });
-    return this.mergeStr();
+    this.tpl = this.mergeStr();
+    return this.replaceSymbolStr(this.tpl)
   }
 
   /**
@@ -103,6 +104,14 @@ class functionTplStr {
       obj.type = 'topHeadEnd_nextLineYes';
     }
     return new languageDifferent.tplJudge(obj).res;
+  }
+  // 切割特殊字符串生成空行
+  replaceSymbolStr(tpl) {
+    let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1');
+    if (sinceOut !== -1) {
+      tpl = tpl.replace('symbol_custom_string_obkoro1: ', '')
+    }
+    return tpl
   }
 }
 
@@ -148,7 +157,7 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
     // 匹配用户定义语言符号
     if (fileEnd.userLanguage) {
       middle = config.configObj.language[fileEnd.fileEnd].middle
-    } else if (fileEnd !== 'default_str') {
+    } else if (fileEnd !== '匹配不到_默认注释') {
       // 匹配插件的符号
       middle = constFile.middleAnnotation[fileEnd]
     } else if (config.configObj.annotationStr.use) {
@@ -174,5 +183,6 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
 module.exports = {
   headNotes,
   functionTplStr,
-  changeFont
+  changeFont,
+  middleTpl
 };

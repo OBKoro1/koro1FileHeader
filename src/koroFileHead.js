@@ -3,12 +3,11 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors: OBKoro1
- * LastEditTime: 2019-09-29 20:37:08
+ * LastEditTime: 2019-10-09 14:21:28
  */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
-const fs = require('fs');
 const languageOutput = require('./languageOutput');
 // const PreCommit = require('./commit/precommit')
 const CONST = require('./CONST')
@@ -23,20 +22,11 @@ function activate(context) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
     editor.edit(editBuilder => {
       try {
-        let time = new Date().format(config);
-        // 文件创建时间
-        if (config.configObj.createFileTime) {
-          // 获取当前激活文件的路径
-          const filepath =
-            vscode.window.activeTextEditor._documentData._document.fileName;
-          time = new Date(fs.statSync(filepath).birthtime).format(config);
-        }
         // 文件后缀
         let fileEnd = editor._documentData._languageId; // 语言
         fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
         // 返回生成模板的数据对象
-        let data = logic.userSet(config, time);
-        data = logic.changePrototypeNameFn(data, config)
+        let data = logic.userSet(config);
         const [lineNum, beforeAnnotation, afterAnnotation] = logic.editLineFn(
           editor._documentData._uri.fsPath,
           config
@@ -69,26 +59,8 @@ function activate(context) {
       fileEnd = util.fileEndMatch(fileEnd);
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
       editor.edit(editBuilder => {
-        let [data, fontTpl] = [{}, ''];
-        let userSet = Object.keys(config.cursorMode);
-        if (userSet.length === 0) {
-          data = {
-            description: '',
-            param: '',
-            return: ''
-          };
-        } else {
-          // 如果用户设置了模板，那将默认根据用户设置模板
-          data = Object.assign({}, config.cursorMode); // 复制对象，否则对象不能更改值
-        }
-        // 函数注释生成时间
-        if (data.Date !== undefined) {
-          delete data.Date;
-          let DateName = config.configObj.specialOptions.Date;
-          DateName = DateName ? DateName : `Date`;
-          data[DateName] = new Date().format();
-        }
-        fontTpl = new languageOutput.functionTplStr(
+        let data = logic.cursorOptionHandleFn(config)
+        let fontTpl = new languageOutput.functionTplStr(
           data,
           fileEnd,
           lineSpace,
@@ -96,6 +68,9 @@ function activate(context) {
           frontStr
         ).generate(); // 函数注释的模板字符串
         editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
+        setTimeout(()=>{
+          logic.moveCursorDesFn(fileEnd, config, fontTpl, line)
+        }, 100)
       });
     } catch (err) {
       console.log('函数注释错误信息：', err);
@@ -152,7 +127,6 @@ function activate(context) {
         })
       } else if (lastTimeRange !== undefined) {
         // 只变更最后编辑时间
-
         util.saveEditor(editor, (edit) => {
           edit.replace(lastTimeRange, lastTimeText);
         })
@@ -162,14 +136,14 @@ function activate(context) {
           edit.replace(authorRange, authorText);
         })
       }
+      // 检测文件注释,自动添加注释
       setTimeout(() => {
-        // 检测文件注释,自动添加注释
         if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
           // 文件没被添加进黑名单
           if (!hasAnnotation && config.configObj.autoAdd) {
             // 只自动添加支持的语言
             if (config.configObj.autoAlready) {
-              fileEnd !== 'default_str' && fileheaderFn(); // 支持语言
+              fileEnd !== '匹配不到_默认注释' && fileheaderFn(); // 支持语言
             } else {
               fileheaderFn(); // 任何文件自动添加头部注释
             }

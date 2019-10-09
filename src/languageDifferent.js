@@ -20,7 +20,7 @@ function tplJudge(obj) {
   let res;
   if (obj.fileEnd.userLanguage) {
     res = this.userLanguageSetFn(obj, '自定义语言注释');
-  } else if (obj.fileEnd !== 'default_str') {
+  } else if (obj.fileEnd !== '匹配不到_默认注释') {
     // 匹配插件的符号
     res = this[obj.type]();
   } else if (this.annotationSymbol.use) {
@@ -94,7 +94,6 @@ tplJudge.prototype = {
    */
   userLanguageSetFn: function (obj, type) {
     if (type === '自定义语言注释') {
-      // 自定义语言注释
       this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd];
     }
     const userObj = {
