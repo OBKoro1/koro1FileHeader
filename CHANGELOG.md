@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-10-20 18:09:43
+ * @LastEditTime: 2019-10-20 18:59:12
  * @Description: 更新日志
  -->
 
@@ -23,7 +23,7 @@ TODO: 邮件
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
 
-### [V4.2.0]
+### [V4.2.1]
 
 * 新增`FilePath`字段: 生成头部注释时，自动添加[文件相对于当前项目的文件路径](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
 * [有特殊要求的文件注释](https://github.com/OBKoro1/koro1FileHeader/wiki/配置#有特殊要求的文件注释): 特殊文件头部注释, 以及配套的在注释之前/之后添加内容、指定行数前添加注释
