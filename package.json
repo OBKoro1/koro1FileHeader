@@ -108,14 +108,7 @@
             "atSymbol": "@",
             "atSymbolObj": {},
             "colon": ": ",
-            "colonObj": {},
-            "commitHooks": {
-              "allowHooks": false,
-              "noHooks": [
-                "项目名"
-              ],
-              "showLog": true
-            }
+            "colonObj": {}
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }

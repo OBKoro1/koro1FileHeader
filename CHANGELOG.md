@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-10-09 16:54:58
+ * @LastEditTime: 2019-10-20 18:09:43
  * @Description: 更新日志
  -->
 
@@ -25,12 +25,13 @@ TODO: 邮件
 
 ### [V4.2.0]
 
-* 特殊文件头部注释, 以及配套的注释之前/之后添加内容、在指定行数前添加注释
-* fileName字段
-* 移动光标到函数注释的描述上。
-* 新增函数注释输出自定义信息。
+* 新增`FilePath`字段: 生成头部注释时，自动添加[文件相对于当前项目的文件路径](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
+* [有特殊要求的文件注释](https://github.com/OBKoro1/koro1FileHeader/wiki/配置#有特殊要求的文件注释): 特殊文件头部注释, 以及配套的在注释之前/之后添加内容、指定行数前添加注释
+* 支持[移动光标](https://github.com/OBKoro1/koro1FileHeader/wiki/配置#移动光标到description-所在行)到函数注释的`Description`上。
+* 新增函数注释输出[自定义信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#7-%E5%9C%A8%E6%B3%A8%E9%87%8A%E4%B8%AD%E8%BE%93%E5%87%BA%E4%B8%80%E6%AE%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)(`custom_string_obkoro1`)。
 * 修复函数注释`Date`字段默认为字段顺序问题。
 * 修复自动添加注释, 插入顺序混乱的问题。
+* 修复readme文档中的快捷键错误
 
 ### [V4.1.4]
 

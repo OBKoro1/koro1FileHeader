@@ -24,11 +24,12 @@ const userSet = (config) => {
   if (userSet.length === 0) {
     // 默认模板
     data = {
-      Description: 'In User Settings Edit',
       Author: 'your name',
       Date: '',
       LastEditTime: '',
-      LastEditors: 'your name'
+      LastEditors: 'your name',
+      Description: 'In User Settings Edit',
+      FilePath: '',
     };
   } else {
     // 如果用户设置了模板，那将默认根据用户设置模板
@@ -135,6 +136,10 @@ function saveReplaceTime(document, config, fileEnd) {
       } else if (checkHasAnnotation('Date', line)) {
         hasAnnotation = true;
       }
+      // 检测是否有头部注释
+      //  else if(checkHasAnnotation('FilePath',line)){
+      //   hasAnnotation = true;
+      // }
     }
     if (totalLine === i) break; // 行数不够则退出循环
   }
@@ -148,7 +153,6 @@ function saveReplaceTime(document, config, fileEnd) {
  * @return: [生成注释的行数,注释之前添加的内容,注释之前添加的内容]
  */
 const editLineFn = (fsPath, config) => {
-  // TODO: 必须要在language 声明
   const pathArr = fsPath.split('/');
   const fileName = pathArr[pathArr.length - 1];
   const fileNameArr = fileName.split('.');
@@ -179,7 +183,7 @@ const changePrototypeNameFn = (data, config) => {
   let keysArr = Object.keys(data);
   let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   let objData = {};
-  let specialArr = ['Date', 'LastEditTime', 'LastEditors', 'Description']
+  let specialArr = ['Date', 'LastEditTime', 'LastEditors', 'Description', 'FilePath']
   keysArr.forEach((item) => {
     // 特殊字段 且 有设置特殊字段
     if (specialArr.includes(item) && specialOptions[item]) {
@@ -201,7 +205,6 @@ function changeDataOptionFn(data, config) {
   let time = new Date().format();
   // 文件创建时间
   if (config.configObj.createFileTime) {
-    // 获取当前激活文件的路径
     const filePath =
       vscode.window.activeTextEditor._documentData._document.fileName;
     time = new Date(fs.statSync(filePath).birthtime).format();
@@ -210,17 +213,23 @@ function changeDataOptionFn(data, config) {
   if (data.Date !== undefined) {
     data.Date = time;
   }
+  // 当前时间为最后编辑时间
   if (data.LastEditTime !== undefined) {
-    // 最后编辑时间
-    data.LastEditTime = time
+    data.LastEditTime =  new Date().format();
   }
-  // 自动添加文件名字
-  if (data.Description !== undefined && data.Description === 'fileName') {
+  // 自动添加文件路径
+  if (data.FilePath !== undefined) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-    const fsPath = editor._documentData._uri.fsPath; // 文件路径
-    const pathArr = fsPath.split('/');
-    const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-    data.Description = fileName
+    let fsPath = editor._documentData._uri.fsPath; // 文件路径
+    const itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
+    // 文件路径以项目路径为开头
+    if(fsPath.padStart(itemPath)){
+      let itemNameArr = itemPath.split('/');
+      let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
+      fsPath =  fsPath.replace(itemPath ,'')
+      fsPath = `/${itemName}${fsPath}` // 拼接项目名称和相对于项目的路径
+    }
+    data.FilePath = fsPath
   }
   data = changePrototypeNameFn(data, config)
   return data
@@ -313,6 +322,7 @@ const isMatchProhibit = (fsPath, config) => {
  */
 const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   // 生成Description行
+  if (!config.configObj.moveCursor) return
   const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
   const specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   const DescriptionName = specialOptions.Description
