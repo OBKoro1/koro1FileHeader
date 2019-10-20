@@ -4,7 +4,7 @@
 
 ### 使用效果：
 
-![](https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/master/images/updateTime.gif)
+![](https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/master/images/example.gif)
 
 ## 简介
 
