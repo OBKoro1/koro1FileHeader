@@ -215,7 +215,7 @@ function changeDataOptionFn(data, config) {
   }
   // 当前时间为最后编辑时间
   if (data.LastEditTime !== undefined) {
-    data.LastEditTime =  new Date().format();
+    data.LastEditTime = new Date().format();
   }
   // 自动添加文件路径
   if (data.FilePath !== undefined) {
@@ -223,12 +223,10 @@ function changeDataOptionFn(data, config) {
     let fsPath = editor._documentData._uri.fsPath; // 文件路径
     const itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
     // 文件路径以项目路径为开头
-    if(fsPath.padStart(itemPath)){
-      let itemNameArr = itemPath.split('/');
-      let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
-      fsPath =  fsPath.replace(itemPath ,'')
-      fsPath = `/${itemName}${fsPath}` // 拼接项目名称和相对于项目的路径
-    }
+    let itemNameArr = itemPath.split('/');
+    let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
+    fsPath = fsPath.replace(itemPath, '')
+    fsPath = `/${itemName}${fsPath}` // 拼接项目名称和相对于项目的路径
     data.FilePath = fsPath
   }
   data = changePrototypeNameFn(data, config)
