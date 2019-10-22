@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-10-21 17:36:45
+ * @LastEditTime: 2019-10-22 13:26:42
  * @Description: 更新日志
  -->
 
@@ -22,6 +22,11 @@ TODO: 邮件
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.2.3]
+
+* 新增`FilePath`去掉项目名称的[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
+* 修复`FilePath`在window下的路径问题。
 
 ### [V4.2.2]
 

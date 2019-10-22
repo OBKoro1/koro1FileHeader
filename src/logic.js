@@ -9,6 +9,7 @@ const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
 const util = require('./util');
 const fs = require('fs');
+const path = require('path');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -222,12 +223,16 @@ function changeDataOptionFn(data, config) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
     let fsPath = editor._documentData._uri.fsPath; // 文件路径
     const itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
-    // 文件路径以项目路径为开头
-    let itemNameArr = itemPath.split('/');
+    // 获取项目名称
+    // path.sep window: \ mac: /
+    let itemNameArr = itemPath.split(path.sep);
     let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
-    fsPath = fsPath.replace(itemPath, '')
-    fsPath = `/${itemName}${fsPath}` // 拼接项目名称和相对于项目的路径
-    data.FilePath = fsPath
+    let fileItemPath = fsPath.replace(itemPath, '')
+    let res = `${path.sep}${itemName}${fileItemPath}` // 拼接项目名称和相对于项目的路径
+    if(data.FilePath === 'no item name'){
+      res = `${fileItemPath}`
+    }
+    data.FilePath = res
   }
   data = changePrototypeNameFn(data, config)
   return data
