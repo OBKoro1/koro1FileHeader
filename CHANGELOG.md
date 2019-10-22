@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-10-22 13:26:42
+ * @LastEditTime: 2019-10-22 16:14:27
  * @Description: 更新日志
  -->
 
@@ -14,6 +14,7 @@ TODO: 邮件
 准备也支持一下光标默认移动到description（目前只支持头部的description） -->
 
 <!-- TODO: 函数参数，如果有括号， 将不再匹配，括号中的=号， -->
+<!-- TODO: 空文件/文件小于一定行数自动添加文件注释 -->
 
 # 更新日志
 
