@@ -2,20 +2,20 @@
  * @Description: 入口
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors: OBKoro1
- * LastEditTime: 2019-10-09 14:21:28
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-11-02 18:59:50
  */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
 const languageOutput = require('./languageOutput');
 // const PreCommit = require('./commit/precommit')
-const CONST = require('./CONST')
-require('./handleError')
+const global = require('./CONST')
+const handleError = require('./handleError')
 
 // 扩展激活 默认运行
 function activate(context) {
-  CONST.context = context
+  global.context = context
   // new PreCommit()
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
@@ -46,7 +46,7 @@ function activate(context) {
           logic.moveCursor(tpl)
         }, 200)
       } catch (err) {
-        console.log('头部注释错误:', err);
+        handleError.showErrorMessage(err)
       }
     });
   };
@@ -73,7 +73,7 @@ function activate(context) {
         }, 100)
       });
     } catch (err) {
-      console.log('函数注释错误信息：', err);
+      handleError.showErrorMessage(err)
     }
   };
 
@@ -103,7 +103,7 @@ function activate(context) {
         documentSaveFn();
       }
     } catch (err) {
-      console.log('保存文件:', err);
+      handleError.showErrorMessage(err)
     }
 
     function documentSaveFn() {
@@ -138,16 +138,17 @@ function activate(context) {
       }
       // 检测文件注释,自动添加注释
       setTimeout(() => {
-        if (!logic.isMatchProhibit(editor._documentData._uri.fsPath, config)) {
-          // 文件没被添加进黑名单
-          if (!hasAnnotation && config.configObj.autoAdd) {
-            // 只自动添加支持的语言
-            if (config.configObj.autoAlready) {
-              fileEnd !== '匹配不到_默认注释' && fileheaderFn(); // 支持语言
-            } else {
-              fileheaderFn(); // 任何文件自动添加头部注释
-            }
-          }
+        let params = {
+          fsPath: editor._documentData._uri.fsPath,
+          lineCount: editor.document.lineCount,
+          fileEnd,
+          hasAnnotation,
+          config
+        }
+        let isAutoAdd = logic.isAutoAddFn(params)
+        if(isAutoAdd){
+          global.autoAddFiles.push(params.fsPath)
+          fileheaderFn();
         }
       }, 500)
 

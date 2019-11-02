@@ -10,6 +10,7 @@ const languageOutput = require('./languageOutput');
 const util = require('./util');
 const fs = require('fs');
 const path = require('path');
+const global = require('./CONST')
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -307,6 +308,7 @@ const handleTplFn = (beforehand) => {
   return res
 }
 
+
 // 自动添加是否匹配黑名单
 const isMatchProhibit = (fsPath, config) => {
   let match = false;
@@ -316,6 +318,33 @@ const isMatchProhibit = (fsPath, config) => {
     match = prohibit.includes(fsName)
   }
   return match
+}
+
+/**
+ * @description: 逻辑判断
+ * @param {Object} params
+ * @param {Number} params.lineCount 文件行数
+ * @param {String} params.fsPath 文件路径
+ * @param {String} params.fileEnd 文件后缀
+ * @param {Boolean} params.hasAnnotation 文件是否已有头部注释
+ * @param {Object} params.config 插件配置
+ * @Created_time: 2019-11-02 17:12:51
+ * @return {Boolean} 是否自动添加
+ */
+const isAutoAddFn = (params)=>{
+  // 文件超过一定行数时 不自动添加头部注释
+  if(params.config.configObj.autoAddLine < params.lineCount) return false
+  if(!params.config.configObj.autoAdd) return false // 关闭自动添加
+  if(params.hasAnnotation) return false // 文件已经有注释
+  const hasAddProhibit = isMatchProhibit(params.fsPath, params.config)
+  if(hasAddProhibit) return false // 被添加进黑名单
+  // 曾经自动添加过头部注释 不再添加
+  if(global.autoAddFiles.includes(params.fsPath)) return false 
+  if(params.config.configObj.autoAlready && params.fileEnd === '匹配不到_默认注释'){
+    // 只自动添加支持的语言 该文件不是插件支持的语言
+    return false
+  }
+  return true // 自动添加
 }
 
 /**
@@ -408,7 +437,7 @@ module.exports = {
   cursorOptionHandleFn,
   editLineFn,
   handleTplFn,
-  isMatchProhibit,
+  isAutoAddFn,
   moveCursor,
   moveCursorDesFn
 };
