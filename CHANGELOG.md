@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-11-02 19:18:01
+ * @LastEditTime: 2019-11-04 11:01:48
  * @Description: 更新日志
  -->
 
@@ -27,7 +27,7 @@ TODO: 邮件
 
 ### [V4.3.0]
 
-* [只允许文件自动添加头部注释一次](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%87%E4%BB%B6%E8%B6%85%E8%BF%87%E4%B8%80%E5%AE%9A%E8%A1%8C%E6%95%B0%E4%B8%8D%E5%86%8D%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)(默认为100行)。
+* [文件超过一定行数不再自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%87%E4%BB%B6%E8%B6%85%E8%BF%87%E4%B8%80%E5%AE%9A%E8%A1%8C%E6%95%B0%E4%B8%8D%E5%86%8D%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)(默认为100行)。
 * 只允许文件自动添加头部注释一次:
 
   **如果某个文件曾经自动添加过头部注释，那么插件会记录该文件的路径，在这次VsCode编辑器关闭前，都将不再允许该文件自动添加头部注释**。
@@ -35,6 +35,7 @@ TODO: 邮件
   有时候我们并不希望该文件自动添加头部注释，删除也没有用，它会一直手动添加，该功能就是为了用于防止这种情况的。
   
 * 通过`showErrorMessage`抛出错误到用户界面。
+
 ### [V4.2.3]
 
 * 新增`FilePath`去掉项目名称的[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
