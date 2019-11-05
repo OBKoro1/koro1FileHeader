@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-11-04 11:01:48
+ * @LastEditTime: 2019-11-05 21:02:00
  * @Description: 更新日志
  -->
 
@@ -24,6 +24,11 @@ TODO: 邮件
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.3.1]
+
+* `filePathColon`: [修改`FilePath`的路径分隔符](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepathcolon-%E4%BF%AE%E6%94%B9%E8%B7%AF%E5%BE%84%E5%88%86%E9%9A%94%E7%AC%A6)
+* [隐藏插件抛出的错误通知](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E9%9A%90%E8%97%8F%E6%8F%92%E4%BB%B6%E6%8A%9B%E5%87%BA%E7%9A%84%E9%94%99%E8%AF%AF%E9%80%9A%E7%9F%A5)
 
 ### [V4.3.0]
 

@@ -233,6 +233,10 @@ function changeDataOptionFn(data, config) {
     if(data.FilePath === 'no item name'){
       res = `${fileItemPath}`
     }
+    if(config.configObj.filePathColon !== '路径分隔符替换'){
+      const reg =  new RegExp(path.sep, 'g')
+      res =  res.replace(reg, config.configObj.filePathColon)
+    }
     data.FilePath = res
   }
   data = changePrototypeNameFn(data, config)
