@@ -6,8 +6,10 @@ about: Create a report to help us improve
 
 ### 注意： 
 
-1. 提bug之前，请认真阅读[配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)、然后搜一搜以前关闭的issue看有没有相似的问题可以帮助解决问题。
-2. issue提的越清晰，越容易定位问题/找到bug，越快速的解决问题。 
+1. 可以先试一下常见问题中的方法.
+2. 然后搜一搜以前关闭的issue看有没有相似的问题可以帮助解决问题。
+3. 打开`fileheader.configObj.showErrorMessage`看看没有没有报错信息
+4. issue提的越清晰，越容易定位问题/找到bug，越快速的解决问题。 
 
 **描述bug(必填)**
 一个清楚而简洁的bug描述。
