@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors: OBKoro1
- * LastEditTime: 2019-10-08 15:57:34
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-12-09 10:50:14
  */
 
 const vscode = require('vscode');
@@ -106,14 +106,14 @@ function specialLanguageFn(fsPath, config) {
   config = config.configObj['language']; // 自定义语言项
   const pathArr = fsPath.split('/');
   const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-  for (let key of Object.keys(config).values()) {
-    if (key.indexOf('.') !== -1) {
+  Object.keys(config).forEach(item=>{
+    if (item.indexOf('.') !== -1) {
       // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
-      if (fileName.indexOf(key) !== -1 && fileName !== key) {
-        return key
+      if (fileName.indexOf(item) !== -1 && fileName !== item) {
+        return item
       }
     }
-  }
+  })
 }
 
 // 修改内容保存编辑器

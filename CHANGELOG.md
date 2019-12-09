@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * @LastEditors: OBKoro1
- * @LastEditTime: 2019-11-05 21:02:00
+ * @LastEditTime: 2019-12-09 11:13:52
  * @Description: 更新日志
  -->
 
@@ -24,6 +24,11 @@ TODO: 邮件
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.3.2]
+
+* 修复`filePathColon`。
+* 关闭报错信息展示，设置`showErrorMessage`为`true`重新开启。
 
 ### [V4.3.1]
 

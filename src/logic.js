@@ -234,7 +234,7 @@ function changeDataOptionFn(data, config) {
       res = `${fileItemPath}`
     }
     if(config.configObj.filePathColon !== '路径分隔符替换'){
-      const reg =  new RegExp(path.sep, 'g')
+      const reg =  new RegExp(path.sep, 'y')
       res =  res.replace(reg, config.configObj.filePathColon)
     }
     data.FilePath = res

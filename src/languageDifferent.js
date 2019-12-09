@@ -43,14 +43,14 @@ tplJudge.prototype = {
     let special
     const pathArr = fsPath.split('/');
     const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-    for (let key of Object.keys(this.config.configObj.language).values()) {
-      if (key.indexOf('.') !== -1) {
+    Object.keys(this.config.configObj.language).forEach(item=>{
+      if (item.indexOf('.') !== -1) {
         // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
-        if (fileName.indexOf(key) !== -1 && fileName !== key) {
-          special = key
+        if (fileName.indexOf(item) !== -1 && fileName !== item) {
+          special = item
         }
       }
-    }
+    })
     if (special) {
       return special
     } else {

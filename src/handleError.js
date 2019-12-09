@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-09-04 20:36:56
- * LastEditors: OBKoro1
- * LastEditTime: 2019-11-05 20:42:36
+ * @LastEditors: OBKoro1
+ * @LastEditTime: 2019-12-09 10:51:21
  * Description: 报错拦截
  */
 
@@ -19,7 +19,8 @@ const showErrorMessage = (e)=>{
 }
 
 process.on('uncaughtException', function (e) {
-    /*处理异常*/
+    const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
+    if(!config.configObj.filePathColon) return // 关闭报错
     vscode.window.showErrorMessage('错误信息:', JSON.stringify(e))
 });
 
