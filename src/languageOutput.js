@@ -8,6 +8,7 @@
  */
 const languageDifferent = require('./languageDifferent');
 const constFile = require('./CONST');
+const util = require('./util');
 
 // 头部注释中间部分生成
 const middleTpl = (data, fileEnd, config) => {
@@ -20,7 +21,7 @@ const middleTpl = (data, fileEnd, config) => {
       value: newlineAddAnnotationFn(data[key], fileEnd, config)
     };
     const res = new languageDifferent.tplJudge(obj).res;
-    str = str + res
+    str = str + res;
   });
   return str;
 };
@@ -67,7 +68,7 @@ class functionTplStr {
       this.strContent += this.paramStr(key);
     });
     this.tpl = this.mergeStr();
-    return this.replaceSymbolStr(this.tpl)
+    return this.replaceSymbolStr(this.tpl);
   }
 
   /**
@@ -109,9 +110,10 @@ class functionTplStr {
   replaceSymbolStr(tpl) {
     let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1');
     if (sinceOut !== -1) {
-      tpl = tpl.replace('symbol_custom_string_obkoro1: ', '')
+      const colon = util.getColon(this.fileEnd);
+      tpl = tpl.replace(`symbol_custom_string_obkoro1${colon}`, '');
     }
-    return tpl
+    return tpl;
   }
 }
 
@@ -156,28 +158,28 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
     let middle = null;
     // 匹配用户定义语言符号
     if (fileEnd.userLanguage) {
-      middle = config.configObj.language[fileEnd.fileEnd].middle
+      middle = config.configObj.language[fileEnd.fileEnd].middle;
     } else if (fileEnd !== '匹配不到_默认注释') {
       // 匹配插件的符号
-      middle = constFile.middleAnnotation[fileEnd]
+      middle = constFile.middleAnnotation[fileEnd];
     } else if (config.configObj.annotationStr.use) {
       // 调用用户设置的默认注释符号
-      middle = config.configObj.language.middle
+      middle = config.configObj.language.middle;
     } else {
       // 插件默认设置
-      middle = constFile.middleAnnotation.javascript
+      middle = constFile.middleAnnotation.javascript;
     }
     if (middle !== null) {
       // \n 换行
       // \r 回车
       // \r\n Windows系统里面，每行结尾是“<回车><换行>”
-      value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
-      value = value.replace(/\n/g, `\n${middle}`)
-      value = value.replace(/\r/g, `\r${middle}`)
-      value = value.replace(/\obkoro1\obkoro1/g, `\r\n`) // 转化回来
+      value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`); // 转化为特殊字符 不影响下面的替换
+      value = value.replace(/\n/g, `\n${middle}`);
+      value = value.replace(/\r/g, `\r${middle}`);
+      value = value.replace(/\obkoro1\obkoro1/g, `\r\n`); // 转化回来
     }
   }
-  return value
+  return value;
 }
 
 module.exports = {

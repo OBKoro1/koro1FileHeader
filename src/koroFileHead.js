@@ -38,8 +38,9 @@ function activate(context) {
           tpl,
           beforeAnnotation,
           afterAnnotation,
+          fileEnd
         }
-        tpl = logic.handleTplFn(beforehand, fileEnd, config)
+        tpl = logic.handleTplFn(beforehand)
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
         setTimeout(() => {
           editor.document.save()

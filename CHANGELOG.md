@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-12-09 11:13:52
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-12-10 11:07:27
  * @Description: 更新日志
  -->
 
@@ -24,6 +24,12 @@ TODO: 邮件
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.4.0]
+
+<!-- TODO: 等宽 -->
+* `configObj.wideSame`: 新增支持头部注释等宽, [配置]()
+* 修复`php`文件不能自动添加注释的问题。
 
 ### [V4.3.2]
 

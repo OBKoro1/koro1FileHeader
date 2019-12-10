@@ -1,16 +1,16 @@
 /*
  * @Description: 逻辑输出
- * @Author: OBKoro1
- * @Date: 2018-10-31 16:22:55
- * @LastAuthor: OBKoro1
- * @lastTime: 2019-08-08 16:32:27
+ * @Author     : OBKoro1
+ * @Date       : 2018-10-31 16:22:55
+ * @LastAuthor : OBKoro1
+ * @lastTime   : 2019-08-08 16:32:27
  */
 const vscode = require('vscode');
 const languageOutput = require('./languageOutput');
 const util = require('./util');
 const fs = require('fs');
 const path = require('path');
-const global = require('./CONST')
+const global = require('./CONST');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -18,7 +18,7 @@ const global = require('./CONST')
  * @param {String} time 文件创建时间
  * @return: 返回生成模板的数据对象
  */
-const userSet = (config) => {
+const userSet = config => {
   const userObj = config.customMade;
 
   let data = {};
@@ -31,13 +31,13 @@ const userSet = (config) => {
       LastEditTime: '',
       LastEditors: 'your name',
       Description: 'In User Settings Edit',
-      FilePath: '',
+      FilePath: ''
     };
   } else {
     // 如果用户设置了模板，那将默认根据用户设置模板
     data = Object.assign({}, userObj); // 复制对象，否则对象不能更改值
   }
-  data = changeDataOptionFn(data, config)
+  data = changeDataOptionFn(data, config);
   return data;
 };
 
@@ -89,14 +89,14 @@ function saveReplaceTime(document, config, fileEnd) {
   let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
   let hasAnnotation = false; // 默认没有
-  const fsPath = util.fsPathFn(document.fileName)
-  let colon = config.configObj.colonObj[fsPath] // 冒号
+  const fsPath = util.fsPathFn(document.fileName);
+  let colon = config.configObj.colonObj[fsPath]; // 冒号
   if (colon === undefined) {
-    colon = config.configObj.colon
+    colon = config.configObj.colon;
   }
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line, checked) => {
-    if (checked) return false // 已经找到要替换的
+    if (checked) return false; // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
       if (line.indexOf(`${userSetName}${colon}`) === -1) {
@@ -115,7 +115,7 @@ function saveReplaceTime(document, config, fileEnd) {
   for (let i = 0; i < 15; i++) {
     // 只遍历前15行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
-    let lineNoTrim = linetAt.text; // line 
+    let lineNoTrim = linetAt.text; // line
     let line = linetAt.text.trim();
     if (!enter) {
       // 判断进入注释
@@ -159,10 +159,10 @@ const editLineFn = (fsPath, config) => {
   const fileName = pathArr[pathArr.length - 1];
   const fileNameArr = fileName.split('.');
   let fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
-  let isSpecial = util.specialLanguageFn(fsPath, config)
+  let isSpecial = util.specialLanguageFn(fsPath, config);
   // 特殊文件
   if (isSpecial) {
-    fileEnd = isSpecial
+    fileEnd = isSpecial;
   }
 
   // 切割文件路径 获取文件后缀
@@ -176,29 +176,65 @@ const editLineFn = (fsPath, config) => {
   let isAfterAdd = config.configObj.afterAnnotation[fileEnd];
   return [lineNum, isSetAdd, isAfterAdd];
 };
+
+// 将字段弄得一样长
+const sameLengthFn = (data, config) => {
+  let maxNum = 0;
+  // 获取最长属性字段
+  Object.keys(data).forEach(item => {
+    if (item === 'symbol_custom_string_obkoro1') return;
+    if (item.length > maxNum) {
+      maxNum = item.length;
+    }
+  });
+  let objData = {};
+  // 修改属性
+  Object.keys(data).forEach(item => {
+    if (item === 'symbol_custom_string_obkoro1') {
+      objData[item] = data[item];
+      return;
+    }
+    let diffNum = maxNum - item.length;
+    if (diffNum === 0) {
+      objData[item] = data[item];
+    } else {
+      let spaceStr = ''.padStart(diffNum);
+      let newItem = `${item}${spaceStr}`;
+      objData[newItem] = data[item];
+    }
+  });
+  return objData;
+};
+
 /**
  * 更改字段，不改变他们的顺序
  * @Created_time: 2019-05-07 19:36:20
- * @return {Object} 更换字段后的对象 
+ * @return {Object} 更换字段后的对象
  */
 const changePrototypeNameFn = (data, config) => {
   let keysArr = Object.keys(data);
   let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   let objData = {};
-  let specialArr = ['Date', 'LastEditTime', 'LastEditors', 'Description', 'FilePath']
-  keysArr.forEach((item) => {
+  let specialArr = [
+    'Date',
+    'LastEditTime',
+    'LastEditors',
+    'Description',
+    'FilePath'
+  ];
+  keysArr.forEach(item => {
     // 特殊字段 且 有设置特殊字段
     if (specialArr.includes(item) && specialOptions[item]) {
-      objData[specialOptions[item]] = data[item]
+      objData[specialOptions[item]] = data[item];
     } else if (item === 'custom_string_obkoro1') {
       // 更改用户自定义输出字段 后期需要切割它
-      objData.symbol_custom_string_obkoro1 = data[item]
+      objData.symbol_custom_string_obkoro1 = data[item];
     } else {
-      objData[item] = data[item]
+      objData[item] = data[item];
     }
-  })
-  return objData
-}
+  });
+  return objData;
+};
 /**
  * 修改时间，描述等配置值
  * @param {object} data 配置项
@@ -222,34 +258,38 @@ function changeDataOptionFn(data, config) {
   // 自动添加文件路径
   if (data.FilePath !== undefined) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+    // TODO: 报错
     let fsPath = editor._documentData._uri.fsPath; // 文件路径
-    const itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
+    let itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
     // 获取项目名称
     // path.sep window: \ mac: /
     let itemNameArr = itemPath.split(path.sep);
     let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
-    let fileItemPath = fsPath.replace(itemPath, '')
-    let res = `${path.sep}${itemName}${fileItemPath}` // 拼接项目名称和相对于项目的路径
-    if(data.FilePath === 'no item name'){
-      res = `${fileItemPath}`
+    let fileItemPath = fsPath.replace(itemPath, '');
+    let res = `${path.sep}${itemName}${fileItemPath}`; // 拼接项目名称和相对于项目的路径
+    if (data.FilePath === 'no item name') {
+      res = `${fileItemPath}`;
     }
-    if(config.configObj.filePathColon !== '路径分隔符替换'){
-      const reg =  new RegExp(path.sep, 'y')
-      res =  res.replace(reg, config.configObj.filePathColon)
+    if (config.configObj.filePathColon !== '路径分隔符替换') {
+      const reg = new RegExp(path.sep, 'y');
+      res = res.replace(reg, config.configObj.filePathColon);
     }
-    data.FilePath = res
+    data.FilePath = res;
   }
-  data = changePrototypeNameFn(data, config)
-  return data
+  data = changePrototypeNameFn(data, config);
+  if (config.configObj.wideSame) {
+    data = sameLengthFn(data, config);
+  }
+  return data;
 }
 
 /**
- * 函数注释，更改值, 
+ * 函数注释，更改值,
  * @Created_time: 2019-05-07 19:36:20
- * @return {Object} 更换字段后的对象 
+ * @return {Object} 更换字段后的对象
  */
-const cursorOptionHandleFn = (config) => {
-  let data = {}
+const cursorOptionHandleFn = config => {
+  let data = {};
   let userSet = Object.keys(config.cursorMode);
   if (userSet.length === 0) {
     data = {
@@ -264,13 +304,13 @@ const cursorOptionHandleFn = (config) => {
   if (data.Date !== undefined) {
     data.Date = new Date().format();
   }
-  data = changNameFn(data, config)
-  return data
-}
+  data = changNameFn(data, config);
+  return data;
+};
 
 /**
  * 更改字段，不改变他们的顺序
- * @param {obeject} data 函数模板配置 
+ * @param {obeject} data 函数模板配置
  * @param {*} config 顶层配置
  */
 function changNameFn(data, config) {
@@ -278,51 +318,51 @@ function changNameFn(data, config) {
   let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   let objData = {};
   // 支持日期和描述
-  let specialArr = ['Date', 'Description']
-  keysArr.forEach((item) => {
+  let specialArr = ['Date', 'Description'];
+  keysArr.forEach(item => {
     if (specialArr.includes(item) && specialOptions[item]) {
       // 特殊字段重新赋值
-      objData[specialOptions[item]] = data[item]
+      objData[specialOptions[item]] = data[item];
     } else if (item === 'custom_string_obkoro1') {
-      objData.symbol_custom_string_obkoro1 = data[item]
+      objData.symbol_custom_string_obkoro1 = data[item];
     } else {
-      objData[item] = data[item]
+      objData[item] = data[item];
     }
-  })
-  return objData
+  });
+  return objData;
 }
 
 /**
  * @description: 处理生成的模板 比如添加信息，删除信息等。
  * @param {Object} beforehand 模板和预处理的参数
- * {string} tpl 模板
- * {Boolean} beforeAnnotation 是否在模板之前添加内容
- * {Boolean} afterAnnotation 是否在模板之后添加内容
+ * beforehand.tpl {string} tpl 模板changePrototypeNameFn
+ * beforehand.beforeAnnotation {Boolean}  是否在模板之前添加内容
+ * beforehand.afterAnnotation {Boolean}  是否在模板之后添加内容
+ * beforehand.fileEnd 文件后缀
  * @return: {String} tpl
  * @Created_time: 2019-05-14 14:25:26
  */
-const handleTplFn = (beforehand) => {
-  let res = util.replaceSymbolStr(beforehand.tpl)
+const handleTplFn = beforehand => {
+  let res = util.replaceSymbolStr(beforehand.tpl, beforehand.fileEnd);
   if (beforehand.beforeAnnotation) {
     res = `${beforehand.beforeAnnotation}\n${res}`;
   }
   if (beforehand.afterAnnotation) {
     res = `${res}${beforehand.afterAnnotation}\n`;
   }
-  return res
-}
-
+  return res;
+};
 
 // 自动添加是否匹配黑名单
 const isMatchProhibit = (fsPath, config) => {
   let match = false;
-  let prohibit = config.configObj.prohibitAutoAdd
-  let fsName = util.fsPathFn(fsPath)
+  let prohibit = config.configObj.prohibitAutoAdd;
+  let fsName = util.fsPathFn(fsPath);
   if (prohibit && prohibit.length > 0) {
-    match = prohibit.includes(fsName)
+    match = prohibit.includes(fsName);
   }
-  return match
-}
+  return match;
+};
 
 /**
  * @description: 逻辑判断
@@ -335,21 +375,24 @@ const isMatchProhibit = (fsPath, config) => {
  * @Created_time: 2019-11-02 17:12:51
  * @return {Boolean} 是否自动添加
  */
-const isAutoAddFn = (params)=>{
+const isAutoAddFn = params => {
   // 文件超过一定行数时 不自动添加头部注释
-  if(params.config.configObj.autoAddLine < params.lineCount) return false
-  if(!params.config.configObj.autoAdd) return false // 关闭自动添加
-  if(params.hasAnnotation) return false // 文件已经有注释
-  const hasAddProhibit = isMatchProhibit(params.fsPath, params.config)
-  if(hasAddProhibit) return false // 被添加进黑名单
+  if (params.config.configObj.autoAddLine < params.lineCount) return false;
+  if (!params.config.configObj.autoAdd) return false; // 关闭自动添加
+  if (params.hasAnnotation) return false; // 文件已经有注释
+  const hasAddProhibit = isMatchProhibit(params.fsPath, params.config);
+  if (hasAddProhibit) return false; // 被添加进黑名单
   // 曾经自动添加过头部注释 不再添加
-  if(global.autoAddFiles.includes(params.fsPath)) return false 
-  if(params.config.configObj.autoAlready && params.fileEnd === '匹配不到_默认注释'){
+  if (global.autoAddFiles.includes(params.fsPath)) return false;
+  if (
+    params.config.configObj.autoAlready &&
+    params.fileEnd === '匹配不到_默认注释'
+  ) {
     // 只自动添加支持的语言 该文件不是插件支持的语言
-    return false
+    return false;
   }
-  return true // 自动添加
-}
+  return true; // 自动添加
+};
 
 /**
  * @description: 函数注释移动光标到description所在行
@@ -358,46 +401,46 @@ const isAutoAddFn = (params)=>{
  */
 const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   // 生成Description行
-  if (!config.configObj.moveCursor) return
+  if (!config.configObj.moveCursor) return;
   const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
   const specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
   const DescriptionName = specialOptions.Description
     ? specialOptions.Description
     : 'Description';
   let data = {
-    [DescriptionName]: '',
-  }
-  let str = languageOutput.middleTpl(data, fileEnd, config)
-  str = str.trim()
+    [DescriptionName]: ''
+  };
+  let str = languageOutput.middleTpl(data, fileEnd, config);
+  str = str.trim();
   // 计算函数注释模板行数
-  let newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1
-  let i = lineNum - 1 // 初始行数
+  let newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1;
+  let i = lineNum - 1; // 初始行数
   let descriptionLineNum; // 目标行
-  for (i < i + newLineNum; i++;) {
+  for (i < i + newLineNum; i++; ) {
     let line = editor.document.lineAt(i);
-    let lineNoTrim = line.text; // line 
+    let lineNoTrim = line.text; // line
     if (lineNoTrim.indexOf(str) !== -1) {
-      descriptionLineNum = i
-      break
+      descriptionLineNum = i;
+      break;
     }
-    if (editor.document.lineCount - 1 === i) break // 总行数
+    if (editor.document.lineCount - 1 === i) break; // 总行数
   }
   // 没有Description 则不移动视图
   if (descriptionLineNum === undefined) {
-    return
+    return;
   }
   // 移动光标到指定行数
   const position = editor.selection.active;
   var newPosition = position.with(descriptionLineNum, 10000);
   editor.selection = new vscode.Selection(newPosition, newPosition);
-}
+};
 
 /**
  * @description: 移动光标到description所在行 移动视图到顶部
  * @param {String} tpl 最终要生成的模板
  * @Created_time: 2019-06-18 14:28:13
  */
-const moveCursor = (tpl) => {
+const moveCursor = tpl => {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
   if (config.configObj.moveCursor) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
@@ -406,21 +449,21 @@ const moveCursor = (tpl) => {
       ? specialOptions.Description
       : 'Description';
     // 注释总行数 最后多一行注释开头 一行注释结尾 最后一行换行
-    const strLine = tpl.split(/\r\n|\r|\n/).length
+    const strLine = tpl.split(/\r\n|\r|\n/).length;
     // 文档是从0开始 行数从1开始 要减去1
     let descriptionLineNum;
     for (let i = 0; i < strLine; i++) {
       let line = editor.document.lineAt(i);
-      let lineNoTrim = line.text; // line 
+      let lineNoTrim = line.text; // line
       if (lineNoTrim.indexOf(`${DescriptionName}:`) !== -1) {
-        descriptionLineNum = i
-        break
+        descriptionLineNum = i;
+        break;
       }
-      if (editor.document.lineCount - 1 === i) break // 总行数
+      if (editor.document.lineCount - 1 === i) break; // 总行数
     }
     // 没有Description 则不移动视图
     if (descriptionLineNum === undefined) {
-      return
+      return;
     }
     // 移动光标到指定行数
     const position = editor.selection.active;
@@ -429,10 +472,10 @@ const moveCursor = (tpl) => {
     // 移动视图到顶部
     vscode.commands.executeCommand('editorScroll', {
       to: 'up',
-      value: 10000,
+      value: 10000
     });
   }
-}
+};
 
 module.exports = {
   userSet,
