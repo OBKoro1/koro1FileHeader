@@ -258,13 +258,18 @@ function changeDataOptionFn(data, config) {
   // 自动添加文件路径
   if (data.FilePath !== undefined) {
     const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-    // TODO: 报错
     let fsPath = editor._documentData._uri.fsPath; // 文件路径
-    let itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-    // 获取项目名称
+    let itemName = ''; // 项目名称
+    let itemPath = ''; // 项目路径
+    try {
+      itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+      let itemNameArr = itemPath.split(path.sep);
+      itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
+    } catch (err) {
+      itemName = vscode.workspace.name;
+      itemPath = vscode.workspace.rootPath
+    }
     // path.sep window: \ mac: /
-    let itemNameArr = itemPath.split(path.sep);
-    let itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
     let fileItemPath = fsPath.replace(itemPath, '');
     let res = `${path.sep}${itemName}${fileItemPath}`; // 拼接项目名称和相对于项目的路径
     if (data.FilePath === 'no item name') {
