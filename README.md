@@ -57,6 +57,9 @@
 * [自定义注释符号](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#1-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7%E5%8F%AF%E9%80%89%E9%A1%B9)：即使插件不支持的语言，也可以自己定制。
 * 检测文件头部没有注释, [自动添加头部注释功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#2-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%8F%AF%E9%80%89%E9%A1%B9)，配合[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%BB%91%E5%90%8D%E5%8D%95)，麻麻再也不用担心我忘记加注释了.
 * 生成头部注释时，自动添加[文件相对于当前项目的文件路径](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
+
+* [头部注释等宽](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E7%AD%89%E5%AE%BD%E8%AE%BE%E7%BD%AEwidesame)功能，提高文件头部注释的颜值。
+
 * [头部注释第几行插入](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#3-%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E7%AC%AC%E5%87%A0%E8%A1%8C%E6%8F%92%E5%85%A5),类似`PHP`第一行被占用了，通过设置，可以在第二行里面插入。
 * 在[头部注释之前、之后插入一段内容](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#5-%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%89%8D%E9%9D%A2%E6%8F%92%E5%85%A5%E5%86%85%E5%AE%B9)，类似`python`的环境声明: `#!/usr/bin/env python`
 * [特殊字段自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89)，类似博客的时间字段有特殊要求。

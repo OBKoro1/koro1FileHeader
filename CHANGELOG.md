@@ -3,19 +3,9 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors: OBKoro1
- * LastEditTime: 2019-12-10 11:07:27
+ * LastEditTime: 2019-12-17 20:09:02
  * @Description: 更新日志
  -->
-
-<!-- 
-TODO: 邮件
- 可以试着把description往前面放，看行不行。
-这个需求确实存在，可能是近两周我会支持该功能在函数注释中也能使用。
-准备也支持一下光标默认移动到description（目前只支持头部的description） -->
-
-<!-- TODO: 函数参数，如果有括号， 将不再匹配，括号中的=号， -->
-<!-- TODO: 空文件/文件小于一定行数自动添加文件注释 -->
-<!-- TODO: 添加一个功能 单独禁用某些页面 自动添加注释 -->
 
 # 更新日志
 
@@ -25,11 +15,23 @@ TODO: 邮件
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
 
+
 ### [V4.4.0]
 
-<!-- TODO: 等宽 -->
-* `configObj.wideSame`: 新增支持头部注释等宽, [配置]()
-* 修复`php`文件不能自动添加注释的问题。
+* `configObj.wideSame`: 新增支持头部注释等宽, 点击查看[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E7%AD%89%E5%AE%BD%E8%AE%BE%E7%BD%AEwidesame)，效果如下
+
+
+```js
+/*
+ * Author       : OBKoro1
+ * Date         : 2019-09-24 20:25:33
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2019-12-16 21:16:08
+ * FilePath     : /fileHead/test.js
+ */
+```
+
+* 修复`php`文件无法自动添加注释的问题。
 
 ### [V4.3.2]
 
