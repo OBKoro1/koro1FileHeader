@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors: OBKoro1
- * LastEditTime: 2019-12-17 20:09:02
+ * LastEditTime: 2019-12-17 20:24:36
  * @Description: 更新日志
  -->
 
@@ -16,7 +16,7 @@
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
 
 
-### [V4.4.0]
+### [V4.4.1]
 
 * `configObj.wideSame`: 新增支持头部注释等宽, 点击查看[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E7%AD%89%E5%AE%BD%E8%AE%BE%E7%BD%AEwidesame)，效果如下
 
@@ -32,6 +32,7 @@
 ```
 
 * 修复`php`文件无法自动添加注释的问题。
+* 修复`shell`头部注释第一行没有对齐的问题。
 
 ### [V4.3.2]
 
