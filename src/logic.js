@@ -99,6 +99,7 @@ function saveReplaceTime(document, config, fileEnd) {
     if (checked) return false; // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
+      userSetName = util.spaceStringFn(userSetName, config.configObj.wideNum);
       if (line.indexOf(`${userSetName}${colon}`) === -1) {
         // 没有检测用户自己更改的 再检测特殊变量
         return line.indexOf(`${name}${colon}`) !== -1;
@@ -108,6 +109,7 @@ function saveReplaceTime(document, config, fileEnd) {
       }
     } else {
       // 检测特殊变量
+      name = util.spaceStringFn(name, config.configObj.wideNum);
       return line.indexOf(`${name}${colon}`) !== -1;
     }
   };
@@ -178,28 +180,16 @@ const editLineFn = (fsPath, config) => {
 };
 
 // 将字段弄得一样长
-const sameLengthFn = (data, config) => {
-  let maxNum = 0;
-  // 获取最长属性字段
-  Object.keys(data).forEach(item => {
-    if (item === 'symbol_custom_string_obkoro1') return;
-    if (item.length > maxNum) {
-      maxNum = item.length;
-    }
-  });
+const sameLengthFn = (data, maxNum) => {
   let objData = {};
   // 修改属性
   Object.keys(data).forEach(item => {
-    if (item === 'symbol_custom_string_obkoro1') {
-      objData[item] = data[item];
-      return;
-    }
     let diffNum = maxNum - item.length;
-    if (diffNum === 0) {
+    // 负值和0不改变
+    if (diffNum < 1) {
       objData[item] = data[item];
     } else {
-      let spaceStr = ''.padStart(diffNum);
-      let newItem = `${item}${spaceStr}`;
+      const newItem = util.spaceStringFn(item, maxNum);
       objData[newItem] = data[item];
     }
   });
@@ -267,7 +257,7 @@ function changeDataOptionFn(data, config) {
       itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
     } catch (err) {
       itemName = vscode.workspace.name;
-      itemPath = vscode.workspace.rootPath
+      itemPath = vscode.workspace.rootPath;
     }
     // path.sep window: \ mac: /
     let fileItemPath = fsPath.replace(itemPath, '');
@@ -283,7 +273,7 @@ function changeDataOptionFn(data, config) {
   }
   data = changePrototypeNameFn(data, config);
   if (config.configObj.wideSame) {
-    data = sameLengthFn(data, config);
+    data = sameLengthFn(data, config.configObj.wideNum);
   }
   return data;
 }

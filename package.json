@@ -116,7 +116,8 @@
             "colonObj": {},
             "filePathColon": "路径分隔符替换",
             "showErrorMessage": false,
-            "wideSame": false
+            "wideSame": false,
+            "wideNum": 13
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }

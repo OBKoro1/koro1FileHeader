@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-12-09 10:50:14
+ * LastEditors: OBKoro1
+ * LastEditTime: 2019-12-16 20:52:28
  */
 
 const vscode = require('vscode');
@@ -152,12 +152,23 @@ const replaceSymbolStr = (tpl, fileEnd) => {
   return tpl;
 };
 
+/**
+ * 使用空格填充字符
+ */
+
+const spaceStringFn = (oldStr, maxNum) => {
+  let diffNum = maxNum - oldStr.length
+  let spaceStr = ''.padStart(diffNum);
+  return `${oldStr}${spaceStr}`;
+};
+
 module.exports = {
-  replaceSymbolStr,
   throttle,
   fileEndMatch,
   fsPathFn,
   saveEditor,
   specialLanguageFn,
-  getColon 
+  replaceSymbolStr, // 切割特殊字符串生成空行
+  getColon, // 获取该文件的冒号
+  spaceStringFn // 使用空格填充字符
 };

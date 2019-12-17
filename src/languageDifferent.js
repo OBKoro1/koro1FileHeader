@@ -7,6 +7,8 @@
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
+const util = require('./util');
+
 /**
  * @description: 通过fileEnd使用正则匹配各个语言已调好的注释符号
  * @param {String} obj.fileEnd 语言后缀
@@ -130,7 +132,7 @@ tplJudge.prototype = {
       python: `'''\r\n${this.obj.str}'''\r\n`,
       html: `<!--\r\n ${this.obj.str}-->\r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
-      shellscript: `### \r\n${this.obj.str}###\r\n`
+      shellscript: `###\r\n ${this.obj.str}###\r\n`
     }
     return topHeadEndObj[this.obj.fileEnd]
   },
@@ -147,6 +149,9 @@ tplJudge.prototype = {
   },
   // 头部注释最后编辑人
   LastEditorsStr: function () {
+    if(this.obj.replace){
+      this.LastEditorsName = util.spaceStringFn(this.LastEditorsName, this.config.configObj.wideNum);
+    }
     const LastEditorsStrObj = {
       javascript: ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
       python: `${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
@@ -158,6 +163,9 @@ tplJudge.prototype = {
   },
   // 头部注释最后编辑时间
   lastTimeStr: function () {
+    if(this.obj.replace){
+      this.LastEditTimeName = util.spaceStringFn(this.LastEditTimeName, this.config.configObj.wideNum);
+    }
     const lastTimeStrObj = {
       javascript: ` * ${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,
       python: `${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,

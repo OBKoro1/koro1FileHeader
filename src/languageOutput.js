@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors: OBKoro1
- * LastEditTime: 2019-10-09 13:48:56
+ * LastEditTime: 2019-12-16 21:11:49
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
@@ -138,7 +138,8 @@ class changeFont {
     const obj = {
       fileEnd: this.fileEnd,
       type: 'LastEditorsStr',
-      LastEditors
+      LastEditors,
+      replace: true
     };
     return new languageDifferent.tplJudge(obj).res;
   }
@@ -146,7 +147,8 @@ class changeFont {
   lastTimeStr() {
     const obj = {
       fileEnd: this.fileEnd,
-      type: 'lastTimeStr'
+      type: 'lastTimeStr',
+      replace: true
     };
     return new languageDifferent.tplJudge(obj).res;
   }
