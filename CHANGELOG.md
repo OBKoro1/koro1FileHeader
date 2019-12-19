@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
- * LastEditors: OBKoro1
- * LastEditTime: 2019-12-17 20:24:36
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2019-12-19 16:13:20
  * @Description: 更新日志
  -->
 
@@ -14,6 +14,38 @@
 <!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
 <!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
 <!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+
+### [V4.5.0]
+
+* [文件diff检查](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E6%97%B6%E8%BF%9B%E8%A1%8Cdiff%E6%A3%80%E6%9F%A5): 检测文件只变更`LastEditors`和`LastEditTime`字段，将回滚该文件，减少无意义的提交。
+
+
+功能配置以及说明：
+
+```js
+"fileheader.configObj": {
+  "CheckFileChange": false // 默认关闭
+}
+```
+
+**使用场景**: 
+
+对文件进行修改之后又撤销，但是`LastEditors`和`LastEditTime`已经变更了，在提交代码的时候很容易忘记恢复它，导致无意义的提交，反正我很经常遇到这个问题。
+
+**运行逻辑**：
+
+1. 检测VSCode当前打开的文件夹的根目录是够有`.git`文件夹, 没有的话，则退出
+2. 获取触发保存文件的diff，进行diff检查。
+3. 检测当只有`LastEditors`和`LastEditTime`变更，其他任何变更都没有的情况下。
+4. 将该文件回滚到本地仓库的最新版本。
+
+#### 关于功能的安全性：
+
+鉴于之前该功能采用`pre-commit`的方案，造成过[严重的BUG](https://github.com/OBKoro1/koro1FileHeader/issues/84)，新功能的破坏性会小很多，并且文件很容易就可以恢复：
+
+**目前该功能只针对单个文件进行操作，影响范围会比较小，并且挽回方式也比较简单快捷**。
+
+**假如，我是说假如，再有出现文件被回滚的情况，因为这个操作是即时的，并且在每次保存都会触发，如果误将文件回滚了，在该文件上撤销一次即可将文件内容恢复恢复**。
 
 
 ### [V4.4.1]

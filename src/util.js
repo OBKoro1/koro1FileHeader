@@ -2,12 +2,13 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors: OBKoro1
- * LastEditTime: 2019-12-16 20:52:28
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2019-12-18 14:40:09
  */
 
 const vscode = require('vscode');
 const moment = require('moment');
+const path = require('path');
 
 /**
  * @description: 节流函数 单位时间内有事件被多次触发则，只生效一次
@@ -155,20 +156,44 @@ const replaceSymbolStr = (tpl, fileEnd) => {
 /**
  * 使用空格填充字符
  */
-
 const spaceStringFn = (oldStr, maxNum) => {
-  let diffNum = maxNum - oldStr.length
+  let diffNum = maxNum - oldStr.length;
   let spaceStr = ''.padStart(diffNum);
   return `${oldStr}${spaceStr}`;
 };
 
+// 获取文件和项目的地址
+const getFileRelativeSite = () => {
+  const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
+  const fsPath = editor._documentData._uri.fsPath; // 文件路径
+  let itemName = ''; // 项目名称
+  let itemPath = ''; // 项目路径
+  try {
+    itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    // path.sep window: \ mac: /
+    let itemNameArr = itemPath.split(path.sep);
+    itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
+  } catch (err) {
+    itemName = vscode.workspace.name;
+    itemPath = vscode.workspace.rootPath;
+  }
+  let fileItemPath = fsPath.replace(itemPath, ''); // 相对地址
+  return {
+    fsPath, // 文件绝对地址
+    itemPath, // 项目的绝对地址
+    fileItemPath, // 文件相对地址
+    itemName // 项目名称
+  }
+};
+
 module.exports = {
-  throttle,
-  fileEndMatch,
-  fsPathFn,
-  saveEditor,
-  specialLanguageFn,
+  throttle, // 节流
+  fileEndMatch, // 匹配文件后缀 以哪种形式生成注释
+  fsPathFn, // 切割文件路径 获取文件后缀
+  saveEditor, // 修改内容保存编辑器
+  specialLanguageFn, // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配
   replaceSymbolStr, // 切割特殊字符串生成空行
   getColon, // 获取该文件的冒号
-  spaceStringFn // 使用空格填充字符
+  spaceStringFn, // 使用空格填充字符
+  getFileRelativeSite // 获取文件和项目的地址
 };

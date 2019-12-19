@@ -89,20 +89,15 @@ function saveReplaceTime(document, config, fileEnd) {
   let totalLine = document.lineCount - 1; // 总行数
   let enter = false;
   let hasAnnotation = false; // 默认没有
-  const fsPath = util.fsPathFn(document.fileName);
-  let colon = config.configObj.colonObj[fsPath]; // 冒号
-  if (colon === undefined) {
-    colon = config.configObj.colon;
-  }
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false; // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
       // userSetName = util.spaceStringFn(userSetName, config.configObj.wideNum);
-      if (line.indexOf(`${userSetName}${colon}`) === -1) {
+      if (line.indexOf(`${userSetName}`) === -1) {
         // 没有检测用户自己更改的 再检测特殊变量
-        return line.indexOf(`${name}${colon}`) !== -1;
+        return line.indexOf(`${name}`) !== -1;
       } else {
         // 检测用户自己更改的
         return true;
@@ -110,7 +105,7 @@ function saveReplaceTime(document, config, fileEnd) {
     } else {
       // 检测特殊变量
       // name = util.spaceStringFn(name, config.configObj.wideNum);
-      return line.indexOf(`${name}${colon}`) !== -1;
+      return line.indexOf(`${name}`) !== -1;
     }
   };
 
@@ -140,10 +135,6 @@ function saveReplaceTime(document, config, fileEnd) {
       } else if (checkHasAnnotation('Date', line)) {
         hasAnnotation = true;
       }
-      // 检测是否有头部注释
-      //  else if(checkHasAnnotation('FilePath',line)){
-      //   hasAnnotation = true;
-      // }
     }
     if (totalLine === i) break; // 行数不够则退出循环
   }
@@ -247,25 +238,13 @@ function changeDataOptionFn(data, config) {
   }
   // 自动添加文件路径
   if (data.FilePath !== undefined) {
-    const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
-    let fsPath = editor._documentData._uri.fsPath; // 文件路径
-    let itemName = ''; // 项目名称
-    let itemPath = ''; // 项目路径
-    try {
-      itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-      let itemNameArr = itemPath.split(path.sep);
-      itemName = itemNameArr[itemNameArr.length - 1]; // 取/最后一位
-    } catch (err) {
-      itemName = vscode.workspace.name;
-      itemPath = vscode.workspace.rootPath;
-    }
-    // path.sep window: \ mac: /
-    let fileItemPath = fsPath.replace(itemPath, '');
+    let { itemName, fileItemPath } = util.getFileRelativeSite();
     let res = `${path.sep}${itemName}${fileItemPath}`; // 拼接项目名称和相对于项目的路径
     if (data.FilePath === 'no item name') {
       res = `${fileItemPath}`;
     }
     if (config.configObj.filePathColon !== '路径分隔符替换') {
+      // path.sep window: \ mac: /
       const reg = new RegExp(path.sep, 'y');
       res = res.replace(reg, config.configObj.filePathColon);
     }

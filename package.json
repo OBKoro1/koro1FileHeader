@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
-  "version": "4.4.1",
+  "version": "4.5.0",
   "publisher": "OBKoro1",
   "scripts": {
     "build": "vsce package",
@@ -117,7 +117,8 @@
             "filePathColon": "路径分隔符替换",
             "showErrorMessage": false,
             "wideSame": false,
-            "wideNum": 13
+            "wideNum": 13,
+            "CheckFileChange": false
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }

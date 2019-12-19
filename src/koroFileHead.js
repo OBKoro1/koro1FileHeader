@@ -2,20 +2,21 @@
  * @Description: 入口
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors: OBKoro1
- * @LastEditTime: 2019-11-02 18:59:50
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2019-12-18 15:09:24
  */
 const vscode = require('vscode');
 const util = require('./util');
 const logic = require('./logic');
 const languageOutput = require('./languageOutput');
 // const PreCommit = require('./commit/precommit')
-const global = require('./CONST')
-const handleError = require('./handleError')
+const global = require('./CONST');
+const handleError = require('./handleError');
+const repealChange = require('./repealChange');
 
 // 扩展激活 默认运行
 function activate(context) {
-  global.context = context
+  global.context = context;
   // new PreCommit()
   const fileheaderFn = () => {
     const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
@@ -39,15 +40,15 @@ function activate(context) {
           beforeAnnotation,
           afterAnnotation,
           fileEnd
-        }
-        tpl = logic.handleTplFn(beforehand)
+        };
+        tpl = logic.handleTplFn(beforehand);
         editBuilder.insert(new vscode.Position(lineNum, 0), tpl); // 插入
         setTimeout(() => {
-          editor.document.save()
-          logic.moveCursor(tpl)
-        }, 200)
+          editor.document.save();
+          logic.moveCursor(tpl);
+        }, 200);
       } catch (err) {
-        handleError.showErrorMessage(err)
+        handleError.showErrorMessage(err);
       }
     });
   };
@@ -60,7 +61,7 @@ function activate(context) {
       fileEnd = util.fileEndMatch(fileEnd);
       const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor);
       editor.edit(editBuilder => {
-        let data = logic.cursorOptionHandleFn(config)
+        let data = logic.cursorOptionHandleFn(config);
         let fontTpl = new languageOutput.functionTplStr(
           data,
           fileEnd,
@@ -69,12 +70,12 @@ function activate(context) {
           frontStr
         ).generate(); // 函数注释的模板字符串
         editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl); // 插入
-        setTimeout(()=>{
-          logic.moveCursorDesFn(fileEnd, config, fontTpl, line)
-        }, 100)
+        setTimeout(() => {
+          logic.moveCursorDesFn(fileEnd, config, fontTpl, line);
+        }, 100);
       });
     } catch (err) {
-      handleError.showErrorMessage(err)
+      handleError.showErrorMessage(err);
     }
   };
 
@@ -94,22 +95,27 @@ function activate(context) {
   let fileName = ''; // 保存操作的文件
   // 文件保存时 触发
   vscode.workspace.onWillSaveTextDocument(file => {
-    if (!file.document.isDirty) return // 文件没有修改 不操作
-    try {
-      if (file.fileName === fileName) {
-        // 同一个文件操作 节流
-        intervalVal = util.throttle(documentSaveFn, 6666, intervalVal)();
-      } else {
-        fileName = file.fileName; // 保存上次编辑的文件
-        documentSaveFn();
+    if (!file.document.isDirty) return; // 文件没有修改 不操作
+    let editor = vscode.editor || vscode.window.activeTextEditor;
+    const config = vscode.workspace.getConfiguration('fileheader');
+    // 先保存本次编辑 再查看文件的修改
+    file.document.save().then(() => {
+      const RepealChange = new repealChange(config.configObj.CheckFileChange);
+      if (RepealChange.resetFile) return;
+      try {
+        if (file.fileName === fileName) {
+          // 同一个文件操作 节流
+          intervalVal = util.throttle(documentSaveFn, 6666, intervalVal)();
+        } else {
+          fileName = file.fileName; // 保存上次编辑的文件
+          documentSaveFn();
+        }
+      } catch (err) {
+        handleError.showErrorMessage(err);
       }
-    } catch (err) {
-      handleError.showErrorMessage(err)
-    }
-
+    });
     function documentSaveFn() {
-      const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-      let editor = vscode.editor || vscode.window.activeTextEditor;
+      // 配置项默认值
       let fileEnd = editor._documentData._languageId; // 文件后缀
       fileEnd = util.fileEndMatch(fileEnd);
       const document = editor.document;
@@ -122,20 +128,20 @@ function activate(context) {
       ] = logic.saveReplaceTime(document, config, fileEnd);
       if (authorRange !== undefined && lastTimeRange !== undefined) {
         // 变更最后编辑人和最后编辑时间
-        util.saveEditor(editor, (edit) => {
+        util.saveEditor(editor, edit => {
           edit.replace(authorRange, authorText);
           edit.replace(lastTimeRange, lastTimeText);
-        })
+        });
       } else if (lastTimeRange !== undefined) {
         // 只变更最后编辑时间
-        util.saveEditor(editor, (edit) => {
+        util.saveEditor(editor, edit => {
           edit.replace(lastTimeRange, lastTimeText);
-        })
+        });
       } else if (authorRange !== undefined) {
         // 只变更最后编辑人
-        util.saveEditor(editor, (edit) => {
+        util.saveEditor(editor, edit => {
           edit.replace(authorRange, authorText);
-        })
+        });
       }
       // 检测文件注释,自动添加注释
       setTimeout(() => {
@@ -145,14 +151,13 @@ function activate(context) {
           fileEnd,
           hasAnnotation,
           config
-        }
-        let isAutoAdd = logic.isAutoAddFn(params)
-        if(isAutoAdd){
-          global.autoAddFiles.push(params.fsPath)
+        };
+        let isAutoAdd = logic.isAutoAddFn(params);
+        if (isAutoAdd) {
+          global.autoAddFiles.push(params.fsPath);
           fileheaderFn();
         }
-      }, 500)
-
+      }, 500);
     }
   });
 }
@@ -160,5 +165,5 @@ function activate(context) {
 exports.activate = activate;
 
 // 扩展被禁用 调用
-function deactivate() { }
+function deactivate() {}
 exports.deactivate = deactivate;
