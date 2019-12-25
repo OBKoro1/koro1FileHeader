@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2019-12-25 15:38:58
+ * LastEditTime : 2019-12-25 15:42:52
  * @Description: 更新日志
  -->
 
@@ -12,6 +12,8 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 <!-- TODO: 好玩的注释 https://blog.csdn.net/vbirdbest/article/details/78995793 -->
+<!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
+<!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
 
 
 ### [V4.5.0]
