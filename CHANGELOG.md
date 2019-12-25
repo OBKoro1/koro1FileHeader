@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2019-12-19 16:13:20
+ * LastEditTime : 2019-12-25 15:38:58
  * @Description: 更新日志
  -->
 
@@ -11,9 +11,8 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
-<!-- TODO: 读取git文件的作者，时间，以及最后编辑人-->
-<!-- TODO: 保存的时候通过 git diff，判断该文件的变化 -->
-<!-- git diff -- src/commit/checkHeader.js 不用提交 查看该文件的变化 -->
+<!-- TODO: 好玩的注释 https://blog.csdn.net/vbirdbest/article/details/78995793 -->
+
 
 ### [V4.5.0]
 
