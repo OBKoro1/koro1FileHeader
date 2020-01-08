@@ -83,6 +83,15 @@
 
 [常见问题](https://github.com/OBKoro1/koro1FileHeader/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
+
+### Auto Commit
+
+推荐一个新开源的插件：[Auto Commit](https://github.com/OBKoro1/autoCommit)
+
+  **这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满**。
+
+ ![](https://github.com/OBKoro1/autoCommit/blob/master/images/autoCommit.gif?raw=true)
+
 ## 最后
 
 如果觉得还不错的话，就给个 [Star](https://github.com/OBKoro1/koro1FileHeader) ⭐️ 鼓励一下我吧~

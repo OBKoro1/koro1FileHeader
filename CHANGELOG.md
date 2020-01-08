@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-01-08 22:19:07
+ * LastEditTime : 2020-01-08 22:30:32
  * @Description: 更新日志
  -->
 
@@ -21,9 +21,7 @@
 
   **这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满**。
 
-* 下面是个使用例子:
-
-  ![](https://github.com/OBKoro1/autoCommit/blob/master/images/autoCommit.gif?raw=true)
+![](https://github.com/OBKoro1/autoCommit/blob/master/images/autoCommit.gif?raw=true)
 
 ### [V4.5.0]
 
