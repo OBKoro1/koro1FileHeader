@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-01-08 22:30:32
+ * LastEditTime : 2020-01-08 22:41:54
  * @Description: 更新日志
  -->
 
@@ -15,7 +15,7 @@
 <!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
 <!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
 
-### [V4.5.1]
+### [V4.5.2]
 
 * 推荐一个新开源的插件：[Auto Commit](https://github.com/OBKoro1/autoCommit)
 
