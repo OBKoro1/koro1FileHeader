@@ -94,7 +94,6 @@ function saveReplaceTime(document, config, fileEnd) {
     if (checked) return false; // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name];
     if (userSetName) {
-      // userSetName = util.spaceStringFn(userSetName, config.configObj.wideNum);
       if (line.indexOf(`${userSetName}`) === -1) {
         // 没有检测用户自己更改的 再检测特殊变量
         return line.indexOf(`${name}`) !== -1;
@@ -104,7 +103,6 @@ function saveReplaceTime(document, config, fileEnd) {
       }
     } else {
       // 检测特殊变量
-      // name = util.spaceStringFn(name, config.configObj.wideNum);
       return line.indexOf(`${name}`) !== -1;
     }
   };

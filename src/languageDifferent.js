@@ -149,7 +149,7 @@ tplJudge.prototype = {
   },
   // 头部注释最后编辑人
   LastEditorsStr: function () {
-    if(this.obj.replace){
+    if(this.config.configObj.wideSame){
       this.LastEditorsName = util.spaceStringFn(this.LastEditorsName, this.config.configObj.wideNum);
     }
     const LastEditorsStrObj = {
@@ -163,7 +163,7 @@ tplJudge.prototype = {
   },
   // 头部注释最后编辑时间
   lastTimeStr: function () {
-    if(this.obj.replace){
+    if(this.config.configObj.wideSame){
       this.LastEditTimeName = util.spaceStringFn(this.LastEditTimeName, this.config.configObj.wideNum);
     }
     const lastTimeStrObj = {
