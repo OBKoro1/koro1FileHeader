@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-01-08 22:41:54
+ * LastEditTime : 2020-02-02 17:59:41
  * @Description: 更新日志
  -->
 
@@ -14,6 +14,14 @@
 <!-- TODO: 好玩的注释 https://blog.csdn.net/vbirdbest/article/details/78995793 -->
 <!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
 <!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
+
+### [V4.6.0]
+
+<!-- TODO: window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
+
+* 
+* 修复更新LastEditors/LastEditTime时没有限制等宽的问题(`wideSame`)
+
 
 ### [V4.5.2]
 
