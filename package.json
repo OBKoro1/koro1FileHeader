@@ -60,7 +60,7 @@
     "onCommand:extension.fileheader",
     "onCommand:extension.cursorTip"
   ],
-  "main": "./src/koroFileHead.js",
+  "main": "./src/main.js",
   "contributes": {
     "configuration": {
       "type": "object",
@@ -118,7 +118,8 @@
             "showErrorMessage": false,
             "wideSame": false,
             "wideNum": 13,
-            "CheckFileChange": false
+            "CheckFileChange": false,
+            "createHeader": true
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }

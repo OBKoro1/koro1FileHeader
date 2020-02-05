@@ -2,16 +2,16 @@
  * Author       : OBKoro1
  * Date         : 2019-12-18 15:04:39
  * LastEditors  : OBKoro1
- * LastEditTime : 2019-12-30 21:04:41
+ * LastEditTime : 2020-02-05 12:40:50
  * FilePath     : /koro1FileHeader/src/repealChange.js
  * Description  : 文件没有变化 取消头部注释的变更
  * https://github.com/OBKoro1
  */
 
-const util = require('./util');
+const util = require('../utile/util');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
-const languageDiff = require('./languageDifferent');
+const languageDiff = require('../languageOutPut/languageDifferent');
 
 class RepealChange {
   /**

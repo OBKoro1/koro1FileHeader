@@ -7,7 +7,7 @@
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
-const util = require('./util');
+const util = require('../utile/util');
 
 /**
  * @description: 通过fileEnd使用正则匹配各个语言已调好的注释符号

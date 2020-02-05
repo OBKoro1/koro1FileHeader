@@ -6,11 +6,11 @@
  * @lastTime   : 2019-08-08 16:32:27
  */
 const vscode = require('vscode');
-const languageOutput = require('./languageOutput');
-const util = require('./util');
+const languageOutput = require('../languageOutPut/languageOutput');
+const util = require('../utile/util');
 const fs = require('fs');
 const path = require('path');
-const global = require('./CONST');
+const global = require('../utile/CONST');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -107,7 +107,7 @@ function saveReplaceTime(document, config, fileEnd) {
     }
   };
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 25; i++) {
     // 只遍历前15行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i); // 获取每行内容
     let lineNoTrim = linetAt.text; // line
@@ -173,14 +173,8 @@ const sameLengthFn = (data, maxNum) => {
   let objData = {};
   // 修改属性
   Object.keys(data).forEach(item => {
-    let diffNum = maxNum - item.length;
-    // 负值和0不改变
-    if (diffNum < 1) {
-      objData[item] = data[item];
-    } else {
-      const newItem = util.spaceStringFn(item, maxNum);
-      objData[newItem] = data[item];
-    }
+    const newItem = util.spaceStringFn(item, maxNum);
+    objData[newItem] = data[item];
   });
   return objData;
 };
@@ -427,7 +421,7 @@ const moveCursor = tpl => {
     for (let i = 0; i < strLine; i++) {
       let line = editor.document.lineAt(i);
       let lineNoTrim = line.text; // line
-      if (lineNoTrim.indexOf(`${DescriptionName}:`) !== -1) {
+      if (lineNoTrim.indexOf(`${DescriptionName}`) !== -1) {
         descriptionLineNum = i;
         break;
       }

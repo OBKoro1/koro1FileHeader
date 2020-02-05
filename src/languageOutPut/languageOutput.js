@@ -3,12 +3,12 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-02 17:56:22
+ * LastEditTime : 2020-02-05 12:37:07
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent');
-const constFile = require('./CONST');
-const util = require('./util');
+const constFile = require('../utile/CONST');
+const util = require('../utile/util');
 
 // 头部注释中间部分生成
 const middleTpl = (data, fileEnd, config) => {

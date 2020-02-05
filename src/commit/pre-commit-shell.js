@@ -7,7 +7,7 @@
  * @Description: 当没有commit文件时，默认创建的pre-commit 文件
  */
 
-const CONST = require('../CONST')
+const CONST = require('../utile/CONST')
 let orderString = CONST.handleNodeString
 
 const preCommitString = `#!/bin/sh

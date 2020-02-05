@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2019-12-18 14:40:09
+ * LastEditTime : 2020-02-04 23:44:39
  */
 
 const vscode = require('vscode');
@@ -126,7 +126,7 @@ const saveEditor = (editor, callBack) => {
 // 修改时间格式
 Date.prototype.format = function() {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
-  return moment(this).format(config.configObj.dateFormat);
+  return moment(this).local().format(config.configObj.dateFormat);
 };
 
 // 获取该文件的冒号
@@ -157,6 +157,9 @@ const replaceSymbolStr = (tpl, fileEnd) => {
  * 使用空格填充字符
  */
 const spaceStringFn = (oldStr, maxNum) => {
+  if (typeof maxNum !== 'number') { // 不为数字默认为13
+    maxNum = 13;
+  }
   let diffNum = maxNum - oldStr.length;
   let spaceStr = ''.padStart(diffNum);
   return `${oldStr}${spaceStr}`;
@@ -183,7 +186,7 @@ const getFileRelativeSite = () => {
     itemPath, // 项目的绝对地址
     fileItemPath, // 文件相对地址
     itemName // 项目名称
-  }
+  };
 };
 
 module.exports = {

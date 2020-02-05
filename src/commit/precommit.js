@@ -2,15 +2,15 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
- * LastEditors: OBKoro1
- * LastEditTime: 2019-09-09 13:05:06
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-02-05 12:44:22
  * Description: git commit 拦截
  */
 
 const fs = require('fs');
 const vscode = require('vscode');
 const execSync = require('child_process').execSync
-const CONST = require('../CONST')
+const CONST = require('../utile/CONST')
 const preCommitString = require('./pre-commit-shell.js')
 const checkHeaderString = require('./checkHeader')
 
@@ -35,7 +35,7 @@ class PreCommit {
         // fs.writeFileSync(this.checkChangeSrc, tip, 'utf-8')
         // return
         // TODO: 暂时关闭
-        this.init()
+        // this.init()
     }
     init() {
         try {
