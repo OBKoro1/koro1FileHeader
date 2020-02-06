@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 16:42:05
+ * LastEditTime : 2020-02-06 13:44:44
  * @Description: 更新日志
  -->
 
@@ -20,6 +20,7 @@
 <!-- 设置wideNum报错和失效的问题：https://github.com/OBKoro1/koro1FileHeader/issues/129 -->
 <!-- TODO: 查一下window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
 
+* 新增保存时更新`FilePath`, 防止因文件迁移导致路径没有更新的情况。
 * 新增添加头部注释项目黑名单，使用场景: 某些项目没有推广头部注释，然后leader/团队成员反感这种行为，使用该功能。
 * 修复更新LastEditors/LastEditTime时没有开启`wideSame`, 没有限制等宽的问题.
 * 修复因`wideSame`功能，导致光标无法移动到`Description`的bug。

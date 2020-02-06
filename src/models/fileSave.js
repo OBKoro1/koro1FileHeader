@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 15:25:06
+ * LastEditTime : 2020-02-06 13:21:34
  * FilePath: /koro1FileHeader/src/models/fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
@@ -12,6 +12,7 @@ const vscode = require('vscode');
 const util = require('../utile/util');
 const handleError = require('../logic/handleError');
 const logic = require('../logic/logic');
+const checkFile = require('./checkFile');
 const repealChange = require('./repealChange');
 const createAnnotation = require('./createAnnotation');
 
@@ -44,30 +45,18 @@ function watchSaveFn() {
       let fileEnd = editor._documentData._languageId; // 文件后缀
       fileEnd = util.fileEndMatch(fileEnd);
       const document = editor.document;
-      const [
-        authorRange,
-        authorText,
-        lastTimeRange,
-        lastTimeText,
-        hasAnnotation
-      ] = logic.saveReplaceTime(document, config, fileEnd);
-      if (authorRange !== undefined && lastTimeRange !== undefined) {
-        // 变更最后编辑人和最后编辑时间
-        util.saveEditor(editor, edit => {
-          edit.replace(authorRange, authorText);
-          edit.replace(lastTimeRange, lastTimeText);
+      const { hasAnnotation, replaceArr } = checkFile.saveReplaceTime(
+        document,
+        config,
+        fileEnd
+      );
+      // 更新最后编辑人，时间，路径
+      util.saveEditor(editor, edit => {
+        replaceArr.forEach(item => {
+          if(!item.range) return
+          edit.replace(item.range, item.value);
         });
-      } else if (lastTimeRange !== undefined) {
-        // 只变更最后编辑时间
-        util.saveEditor(editor, edit => {
-          edit.replace(lastTimeRange, lastTimeText);
-        });
-      } else if (authorRange !== undefined) {
-        // 只变更最后编辑人
-        util.saveEditor(editor, edit => {
-          edit.replace(authorRange, authorText);
-        });
-      }
+      });
       // 检测文件注释,自动添加注释
       setTimeout(() => {
         let params = {
@@ -88,4 +77,4 @@ function watchSaveFn() {
   });
 }
 
-module.exports = watchSaveFn
+module.exports = watchSaveFn;

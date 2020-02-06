@@ -9,8 +9,9 @@ const vscode = require('vscode');
 const languageOutput = require('../languageOutPut/languageOutput');
 const util = require('../utile/util');
 const fs = require('fs');
-const path = require('path');
 const global = require('../utile/CONST');
+const filePathFile = require('./filePath');
+const logicUtil = require('../utile/logicUtil');
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -71,75 +72,6 @@ const lineSpaceFn = editor => {
 };
 
 /**
- * @description: 保存时触发修改
- * @param {object} document 文档对象
- * @param {object} userObj 用户设置
- * @param {String} fileEnd 文件后缀
- * @return: authorRange 原修改人行
- * @return: authorText  当前修改人
- * @return: lastTimeRange  原最后编辑时间
- * @return: lastTimeText 当前编辑时间
- * @return: hasAnnotation 是否自动添加头部注释
- */
-function saveReplaceTime(document, config, fileEnd) {
-  const userObj = config.customMade;
-  let authorRange, authorText, lastTimeRange, lastTimeText;
-  let changeFont = new languageOutput.changeFont(fileEnd);
-  let annotationStarts = changeFont.star();
-  let totalLine = document.lineCount - 1; // 总行数
-  let enter = false;
-  let hasAnnotation = false; // 默认没有
-  // 有没有更改特殊变量
-  const checkHasAnnotation = (name, line, checked) => {
-    if (checked) return false; // 已经找到要替换的
-    let userSetName = config.configObj.specialOptions[name];
-    if (userSetName) {
-      if (line.indexOf(`${userSetName}`) === -1) {
-        // 没有检测用户自己更改的 再检测特殊变量
-        return line.indexOf(`${name}`) !== -1;
-      } else {
-        // 检测用户自己更改的
-        return true;
-      }
-    } else {
-      // 检测特殊变量
-      return line.indexOf(`${name}`) !== -1;
-    }
-  };
-
-  for (let i = 0; i < 25; i++) {
-    // 只遍历前15行没有文件头部注释内容即退出
-    let linetAt = document.lineAt(i); // 获取每行内容
-    let lineNoTrim = linetAt.text; // line
-    let line = linetAt.text.trim();
-    if (!enter) {
-      // 判断进入注释
-      if (annotationStarts === line || annotationStarts === lineNoTrim) {
-        enter = true;
-      }
-    } else {
-      let range = linetAt.range;
-      if (checkHasAnnotation('LastEditors', line, authorRange)) {
-        //表示是修改人
-        hasAnnotation = true;
-        authorRange = range;
-        let LastEditors = userObj.LastEditors || 'Please set LastEditors';
-        authorText = changeFont.LastEditorsStr(LastEditors);
-      } else if (checkHasAnnotation('LastEditTime', line, lastTimeRange)) {
-        //最后修改时间
-        hasAnnotation = true;
-        lastTimeRange = range;
-        lastTimeText = changeFont.lastTimeStr();
-      } else if (checkHasAnnotation('Date', line)) {
-        hasAnnotation = true;
-      }
-    }
-    if (totalLine === i) break; // 行数不够则退出循环
-  }
-  return [authorRange, authorText, lastTimeRange, lastTimeText, hasAnnotation];
-}
-
-/**
  * @description: 取出文件后缀
  * @param { String } 文件后缀
  * @param {Object} config 用户设置
@@ -168,46 +100,6 @@ const editLineFn = (fsPath, config) => {
   return [lineNum, isSetAdd, isAfterAdd];
 };
 
-// 将字段弄得一样长
-const sameLengthFn = (data, maxNum) => {
-  let objData = {};
-  // 修改属性
-  Object.keys(data).forEach(item => {
-    const newItem = util.spaceStringFn(item, maxNum);
-    objData[newItem] = data[item];
-  });
-  return objData;
-};
-
-/**
- * 更改字段，不改变他们的顺序
- * @Created_time: 2019-05-07 19:36:20
- * @return {Object} 更换字段后的对象
- */
-const changePrototypeNameFn = (data, config) => {
-  let keysArr = Object.keys(data);
-  let specialOptions = config.configObj.specialOptions; // 时间字段重命名配置
-  let objData = {};
-  let specialArr = [
-    'Date',
-    'LastEditTime',
-    'LastEditors',
-    'Description',
-    'FilePath'
-  ];
-  keysArr.forEach(item => {
-    // 特殊字段 且 有设置特殊字段
-    if (specialArr.includes(item) && specialOptions[item]) {
-      objData[specialOptions[item]] = data[item];
-    } else if (item === 'custom_string_obkoro1') {
-      // 更改用户自定义输出字段 后期需要切割它
-      objData.symbol_custom_string_obkoro1 = data[item];
-    } else {
-      objData[item] = data[item];
-    }
-  });
-  return objData;
-};
 /**
  * 修改时间，描述等配置值
  * @param {object} data 配置项
@@ -230,22 +122,10 @@ function changeDataOptionFn(data, config) {
   }
   // 自动添加文件路径
   if (data.FilePath !== undefined) {
-    let { itemName, fileItemPath } = util.getFileRelativeSite();
-    let res = `${path.sep}${itemName}${fileItemPath}`; // 拼接项目名称和相对于项目的路径
-    if (data.FilePath === 'no item name') {
-      res = `${fileItemPath}`;
-    }
-    if (config.configObj.filePathColon !== '路径分隔符替换') {
-      // path.sep window: \ mac: /
-      const reg = new RegExp(path.sep, 'y');
-      res = res.replace(reg, config.configObj.filePathColon);
-    }
-    data.FilePath = res;
+    data.FilePath = filePathFile.createFilePath(data.FilePath);
   }
-  data = changePrototypeNameFn(data, config);
-  if (config.configObj.wideSame) {
-    data = sameLengthFn(data, config.configObj.wideNum);
-  }
+  data = logicUtil.changePrototypeNameFn(data, config);
+  data = logicUtil.sameLengthFn(data);
   return data;
 }
 
@@ -446,7 +326,6 @@ const moveCursor = tpl => {
 module.exports = {
   userSet,
   lineSpaceFn,
-  saveReplaceTime,
   cursorOptionHandleFn,
   editLineFn,
   handleTplFn,
