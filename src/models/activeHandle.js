@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:49:37
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 18:22:54
+ * LastEditTime : 2020-02-06 17:23:29
  * FilePath: /koro1FileHeader/src/models/activeHandle.js
  * Description: 扩展激活的一些监听等事情
  * https://github.com/OBKoro1
@@ -11,9 +11,6 @@
 const vscode = require('vscode');
 const createAnnotation = require('./createAnnotation');
 const fileSave = require('./fileSave');
-const checkFile = require('./checkFile');
-
-
 class activeHandle {
   constructor() {
     this.watch();
@@ -32,7 +29,9 @@ class activeHandle {
       vscode.workspace.openTextDocument(openPath).then(doc => {
         vscode.window.showTextDocument(doc).then(() => {
           const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
-          createAnnotation.headerAnnotation(editor);
+          createAnnotation.headerAnnotation(editor, {
+            create: true
+          });
         });
       });
     });
