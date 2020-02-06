@@ -108,6 +108,7 @@
             "prohibitAutoAdd": [
               "json"
             ],
+            "prohibitItemAutoAdd": [ "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加" ],
             "moveCursor": true,
             "dateFormat": "YYYY-MM-DD HH:mm:ss",
             "atSymbol": "@",

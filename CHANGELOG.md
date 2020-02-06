@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 13:44:44
+ * LastEditTime : 2020-02-06 15:24:49
  * @Description: 更新日志
  -->
 
@@ -15,13 +15,17 @@
 <!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
 <!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
 
-### [V4.6.0]
 <!-- window -->
 <!-- 设置wideNum报错和失效的问题：https://github.com/OBKoro1/koro1FileHeader/issues/129 -->
 <!-- TODO: 查一下window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
+<!-- window下SCSS出现错误信息 -->
 
+### [V4.6.0]
+
+<!-- PS 为支持的语言和自定义语言自动添加 -->
+* 新增新建文件时，自动添加头部注释，默认开启，配置项为`createHeader`。
 * 新增保存时更新`FilePath`, 防止因文件迁移导致路径没有更新的情况。
-* 新增添加头部注释项目黑名单，使用场景: 某些项目没有推广头部注释，然后leader/团队成员反感这种行为，使用该功能。
+* 新增自动添加头部注释项目黑名单，场景: 某些项目没有推广头部注释，然后leader/团队成员反感这种行为时，使用该功能。
 * 修复更新LastEditors/LastEditTime时没有开启`wideSame`, 没有限制等宽的问题.
 * 修复因`wideSame`功能，导致光标无法移动到`Description`的bug。
 
