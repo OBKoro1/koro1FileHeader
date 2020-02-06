@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 15:15:48
+ * LastEditTime : 2020-02-06 15:09:08
  * FilePath: /koro1FileHeader/src/models/createHeader.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -15,13 +15,14 @@ const handleError = require('../logic/handleError');
 const languageOutput = require('../languageOutPut/languageOutput');
 
 // 在对应文件头部添加头部注释
-function headerAnnotation(editor) {
+function headerAnnotation(editor, option = {}) {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
   editor.edit(editBuilder => {
     try {
       // 文件后缀
       let fileEnd = editor._documentData._languageId; // 语言
       fileEnd = util.fileEndMatch(fileEnd); // 提取文件后缀 或者语言类型
+      if(option.create && fileEnd === '匹配不到_默认注释') return // 创建文件匹配不到_默认注释 不自动添加头部注释
       // 返回生成模板的数据对象
       let data = logic.userSet(config);
       const [lineNum, beforeAnnotation, afterAnnotation] = logic.editLineFn(
