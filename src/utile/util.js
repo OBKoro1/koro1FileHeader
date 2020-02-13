@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-04 23:44:39
+ * LastEditTime : 2020-02-13 12:32:24
  */
 
 const vscode = require('vscode');
@@ -51,32 +51,17 @@ const fsPathFn = fsPath => {
  */
 const fileEndMatch = fileEnd => {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
-  const language = config.configObj.language; // 自定义语言项
   const editor = vscode.editor || vscode.window.activeTextEditor; // 选中文件
   let fsName = fsPathFn(editor._documentData._uri.fsPath); // 文件后缀
-
-  // 特殊文件
-  let isSpecial = specialLanguageFn(editor._documentData._uri.fsPath, config);
-  if (isSpecial) {
-    return {
-      fileEnd: isSpecial,
-      userLanguage: true // 使用用户的配置
-    };
-  }
-
-  // 检查用户是否设自定义语言 匹配语言
-  if (language[fileEnd]) {
-    return {
-      fileEnd,
-      userLanguage: true // 使用用户的配置
-    };
-  } else if (language[fsName]) {
-    // 语言没有匹配到 单独匹配一下文件后缀
-    // fileEnd.userLanguage 没有值 即为单独的字符串
-    return {
-      fileEnd: fsName,
-      userLanguage: true
-    };
+  //  匹配用户自定义语言
+  let isMatch = userLanguageFn(
+    config,
+    fileEnd,
+    fsName,
+    editor._documentData._uri.fsPath
+  );
+  if (isMatch) {
+    return isMatch; // 匹配到了 返回对象
   }
   const obj = {
     '/^java$|^javascript$|^typescript$|^go$|^cpp$|^php$|^c$/': 'javascript',
@@ -98,6 +83,48 @@ const fileEndMatch = fileEnd => {
   return '匹配不到_默认注释';
 };
 
+// 是否使用用户配置
+function userLanguageFn(config, fileEnd, fsName, fsPath) {
+  // 特殊文件
+  const language = config.configObj.language; // 自定义语言项
+  let isSpecial = specialLanguageFn(fsPath, config);
+  if (isSpecial) {
+    return {
+      fileEnd: isSpecial,
+      userLanguage: true // 使用用户的配置
+    };
+  }
+
+  // 检查用户是否设自定义语言 匹配语言
+  if (language[fileEnd]) {
+    return {
+      fileEnd,
+      userLanguage: true // 使用用户的配置
+    };
+  } else if (language[fsName]) {
+    // 语言没有匹配到 单独匹配一下文件后缀
+    return {
+      fileEnd: fsName,
+      userLanguage: true
+    };
+  }
+  for (let key in language) {
+    if (key.indexOf('/') !== -1) {
+      const keyArr = key.split('/');
+      for (let item of keyArr.values()) {
+        if (item === fsName) {
+          return {
+            fileEnd: key,
+            userLanguage: true
+          };
+        }
+      }
+    }
+  }
+
+  return false;
+}
+
 // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同
 function specialLanguageFn(fsPath, config) {
   config = config.configObj['language']; // 自定义语言项
@@ -113,20 +140,12 @@ function specialLanguageFn(fsPath, config) {
   });
 }
 
-// 修改内容保存编辑器
-const saveEditor = (editor, callBack) => {
-  setTimeout(() => {
-    editor.edit(edit => {
-      callBack(edit);
-    });
-    editor.document.save();
-  }, 200);
-};
-
 // 修改时间格式
 Date.prototype.format = function() {
   const config = vscode.workspace.getConfiguration('fileheader'); // 配置项
-  return moment(this).local().format(config.configObj.dateFormat);
+  return moment(this)
+    .local()
+    .format(config.configObj.dateFormat);
 };
 
 // 获取该文件的冒号
@@ -157,7 +176,8 @@ const replaceSymbolStr = (tpl, fileEnd) => {
  * 使用空格填充字符
  */
 const spaceStringFn = (oldStr, maxNum) => {
-  if (typeof maxNum !== 'number') { // 不为数字默认为13
+  if (typeof maxNum !== 'number') {
+    // 不为数字默认为13
     maxNum = 13;
   }
   let diffNum = maxNum - oldStr.length;
@@ -193,7 +213,6 @@ module.exports = {
   throttle, // 节流
   fileEndMatch, // 匹配文件后缀 以哪种形式生成注释
   fsPathFn, // 切割文件路径 获取文件后缀
-  saveEditor, // 修改内容保存编辑器
   specialLanguageFn, // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配
   replaceSymbolStr, // 切割特殊字符串生成空行
   getColon, // 获取该文件的冒号
