@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2019-12-18 15:04:39
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 12:40:50
+ * LastEditTime : 2020-02-12 11:03:51
  * FilePath     : /koro1FileHeader/src/repealChange.js
  * Description  : 文件没有变化 取消头部注释的变更
  * https://github.com/OBKoro1
@@ -77,11 +77,11 @@ class RepealChange {
         if (item.indexOf(`${lastEditorName}`) !== -1) {
         } else if (item.indexOf(`${lastTimeName}`) !== -1) {
         } else {
-          return true; // 其他不允许的变更
+          return true; // 有其他变更 不恢复文件
         }
       }
     }
-    return false; // 允许变更
+    return false; // 恢复文件
   }
   myExecSync(cmd) {
     // 除了该方法直到子进程完全关闭后才返回 执行完毕 返回
