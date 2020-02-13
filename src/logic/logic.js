@@ -7,9 +7,7 @@
  */
 const vscode = require('vscode');
 const languageOutput = require('../languageOutPut/languageOutput');
-const util = require('../utile/util');
 const fs = require('fs');
-const global = require('../utile/CONST');
 const filePathFile = require('./filePath');
 const logicUtil = require('../utile/logicUtil');
 
@@ -69,35 +67,6 @@ const lineSpaceFn = editor => {
     lineSpace = lineFirst;
   }
   return [lineSpace, frontStr, line, nextLine];
-};
-
-/**
- * @description: 取出文件后缀
- * @param { String } 文件后缀
- * @param {Object} config 用户设置
- * @return: [生成注释的行数,注释之前添加的内容,注释之前添加的内容]
- */
-const editLineFn = (fsPath, config) => {
-  const pathArr = fsPath.split('/');
-  const fileName = pathArr[pathArr.length - 1];
-  const fileNameArr = fileName.split('.');
-  let fileEnd = fileNameArr[fileNameArr.length - 1]; // 文件后缀
-  let isSpecial = util.specialLanguageFn(fsPath, config);
-  // 特殊文件
-  if (isSpecial) {
-    fileEnd = isSpecial;
-  }
-
-  // 切割文件路径 获取文件后缀
-  const headInsertLineObj = config.configObj.headInsertLine;
-  let lineNum = 0;
-  if (headInsertLineObj[fileEnd]) {
-    lineNum = headInsertLineObj[fileEnd] - 1;
-  }
-  // 是否设置在注释之前添加内容
-  let isSetAdd = config.configObj.beforeAnnotation[fileEnd];
-  let isAfterAdd = config.configObj.afterAnnotation[fileEnd];
-  return [lineNum, isSetAdd, isAfterAdd];
 };
 
 /**
@@ -178,26 +147,7 @@ function changNameFn(data, config) {
   return objData;
 }
 
-/**
- * @description: 处理生成的模板 比如添加信息，删除信息等。
- * @param {Object} beforehand 模板和预处理的参数
- * beforehand.tpl {string} tpl 模板changePrototypeNameFn
- * beforehand.beforeAnnotation {Boolean}  是否在模板之前添加内容
- * beforehand.afterAnnotation {Boolean}  是否在模板之后添加内容
- * beforehand.fileEnd 文件后缀
- * @return: {String} tpl
- * @Created_time: 2019-05-14 14:25:26
- */
-const handleTplFn = beforehand => {
-  let res = util.replaceSymbolStr(beforehand.tpl, beforehand.fileEnd);
-  if (beforehand.beforeAnnotation) {
-    res = `${beforehand.beforeAnnotation}\n${res}`;
-  }
-  if (beforehand.afterAnnotation) {
-    res = `${res}${beforehand.afterAnnotation}\n`;
-  }
-  return res;
-};
+
 
 /**
  * @description: 函数注释移动光标到description所在行
@@ -286,8 +236,6 @@ module.exports = {
   userSet,
   lineSpaceFn,
   cursorOptionHandleFn,
-  editLineFn,
-  handleTplFn,
   moveCursor,
   moveCursorDesFn
 };
