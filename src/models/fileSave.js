@@ -1,8 +1,8 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 16:17:12
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2020-02-12 15:47:46
  * FilePath: /koro1FileHeader/src/models/fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
@@ -88,7 +88,7 @@ const isMatchProhibit = (fsPath, config) => {
 };
 
 /**
- * @description: 逻辑判断
+ * @description: 是否自动添加 逻辑判断
  * @param {Object} params
  * @param {Number} params.lineCount 文件行数
  * @param {String} params.fsPath 文件路径
