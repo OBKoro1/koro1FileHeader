@@ -1,8 +1,8 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2020-02-12 15:47:46
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-02-13 12:26:34
  * FilePath: /koro1FileHeader/src/models/fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
@@ -14,6 +14,7 @@ const handleError = require('../logic/handleError');
 const checkFile = require('./checkFile');
 const repealChange = require('./repealChange');
 const createAnnotation = require('./createAnnotation');
+const global = require('../utile/CONST')
 
 function watchSaveFn() {
   let intervalVal = null; // 保存上次触发时间，用于节流
@@ -49,13 +50,18 @@ function watchSaveFn() {
         config,
         fileEnd
       );
+      let replace = false;
       // 更新最后编辑人，时间，路径
-      util.saveEditor(editor, edit => {
-        replaceArr.forEach(item => {
-          if (!item.range) return;
+      replaceArr.forEach(item => {
+        if (!item.range) return;
+        editor.edit(edit => {
+          replace = true;
           edit.replace(item.range, item.value);
         });
       });
+      if (replace) {
+        editor.document.save();
+      }
       // 检测文件注释,自动添加注释
       setTimeout(() => {
         let params = {
