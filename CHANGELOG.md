@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 15:24:49
+ * LastEditTime : 2020-02-14 23:45:59
  * @Description: 更新日志
  -->
 
@@ -18,17 +18,17 @@
 <!-- window -->
 <!-- 设置wideNum报错和失效的问题：https://github.com/OBKoro1/koro1FileHeader/issues/129 -->
 <!-- TODO: 查一下window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
-<!-- window下SCSS出现错误信息 -->
 
 ### [V4.6.0]
 
-<!-- PS 为支持的语言和自定义语言自动添加 -->
-* 新增新建文件时，自动添加头部注释，默认开启，配置项为`createHeader`。
+* 新增[新建文件自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)，默认开启，配置项为`createHeader`。
+* 新增[自动添加头部注释项目黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%A1%B9%E7%9B%AE%E9%BB%91%E5%90%8D%E5%8D%95)(`prohibitItemAutoAdd`)，场景: 某些项目没有推广头部注释，然后leader/团队成员反感这种行为时，使用该功能。
 * 新增保存时更新`FilePath`, 防止因文件迁移导致路径没有更新的情况。
-* 新增自动添加头部注释项目黑名单，场景: 某些项目没有推广头部注释，然后leader/团队成员反感这种行为时，使用该功能。
+* 新增自定义语言注释，一次匹配多种文件, 比如c语言的`h/hpp/cpp/cxx/cc`统一修改。
+* 新增通配符`*`, 如果设置了通配符当没有匹配到文件时，会自动使用通配符设置，目前支持`headInsertLine`(第几行插入)、`beforeAnnotation`(注释之前添加)、`afterAnnotation`(注释之后添加)
+* 新增默认配置中的一些说明。
 * 修复更新LastEditors/LastEditTime时没有开启`wideSame`, 没有限制等宽的问题.
 * 修复因`wideSame`功能，导致光标无法移动到`Description`的bug。
-
 
 ### [V4.5.2]
 

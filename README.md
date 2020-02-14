@@ -48,14 +48,24 @@
 
 ## 注释模板的设置
 
-设置也超方便的，[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
+## wiki文档
+
+[更新日志](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
+
+[支持语言](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
+
+[插件设置/配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
+
+[配置字段](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)
+
+[常见问题](https://github.com/OBKoro1/koro1FileHeader/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 ### 支持功能：
 
 * [自定义注释模板信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%B3%A8%E9%87%8A%E6%A8%A1%E6%9D%BF%E7%9A%84%E8%AE%BE%E7%BD%AE),自动更新最后编辑时间，最后编辑人。 
 * [支持几乎所有语言的注释形式](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
 * [自定义注释符号](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#1-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7%E5%8F%AF%E9%80%89%E9%A1%B9)：即使插件不支持的语言，也可以自己定制。
-* 检测文件头部没有注释, [自动添加头部注释功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#2-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%8F%AF%E9%80%89%E9%A1%B9)，配合[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%BB%91%E5%90%8D%E5%8D%95)，麻麻再也不用担心我忘记加注释了.
+* 检测文件头部没有注释, [自动添加头部注释功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#2-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)，配合[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%99%90%E5%88%B6)，麻麻再也不用担心我忘记加注释了.
 * 生成头部注释时，自动添加[文件相对于当前项目的文件路径](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
 
 * [头部注释等宽](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E7%AD%89%E5%AE%BD%E8%AE%BE%E7%BD%AEwidesame)功能，提高文件头部注释的颜值。
@@ -71,18 +81,9 @@
 
 * [文件diff检查](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E4%BF%9D%E5%AD%98%E6%97%B6%E8%BF%9B%E8%A1%8Cdiff%E6%A3%80%E6%9F%A5)：检测只变更`LastEditors`和`LastEditTime`，将回滚该文件，减少无意义的提交。
 
-## wiki文档
+* [新建文件自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)
 
-[更新日志](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
-
-[支持语言](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
-
-[插件设置/配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
-
-[配置字段](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)
-
-[常见问题](https://github.com/OBKoro1/koro1FileHeader/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
-
+* [自动添加头部注释-项目黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%A1%B9%E7%9B%AE%E9%BB%91%E5%90%8D%E5%8D%95)
 
 ### Auto Commit
 
@@ -90,8 +91,11 @@
 
   **这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满**。
 
-
 ![autoCommit演示](https://ask.qcloudimg.com/draft/2195437/lig5kh97xk.gif)
+
+设置也超方便的，[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
+
+
 
 ## 最后
 

@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
-  "version": "4.5.2",
+  "version": "4.6.0",
   "publisher": "OBKoro1",
   "scripts": {
     "build": "vsce package",
@@ -99,22 +99,34 @@
             "headInsertLine": {
               "php": 2
             },
-            "beforeAnnotation": {},
-            "afterAnnotation": {},
-            "specialOptions": {},
+            "beforeAnnotation": {
+              "文件后缀": "该文件后缀的头部注释之前添加某些内容"
+            },
+            "afterAnnotation": {
+              "文件后缀": "该文件后缀的头部注释之后添加某些内容"
+            },
+            "specialOptions": {
+              "特殊字段": "自定义比如LastEditTime/LastEditors"
+            },
             "switch": {
               "newlineAddAnnotation": true
             },
             "prohibitAutoAdd": [
               "json"
             ],
-            "prohibitItemAutoAdd": [ "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加" ],
+            "prohibitItemAutoAdd": [
+              "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加"
+            ],
             "moveCursor": true,
             "dateFormat": "YYYY-MM-DD HH:mm:ss",
             "atSymbol": "@",
-            "atSymbolObj": {},
+            "atSymbolObj": {
+              "文件后缀": "修改它的@符号"
+            },
             "colon": ": ",
-            "colonObj": {},
+            "colonObj": {
+              "文件后缀": "修改它的冒号"
+            },
             "filePathColon": "路径分隔符替换",
             "showErrorMessage": false,
             "wideSame": false,
