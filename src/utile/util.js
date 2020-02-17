@@ -19,7 +19,7 @@ const path = require('path');
  */
 const throttle = (fn, gapTime, _lastTime = null) => {
   return function() {
-    let _nowTime = +new Date();
+    let _nowTime = Date.now();
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
       // !_lastTime 第一次进入
       fn(); // 当前时间- 上次执行的时间 超过 给定时间间隔 就执行回调
