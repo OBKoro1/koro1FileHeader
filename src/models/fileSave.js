@@ -14,7 +14,7 @@ const handleError = require('../logic/handleError');
 const checkFile = require('./checkFile');
 const repealChange = require('./repealChange');
 const createAnnotation = require('./createAnnotation');
-const global = require('../utile/CONST')
+const global = require('../utile/CONST');
 
 function watchSaveFn() {
   let intervalVal = null; // 保存上次触发时间，用于节流
@@ -52,13 +52,14 @@ function watchSaveFn() {
       );
       let replace = false;
       // 更新最后编辑人，时间，路径
-      replaceArr.forEach(item => {
-        if (!item.range) return;
-        editor.edit(edit => {
+      editor.edit(edit => {
+        replaceArr.forEach(item => {
+          if (!item.range) return;
           replace = true;
           edit.replace(item.range, item.value);
         });
       });
+
       if (replace) {
         editor.document.save();
       }
