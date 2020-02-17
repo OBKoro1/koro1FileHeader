@@ -19,6 +19,10 @@
 <!-- 设置wideNum报错和失效的问题：https://github.com/OBKoro1/koro1FileHeader/issues/129 -->
 <!-- TODO: 查一下window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
 
+### [V4.6.1]
+
+* 修复更新字段问题
+
 ### [V4.6.0]
 
 * 新增[新建文件自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A)，默认开启，配置项为`createHeader`。
