@@ -7,7 +7,7 @@
  * @Description: 通过fileEnd使用正则匹配各个语言已调好的注释符号以及用户自定义注释符号
  */
 
-const util = require('../utile/util');
+const util = require('../utile/util')
 
 /**
  * @description: 通过fileEnd使用正则匹配各个语言已调好的注释符号
@@ -17,24 +17,24 @@ const util = require('../utile/util');
  * @return: 不同逻辑下的字符串
  */
 function tplJudge(obj) {
-  this.initConfig(obj);
+  this.initConfig(obj)
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
-  let res;
+  let res
   if (obj.fileEnd.userLanguage) {
-    res = this.userLanguageSetFn(obj, '自定义语言注释');
+    res = this.userLanguageSetFn(obj, '自定义语言注释')
   } else if (obj.fileEnd !== '匹配不到_默认注释') {
     // 匹配插件的符号
-    res = this[obj.type]();
+    res = this[obj.type]()
   } else if (this.annotationSymbol.use) {
     // 调用用户设置的默认注释符号
-    res = this.userLanguageSetFn(obj);
+    res = this.userLanguageSetFn(obj)
   } else {
     // 插件默认设置
-    obj.fileEnd = 'javascript';
-    return new tplJudge(obj);
+    obj.fileEnd = 'javascript'
+    return new tplJudge(obj)
   }
   this.res = res
-};
+}
 
 /**
  * 防止用户在使用期间更改配置导致的没有同步的问题
@@ -43,9 +43,9 @@ function tplJudge(obj) {
 tplJudge.prototype = {
   fsPathEndFn: function (fsPath) {
     let special
-    const pathArr = fsPath.split('/');
-    const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-    Object.keys(this.config.configObj.language).forEach(item=>{
+    const pathArr = fsPath.split('/')
+    const fileName = pathArr[pathArr.length - 1] // 取/最后一位
+    Object.keys(this.config.configObj.language).forEach((item) => {
       if (item.indexOf('.') !== -1) {
         // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
         if (fileName.indexOf(item) !== -1 && fileName !== item) {
@@ -56,22 +56,21 @@ tplJudge.prototype = {
     if (special) {
       return special
     } else {
-      const fileName = pathArr[pathArr.length - 1]; // 取/最后一位
-      const fileNameArr = fileName.split('.');
-      return fileNameArr[fileNameArr.length - 1]; // 取.最后一位
+      const fileName = pathArr[pathArr.length - 1] // 取/最后一位
+      const fileNameArr = fileName.split('.')
+      return fileNameArr[fileNameArr.length - 1] // 取.最后一位
     }
-
   },
   initConfig: function (obj) {
     this.obj = obj
-    this.vscode = require('vscode');
-    const editor = this.vscode.editor || this.vscode.window.activeTextEditor; // 每次运行选中文件
-    this.config = this.vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-    this.annotationSymbol = this.config.configObj.annotationStr; // 默认注释配置
-    this.languageObj = this.config.configObj.language; // 自定义语言项
-    this.specialLanguageObj = this.config.configObj['special.language']; // 自定义语言项
+    this.vscode = require('vscode')
+    const editor = this.vscode.editor || this.vscode.window.activeTextEditor // 每次运行选中文件
+    this.config = this.vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+    this.annotationSymbol = this.config.configObj.annotationStr // 默认注释配置
+    this.languageObj = this.config.configObj.language // 自定义语言项
+    this.specialLanguageObj = this.config.configObj['special.language'] // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
-    this.atSymbol = this.config.configObj.atSymbolObj[this.fsPath]; // @符号
+    this.atSymbol = this.config.configObj.atSymbolObj[this.fsPath] // @符号
     this.colon = this.config.configObj.colonObj[this.fsPath] // 冒号
     if (this.atSymbol === undefined) {
       this.atSymbol = this.config.configObj.atSymbol // 默认有
@@ -80,13 +79,21 @@ tplJudge.prototype = {
       this.colon = this.config.configObj.colon
     }
     // LastEditTime、LastEditors 特殊字段用户有没有设置
-    const specialOptions = this.config.configObj.specialOptions;
+    const specialOptions = this.config.configObj.specialOptions
     this.LastEditTimeName = specialOptions.LastEditTime
       ? specialOptions.LastEditTime
-      : 'LastEditTime';
+      : 'LastEditTime'
+    this.LastEditTimeName = util.spaceStringFn(
+      this.LastEditTimeName,
+      this.config.configObj.wideNum
+    )
     this.LastEditorsName = specialOptions.LastEditors
       ? specialOptions.LastEditors
-      : 'LastEditors';
+      : 'LastEditors'
+    this.LastEditorsName = util.spaceStringFn(
+      this.LastEditorsName,
+      this.config.configObj.wideNum
+    )
   },
   /**
    * @description: 用户自定义语言注释符号和未设置下的默认注释符号
@@ -96,34 +103,22 @@ tplJudge.prototype = {
    */
   userLanguageSetFn: function (obj, type) {
     if (type === '自定义语言注释') {
-      this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd];
+      this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd]
     }
     const userObj = {
       topMiddle: `${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
-      topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${
-        this.annotationSymbol.end
-        }\r\n`,
-      fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${
-        obj.typeVal
-        } ${obj.value}\r\n`,
-      fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon}${
-        obj.value
-        }\r\n`,
-      topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${
-        obj.strContent
-        }${obj.str}${this.annotationSymbol.end}\r\n${obj.str}`,
-      topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${
-        obj.strContent
-        }${obj.str}${this.annotationSymbol.end}`,
+      topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${this.annotationSymbol.end}\r\n`,
+      fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal} ${obj.value}\r\n`,
+      fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
+      topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.str}`,
+      topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
       annotationStarts: `${this.annotationSymbol.head}`,
-      lastTimeStr: `${
-        this.annotationSymbol.middle
-        }${this.LastEditTimeName}${this.colon}${new Date().format()}`,
-      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon}${
-        obj.LastEditors
-        }`
-    };
-    return userObj[obj.type];
+      lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
+      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon}${obj.LastEditors}`,
+    }
+    return userObj[obj.type]
   },
   // 头部注释 头尾链接
   topHeadEnd: function () {
@@ -132,7 +127,7 @@ tplJudge.prototype = {
       python: `'''\r\n${this.obj.str}'''\r\n`,
       html: `<!--\r\n ${this.obj.str}-->\r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
-      shellscript: `###\r\n ${this.obj.str}###\r\n`
+      shellscript: `###\r\n ${this.obj.str}###\r\n`,
     }
     return topHeadEndObj[this.obj.fileEnd]
   },
@@ -149,29 +144,45 @@ tplJudge.prototype = {
   },
   // 头部注释最后编辑人
   LastEditorsStr: function () {
-    if(this.config.configObj.wideSame){
-      this.LastEditorsName = util.spaceStringFn(this.LastEditorsName, this.config.configObj.wideNum);
+    if (this.config.configObj.wideSame) {
+      this.LastEditorsName = util.spaceStringFn(
+        this.LastEditorsName,
+        this.config.configObj.wideNum
+      )
     }
     const LastEditorsStrObj = {
       javascript: ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
       python: `${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
       html: ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
       vb: `' ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
-      shellscript: ` # ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`
+      shellscript: ` # ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
     }
     return LastEditorsStrObj[this.obj.fileEnd]
   },
   // 头部注释最后编辑时间
   lastTimeStr: function () {
-    if(this.config.configObj.wideSame){
-      this.LastEditTimeName = util.spaceStringFn(this.LastEditTimeName, this.config.configObj.wideNum);
+    if (this.config.configObj.wideSame) {
+      this.LastEditTimeName = util.spaceStringFn(
+        this.LastEditTimeName,
+        this.config.configObj.wideNum
+      )
     }
     const lastTimeStrObj = {
-      javascript: ` * ${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,
-      python: `${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,
-      html: ` * ${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,
-      vb: `' ${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`,
-      shellscript: ` # ${this.atSymbol}${this.LastEditTimeName}${this.colon}${new Date().format()}`
+      javascript: ` * ${this.atSymbol}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
+      python: `${this.atSymbol}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
+      html: ` * ${this.atSymbol}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
+      vb: `' ${this.atSymbol}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
+      shellscript: ` # ${this.atSymbol}${this.LastEditTimeName}${
+        this.colon
+      }${new Date().format()}`,
     }
     return lastTimeStrObj[this.obj.fileEnd]
   },
@@ -181,21 +192,11 @@ tplJudge.prototype = {
   // 函数注释处理头尾字符串
   topHeadEnd_nextLineYes: function (nextLine = false) {
     const topHeadEnd_nextLineNoObj = {
-      javascript: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${
-        this.obj.str
-        }*/`,
-      python: `${this.obj.frontStr}'''\r\n${this.obj.strContent}${
-        this.obj.str
-        }'''`,
-      html: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${
-        this.obj.str
-        }*/`,
-      vb: `${this.obj.frontStr}'\r\n${this.obj.strContent}${
-        this.obj.str
-        }'`,
-      shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${
-        this.obj.str
-        }###`
+      javascript: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
+      python: `${this.obj.frontStr}'''\r\n${this.obj.strContent}${this.obj.str}'''`,
+      html: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
+      vb: `${this.obj.frontStr}'\r\n${this.obj.strContent}${this.obj.str}'`,
+      shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${this.obj.str}###`,
     }
     let res = topHeadEnd_nextLineNoObj[this.obj.fileEnd]
     // 当前行不为空 下一行加空格
@@ -211,22 +212,18 @@ tplJudge.prototype = {
       python: `${this.obj.str}${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
       html: `${this.obj.str}* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
       vb: `${this.obj.str}' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`
+      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
     }
     return fnMiddle_keyObj[this.obj.fileEnd]
   },
   // 函数注释参数
   fnMiddle_param: function () {
     const fnMiddle_paramObj = {
-      javascript: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${
-        this.obj.value
-        }\r\n `,
+      javascript: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
       python: `${this.obj.str}${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      html: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${
-        this.obj.value
-        }\r\n `,
+      html: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
       vb: `${this.obj.str}' ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`
+      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
     }
     return fnMiddle_paramObj[this.obj.fileEnd]
   },
@@ -240,9 +237,9 @@ tplJudge.prototype = {
       shellscript: `###`,
     }
     return annotationStartsObj[this.obj.fileEnd]
-  }
+  },
 }
 
 module.exports = {
-  tplJudge
-};
+  tplJudge,
+}
