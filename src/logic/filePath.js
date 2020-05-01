@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 13:23:18
- * FilePath     : /koro1FileHeader/src/logic/filePath.js
+ * @LastEditors: Rookie
+ * @LastEditTime: 2020-05-01 21:03:24
+ * @FilePath: /koro1FileHeader/src/logic/filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
  */
@@ -22,8 +22,11 @@ const createFilePath = FilePath => {
   }
   if (config.configObj.filePathColon !== '路径分隔符替换') {
     // path.sep window: \ mac: /
-    const reg = new RegExp(path.sep, 'y');
-    res = res.replace(reg, config.configObj.filePathColon);
+    if (path.sep === '/') {
+      res = res.replace(/\//g, config.configObj.filePathColon);
+    } else {
+      res = res.replace(/\\/g, config.configObj.filePathColon);
+    }
   }
   return res;
 };
