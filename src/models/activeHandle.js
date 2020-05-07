@@ -8,33 +8,38 @@
  * https://github.com/OBKoro1
  */
 
-const vscode = require('vscode');
-const createAnnotation = require('./createAnnotation');
-const fileSave = require('./fileSave');
+const vscode = require('vscode')
+const createAnnotation = require('./createAnnotation')
+const fileSave = require('./fileSave')
+const util = require('../utile/util')
+
 class activeHandle {
   constructor() {
-    this.watch();
-    console.log('activeHandle');
+    this.watch()
+    console.log('activeHandle')
   }
   watch() {
-    fileSave(); // 监听文件保存
-    this.createFile();
+    fileSave() // 监听文件保存
+    this.createFile()
   }
+  // 创建文件 自动添加注释
   createFile() {
-    vscode.workspace.onDidCreateFiles(file => {
-      const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-      if (!config.configObj.createHeader) return; // 关闭
-      const filePath = file.files[0].fsPath;
-      const openPath = vscode.Uri.file(filePath);
-      vscode.workspace.openTextDocument(openPath).then(doc => {
+    vscode.workspace.onDidCreateFiles((file) => {
+      const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+      if (!config.configObj.createHeader) return // 关闭
+      const filePath = file.files[0].fsPath
+      const openPath = vscode.Uri.file(filePath)
+      vscode.workspace.openTextDocument(openPath).then((doc) => {
         vscode.window.showTextDocument(doc).then(() => {
-          const editor = vscode.editor || vscode.window.activeTextEditor; // 每次运行选中文件
+          const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
+          const fsPath = editor.document.uri.fsPath
+          if (util.isMatchProhibit(fsPath)) return // 被添加进黑名单
           createAnnotation.headerAnnotation(editor, {
-            create: true
-          });
-        });
-      });
-    });
+            create: true,
+          })
+        })
+      })
+    })
   }
 }
-module.exports = activeHandle;
+module.exports = activeHandle
