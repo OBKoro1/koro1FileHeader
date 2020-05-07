@@ -94,6 +94,13 @@ tplJudge.prototype = {
       this.LastEditorsName,
       this.config.configObj.wideNum
     )
+    this.filePathName = specialOptions.LastEditors
+      ? specialOptions.LastEditors
+      : 'FilePath'
+    this.filePathName = util.spaceStringFn(
+      this.filePathName,
+      this.config.configObj.wideNum
+    )
   },
   /**
    * @description: 用户自定义语言注释符号和未设置下的默认注释符号
