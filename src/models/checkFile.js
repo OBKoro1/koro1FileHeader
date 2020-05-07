@@ -40,17 +40,19 @@ function saveReplaceTime(document, config, fileEnd) {
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name]
+    const reg = new RegExp(`[\\s\\W]${name}[\\W\\s]`, 'g')
     if (userSetName) {
-      if (line.indexOf(`${userSetName}`) === -1) {
+      const regUser = new RegExp(`[\\s\\W]${userSetName}[\\W\\s]`, 'g')
+      if (!regUser.test(line)) {
         // 没有检测用户自己更改的 再检测特殊变量
-        return line.indexOf(`${name}`) !== -1
+        return reg.test(line)
       } else {
         // 检测用户自己更改的
         return true
       }
     } else {
       // 检测特殊变量
-      return line.indexOf(`${name}`) !== -1
+      return reg.test(line)
     }
   }
 
