@@ -83,17 +83,6 @@ function watchSaveFn() {
   });
 }
 
-// 自动添加是否匹配黑名单
-const isMatchProhibit = (fsPath, config) => {
-  let match = false;
-  let prohibit = config.configObj.prohibitAutoAdd;
-  let fsName = util.fsPathFn(fsPath);
-  if (prohibit && prohibit.length > 0) {
-    match = prohibit.includes(fsName);
-  }
-  return match;
-};
-
 /**
  * @description: 是否自动添加 逻辑判断
  * @param {Object} params
@@ -110,9 +99,10 @@ function isAutoAddFn(params) {
   if (params.config.configObj.autoAddLine < params.lineCount) return false;
   if (!params.config.configObj.autoAdd) return false; // 关闭自动添加
   if (params.hasAnnotation) return false; // 文件已经有注释
-  const hasAddProhibit = isMatchProhibit(params.fsPath, params.config);
+  const hasAddProhibit = util.isMatchProhibit(params.fsPath);
   if (hasAddProhibit) return false; // 被添加进黑名单
   if (autoAddItemBlacklist(params.config.configObj.prohibitItemAutoAdd))
+  
     return false; // 项目黑名单
   // 曾经自动添加过头部注释 不再添加
   if (global.autoAddFiles.includes(params.fsPath)) return false;
