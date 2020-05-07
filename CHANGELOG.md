@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2019-08-08 19:04:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-14 23:45:59
+ * LastEditTime : 2020-05-06 15:12:18
  * @Description: 更新日志
  -->
 
@@ -15,9 +15,16 @@
 <!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
 <!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
 
-<!-- window -->
-<!-- 设置wideNum报错和失效的问题：https://github.com/OBKoro1/koro1FileHeader/issues/129 -->
-<!-- TODO: 查一下window系统下 插件页面报错的问题：https://github.com/OBKoro1/koro1FileHeader/issues/125 -->
+### [V4.6.2]
+
+* 新增使用工作区注释模板：`useWorker`, 默认为合并两个配置。
+* 新建文件黑名单文件不再自动添加头部注释。
+* 插件新增支持`dart`注释。
+* 修复`CheckFileChange`diff检查的精准度以及将`FilePath`字段也加入diff检查。
+* 修复`filePathColon`在window系统下的问题以及无法全部转换的问题。
+* 修复自定义语言注释等宽失效的问题。
+* 修复特殊文件自定义注释失效的问题。
+
 
 ### [V4.6.1]
 
