@@ -73,7 +73,7 @@ const getFsNameEnd = (fileName) => {
 const fileEndMatch = (fileEnd) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-  let fsName = fsPathFn(editor._documentData._uri.fsPath) // 文件后缀
+  const fsName = fsPathFn(editor._documentData._uri.fsPath) // 文件后缀
   //  匹配用户自定义语言
   let isMatch = userLanguageFn(
     config,

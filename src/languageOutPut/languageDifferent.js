@@ -68,7 +68,6 @@ tplJudge.prototype = {
     this.config = this.vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     this.annotationSymbol = this.config.configObj.annotationStr // 默认注释配置
     this.languageObj = this.config.configObj.language // 自定义语言项
-    this.specialLanguageObj = this.config.configObj['special.language'] // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
     this.atSymbol = this.config.configObj.atSymbolObj[this.fsPath] // @符号
     this.colon = this.config.configObj.colonObj[this.fsPath] // 冒号
