@@ -35,11 +35,10 @@ function headerAnnotation(editor, option = {}) {
         editor._documentData._uri.fsPath,
         config
       )
-      tpl = newTpl
-      editBuilder.insert(new vscode.Position(lineNum, 0), tpl) // 插入
+      editBuilder.insert(new vscode.Position(lineNum, 0), newTpl) // 插入
       setTimeout(() => {
         editor.document.save()
-        logic.moveCursor(tpl)
+        logic.moveCursor(newTpl)
       }, 200)
     } catch (err) {
       handleError.showErrorMessage(err)
@@ -52,8 +51,7 @@ const functionAnnotation = () => {
   try {
     const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-    let fileEnd = editor._documentData._languageId // 语言
-    fileEnd = util.fileEndMatch(fileEnd)
+    const fileEnd = util.fileEndMatch(editor._documentData._languageId)
     const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor)
     editor.edit((editBuilder) => {
       let data = logic.cursorOptionHandleFn(config)

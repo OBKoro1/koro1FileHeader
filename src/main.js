@@ -9,6 +9,7 @@ const vscode = require('vscode');
 const global = require('./utile/CONST');
 const createAnnotation = require('./models/createAnnotation');
 const activeHandle = require('./models/activeHandle');
+const design = require('./design')
 
 // 扩展激活 默认运行
 function activate(context) {
@@ -25,6 +26,7 @@ function activate(context) {
     'extension.cursorTip',
     createAnnotation.functionAnnotation
   );
+  new design()
   new activeHandle()
   // 当插件关闭时被清理的可清理列表
   context.subscriptions.push(fileheader);

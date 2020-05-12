@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
-  "version": "4.6.2",
+  "version": "4.7.0",
   "publisher": "OBKoro1",
   "scripts": {
     "build": "vsce package",
@@ -147,6 +147,51 @@
       {
         "command": "extension.cursorTip",
         "title": "cursorTip"
+      },
+      {
+        "command": "fileheader.buddhalImg",
+        "title": "注释图案-佛祖",
+        "category": "codeDesign-佛祖"
+      },
+      {
+        "command": "fileheader.buddhalSay",
+        "title": "注释图案-佛曰",
+        "category": "codeDesign-佛曰"
+      },
+      {
+        "command": "fileheader.totemDragon",
+        "title": "注释图案-龙图腾",
+        "category": "codeDesign-b-龙图腾"
+      },
+      {
+        "command": "fileheader.belle",
+        "title": "注释图案-美女",
+        "category": "codeDesign-美女"
+      },
+      {
+        "command": "fileheader.dog",
+        "title": "注释图案-狗",
+        "category": "codeDesign-狗"
+      },
+      {
+        "command": "fileheader.coderSong",
+        "title": "注释图案-程序员之歌",
+        "category": "codeDesign-程序员之歌"
+      },
+      {
+        "command": "fileheader.jesus",
+        "title": "注释图案-耶稣",
+        "category": "codeDesign-耶稣"
+      },
+      {
+        "command": "fileheader.totemWestDragon",
+        "title": "注释图案-喷火龙",
+        "category": "codeDesign-喷火龙"
+      },
+      {
+        "command": "fileheader.totemBat",
+        "title": "注释图案-蝙蝠",
+        "category": "codeDesign-蝙蝠"
       }
     ],
     "keybindings": [

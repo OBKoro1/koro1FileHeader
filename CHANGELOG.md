@@ -1,11 +1,13 @@
 <!--
- * @Author: OBKoro1
- * @Github: https://github.com/OBKoro1
- * @Date: 2019-08-08 19:04:51
+ * Author       : OBKoro1
+ * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-05-06 15:12:18
- * @Description: 更新日志
+ * LastEditTime : 2020-05-12 20:12:13
+ * FilePath     : \koro1FileHeader\CHANGELOG.md
+ * Description  : 
+ * https://github.com/OBKoro1
  -->
+
 
 # 更新日志
 
@@ -15,9 +17,21 @@
 <!-- TODO: 提供特殊的快捷键，可以随机选择一种注释，可以固定一种注释 -->
 <!-- 适配所有语言，输入中间前面的注释形式，后面的不用管 拼接下面的默认注释 -->
 
+<!-- 是否为函数注释 -->
+<!-- 1. 是否开启函数注释风格不同 -->
+<!-- 2. 是否匹配到函数注释 -->
+<!-- 3. 没有匹配到使用头部注释 -->
+<!-- 头部注释没有就用插件的 -->
+<!-- 最后用默认 -->
+
+### [V4.7.0]
+
+* 新增注释图案
+<!-- TODO:链接 -->
+
 ### [V4.6.2]
 
-* 新增使用工作区注释模板：`useWorker`, 默认为合并两个配置。
+* 新增使用工作区注释模板：`useWorker`, 用以区分工作区配置模板。
 * 新建文件黑名单文件不再自动添加头部注释。
 * 插件新增支持`dart`注释。
 * 修复`CheckFileChange`diff检查的精准度以及将`FilePath`字段也加入diff检查。
