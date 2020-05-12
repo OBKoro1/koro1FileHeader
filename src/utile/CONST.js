@@ -1,20 +1,40 @@
-/** 
+/**
  * Author       : OBKoro1
  * Date         : 2020-02-15 00:11:39
- * LastEditors: OBKoro1
- * LastEditTime: 2020-04-24 19:19:13
- * FilePath     : /koro1FileHeader/src/utile/CONST.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-05-11 19:42:25
+ * FilePath     : \koro1FileHeader\src\utile\CONST.js
  * Description  : 常量文件
  * https://github.com/OBKoro1
  */
 
-// 中间的注释符号，用以生成单行
-const middleAnnotation = {
-  javascript: ' * ',
-  python: '',
-  vb: "' ",
-  html: '* ',
-  shellscript: ' # ',
+//  不同语言的注释符号
+const annotationSymbol = {
+  javascript: {
+    head: '/*',
+    middle: ' * ',
+    end: ' */',
+  },
+  python: {
+    head: `'''`,
+    middle: '',
+    end: `'''`,
+  },
+  vb: {
+    head: `'`,
+    middle: "' ",
+    end: `'`,
+  },
+  html: {
+    head: `<!--`,
+    middle: ' * ',
+    end: ` -->`,
+  },
+  shellscript: {
+    head: `###`,
+    middle: ' # ',
+    end: `###`,
+  },
 }
 
 // 插件上下文
@@ -29,7 +49,7 @@ const handleNodeString =
 module.exports = {
   lineNum,
   autoAddFiles,
-  middleAnnotation,
+  annotationSymbol,
   context,
   handleNodeString,
 }
