@@ -10,6 +10,7 @@
 
 const util = require('./util')
 const vscode = require('vscode')
+const global = require('../utile/CONST')
 
 // 将字段弄得一样长
 const sameLengthFn = (data) => {
@@ -23,17 +24,6 @@ const sameLengthFn = (data) => {
     objData[newItem] = data[item]
   })
   return objData
-}
-
-// 获取变的一样长的字段
-const getSameKey = (obj, oldKey) => {
-  let newKey = ''
-  Object.keys(obj).forEach((item) => {
-    if (item.startsWith(oldKey)) {
-      newKey = item
-    }
-  })
-  return newKey
 }
 
 /**
@@ -85,9 +75,29 @@ const getAnnotationTemplate = (madeName, config) => {
   return userObj
 }
 
+// 获取语言注释的符号对象
+const getLanguageSymbol = (fileEnd) => {
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+  let languageOption = {}
+  // 匹配用户定义语言符号
+  if (fileEnd.userLanguage) {
+    languageOption = config.configObj.language[fileEnd.fileEnd]
+  } else if (fileEnd !== '匹配不到_默认注释') {
+    // 匹配插件的符号
+    languageOption = global.annotationSymbol[fileEnd]
+  } else if (config.configObj.annotationStr.use) {
+    // 调用用户设置的默认注释符号
+    languageOption = config.configObj.language
+  } else {
+    // 插件默认设置
+    languageOption = global.annotationSymbol.javascript
+  }
+  return languageOption
+}
+
 module.exports = {
   sameLengthFn,
   changePrototypeNameFn,
   getAnnotationTemplate,
-  getSameKey,
+  getLanguageSymbol
 }
