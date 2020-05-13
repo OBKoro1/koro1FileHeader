@@ -4,7 +4,7 @@
 
 ### 使用效果：
 
-![example.gif](https://ask.qcloudimg.com/draft/2195437/vszwl939g1.gif)
+![example.gif](https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/master/images/example.gif)
 
 ## 简介
 
@@ -91,7 +91,7 @@
 
   **这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满**。
 
-![autoCommit演示](https://ask.qcloudimg.com/draft/2195437/lig5kh97xk.gif)
+![autoCommit演示](https://github.com/OBKoro1/autoCommit/blob/master/images/autoCommit.gif?raw=true)
 
 设置也超方便的，[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
 
