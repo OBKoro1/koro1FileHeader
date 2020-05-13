@@ -13,6 +13,8 @@ const vscode = require('vscode')
 const util = require('../utile/util')
 const logicUtil = require('../utile/logicUtil')
 const design = require('./design')
+const logic = require('../logic/logic')
+const languageOutput = require('../languageOutPut/languageOutput')
 
 class designCommand {
   constructor() {
@@ -23,6 +25,7 @@ class designCommand {
     const commandArr = [
       'buddhalImg',
       'buddhalSay',
+      'buddhalImgSay',
       'belle',
       'totemDragon',
       'totemBat',
@@ -32,7 +35,6 @@ class designCommand {
       'dog',
     ]
     commandArr.forEach((item) => {
-      console.log('item', item)
       const command = vscode.commands.registerCommand(
         `fileheader.${item}`,
         this.commandHandel(item)
@@ -48,11 +50,15 @@ class designCommand {
       const tpl = this.designCreate(commandName)
       editor.edit((editBuilder) => {
         editBuilder.insert(new vscode.Position(0, 0), tpl) // 插入
+        setTimeout(() => {
+          editor.document.save()
+        }, 200)
       })
     }
   }
   // 生成注释图案
   designCreate(commandName) {
+    this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     let designStr = design[commandName]
     designStr = this.deleteBegin(designStr)
     return designStr
@@ -68,21 +74,40 @@ class designCommand {
     stringArr = this.addAnnotation(stringArr)
     return stringArr.join('\n')
   }
-  // 增加注释
+  // 增加语言的注释符号
   addAnnotation(stringArr) {
     // 获取不同设置下 语言项
     const languageOption = logicUtil.getLanguageSymbol(this.fileEnd)
+    if (this.config.configObj.designAddHead) {
+      stringArr.splice(-1, 0, '')
+      stringArr.splice(-1, 0, this.getPluginAnnotation())
+    }
     stringArr.forEach((item, index) => {
       let symbolNow = languageOption.middle
       if (index === 0) {
         symbolNow = languageOption.head
       } else if (index === stringArr.length - 1) {
         symbolNow = languageOption.end
+      } else if (
+        index === stringArr.length - 2 &&
+        this.config.configObj.designAddHead
+      ) {
+        // 去掉注释模板最后一行多余的换行
+        const lineArr = stringArr[index].split('\r\n')
+        lineArr.splice(lineArr.length - 1, 1)
+        stringArr[index] = lineArr.join('\r\n')
+        return
       }
       stringArr[index] = `${symbolNow}${item}`
     })
     stringArr.push('\n') // 末尾换行
     return stringArr
+  }
+  // 获得插件注释
+  getPluginAnnotation() {
+    const data = logic.userSet(this.config)
+    const tpl = languageOutput.middleTpl(data, this.fileEnd, this.config)
+    return util.replaceSymbolStr(tpl, this.fileEnd)
   }
 }
 

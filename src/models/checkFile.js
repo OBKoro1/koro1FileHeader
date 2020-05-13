@@ -55,8 +55,13 @@ function saveReplaceTime(document, config, fileEnd) {
       return reg.test(line)
     }
   }
+  let lineNum = CONST.lineNum
+  // 注释图案 比较长 需要检测更多行数
+  if (config.configObj.designAddHead) {
+    lineNum = 100
+  }
 
-  for (let i = 0; i < CONST.lineNum; i++) {
+  for (let i = 0; i < lineNum; i++) {
     // 只遍历前15行没有文件头部注释内容即退出
     let linetAt = document.lineAt(i) // 获取每行内容
     let lineNoTrim = linetAt.text // line
