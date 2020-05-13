@@ -133,7 +133,8 @@
             "wideNum": 13,
             "CheckFileChange": false,
             "createHeader": true,
-            "useWorker": false
+            "useWorker": false,
+            "designAddHead": false
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }
@@ -152,6 +153,11 @@
         "command": "fileheader.buddhalImg",
         "title": "注释图案-佛祖",
         "category": "codeDesign-佛祖"
+      },
+      {
+        "command": "fileheader.buddhalImgSay",
+        "title": "注释图案-佛祖+佛曰",
+        "category": "codeDesign-佛祖+佛曰"
       },
       {
         "command": "fileheader.buddhalSay",
