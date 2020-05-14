@@ -129,22 +129,22 @@ tplJudge.prototype = {
   // 头部注释 头尾链接
   topHeadEnd: function () {
     const topHeadEndObj = {
-      javascript: `/*\r\n ${this.obj.str}*/\r\n`,
+      javascript: `/*\r\n${this.obj.str} */ \r\n`,
       python: `'''\r\n${this.obj.str}'''\r\n`,
-      html: `<!--\r\n ${this.obj.str}-->\r\n`,
+      html: `<!--\r\n${this.obj.str}--> \r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
-      shellscript: `###\r\n ${this.obj.str}###\r\n`,
+      shellscript: `###\r\n${this.obj.str}### \r\n`,
     }
     return topHeadEndObj[this.obj.fileEnd]
   },
   // 头部注释 中间部分
   topMiddle: function () {
     const topMiddleObj = {
-      javascript: `* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
+      javascript: ` * ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
       python: `${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      html: `* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
+      html: ` * ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
       vb: `' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      shellscript: `# ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
+      shellscript: ` # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
     }
     return topMiddleObj[this.obj.fileEnd]
   },
