@@ -1,6 +1,6 @@
 # koroFileHeader 
 
-> 在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！觉得插件不错的话，就给个[Star](https://github.com/OBKoro1/koro1FileHeader)⭐️吧~
+> 在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,灵活方便，文档齐全，食用简单！觉得插件不错的话，就给个[Star](https://github.com/OBKoro1/koro1FileHeader)⭐️吧~
 
 ### 使用效果：
 
@@ -10,25 +10,23 @@
 
 1. **文件头部添加注释**:
    
-   *  在文件开头添加注释，记录文件信息
-   *  支持用户高度自定义注释选项
+   *  在文件开头添加注释，记录文件信息/文件的传参/出参等
+   *  支持用户高度自定义注释选项, 适配各种需求和注释。
    *  保存文件的时候，自动更新最后的编辑时间和编辑人
    *  快捷键：`window`：`ctrl+alt+i`,`mac`：`ctrl+cmd+i`
 
 2. **在光标处添加函数注释**:
 
-    * 在光标处自动生成一个注释模板，下方有栗子
+    * 在光标处自动生成一个注释模板
     * 支持用户高度自定义注释选项
     * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
     * 快捷键不可用很可能是被占用了,[参考这里](https://github.com/OBKoro1/koro1FileHeader/issues/5)
 
-3. [支持不同语言的注释格式](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
+3. [支持一键添加佛祖保佑永无BUG、神兽护体等注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)
 
-4. [自定义注释符号](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7)，再也不用担心冷门语言插件不支持了！
+    ![](https://github.com/OBKoro1/koro1FileHeader/raw/master/images/codeDesign.gif?raw=true)
 
-5. [自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#2-%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E6%96%87%E4%BB%B6%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%8F%AF%E9%80%89%E9%A1%B9)
-
-6. 查看更多[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE),以及有更多需求可以给我提[issue](https://github.com/OBKoro1/koro1FileHeader/issues)。
+4. 查看更多[功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE),以及有更多需求可以给我提[issue](https://github.com/OBKoro1/koro1FileHeader/issues)。
 
 ## 安装
 
@@ -61,6 +59,8 @@
 [常见问题](https://github.com/OBKoro1/koro1FileHeader/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 ### 支持功能：
+
+* [支持一键添加佛祖保佑永无BUG、神兽护体等注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88): 写代码不骚是不行的 ^_^
 
 * [自定义注释模板信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%B3%A8%E9%87%8A%E6%A8%A1%E6%9D%BF%E7%9A%84%E8%AE%BE%E7%BD%AE),自动更新最后编辑时间，最后编辑人。 
 * [支持几乎所有语言的注释形式](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)
