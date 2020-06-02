@@ -13,13 +13,13 @@
    *  在文件开头添加注释，记录文件信息/文件的传参/出参等
    *  支持用户高度自定义注释选项, 适配各种需求和注释。
    *  保存文件的时候，自动更新最后的编辑时间和编辑人
-   *  快捷键：`window`：`ctrl+alt+i`,`mac`：`ctrl+cmd+i`
+   *  快捷键：`window`：`ctrl+alt+i`,`mac`：`ctrl+cmd+i`, `linux`: `ctrl+meta+i`
 
 2. **在光标处添加函数注释**:
 
     * 在光标处自动生成一个注释模板
     * 支持用户高度自定义注释选项
-    * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`
+    * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`,`linux`: `ctrl+meta+t`
     * 快捷键不可用很可能是被占用了,[参考这里](https://github.com/OBKoro1/koro1FileHeader/issues/5)
 
 3. [支持一键添加佛祖保佑永无BUG、神兽护体等注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)

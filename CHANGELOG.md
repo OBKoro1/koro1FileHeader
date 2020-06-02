@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-06-02 16:32:02
+ * LastEditTime : 2020-06-02 16:44:56
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -19,6 +19,10 @@
 <!-- 3. 没有匹配到使用头部注释 -->
 <!-- 头部注释没有就用插件的 -->
 <!-- 最后用默认 -->
+
+### [V4.7.2]
+
+* 设置`linux`下的注释快捷键为: `ctrl+meta+i`、`ctrl+meta+t`
 
 ### [V4.7.1]
 
