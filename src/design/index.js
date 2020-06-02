@@ -15,6 +15,7 @@ const logicUtil = require('../utile/logicUtil')
 const design = require('./design')
 const logic = require('../logic/logic')
 const languageOutput = require('../languageOutPut/languageOutput')
+const handleTpl = require('../models/handleTpl')
 
 class designCommand {
   constructor() {
@@ -48,8 +49,13 @@ class designCommand {
       const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
       this.fileEnd = util.fileEndMatch(editor._documentData._languageId) // 提取文件后缀 或者语言类型
       const tpl = this.designCreate(commandName)
+      const { lineNum } = handleTpl.handleTplFn(
+        tpl,
+        editor._documentData._uri.fsPath,
+        this.config
+      )
       editor.edit((editBuilder) => {
-        editBuilder.insert(new vscode.Position(0, 0), tpl) // 插入
+        editBuilder.insert(new vscode.Position(lineNum, 0), tpl) // 插入
         setTimeout(() => {
           editor.document.save()
         }, 200)
