@@ -1,10 +1,12 @@
 /*
- * @Description: 逻辑输出
- * @Author     : OBKoro1
- * @Date       : 2018-10-31 16:22:55
- * @LastAuthor : OBKoro1
- * @lastTime   : 2019-08-08 16:32:27
- */
+ * Author       : OBKoro1
+ * Date         : 2020-06-01 11:10:04
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-06-01 11:10:33
+ * FilePath     : \koro1FileHeader\src\logic\logic.js
+ * Description  : 逻辑输出
+ * https://github.com/OBKoro1
+ */ 
 const vscode = require('vscode')
 const languageOutput = require('../languageOutPut/languageOutput')
 const fs = require('fs')
