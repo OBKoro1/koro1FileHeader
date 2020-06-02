@@ -205,12 +205,14 @@
         "command": "extension.fileheader",
         "key": "ctrl+alt+i",
         "mac": "ctrl+cmd+i",
+        "linux": "ctrl+meta+i",
         "when": "editorTextFocus"
       },
       {
         "command": "extension.cursorTip",
         "key": "ctrl+alt+t",
         "mac": "ctrl+cmd+t",
+        "linux": "ctrl+meta+t",
         "when": "editorTextFocus"
       }
     ]
