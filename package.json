@@ -198,6 +198,11 @@
         "command": "fileheader.totemBat",
         "title": "注释图案-蝙蝠",
         "category": "codeDesign-蝙蝠"
+      },
+      {
+        "command": "fileheader.keyboardImg",
+        "title": "注释图案-键盘",
+        "category": "codeDesign-键盘"
       }
     ],
     "keybindings": [

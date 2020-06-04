@@ -34,6 +34,7 @@ class designCommand {
       'jesus',
       'coderSong',
       'dog',
+      'keyboardImg'
     ]
     commandArr.forEach((item) => {
       const command = vscode.commands.registerCommand(
