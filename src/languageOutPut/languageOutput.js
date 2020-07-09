@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 12:37:07
+ * @LastEditors  : songzhenze
+ * @LastEditTime : 2020-07-09 17:14:25
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -82,7 +82,7 @@ class functionTplStr {
       value: this.data[key],
     }
     // 注释是参数的话 多加一个参数的属性
-    if (key === 'param') {
+    if (key === 'param' || key === 'return') {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{type}'
     } else {
