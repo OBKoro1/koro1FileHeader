@@ -198,6 +198,31 @@
         "command": "fileheader.totemBat",
         "title": "注释图案-蝙蝠",
         "category": "codeDesign-蝙蝠"
+      },
+      {
+        "command": "fileheader.loitumaGirl",
+        "title": "注释图案-甩葱少女",
+        "category": "codeDesign-甩葱少女"
+      },
+      {
+        "command": "fileheader.grassHorse",
+        "title": "注释图案-草泥马",
+        "category": "codeDesign-草泥马"
+      },
+      {
+        "command": "fileheader.grassHorse2",
+        "title": "注释图案-草泥马2",
+        "category": "codeDesign-草泥马2"
+      },
+      {
+        "command": "fileheader.keyboardAll",
+        "title": "注释图案-全键盘",
+        "category": "codeDesign-全键盘"
+      },
+      {
+        "command": "fileheader.keyboardSmall",
+        "title": "注释图案-小键盘",
+        "category": "codeDesign-小键盘"
       }
     ],
     "keybindings": [

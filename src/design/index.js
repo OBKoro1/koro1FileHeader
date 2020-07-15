@@ -34,6 +34,11 @@ class designCommand {
       'jesus',
       'coderSong',
       'dog',
+      'keyboardAll',
+      'keyboardSmall',
+      'grassHorse',
+      'grassHorse2',
+      'loitumaGirl'
     ]
     commandArr.forEach((item) => {
       const command = vscode.commands.registerCommand(
@@ -74,7 +79,7 @@ class designCommand {
     const regString = /\r\n|\r|\n/ // 切割换行字符串 转义\\
     let stringArr = designStr.split(regString) // 切割换行字符串
     stringArr.forEach((item, index) => {
-      const newLine = item.substr(2) //
+      const newLine = item.substr(2) // 切割前面的空格
       stringArr[index] = newLine
     })
     stringArr = this.addAnnotation(stringArr)
