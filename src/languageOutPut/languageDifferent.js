@@ -130,6 +130,7 @@ tplJudge.prototype = {
   topHeadEnd: function () {
     const topHeadEndObj = {
       javascript: `/*\r\n${this.obj.str} */ \r\n`,
+      lua: `--[[\r\n${this.obj.str}--]]\r\n`,
       python: `'''\r\n${this.obj.str}'''\r\n`,
       html: `<!--\r\n${this.obj.str}--> \r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
@@ -140,13 +141,12 @@ tplJudge.prototype = {
   // 头部注释 中间部分
   topMiddle: function () {
     const topMiddleObj = {
-      javascript: ` * ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      python: `${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      html: ` * ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      vb: `' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      shellscript: ` # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^javascript$|^html$/': ` * ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^python|^lua$/': `${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^vb$/': `' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^shellscript$/': ` # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
     }
-    return topMiddleObj[this.obj.fileEnd]
+    return util.matchProperty(topMiddleObj, this.obj.fileEnd)
   },
   // 头部注释最后编辑人
   LastEditorsStr: function () {
@@ -157,13 +157,13 @@ tplJudge.prototype = {
       )
     }
     const LastEditorsStrObj = {
-      javascript: ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
-      python: `${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
-      html: ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
-      vb: `' ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
-      shellscript: ` # ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
+      '/^javascript$|^html$/': ` * ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
+      '/^python|^lua$/': `${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
+      '/^vb$/': `' ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
+      '/^shellscript$/': ` # ${this.atSymbol}${this.LastEditorsName}${this.colon}${this.obj.LastEditors}`,
     }
-    return LastEditorsStrObj[this.obj.fileEnd]
+    // 切换
+    return util.matchProperty(LastEditorsStrObj, this.obj.fileEnd)
   },
   // 头部注释最后编辑时间
   lastTimeStr: function () {
@@ -174,23 +174,20 @@ tplJudge.prototype = {
       )
     }
     const lastTimeStrObj = {
-      javascript: ` * ${this.atSymbol}${this.LastEditTimeName}${
+      '/^javascript$|^html$/': ` * ${this.atSymbol}${this.LastEditTimeName}${
         this.colon
       }${new Date().format()}`,
-      python: `${this.atSymbol}${this.LastEditTimeName}${
+      '/^python|^lua$/': `${this.LastEditTimeName}${
         this.colon
       }${new Date().format()}`,
-      html: ` * ${this.atSymbol}${this.LastEditTimeName}${
+      '/^vb$/': `' ${this.atSymbol}${this.LastEditTimeName}${
         this.colon
       }${new Date().format()}`,
-      vb: `' ${this.atSymbol}${this.LastEditTimeName}${
-        this.colon
-      }${new Date().format()}`,
-      shellscript: ` # ${this.atSymbol}${this.LastEditTimeName}${
+      '/^shellscript$/': ` # ${this.atSymbol}${this.LastEditTimeName}${
         this.colon
       }${new Date().format()}`,
     }
-    return lastTimeStrObj[this.obj.fileEnd]
+    return util.matchProperty(lastTimeStrObj, this.obj.fileEnd)
   },
   topHeadEnd_nextLineNo: function () {
     return this.topHeadEnd_nextLineYes(true)
@@ -200,6 +197,7 @@ tplJudge.prototype = {
     const topHeadEnd_nextLineNoObj = {
       javascript: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
       python: `${this.obj.frontStr}'''\r\n${this.obj.strContent}${this.obj.str}'''`,
+      lua: `${this.obj.frontStr}--[[\r\n${this.obj.strContent}${this.obj.str}--]]`,
       html: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
       vb: `${this.obj.frontStr}'\r\n${this.obj.strContent}${this.obj.str}'`,
       shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${this.obj.str}###`,
@@ -214,33 +212,35 @@ tplJudge.prototype = {
   // 函数注释中间写死的key
   fnMiddle_key: function () {
     const fnMiddle_keyObj = {
-      javascript: `${this.obj.str}* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
-      python: `${this.obj.str}${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      html: `${this.obj.str}* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
-      vb: `${this.obj.str}' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
-      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n `,
+      '/^python|^lua$/': `${this.obj.str}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^vb$/': `${this.obj.str}' ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol}${this.obj.key}${this.colon}${this.obj.value}\r\n`,
     }
-    return fnMiddle_keyObj[this.obj.fileEnd]
+    return util.matchProperty(fnMiddle_keyObj, this.obj.fileEnd)
   },
+
   // 函数注释参数
   fnMiddle_param: function () {
     const fnMiddle_paramObj = {
-      javascript: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
-      python: `${this.obj.str}${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      html: `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
-      vb: `${this.obj.str}' ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      shellscript: `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
+      '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
+      '/^python|^lua$/': `${this.obj.str}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
+      '/^vb$/': `${this.obj.str}' ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
     }
-    return fnMiddle_paramObj[this.obj.fileEnd]
+    return util.matchProperty(fnMiddle_paramObj, this.obj.fileEnd)
   },
+
   // 注释开头：用以判断是否进入注释
+  // TODO: 加新语言需要改CONST.js
   annotationStarts: function () {
     const annotationStartsObj = {
       javascript: `/*`,
       python: `'''`,
+      lua: `--[[`,
       html: `<!--`,
       vb: `'`,
-      shellscript: `###`,
+      shellscript: `###`
     }
     return annotationStartsObj[this.obj.fileEnd]
   },

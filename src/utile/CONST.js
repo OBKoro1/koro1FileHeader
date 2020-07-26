@@ -20,6 +20,11 @@ const annotationSymbol = {
     middle: '',
     end: `'''`,
   },
+  lua: {
+    head: `--[[`,
+    middle: '',
+    end: `--]]`, 
+  },
   vb: {
     head: `'`,
     middle: "' ",
