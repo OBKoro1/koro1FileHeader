@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-05 16:09:11
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 13:14:38
- * FilePath     : /koro1FileHeader/src/models/checkFile.js
+ * LastEditTime : 2020-07-26 21:12:25
+ * FilePath     : \koro1FileHeader\src\models\checkFile.js
  * Description  : 检测文件的一些逻辑
  * https://github.com/OBKoro1
  */
@@ -40,9 +40,9 @@ function saveReplaceTime(document, config, fileEnd) {
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false // 已经找到要替换的
     let userSetName = config.configObj.specialOptions[name]
-    const reg = new RegExp(`[\\s\\W]${name}[\\W\\s]`, 'g')
+    const reg = new RegExp(`[\\s\\W]?${name}[\\W\\s]`, 'g')
     if (userSetName) {
-      const regUser = new RegExp(`[\\s\\W]${userSetName}[\\W\\s]`, 'g')
+      const regUser = new RegExp(`[\\s\\W]?${userSetName}[\\W\\s]`, 'g')
       if (!regUser.test(line)) {
         // 没有检测用户自己更改的 再检测特殊变量
         return reg.test(line)
