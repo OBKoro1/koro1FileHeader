@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-06-02 16:44:56
+ * LastEditTime : 2020-07-26 21:48:29
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -19,6 +19,14 @@
 <!-- 3. 没有匹配到使用头部注释 -->
 <!-- 头部注释没有就用插件的 -->
 <!-- 最后用默认 -->
+
+### [V4.7.3]
+
+
+* 新增支持语言`lua`
+* 修复了linux无法获取文件创建时间的问题，如果无法获取该值则默认设为当前时间。
+* 新增多种注释图案
+
 
 ### [V4.7.2]
 

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-06-01 11:10:33
+ * LastEditTime : 2020-07-26 22:01:21
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -79,7 +79,11 @@ function changeDataOptionFn(data, config) {
   if (config.configObj.createFileTime) {
     const filePath =
       vscode.window.activeTextEditor._documentData._document.fileName
-    time = new Date(fs.statSync(filePath).birthtime).format()
+     const createTime = fs.statSync(filePath).birthtime
+     if(createTime){
+       // 修复linux无法获取文件创建时间的问题
+        time = new Date().format()
+     }
   }
   // 判断是否设置
   if (data.Date !== undefined) {
