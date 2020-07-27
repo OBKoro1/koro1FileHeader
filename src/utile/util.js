@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-26 16:03:29
+ * LastEditTime : 2020-07-27 15:42:00
  */
 
 const vscode = require("vscode");
@@ -193,10 +193,13 @@ const getColon = (fileEnd) => {
  * @param {string} tpl 生成的模板
  */
 const replaceSymbolStr = (tpl, fileEnd) => {
-  let sinceOut = tpl.indexOf("symbol_custom_string_obkoro1");
+  const sinceOut = tpl.indexOf('symbol_custom_string_obkoro');
+  // 是否存在自定义信息
   if (sinceOut !== -1) {
     const colon = getColon(fileEnd);
-    tpl = tpl.replace(`symbol_custom_string_obkoro1${colon}`, "");
+    // 替换全部自定义信息
+    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, 'gim')
+    tpl = tpl.replace(reg, '');
   }
   return tpl;
 };

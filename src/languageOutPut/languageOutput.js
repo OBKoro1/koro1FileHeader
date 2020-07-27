@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 12:37:07
+ * LastEditTime : 2020-07-27 15:09:53
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -68,7 +68,7 @@ class functionTplStr {
       this.strContent += this.paramStr(key)
     })
     this.tpl = this.mergeStr()
-    return this.replaceSymbolStr(this.tpl)
+    return util.replaceSymbolStr(this.tpl, this.fileEnd)
   }
 
   /**
@@ -105,15 +105,6 @@ class functionTplStr {
       obj.type = 'topHeadEnd_nextLineYes'
     }
     return new languageDifferent.tplJudge(obj).res
-  }
-  // 切割特殊字符串生成空行
-  replaceSymbolStr(tpl) {
-    let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1')
-    if (sinceOut !== -1) {
-      const colon = util.getColon(this.fileEnd)
-      tpl = tpl.replace(`symbol_custom_string_obkoro1${colon}`, '')
-    }
-    return tpl
   }
 }
 

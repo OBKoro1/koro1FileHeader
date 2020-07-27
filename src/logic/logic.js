@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-26 22:01:21
+ * LastEditTime : 2020-07-27 14:58:24
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -142,8 +142,8 @@ function changNameFn(data, config) {
     if (specialArr.includes(item) && specialOptions[item]) {
       // 特殊字段重新赋值
       objData[specialOptions[item]] = data[item]
-    } else if (item === 'custom_string_obkoro1') {
-      objData.symbol_custom_string_obkoro1 = data[item]
+    } else if (item.indexOf('custom_string_obkoro') !== -1) {
+      objData[`symbol_${item}`] = data[item]
     } else {
       objData[item] = data[item]
     }
