@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-27 15:09:53
+ * LastEditTime : 2020-07-28 10:54:05
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -57,8 +57,8 @@ class functionTplStr {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     this.frontStr = frontStr
-    this.str = ''.padStart(lineSpace) // 生成指定长度的字符串
-    this.strContent = ''
+    this.str = ''.padStart(lineSpace)
+    this.strContent = '' // 中间模板部分的字符
     this.data = data
   }
   // 生成函数注释模板
@@ -81,8 +81,8 @@ class functionTplStr {
       key,
       value: this.data[key],
     }
-    // 注释是参数的话 多加一个参数的属性
-    if (key === 'param') {
+    // 注释是参数和返回值的话 多加一个参数的属性
+    if (key === 'param' || key === 'return') {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{type}'
     } else {
