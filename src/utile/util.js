@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-27 15:42:00
+ * LastEditTime : 2020-07-29 10:26:48
  */
 
 const vscode = require("vscode");
@@ -98,7 +98,7 @@ const fileEndMatch = (fileEnd) => {
     // 默认注释符号
     return "匹配不到_默认注释";
   } else {
-    return matchRes
+    return matchRes;
   }
 };
 
@@ -172,9 +172,10 @@ function specialLanguageFn(fsPath, config) {
 }
 
 // 修改时间格式
-Date.prototype.format = function () {
+Date.prototype.format = function (formatStr) {
   const config = vscode.workspace.getConfiguration("fileheader"); // 配置项
-  return moment(this).local().format(config.configObj.dateFormat);
+  if (!formatStr) formatStr = config.configObj.dateFormat;
+  return moment(this).local().format(formatStr);
 };
 
 // 获取该文件的冒号
@@ -193,13 +194,13 @@ const getColon = (fileEnd) => {
  * @param {string} tpl 生成的模板
  */
 const replaceSymbolStr = (tpl, fileEnd) => {
-  const sinceOut = tpl.indexOf('symbol_custom_string_obkoro');
+  const sinceOut = tpl.indexOf("symbol_custom_string_obkoro");
   // 是否存在自定义信息
   if (sinceOut !== -1) {
     const colon = getColon(fileEnd);
     // 替换全部自定义信息
-    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, 'gim')
-    tpl = tpl.replace(reg, '');
+    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, "gim");
+    tpl = tpl.replace(reg, "");
   }
   return tpl;
 };
@@ -243,16 +244,21 @@ const getFileRelativeSite = () => {
   };
 };
 
-// 自动添加是否匹配黑名单
-const isMatchProhibit = (fsPath) => {
+// 自动添加黑名单，自动添加白名单 权限
+const authList = (fsPath) => {
   const config = vscode.workspace.getConfiguration("fileheader"); // 配置项默认值
-  let match = false;
+  let match = false // 默认没被添加进黑名单
+  let support = true // 默认允许
   let prohibit = config.configObj.prohibitAutoAdd;
   let fsName = fsPathFn(fsPath);
   if (prohibit && prohibit.length > 0) {
-    match = prohibit.includes(fsName);
+    match = !prohibit.includes(fsName);
   }
-  return match;
+  const supportAutoLanguage = config.configObj.supportAutoLanguage;
+  if (supportAutoLanguage && supportAutoLanguage.length > 0) {
+    support = supportAutoLanguage.includes(fsName);
+  }
+  return match && support; // 不在黑名单 并且在白名单中
 };
 
 module.exports = {
@@ -264,6 +270,6 @@ module.exports = {
   getColon, // 获取该文件的冒号
   spaceStringFn, // 使用空格填充字符
   getFileRelativeSite, // 获取文件和项目的地址
-  isMatchProhibit, // 自动添加是否匹配黑名单
+  authList, // 自动添加是否匹配黑名单
   matchProperty, // 正则匹配对象中的属性
 };

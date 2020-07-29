@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-13 12:26:34
- * FilePath: /koro1FileHeader/src/models/fileSave.js
+ * LastEditTime : 2020-07-29 10:27:28
+ * FilePath     : \koro1FileHeader\src\models\fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
  */
@@ -99,10 +99,9 @@ function isAutoAddFn(params) {
   if (params.config.configObj.autoAddLine < params.lineCount) return false;
   if (!params.config.configObj.autoAdd) return false; // 关闭自动添加
   if (params.hasAnnotation) return false; // 文件已经有注释
-  const hasAddProhibit = util.isMatchProhibit(params.fsPath);
-  if (hasAddProhibit) return false; // 被添加进黑名单
+  const hasAddProhibit = util.authList(params.fsPath);
+  if (!hasAddProhibit) return false; // 被添加进黑名单 或者没有添加进白名单
   if (autoAddItemBlacklist(params.config.configObj.prohibitItemAutoAdd))
-  
     return false; // 项目黑名单
   // 曾经自动添加过头部注释 不再添加
   if (global.autoAddFiles.includes(params.fsPath)) return false;

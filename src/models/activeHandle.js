@@ -33,7 +33,7 @@ class activeHandle {
         vscode.window.showTextDocument(doc).then(() => {
           const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
           const fsPath = editor.document.uri.fsPath
-          if (util.isMatchProhibit(fsPath)) return // 被添加进黑名单
+          if (util.authList(fsPath)) return // 被添加进黑名单
           createAnnotation.headerAnnotation(editor, {
             create: true,
           })
