@@ -20,6 +20,6 @@
     "constructor-super": "warn",
     "valid-typeof": "warn",
     "semi": ["error", "never"],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   }
 }

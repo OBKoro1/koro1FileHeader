@@ -8,7 +8,7 @@
  * https://github.com/OBKoro1
  */
 
-const util = require('../utile/util');
+const util = require('../utile/util')
 
 /**
  * @description: 处理生成的模板 比如添加信息，删除信息等。
@@ -21,19 +21,19 @@ const util = require('../utile/util');
  * @Created_time: 2019-05-14 14:25:26
  */
 const handleTplFn = (tpl, fsPath, config) => {
-  const option = editLineFn(fsPath, config);
-  let newTpl = util.replaceSymbolStr(tpl, option.fileEnd);
+  const option = editLineFn(fsPath, config)
+  let newTpl = util.replaceSymbolStr(tpl, option.fileEnd)
   if (option.beforeAnnotation) {
-    newTpl = `${option.beforeAnnotation}\n${newTpl}`;
+    newTpl = `${option.beforeAnnotation}\n${newTpl}`
   }
   if (option.afterAnnotation) {
-    newTpl = `${newTpl}${option.afterAnnotation}\n`;
+    newTpl = `${newTpl}${option.afterAnnotation}\n`
   }
   return {
     newTpl,
     lineNum: option.lineNum
-  };
-};
+  }
+}
 
 /**
  * @description: 获取要处理模板的配置
@@ -42,40 +42,40 @@ const handleTplFn = (tpl, fsPath, config) => {
  * @return: [生成注释的行数,注释之前添加的内容,注释之前添加的内容]
  */
 function editLineFn(fsPath, config) {
-  let fileEnd = util.fsPathFn(fsPath); // 文件后缀
-  let isSpecial = util.specialLanguageFn(fsPath, config);
+  let fileEnd = util.fsPathFn(fsPath) // 文件后缀
+  let isSpecial = util.specialLanguageFn(fsPath, config)
   // 特殊文件
   if (isSpecial) {
-    fileEnd = isSpecial;
+    fileEnd = isSpecial
   }
 
   // 切割文件路径 获取文件后缀
-  let lineNum = getFileEndConfig(config, 'headInsertLine', fileEnd);
+  let lineNum = getFileEndConfig(config, 'headInsertLine', fileEnd)
   if (lineNum) {
     // 要减一行
-    lineNum = lineNum - 1;
+    lineNum = lineNum - 1
   } else {
-    lineNum = 0; // 默认插入第一行
+    lineNum = 0 // 默认插入第一行
   }
   // 是否设置在注释之前添加内容
-  const beforeAnnotation = getFileEndConfig(config, 'beforeAnnotation', fileEnd);
+  const beforeAnnotation = getFileEndConfig(config, 'beforeAnnotation', fileEnd)
   // 注释之后添加内容
-  const afterAnnotation = getFileEndConfig(config, 'afterAnnotation', fileEnd);
-  return { lineNum, beforeAnnotation, afterAnnotation };
+  const afterAnnotation = getFileEndConfig(config, 'afterAnnotation', fileEnd)
+  return { lineNum, beforeAnnotation, afterAnnotation }
 }
 
 // 获取文件后缀的对应配置
 function getFileEndConfig(config, configName, fileEnd) {
   if (config.configObj[configName][fileEnd]) {
     // 单独文件的配置
-    return config.configObj[configName][fileEnd];
+    return config.configObj[configName][fileEnd]
   } else if (config.configObj[configName]['*']) {
     // 通配符配置
-    return config.configObj[configName]['*'];
+    return config.configObj[configName]['*']
   }
-  return undefined;
+  return undefined
 }
 
 module.exports = {
   handleTplFn
-};
+}

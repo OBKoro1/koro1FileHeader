@@ -167,7 +167,7 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
       value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
       value = value.replace(/\n/g, `\n${middle}`)
       value = value.replace(/\r/g, `\r${middle}`)
-      value = value.replace(/\obkoro1\obkoro1/g, `\r\n`) // 转化回来
+      value = value.replace(/\obkoro1\obkoro1/g, '\r\n') // 转化回来
     }
   }
   return value

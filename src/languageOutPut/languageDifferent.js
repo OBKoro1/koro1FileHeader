@@ -235,12 +235,12 @@ tplJudge.prototype = {
   // TODO: 加新语言需要改CONST.js
   annotationStarts: function () {
     const annotationStartsObj = {
-      javascript: `/*`,
-      python: `'''`,
-      lua: `--[[`,
-      html: `<!--`,
-      vb: `'`,
-      shellscript: `###`
+      javascript: '/*',
+      python: '\'\'\'',
+      lua: '--[[',
+      html: '<!--',
+      vb: '\'',
+      shellscript: '###'
     }
     return annotationStartsObj[this.obj.fileEnd]
   },

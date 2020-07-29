@@ -27,7 +27,7 @@ const annotationSymbol = {
   },
   vb: {
     head: `'`,
-    middle: "' ",
+    middle: `' `,
     end: `'`,
   },
   html: {
