@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-13 12:32:24
+ * LastEditTime : 2020-07-29 10:26:48
  */
 
 const vscode = require('vscode')
@@ -38,10 +38,10 @@ const throttle = (fn, gapTime, _lastTime = null) => {
 const fsPathFn = (fsPath) => {
   const pathArr = fsPath.split('/')
   const fileName = pathArr[pathArr.length - 1] // 获取文件名
-  return getFsNameEnd(fileName)// 获取文件后缀 
+  return getFsNameEnd(fileName) // 获取文件后缀
 }
 
-/** 
+/**
  * description: 获取文件后缀，匹配特殊文件
  * param {string} fileName
  * Date: 2020-04-27 16:31:35
@@ -85,23 +85,21 @@ const fileEndMatch = (fileEnd) => {
     return isMatch // 匹配到了 返回对象
   }
   const obj = {
-    '/^java$|^javascript$|^typescript$|^go$|^cpp$|^php$|^dart$|^c$/': 'javascript',
+    '/^java$|^javascript$|^typescript$|^go$|^cpp$|^php$|^dart$|^c$/':
+      'javascript',
     '/^python$/': 'python',
+    '/^lua$/': 'lua',
     '/^vb$/': 'vb',
     '/^vue$|^html$|^markdown$/': 'html',
     '/^shellscript$/': 'shellscript',
   }
-  // 匹配插件支持的注释符号
-  for (let key in obj) {
-    // 正则匹配
-    const reg = eval(key)
-    const isMatch = reg.test(fileEnd)
-    if (isMatch) {
-      return obj[key]
-    }
+  const matchRes = matchProperty(obj, fileEnd)
+  if (matchRes === 'no_match_property') {
+    // 默认注释符号
+    return '匹配不到_默认注释'
+  } else {
+    return matchRes
   }
-  // 默认注释符号
-  return '匹配不到_默认注释'
 }
 
 // 是否使用用户配置
@@ -142,8 +140,20 @@ function userLanguageFn(config, fileEnd, fsName, fsPath) {
       }
     }
   }
-
   return false
+}
+
+// 正则匹配对象中的属性
+function matchProperty(matchObj, matchStr) {
+  for (const key in matchObj) {
+    // 属性即正则
+    const reg = eval(key)
+    const isMatch = reg.test(matchStr)
+    if (isMatch) {
+      return matchObj[key]
+    }
+  }
+  return 'no_match_property'
 }
 
 // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同
@@ -162,9 +172,10 @@ function specialLanguageFn(fsPath, config) {
 }
 
 // 修改时间格式
-Date.prototype.format = function () {
+Date.prototype.format = function (formatStr) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
-  return moment(this).local().format(config.configObj.dateFormat)
+  if (!formatStr) formatStr = config.configObj.dateFormat
+  return moment(this).local().format(formatStr)
 }
 
 // 获取该文件的冒号
@@ -183,10 +194,13 @@ const getColon = (fileEnd) => {
  * @param {string} tpl 生成的模板
  */
 const replaceSymbolStr = (tpl, fileEnd) => {
-  let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1')
+  const sinceOut = tpl.indexOf('symbol_custom_string_obkoro')
+  // 是否存在自定义信息
   if (sinceOut !== -1) {
     const colon = getColon(fileEnd)
-    tpl = tpl.replace(`symbol_custom_string_obkoro1${colon}`, '')
+    // 替换全部自定义信息
+    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, 'gim')
+    tpl = tpl.replace(reg, '')
   }
   return tpl
 }
@@ -230,17 +244,22 @@ const getFileRelativeSite = () => {
   }
 }
 
-// 自动添加是否匹配黑名单
-const isMatchProhibit = (fsPath) => {
-  const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
-  let match = false;
-  let prohibit = config.configObj.prohibitAutoAdd;
-  let fsName = fsPathFn(fsPath);
+// 自动添加黑名单，自动添加白名单 权限
+const authList = (fsPath) => {
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+  let match = false // 默认没被添加进黑名单
+  let support = true // 默认允许
+  let prohibit = config.configObj.prohibitAutoAdd
+  let fsName = fsPathFn(fsPath)
   if (prohibit && prohibit.length > 0) {
-    match = prohibit.includes(fsName);
+    match = !prohibit.includes(fsName)
   }
-  return match;
-};
+  const supportAutoLanguage = config.configObj.supportAutoLanguage
+  if (supportAutoLanguage && supportAutoLanguage.length > 0) {
+    support = supportAutoLanguage.includes(fsName)
+  }
+  return match && support // 不在黑名单 并且在白名单中
+}
 
 module.exports = {
   throttle, // 节流
@@ -251,5 +270,6 @@ module.exports = {
   getColon, // 获取该文件的冒号
   spaceStringFn, // 使用空格填充字符
   getFileRelativeSite, // 获取文件和项目的地址
-  isMatchProhibit // 自动添加是否匹配黑名单
+  authList, // 自动添加是否匹配黑名单
+  matchProperty, // 正则匹配对象中的属性
 }

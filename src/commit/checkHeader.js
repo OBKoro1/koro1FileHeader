@@ -7,7 +7,7 @@
  * Description: 检查commit文件规范的js，通过字符串写入文件
  */
 const languageDiff = require('../languageOutPut/languageDifferent')
-languageDiff.tplJudge.prototype.initConfig();
+languageDiff.tplJudge.prototype.initConfig()
 let lastEditorName = languageDiff.tplJudge.prototype.LastEditorsName
 let lastTimeName = languageDiff.tplJudge.prototype.LastEditTimeName
 let showLog = languageDiff.tplJudge.prototype.config.configObj.commitHooks.showLog

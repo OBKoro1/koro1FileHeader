@@ -8,6 +8,7 @@
     "build": "vsce package",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test",
+    "lint": "eslint --ext .js,.vue src --fix",
     "d": "bash deploy.sh"
   },
   "author": {
@@ -111,6 +112,7 @@
             "switch": {
               "newlineAddAnnotation": true
             },
+            "supportAutoLanguage": [],
             "prohibitAutoAdd": [
               "json"
             ],
@@ -198,6 +200,31 @@
         "command": "fileheader.totemBat",
         "title": "注释图案-蝙蝠",
         "category": "codeDesign-蝙蝠"
+      },
+      {
+        "command": "fileheader.loitumaGirl",
+        "title": "注释图案-甩葱少女",
+        "category": "codeDesign-甩葱少女"
+      },
+      {
+        "command": "fileheader.grassHorse",
+        "title": "注释图案-草泥马",
+        "category": "codeDesign-草泥马"
+      },
+      {
+        "command": "fileheader.grassHorse2",
+        "title": "注释图案-草泥马2",
+        "category": "codeDesign-草泥马2"
+      },
+      {
+        "command": "fileheader.keyboardAll",
+        "title": "注释图案-全键盘",
+        "category": "codeDesign-全键盘"
+      },
+      {
+        "command": "fileheader.keyboardSmall",
+        "title": "注释图案-小键盘",
+        "category": "codeDesign-小键盘"
       }
     ],
     "keybindings": [
@@ -221,6 +248,7 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
     "eslint": "^5.16.0",
+    "eslint-friendly-formatter": "^4.0.1",
     "typescript": "^2.6.1",
     "vscode": "^1.1.34"
   },

@@ -2,11 +2,12 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-06-01 11:10:33
+ * LastEditTime : 2020-07-29 15:30:50
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
- */ 
+ */
+
 const vscode = require('vscode')
 const languageOutput = require('../languageOutPut/languageOutput')
 const fs = require('fs')
@@ -74,12 +75,24 @@ const lineSpaceFn = (editor) => {
  * @param {object} data 配置项
  */
 function changeDataOptionFn(data, config) {
+  data = logicUtil.changePrototypeNameFn(data, config) // 更改字段，不改变他们的顺序
+  data = changeTplValue(data, config) // 修改模板设置的值
+  data = logicUtil.sameLengthFn(data) // 将字段弄得一样长
+  return data
+}
+
+// 修改模板设置的值
+function changeTplValue(data, config) {
   let time = new Date().format()
   // 文件创建时间
   if (config.configObj.createFileTime) {
     const filePath =
       vscode.window.activeTextEditor._documentData._document.fileName
-    time = new Date(fs.statSync(filePath).birthtime).format()
+    const createTime = fs.statSync(filePath).birthtime
+    if (createTime) {
+      // 修复linux无法获取文件创建时间的问题
+      time = new Date(createTime).format()
+    }
   }
   // 判断是否设置
   if (data.Date !== undefined) {
@@ -93,8 +106,21 @@ function changeDataOptionFn(data, config) {
   if (data.FilePath !== undefined) {
     data.FilePath = filePathFile.createFilePath(data.FilePath)
   }
-  data = logicUtil.changePrototypeNameFn(data, config)
-  data = logicUtil.sameLengthFn(data)
+  // 去掉@Date
+  if (data.symbol_custom_string_obkoro1_date) {
+    data['symbol_custom_string_obkoro10000'] = time
+    delete data.symbol_custom_string_obkoro1_date
+  }
+
+  // 版权自定义
+  if (data.symbol_custom_string_obkoro1_copyright) {
+    let copyright = data.symbol_custom_string_obkoro1_copyright
+    data['symbol_custom_string_obkoro10001'] = copyright.replace(
+      '${now_year}',
+      new Date().format('YYYY')
+    )
+    delete data.symbol_custom_string_obkoro1_copyright
+  }
   return data
 }
 
@@ -138,8 +164,8 @@ function changNameFn(data, config) {
     if (specialArr.includes(item) && specialOptions[item]) {
       // 特殊字段重新赋值
       objData[specialOptions[item]] = data[item]
-    } else if (item === 'custom_string_obkoro1') {
-      objData.symbol_custom_string_obkoro1 = data[item]
+    } else if (item.indexOf('custom_string_obkoro') !== -1) {
+      objData[`symbol_${item}`] = data[item]
     } else {
       objData[item] = data[item]
     }

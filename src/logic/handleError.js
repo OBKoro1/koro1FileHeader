@@ -7,10 +7,10 @@
  * Description: 报错拦截
  */
 
-const vscode = require('vscode');
+const vscode = require('vscode')
 
 const showErrorMessage = (e)=>{
-    const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
+    const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     if(!config.configObj.showErrorMessage) return // 关闭报错
     if(typeof e !== 'string'){
         e = e.message
@@ -19,10 +19,10 @@ const showErrorMessage = (e)=>{
 }
 
 process.on('uncaughtException', function (e) {
-    const config = vscode.workspace.getConfiguration('fileheader'); // 配置项默认值
+    const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     if(!config.configObj.showErrorMessage) return // 关闭报错
     vscode.window.showErrorMessage('错误信息:', JSON.stringify(e))
-});
+})
 
 module.exports = {
     showErrorMessage

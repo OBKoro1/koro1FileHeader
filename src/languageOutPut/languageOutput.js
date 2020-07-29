@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * @LastEditors  : songzhenze
- * @LastEditTime : 2020-07-09 17:14:25
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-07-29 15:55:17
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -57,8 +57,8 @@ class functionTplStr {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     this.frontStr = frontStr
-    this.str = ''.padStart(lineSpace) // 生成指定长度的字符串
-    this.strContent = ''
+    this.str = ''.padStart(lineSpace)
+    this.strContent = '' // 中间模板部分的字符
     this.data = data
   }
   // 生成函数注释模板
@@ -68,7 +68,7 @@ class functionTplStr {
       this.strContent += this.paramStr(key)
     })
     this.tpl = this.mergeStr()
-    return this.replaceSymbolStr(this.tpl)
+    return util.replaceSymbolStr(this.tpl, this.fileEnd)
   }
 
   /**
@@ -81,7 +81,7 @@ class functionTplStr {
       key,
       value: this.data[key],
     }
-    // 注释是参数的话 多加一个参数的属性
+    // 注释是参数和返回值的话 多加一个参数的属性
     if (key === 'param' || key === 'return') {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{type}'
@@ -105,15 +105,6 @@ class functionTplStr {
       obj.type = 'topHeadEnd_nextLineYes'
     }
     return new languageDifferent.tplJudge(obj).res
-  }
-  // 切割特殊字符串生成空行
-  replaceSymbolStr(tpl) {
-    let sinceOut = tpl.indexOf('symbol_custom_string_obkoro1')
-    if (sinceOut !== -1) {
-      const colon = util.getColon(this.fileEnd)
-      tpl = tpl.replace(`symbol_custom_string_obkoro1${colon}`, '')
-    }
-    return tpl
   }
 }
 
@@ -176,7 +167,7 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
       value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
       value = value.replace(/\n/g, `\n${middle}`)
       value = value.replace(/\r/g, `\r${middle}`)
-      value = value.replace(/\obkoro1\obkoro1/g, `\r\n`) // 转化回来
+      value = value.replace(/\obkoro1\obkoro1/g, '\r\n') // 转化回来
     }
   }
   return value
