@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-27 15:40:35
+ * LastEditTime : 2020-07-28 16:47:13
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -22,12 +22,13 @@
 
 ### [V4.7.3]
 
-
 * 新增支持语言`lua`
 * 新增支持输出多个自定义信息(`custom_string_obkoro1`~`custom_string_obkoro100`)。
+* 新增版权(`custom_string_obkoro1_copyright`)和时间(`custom_string_obkoro1_date`)自定义信息字段
 * 修复了linux无法获取文件创建时间的问题，如果无法获取该值则默认设为当前时间。
 * 新增多种注释图案
 <!-- TODO: 注释图案列表或者链接 -->
+<!-- TODO: 函数注释 不解析ts 或者说解析简单的ts -->
 
 
 ### [V4.7.2]

@@ -111,6 +111,7 @@
             "switch": {
               "newlineAddAnnotation": true
             },
+            "supportAutoLanguage": [],
             "prohibitAutoAdd": [
               "json"
             ],
@@ -246,6 +247,7 @@
     "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
     "eslint": "^5.16.0",
+    "eslint-friendly-formatter": "^4.0.1",
     "typescript": "^2.6.1",
     "vscode": "^1.1.34"
   },
