@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-30 17:52:20
+ * LastEditTime : 2020-08-02 14:28:36
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -17,9 +17,34 @@
 
 ### [V4.7.3]
 
-* 新增支持语言`lua`
-* 新增支持输出多个自定义信息(`custom_string_obkoro1`~`custom_string_obkoro100`)。
+* 新增[支持语言](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)`lua`: `--[[--]]`
+* 新增支持[输出多个自定义信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#7-%E5%9C%A8%E6%B3%A8%E9%87%8A%E4%B8%AD%E8%BE%93%E5%87%BA%E4%B8%80%E6%AE%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)(`custom_string_obkoro1`~`custom_string_obkoro100`)。
 * 新增版权(`custom_string_obkoro1_copyright`)和时间(`custom_string_obkoro1_date`)自定义信息字段
+
+多个自定义信息和版权、时间自定义信息字段设置与输出： 
+
+```js
+ "fileheader.customMade": {
+     "custom_string_obkoro1_date": "Do not edit", // 不带Date前缀的时间
+    "Github": "https://github.com/OBKoro1",
+    "custom_string_obkoro2": "custom_string_obkoro1~custom_string_obkoro100都可以输出自定义信息",
+    "Author": "OBKoro1",
+    "custom_string_obkoro1_copyright": "Copyright ${now_year} OBKoro1", // 版权声明 自动替换年份
+    "custom_string_obkoro1": "可以输入预定的版权声明、个性签名、空行等"
+  }
+```
+
+```js
+/** 
+ * 2020-07-03 14:50:17 // 不带Date字段的时间
+ * @Github: https://github.com/OBKoro1
+ * custom_string_obkoro1~custom_string_obkoro100都可以输出自定义信息
+ * @Author: OBKoro1
+ * Copyright 2020 OBKoro1 // 版权字段
+ * 可以输入预定的版权声明、个性签名、空行等 // 使用atSymbol字段可以去掉@
+ */
+```
+
 * 修复了linux无法获取文件创建时间的问题，如果无法获取该值则默认设为当前时间。
 * 新增草泥马、甩葱少女、全键盘、小键盘、草泥马2多种注释图案，查看所有[注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)。
 
@@ -102,7 +127,6 @@
  *  └─────┴────┴────┴───────────────────────┴────┴────┴────┴────┘ └───┴───┴───┘ └───────┴───┴───┘
  */
 ```
-
 
 ### [V4.7.2]
 
