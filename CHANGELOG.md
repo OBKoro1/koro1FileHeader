@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-08-02 14:29:46
+ * LastEditTime : 2020-08-02 14:51:36
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -15,8 +15,9 @@
 
 <!-- TODO: 函数注释 不解析ts 或者说解析简单的ts -->
 
-### [V4.7.3]
+### [V4.7.4]
 
+* 新增[自动添加头部注释白名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6%E7%99%BD%E5%90%8D%E5%8D%95)`supportAutoLanguage`, 设置后只允许指定的文件自动添加文件头部注释。
 * 新增[支持语言](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%94%AF%E6%8C%81%E8%AF%AD%E8%A8%80)`lua`: `--[[--]]`
 * 新增支持[输出多个自定义信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#7-%E5%9C%A8%E6%B3%A8%E9%87%8A%E4%B8%AD%E8%BE%93%E5%87%BA%E4%B8%80%E6%AE%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)(`custom_string_obkoro1`~`custom_string_obkoro100`)。
 * 新增版权(`custom_string_obkoro1_copyright`)和时间(`custom_string_obkoro1_date`)自定义信息字段
