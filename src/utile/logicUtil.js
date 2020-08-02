@@ -48,7 +48,14 @@ const changePrototypeNameFn = (data, config) => {
       objData[specialOptions[item]] = data[item]
     } else if (item.indexOf('custom_string_obkoro') !== -1) {
       // 更改用户自定义输出字段 后期需要切割它
-      objData[`symbol_${item}`] = data[item]
+      if(item === 'custom_string_obkoro1_copyright'){
+        objData[`symbol_custom_string_obkoro10001`] = data[item]
+      }else if(item === 'custom_string_obkoro1_date'){
+        objData[`symbol_custom_string_obkoro10000`] = data[item]
+      }else{
+        objData[`symbol_${item}`] = data[item]
+      }
+
     } else {
       objData[item] = data[item]
     }

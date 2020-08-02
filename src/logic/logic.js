@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-29 15:30:50
+ * LastEditTime : 2020-08-02 13:44:15
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -107,19 +107,17 @@ function changeTplValue(data, config) {
     data.FilePath = filePathFile.createFilePath(data.FilePath)
   }
   // 去掉@Date
-  if (data.symbol_custom_string_obkoro1_date) {
+  if (data.symbol_custom_string_obkoro10000) {
     data['symbol_custom_string_obkoro10000'] = time
-    delete data.symbol_custom_string_obkoro1_date
   }
 
   // 版权自定义
-  if (data.symbol_custom_string_obkoro1_copyright) {
-    let copyright = data.symbol_custom_string_obkoro1_copyright
+  if (data.symbol_custom_string_obkoro10001) {
+    let copyright = data.symbol_custom_string_obkoro10001
     data['symbol_custom_string_obkoro10001'] = copyright.replace(
       '${now_year}',
       new Date().format('YYYY')
     )
-    delete data.symbol_custom_string_obkoro1_copyright
   }
   return data
 }
