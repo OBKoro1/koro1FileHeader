@@ -129,10 +129,10 @@ tplJudge.prototype = {
   // 头部注释 头尾链接
   topHeadEnd: function () {
     const topHeadEndObj = {
-      javascript: `/*\r\n${this.obj.str} */ \r\n`,
+      javascript: `/*\r\n${this.obj.str} */\r\n`,
       lua: `--[[\r\n${this.obj.str}--]]\r\n`,
       python: `'''\r\n${this.obj.str}'''\r\n`,
-      html: `<!--\r\n${this.obj.str}--> \r\n`,
+      html: `<!--\r\n${this.obj.str}-->\r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
       shellscript: `###\r\n${this.obj.str}### \r\n`,
     }
