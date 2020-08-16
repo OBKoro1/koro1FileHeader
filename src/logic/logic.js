@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-08-02 13:44:15
+ * LastEditTime : 2020-08-15 16:00:44
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -75,14 +75,15 @@ const lineSpaceFn = (editor) => {
  * @param {object} data 配置项
  */
 function changeDataOptionFn(data, config) {
+  data = noEditorValue(data, config)
   data = logicUtil.changePrototypeNameFn(data, config) // 更改字段，不改变他们的顺序
   data = changeTplValue(data, config) // 修改模板设置的值
   data = logicUtil.sameLengthFn(data) // 将字段弄得一样长
   return data
 }
 
-// 修改模板设置的值
-function changeTplValue(data, config) {
+// Do not edit 的值
+function noEditorValue(data, config) {
   let time = new Date().format()
   // 文件创建时间
   if (config.configObj.createFileTime) {
@@ -93,6 +94,10 @@ function changeTplValue(data, config) {
       // 修复linux无法获取文件创建时间的问题
       time = new Date(createTime).format()
     }
+  }
+  // 去掉@Date
+  if (data.symbol_custom_string_obkoro10000) {
+    data['symbol_custom_string_obkoro10000'] = time
   }
   // 判断是否设置
   if (data.Date !== undefined) {
@@ -106,11 +111,11 @@ function changeTplValue(data, config) {
   if (data.FilePath !== undefined) {
     data.FilePath = filePathFile.createFilePath(data.FilePath)
   }
-  // 去掉@Date
-  if (data.symbol_custom_string_obkoro10000) {
-    data['symbol_custom_string_obkoro10000'] = time
-  }
+  return data
+}
 
+// 修改模板设置的值
+function changeTplValue(data) {
   // 版权自定义
   if (data.symbol_custom_string_obkoro10001) {
     let copyright = data.symbol_custom_string_obkoro10001
