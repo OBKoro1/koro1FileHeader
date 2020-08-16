@@ -3,10 +3,11 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-29 15:55:17
+ * LastEditTime : 2020-08-15 17:15:59
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
+const vscode = require('vscode')
 const constFile = require('../utile/CONST')
 const util = require('../utile/util')
 
@@ -60,6 +61,7 @@ class functionTplStr {
     this.str = ''.padStart(lineSpace)
     this.strContent = '' // 中间模板部分的字符
     this.data = data
+    this.config = vscode.workspace.getConfiguration('fileheader')
   }
   // 生成函数注释模板
   generate() {
@@ -82,7 +84,7 @@ class functionTplStr {
       value: this.data[key],
     }
     // 注释是参数和返回值的话 多加一个参数的属性
-    if (key === 'param' || key === 'return') {
+    if (this.config.configObj.typeParam && (key === 'param' || key === 'return')) {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{type}'
     } else {
