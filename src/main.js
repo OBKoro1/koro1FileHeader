@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-05 15:09:18
+ * LastEditTime : 2020-09-07 14:35:05
  */
 const vscode = require('vscode')
 const global = require('./utile/CONST')
@@ -26,11 +26,18 @@ function activate(context) {
     'extension.cursorTip',
     createAnnotation.functionAnnotation
   )
-  new design()
+  const codeDesign = vscode.commands.registerCommand(
+    'extension.codeDesign',
+    () => {
+      new design().headDesignCreate()
+    }
+  )
+  new design(true)
   new activeHandle()
   // 当插件关闭时被清理的可清理列表
   context.subscriptions.push(fileheader)
   context.subscriptions.push(cursorTip)
+  context.subscriptions.push(codeDesign)
 }
 
 exports.activate = activate
