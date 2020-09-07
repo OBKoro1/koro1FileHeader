@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-04-24 15:06:47
- * FilePath     : /koro1FileHeader/src/models/createAnnotation.js
+ * LastEditTime : 2020-09-07 14:35:19
+ * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
  */
@@ -14,10 +14,16 @@ const util = require('../utile/util')
 const handleError = require('../logic/handleError')
 const languageOutput = require('../languageOutPut/languageOutput')
 const handleTpl = require('./handleTpl')
+const design = require('../design')
 
 // 在对应文件头部添加头部注释
 function headerAnnotation(editor, option = {}) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+  // 头部注释直接生成头部注释图案
+  if(config.configObj.headDesign){
+    new design().headDesignCreate('header')
+    return
+  }
   // 默认合并
   editor.edit((editBuilder) => {
     try {

@@ -45,7 +45,7 @@ const annotationSymbol = {
 // 插件上下文
 let context = ''
 let autoAddFiles = [] // 自动添加的文件
-const lineNum = 25 // 检测头部注释的行数
+const lineNum = 70 // 检测头部注释的行数 需要检测注释图案
 
 // pre commit 执行node的字符串
 const handleNodeString =
