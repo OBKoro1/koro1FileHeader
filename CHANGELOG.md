@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-08-15 17:19:10
+ * LastEditTime : 2020-09-07 15:20:51
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -14,6 +14,12 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 <!-- TODO: 函数注释 不解析ts 或者说解析简单的ts -->
+
+### [V4.7.6]
+
+* 随机注释图案：[命令行随机注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E9%9A%8F%E6%9C%BA%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)、[快捷键默认随机图案注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E9%87%87%E7%94%A8%E5%93%AA%E4%B8%AA%E5%9B%BE%E6%A1%88%E6%B3%A8%E9%87%8A)
+* 新增快捷键window：`ctrl+alt+j`, mac：`ctrl+cmd+j`: [快速添加图案注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)。
+* 功能: [所有生成头部注释的场景都会生成图案注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E5%B8%A6%E4%B8%8A%E5%9B%BE%E6%A1%88%E6%B3%A8%E9%87%8A)
 
 ### [V4.7.5]
 

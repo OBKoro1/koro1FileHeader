@@ -2,7 +2,7 @@
   "name": "korofileheader",
   "displayName": "koroFileHeader",
   "description": "在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
-  "version": "4.7.5",
+  "version": "4.7.6",
   "publisher": "OBKoro1",
   "scripts": {
     "build": "vsce package",
@@ -136,8 +136,10 @@
             "CheckFileChange": false,
             "createHeader": true,
             "useWorker": false,
+            "typeParam": true,
             "designAddHead": false,
-            "typeParam": true
+            "headDesignName": "random",
+            "headDesign": false
           },
           "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
         }
@@ -151,6 +153,11 @@
       {
         "command": "extension.cursorTip",
         "title": "cursorTip"
+      },
+      {
+        "command": "fileheader.random",
+        "title": "随机注释图案",
+        "category": "codeDesign-随机"
       },
       {
         "command": "fileheader.buddhalImg",
@@ -229,6 +236,13 @@
       }
     ],
     "keybindings": [
+      {
+        "command": "extension.codeDesign",
+        "key": "ctrl+alt+j",
+        "mac": "ctrl+cmd+j",
+        "linux": "ctrl+meta+j",
+        "when": "editorTextFocus"
+      },
       {
         "command": "extension.fileheader",
         "key": "ctrl+alt+i",
