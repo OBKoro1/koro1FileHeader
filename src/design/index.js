@@ -18,29 +18,34 @@ const languageOutput = require('../languageOutPut/languageOutput')
 const handleTpl = require('../models/handleTpl')
 
 class designCommand {
-  constructor() {
-    this.context = global.context
-    this.registerCommand()
-  }
-  registerCommand() {
-    const commandArr = [
-      'buddhalImg',
-      'buddhalSay',
-      'buddhalImgSay',
-      'belle',
-      'totemDragon',
-      'totemBat',
-      'totemWestDragon',
-      'jesus',
-      'coderSong',
-      'dog',
-      'keyboardAll',
-      'keyboardSmall',
-      'grassHorse',
-      'grassHorse2',
-      'loitumaGirl'
+  constructor(initWatch = false) {
+    this.commandArr = [
+      'random', // 随机
+      'buddhalImg', // 佛祖
+      'buddhalImgSay', // 佛祖+佛曰
+      'buddhalSay', // 佛曰
+      'totemDragon', // 龙图腾
+      'belle', // 美女
+      'coderSong', // 程序员之歌
+      'loitumaGirl', // 甩葱少女
+      'keyboardAll', // 全键盘
+      'keyboardSmall', // 小键盘
+      'totemWestDragon', // 喷火龙
+      'jesus', // 耶稣
+      'dog', // 狗
+      'grassHorse', // 草泥马
+      'grassHorse2', // 草泥马2
+      'totemBat', // 蝙蝠
     ]
-    commandArr.forEach((item) => {
+    this.context = global.context
+    if (initWatch) {
+      // 初始化监听命令行
+      this.registerCommand()
+    }
+  }
+  // 注册命令
+  registerCommand() {
+    this.commandArr.forEach((item) => {
       const command = vscode.commands.registerCommand(
         `fileheader.${item}`,
         this.commandHandel(item)
@@ -48,9 +53,42 @@ class designCommand {
       this.context.subscriptions.push(command)
     })
   }
+
+  // 是否随机注释图案
+  getCommandName(commandName){
+    // 随机图案
+    if(commandName === 'random'){
+      const commandNum = this.commandArr.length - 1 // 小于数组长度 索引值最后
+       const index = Math.ceil(Math.random()* commandNum)
+       return this.commandArr[index]
+    }
+    return commandName
+  }
+
+  // 头部注释直接生成
+  headDesignCreate(head = 'have'){
+    this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+    let commandName = this.config.configObj.headDesignName
+    const isCommandName = this.commandArr.includes(commandName)
+    if(!isCommandName){
+      // 没找到注释图案 改为随机
+      commandName = 'random'
+    }
+    this.commandHandel(commandName)(head)
+  }
+
   // 命令行回调
   commandHandel(commandName) {
-    return () => {
+    commandName = this.getCommandName(commandName)
+    return (head) => {
+      this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
+      if(head !== 'header'){
+        // 根据配置是否添加注释模板
+        this.designAddHead = this.config.configObj.designAddHead
+      }else{
+       // 头部注释永远添加注释模板
+       this.designAddHead = true
+      }
       const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
       this.fileEnd = util.fileEndMatch(editor._documentData._languageId) // 提取文件后缀 或者语言类型
       const tpl = this.designCreate(commandName)
@@ -69,7 +107,6 @@ class designCommand {
   }
   // 生成注释图案
   designCreate(commandName) {
-    this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     let designStr = design[commandName]
     designStr = this.deleteBegin(designStr)
     return designStr
@@ -89,7 +126,7 @@ class designCommand {
   addAnnotation(stringArr) {
     // 获取不同设置下 语言项
     const languageOption = logicUtil.getLanguageSymbol(this.fileEnd)
-    if (this.config.configObj.designAddHead) {
+    if (this.designAddHead) {
       stringArr.splice(-1, 0, '')
       stringArr.splice(-1, 0, this.getPluginAnnotation())
     }
@@ -101,7 +138,7 @@ class designCommand {
         symbolNow = languageOption.end
       } else if (
         index === stringArr.length - 2 &&
-        this.config.configObj.designAddHead
+        this.designAddHead
       ) {
         // 去掉注释模板最后一行多余的换行
         const lineArr = stringArr[index].split('\r\n')
@@ -114,7 +151,7 @@ class designCommand {
     stringArr.push('\n') // 末尾换行
     return stringArr
   }
-  // 获得插件注释
+  // 生成插件中间的注释
   getPluginAnnotation() {
     const data = logic.userSet(this.config)
     const tpl = languageOutput.middleTpl(data, this.fileEnd, this.config)
