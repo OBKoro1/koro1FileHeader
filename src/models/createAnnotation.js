@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-07 14:35:19
+ * LastEditTime : 2020-09-08 13:54:58
  * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -15,6 +15,7 @@ const handleError = require('../logic/handleError')
 const languageOutput = require('../languageOutPut/languageOutput')
 const handleTpl = require('./handleTpl')
 const design = require('../design')
+const functionParams = require('../function-params')
 
 // 在对应文件头部添加头部注释
 function headerAnnotation(editor, option = {}) {
@@ -58,9 +59,16 @@ const functionAnnotation = () => {
     const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
     const fileEnd = util.fileEndMatch(editor._documentData._languageId)
-    const [lineSpace, frontStr, line, nextLine] = logic.lineSpaceFn(editor)
+    const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor)
+
     editor.edit((editBuilder) => {
       let data = logic.cursorOptionHandleFn(config)
+      functionParams.init({
+        languageId: editor._documentData._languageId,
+        lineProperty,
+        fileEnd,
+        data
+      })
       let fontTpl = new languageOutput.functionTplStr(
         data,
         fileEnd,

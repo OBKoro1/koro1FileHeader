@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-08-15 16:00:44
+ * LastEditTime : 2020-09-07 17:06:09
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -47,27 +47,24 @@ const userSet = (config) => {
  * @return: lineSpace：前面的长度，frontStr：函数注释第一行的长度，line:当前行(数字)，nextLine 激活行的下一行是否有内容
  */
 const lineSpaceFn = (editor) => {
-  const line = editor.selection.active.line // 当前行
-  const lineProperty = editor.document.lineAt(line) // 当前行的属性
+  const activeLine = editor.selection.active.line // 激活行 行号
+  let lineProperty = editor.document.lineAt(activeLine) // 解析行的属性 包括text等
   let lineFirst = lineProperty.firstNonWhitespaceCharacterIndex // 激活行 前面是否有值
-  let lineSpace,
+  let lineSpace = lineFirst,
     nextLine,
     frontStr = '' // 前面空几行
-  const activeLine = editor.selection.active.line // 激活行 行号
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
   if (
     lineProperty.isEmptyOrWhitespace &&
     editor._documentData.document.lineCount !== activeLine + 1
   ) {
     nextLine = activeLine + 1
-    lineSpace = editor.document.lineAt(nextLine)
-      .firstNonWhitespaceCharacterIndex
+    lineProperty = editor.document.lineAt(nextLine)
+    lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
     lineFirst = lineFirst === 0 ? lineSpace : 0
     frontStr = ''.padStart(lineFirst)
-  } else {
-    lineSpace = lineFirst
   }
-  return [lineSpace, frontStr, line, nextLine]
+  return [lineSpace, frontStr, activeLine, nextLine, lineProperty]
 }
 
 /**
