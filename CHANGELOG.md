@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-07 15:20:51
+ * LastEditTime : 2020-09-18 14:57:16
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -14,6 +14,10 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 <!-- TODO: 函数注释 不解析ts 或者说解析简单的ts -->
+
+### [V4.7.7]
+
+* fix: 修复linux文件创建时间错误的问题。
 
 ### [V4.7.6]
 
