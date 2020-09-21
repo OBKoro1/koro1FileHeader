@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-08 19:16:14
+ * LastEditTime : 2020-09-21 16:31:06
  * FilePath     : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
@@ -19,24 +19,25 @@ class functionParams {
    */
   init(option) {
     this.option = option
+    this.match = false
+    this.paramsData = this.option.data
     const obj = {
       javascript: 'function-js.js',
     }
     const typeSupport = obj[option.languageId]
     if (typeSupport) {
       this.require(typeSupport)
-    } else {
-      return option.data
     }
   }
+  // 引用语言文件 匹配函数 匹配参数
   require(languageType) {
     const languageGetParams = require(`./${languageType}`)
-    const params = languageGetParams.init(this.option.lineProperty)
+    languageGetParams.init(this.option.lineProperty)
     // 匹配到将param 变成数组
     if(languageGetParams.match){
-        this.option.data.param = languageGetParams.res
+        this.paramsData.param = languageGetParams.res
+        this.match =true
     }
-    console.log('languageType', params, languageType, languageGetParams)
   }
 }
 
