@@ -114,7 +114,7 @@ tplJudge.prototype = {
     const userObj = {
       topMiddle: `${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
       topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${this.annotationSymbol.end}\r\n`,
-      fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal} ${obj.value}\r\n`,
+      fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal}\r\n`,
       fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
@@ -223,10 +223,10 @@ tplJudge.prototype = {
   // 函数注释参数
   fnMiddle_param: function () {
     const fnMiddle_paramObj = {
-      '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n `,
-      '/^python|^lua$/': `${this.obj.str}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      '/^vb$/': `${this.obj.str}' ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
-      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal} ${this.obj.value}\r\n`,
+      '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol}${this.obj.key} ${this.obj.typeVal}\r\n `,
+      '/^python|^lua$/': `${this.obj.str}${this.obj.key} ${this.obj.typeVal}\r\n`,
+      '/^vb$/': `${this.obj.str}' ${this.atSymbol}${this.obj.key} ${this.obj.typeVal}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol}${this.obj.key} ${this.obj.typeVal}\r\n`,
     }
     return util.matchProperty(fnMiddle_paramObj, this.obj.fileEnd)
   },

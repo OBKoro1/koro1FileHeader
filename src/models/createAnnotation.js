@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-08 13:54:58
+ * LastEditTime : 2020-09-18 16:17:55
  * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -63,12 +63,16 @@ const functionAnnotation = () => {
 
     editor.edit((editBuilder) => {
       let data = logic.cursorOptionHandleFn(config)
+      // 匹配参数
       functionParams.init({
         languageId: editor._documentData._languageId,
         lineProperty,
         fileEnd,
         data
       })
+      if(functionParams.match){
+        data = functionParams.paramsData
+      }
       let fontTpl = new languageOutput.functionTplStr(
         data,
         fileEnd,
