@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-21 16:29:41
+ * LastEditTime : 2020-10-08 11:58:24
  * FilePath     : \koro1FileHeader\src\function-params\function-js.js
  * Description  : js语言获取函数参数
  */
@@ -70,7 +70,7 @@ class GetParams {
     // 捕获函数参数
     while ((res = reg.exec(params))) {
       if (!res) break
-      let obj = {
+      const obj = {
         type: '*',
         param: res[2],
       }
