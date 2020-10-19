@@ -4,11 +4,11 @@
 
 ### 使用效果：
 
-头部注释和注释图案
+**头部注释和注释图案**
 
 ![example.gif](https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/master/images/example.gif)
 
-函数注释: 自动提取函数参数
+**函数注释: 自动提取函数参数**
 
 ![koroFileHeader函数参数提取](https://github.com/OBKoro1/koro1FileHeader/blob/master/images/function-params.gif?raw=true)
 
