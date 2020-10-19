@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-10-11 18:40:08
- * FilePath     : \koro1FileHeader\src\function-params\function-go.js
+ * ,@LastEditors  : OBKoro1
+ * ,@LastEditTime : 2020-10-18 16:30:59
+ * ,@FilePath     : \koro1FileHeader\src\function-params\function-go.js
  * Description  : java语言获取函数参数
  */
 
@@ -34,7 +34,7 @@ class GetParams {
   // 匹配方法声明的参数
   matchFunction() {
     // 匹配单词func 可能有空格 可能有函数名 可能有空格 匹配括号 匹配括号内的一切
-    const reg = /\bfunc\b\s*(\w*)\s*\((.*)\)/
+    const reg = /\bfunc\b\s*(\w*)\s*\((.*?)\)/
     return reg.exec(this.text)
   }
 
@@ -52,8 +52,8 @@ class GetParams {
         res[2] = '*'
       }
       const obj = {
-        type: res[1],
-        param: res[2],
+        type: res[2],
+        param: res[1],
       }
       paramsArr.push(obj)
     }
