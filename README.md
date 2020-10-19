@@ -4,7 +4,13 @@
 
 ### 使用效果：
 
+头部注释和注释图案
+
 ![example.gif](https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/master/images/example.gif)
+
+函数注释: 自动提取函数参数
+
+![koroFileHeader函数参数提取](https://github.com/OBKoro1/koro1FileHeader/blob/master/images/function-params.gif?raw=true)
 
 ## 简介
 
@@ -95,10 +101,8 @@
 
 设置也超方便的，[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
 
-
-
 ## 最后
 
 如果觉得还不错的话，就给个 [Star](https://github.com/OBKoro1/koro1FileHeader) ⭐️ 鼓励一下我吧~
 
-[前端进阶积累](http://obkoro1.com/web_accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)
+[掘金](https://juejin.im/user/78820536236951)、[前端进阶积累](http://obkoro1.com/web_accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)
