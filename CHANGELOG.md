@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * ,@LastEditors  : OBKoro1
- * ,@LastEditTime : 2020-10-19 16:22:46
+ * ,@LastEditTime : 2020-10-19 19:47:27
  * ,@FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -15,10 +15,9 @@
 
 ### [V4.7.7]
 
-* add: `js`、`html`、`vue`、`ts` 、`go`、`java`、`python`文件后缀的函数参数自动提取。
-* add: @符号`atSymbol`和冒号`colon`在函数注释和头部注释中可以分别设置，现在值改为数组形式:第一个元素是头部注释的设置,第二个元素。ps: 原先字符串模式也做了兼容。
-* fix: 修复linux文件创建时间错误的问题。
-
+* add: `js`、`html`、`vue`、`ts` 、`go`、`java`、`python`文件后缀的[函数参数自动提取](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E6%B3%A8%E9%87%8A%E8%87%AA%E5%8A%A8%E6%8F%90%E5%8F%96%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0)。
+* add: [@符号`atSymbol`和冒号`colon`在函数注释和头部注释中可以分别设置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E4%B8%AD%E7%9A%84%E8%89%BE%E7%89%B9%E5%92%8C%E5%86%92%E5%8F%B7)，现在值改为数组形式:第一个元素是头部注释的设置,第二个元素。ps: 原先字符串模式也做了兼容。
+* fix: [修复linux文件创建时间错误的问题](https://github.com/OBKoro1/koro1FileHeader/issues/223)。
 ### [V4.7.6]
 
 * 随机注释图案：[命令行随机注释图案](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E9%9A%8F%E6%9C%BA%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88)、[快捷键默认随机图案注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E4%BD%9B%E7%A5%96%E4%BF%9D%E4%BD%91%E6%B0%B8%E6%97%A0BUG%E3%80%81%E7%A5%9E%E5%85%BD%E6%8A%A4%E4%BD%93%E3%80%81%E6%B3%A8%E9%87%8A%E5%9B%BE%E6%A1%88#%E9%87%87%E7%94%A8%E5%93%AA%E4%B8%AA%E5%9B%BE%E6%A1%88%E6%B3%A8%E9%87%8A)
