@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // let str = `a, b int`
+      // let str = `function test<T>(a, b = '111', ...d: string[]) {}`
+      // let str = `function test2(b: string = '2', c?: number[][]) {}`
+      // let str = `function test2(s, [first, second]: [number, number], k , { a, b = 0 } = { a: "" }) {`
+      // let str = `const a = (b) => {`
+      // let str = `const a3: number = (b: number) => {`
+      // let str = `const a = (b): number => {`
+      // let str = `const a3: number = ([first, second]: [number, number], b: string = '2',  c?: number[][], k) => {`
+      // let str = `function pickCard(x: { suit: string; card: number }[]): number {}`
+      // let str = `a: function test333<T>(a, b = '111', ...d: string[]):number{`
+      // let str = `b: function ss<T>(a, b = '111', ...d: string[]): T{`
+      // let str = `test333<T>(a, b = '111', ...d: string[]){`
+      let str = `dd: number, cc = test2([ 1, 2 ], { a: 'ccc', d: 'ddd' }),bb: string = '2', name1, name = '2', c?: number[][], x: { suit: string, card: number }[], readonly name3: string, public scale: number, [first, second]: [number, number], k, { a, b = 0 } = { a: '' }, ...d: string[]`
+      let str2 = str.replace(/\(.*?\)/g, ' korofunction ')
+      let str3 = str2.replace(/\[+[^\[\]]+\]+/g, ' koroarray ')
+      let str4 = str3.replace(/{+[^{}]+}+/g, ' koroobject ')
+      const reg = /\s*([...\s]*)([A-Za-z_]\w*)(\s*\??\s*:\s*(\w+))?[^,]*/g
+
+      let res
+      let paramsArr = [] // 参数列表
+      let num = 0
+      // 捕获函数参数
+      while ((res = reg.exec(str4))) {
+        if (!res) break
+        console.log('exec', res)
+        if (num === 10) break
+        if (res[4] !== undefined) {
+          res[4] = res[4].replace(/\s+/g, '')
+        } else {
+          res[4] = '*'
+        }
+        res[2] = res[2].replace('koro','')
+        res[4] = res[4].replace('koro','')
+        const obj = {
+          type: res[4],
+          param: res[2],
+        }
+        if (res[1].startsWith('...')) {
+          obj.type = 'array'
+        }
+        paramsArr.push(obj)
+      }
+      console.log('paramsArr res', res, paramsArr)
+    </script>
+  </body>
+</html>
