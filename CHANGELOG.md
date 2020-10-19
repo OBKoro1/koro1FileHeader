@@ -1,9 +1,9 @@
 <!--
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-18 14:57:16
- * FilePath     : \koro1FileHeader\CHANGELOG.md
+ * ,@LastEditors  : OBKoro1
+ * ,@LastEditTime : 2020-10-19 16:22:46
+ * ,@FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
  -->
@@ -13,10 +13,10 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
-<!-- TODO: 函数注释 不解析ts 或者说解析简单的ts -->
-
 ### [V4.7.7]
 
+* add: `js`、`html`、`vue`、`ts` 、`go`、`java`、`python`文件后缀的函数参数自动提取。
+* add: @符号`atSymbol`和冒号`colon`在函数注释和头部注释中可以分别设置，现在值改为数组形式:第一个元素是头部注释的设置,第二个元素。ps: 原先字符串模式也做了兼容。
 * fix: 修复linux文件创建时间错误的问题。
 
 ### [V4.7.6]

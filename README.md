@@ -17,7 +17,7 @@
 
 2. **在光标处添加函数注释**:
 
-    * 在光标处自动生成一个注释模板
+    * 在光标处自动生成一个注释模板, 自动解析函数参数，生成函数参数注释。
     * 支持用户高度自定义注释选项
     * 快捷键：`window`：`ctrl+alt+t`,`mac`：`ctrl+cmd+t`,`linux`: `ctrl+meta+t`
     * 快捷键不可用很可能是被占用了,[参考这里](https://github.com/OBKoro1/koro1FileHeader/issues/5)
