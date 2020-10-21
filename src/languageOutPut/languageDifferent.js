@@ -128,17 +128,17 @@ tplJudge.prototype = {
       this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd]
     }
     const userObj = {
-      topMiddle: `${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
+      topMiddle: `${this.annotationSymbol.middle}${obj.key}${this.colon[0]}${obj.value}\r\n`,
       topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${this.annotationSymbol.end}\r\n`,
       fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal}\r\n`,
-      fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon}${obj.value}\r\n`,
+      fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon[1]}${obj.value}\r\n`,
       topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.str}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
       annotationStarts: `${this.annotationSymbol.head}`,
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
-        this.colon
+        this.colon[1]
       }${new Date().format()}`,
-      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon}${obj.LastEditors}`,
+      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon[1]}${obj.LastEditors}`,
     }
     return userObj[obj.type]
   },
@@ -231,7 +231,7 @@ tplJudge.prototype = {
       '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n `,
       '/^python|^lua$/': `${this.obj.str}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
       '/^vb$/': `${this.obj.str}' ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
-      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
     }
     return util.matchProperty(fnMiddle_keyObj, this.obj.fileEnd)
   },
