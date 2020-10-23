@@ -98,7 +98,8 @@
               "use": false
             },
             "headInsertLine": {
-              "php": 2
+              "php": 2,
+              "sh": 2
             },
             "beforeAnnotation": {
               "文件后缀": "该文件后缀的头部注释之前添加某些内容"
