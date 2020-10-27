@@ -1,11 +1,25 @@
-function test(a, b) {}
+ 
+/*
+ * Author       : OBKoro1
+ * CreateDate   : 2020-10-19 18:06:18
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-10-21 20:46:39
+ * FilePath     : \koro1FileHeader\test\function-params\function.js
+ * Description  : 文件描述
+ */
 
-function test2(a, ...b) {
-
-  function test3(a = 'ssss', ...b) {} 
-  function(a = 'ssss', ...  b) {}
+/**
+ * @description: 一键生成函数注释 自动解析函数参数
+ * @param {*} a
+ * @param {*} b
+ * @param {*} c
+ * @param {array} params
+ * @return {*}
+ */
+function test(a, b, c = '参数默认值', ...params) {
 
 }
+
 
 class {
   /**

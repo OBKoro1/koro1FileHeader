@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-10-21 17:47:06
+ * LastEditTime : 2020-10-27 17:28:18
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -12,6 +12,8 @@
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+<!-- TODO: CICD的搭建 -->
 
 ### [V4.7.8]
 
