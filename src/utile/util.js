@@ -3,12 +3,13 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-29 10:26:48
+ * LastEditTime : 2020-11-10 19:43:29
  */
 
 const vscode = require('vscode')
 const moment = require('moment')
 const path = require('path')
+const global = require('./CONST')
 
 /**
  * @description: 节流函数 单位时间内有事件被多次触发则，只生效一次
@@ -179,12 +180,19 @@ Date.prototype.format = function (formatStr) {
 }
 
 // 获取该文件的冒号
-const getColon = (fileEnd) => {
+const getColon = (fileEnd, customName = 'head') => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   let colon = config.configObj.colonObj[fileEnd] // 冒号
   // 文件没有设置 采用全局
   if (colon === undefined) {
     colon = config.configObj.colon
+  }
+  if (Array.isArray(colon)) {
+    if (customName === 'head') {
+      colon = colon[0]
+    } else {
+      colon = colon[1]
+    }
   }
   return colon
 }
@@ -193,13 +201,13 @@ const getColon = (fileEnd) => {
  * 切割特殊字符串生成空行
  * @param {string} tpl 生成的模板
  */
-const replaceSymbolStr = (tpl, fileEnd) => {
-  const sinceOut = tpl.indexOf('symbol_custom_string_obkoro')
+const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
+  const sinceOut = tpl.indexOf([global.customStringConst])
   // 是否存在自定义信息
   if (sinceOut !== -1) {
-    const colon = getColon(fileEnd)
+    let colon = getColon(fileEnd, customName)
     // 替换全部自定义信息
-    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, 'gim')
+    const reg = new RegExp(`${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
   }
   return tpl
