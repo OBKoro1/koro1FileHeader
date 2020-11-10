@@ -17,6 +17,3 @@ vsce package --yarn # 解决下文报错
 # vscodium发布插件
 
 # npx ovsx publish file -p token
-
-# TODO: 修改版本
-# npx ovsx publish /Users/koro/work/web_my/koro1FileHeader/korofileheader-4.7.8.vsix -p 765ed6f2-2c30-4466-9cb5-223e323b650a
