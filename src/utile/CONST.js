@@ -51,10 +51,26 @@ const lineNum = 70 // 检测头部注释的行数 需要检测注释图案
 const handleNodeString =
   'node ./.git/hooks/fileHeader-checkChange.js # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作'
 
+// 特殊字符串
+const specialString = `custom_string_obkoro`
+
+// 自定义模板字符串
+const customStringConst = 'symbol_custom_string_obkoro'
+
+// 时间字段
+const customStringTime = 'symbol_custom_string_obkoro10000'
+
+// 版本字段
+const customStringCopyRight = 'symbol_custom_string_obkoro10001'
+
 module.exports = {
   lineNum,
   autoAddFiles,
   annotationSymbol,
   context,
+  customStringConst,
+  customStringTime,
+  customStringCopyRight,
   handleNodeString,
+  specialString
 }
