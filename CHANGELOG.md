@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-11-10 19:59:36
+ * LastEditTime : 2020-11-10 20:29:46
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -14,6 +14,10 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 <!-- TODO: CICD的搭建 -->
+
+### [V4.7.10]
+
+* fix: 创建文件自动添加头部注释问题修复
 
 ### [V4.7.9]
 
