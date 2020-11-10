@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-18 14:29:08
+ * LastEditTime : 2020-11-10 19:56:08
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -13,6 +13,7 @@ const languageOutput = require('../languageOutPut/languageOutput')
 const fs = require('fs')
 const filePathFile = require('./filePath')
 const logicUtil = require('../utile/logicUtil')
+const global = require('../utile/CONST')
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -99,8 +100,8 @@ function noEditorValue(data, config) {
     }
   }
   // 去掉@Date
-  if (data.symbol_custom_string_obkoro10000) {
-    data['symbol_custom_string_obkoro10000'] = time
+  if (data.custom_string_obkoro1_date) {
+    data.custom_string_obkoro1_date = time
   }
   // 判断是否设置
   if (data.Date !== undefined) {
@@ -120,9 +121,9 @@ function noEditorValue(data, config) {
 // 修改模板设置的值
 function changeTplValue(data) {
   // 版权自定义
-  if (data.symbol_custom_string_obkoro10001) {
-    let copyright = data.symbol_custom_string_obkoro10001
-    data['symbol_custom_string_obkoro10001'] = copyright.replace(
+  if (data[global.customStringCopyRight]) {
+    let copyright = data[global.customStringCopyRight]
+    data[global.customStringCopyRight] = copyright.replace(
       '${now_year}',
       new Date().format('YYYY')
     )
@@ -170,7 +171,7 @@ function changNameFn(data, config) {
     if (specialArr.includes(item) && specialOptions[item]) {
       // 特殊字段重新赋值
       objData[specialOptions[item]] = data[item]
-    } else if (item.indexOf('custom_string_obkoro') !== -1) {
+    } else if (item.indexOf(global.specialString) !== -1) {
       objData[`symbol_${item}`] = data[item]
     } else {
       objData[item] = data[item]

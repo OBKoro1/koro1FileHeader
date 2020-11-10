@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-21 14:44:57
+ * LastEditTime : 2020-11-10 19:34:10
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -70,7 +70,7 @@ class functionTplStr {
       this.strContent += this.paramStr(key)
     })
     this.tpl = this.mergeStr()
-    return util.replaceSymbolStr(this.tpl, this.fileEnd)
+    return util.replaceSymbolStr(this.tpl, this.fileEnd, 'methodCustom')
   }
 
   /**

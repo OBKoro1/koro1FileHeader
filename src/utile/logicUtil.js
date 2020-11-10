@@ -46,16 +46,15 @@ const changePrototypeNameFn = (data, config) => {
     // 特殊字段 且 有设置特殊字段
     if (specialArr.includes(item) && specialOptions[item]) {
       objData[specialOptions[item]] = data[item]
-    } else if (item.indexOf('custom_string_obkoro') !== -1) {
+    } else if (item.indexOf(global.specialString) !== -1) {
       // 更改用户自定义输出字段 后期需要切割它
-      if(item === 'custom_string_obkoro1_copyright'){
-        objData[`symbol_custom_string_obkoro10001`] = data[item]
-      }else if(item === 'custom_string_obkoro1_date'){
-        objData[`symbol_custom_string_obkoro10000`] = data[item]
-      }else{
+      if (item === `${global.specialString}_copyright`) {
+        objData[global.customStringCopyRight] = data[item]
+      } else if (item === `${global.specialString}_date`) {
+        objData[global.customStringTime] = data[item]
+      } else {
         objData[`symbol_${item}`] = data[item]
       }
-
     } else {
       objData[item] = data[item]
     }
@@ -106,5 +105,5 @@ module.exports = {
   sameLengthFn,
   changePrototypeNameFn,
   getAnnotationTemplate,
-  getLanguageSymbol
+  getLanguageSymbol,
 }
