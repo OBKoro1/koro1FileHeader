@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-11-10 19:43:29
+ * LastEditTime : 2020-11-10 20:14:09
  */
 
 const vscode = require('vscode')
@@ -257,11 +257,12 @@ const authList = (fsPath) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   let match = false // 默认没被添加进黑名单
   let support = true // 默认允许
-  let prohibit = config.configObj.prohibitAutoAdd
+  let prohibit = config.configObj.prohibitAutoAdd // 黑名单
   let fsName = fsPathFn(fsPath)
   if (prohibit && prohibit.length > 0) {
     match = !prohibit.includes(fsName)
   }
+  // 白名单
   const supportAutoLanguage = config.configObj.supportAutoLanguage
   if (supportAutoLanguage && supportAutoLanguage.length > 0) {
     support = supportAutoLanguage.includes(fsName)

@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:49:37
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 17:23:29
- * FilePath: /koro1FileHeader/src/models/activeHandle.js
+ * LastEditTime : 2020-11-10 20:23:07
+ * FilePath     : \koro1FileHeader\src\models\activeHandle.js
  * Description: 扩展激活的一些监听等事情
  * https://github.com/OBKoro1
  */
@@ -33,7 +33,8 @@ class activeHandle {
         vscode.window.showTextDocument(doc).then(() => {
           const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
           const fsPath = editor.document.uri.fsPath
-          if (util.authList(fsPath)) return // 被添加进黑名单
+          const  hasAddProhibit = util.authList(fsPath)
+          if (!hasAddProhibit) return false // 被添加进黑名单 或者没有添加进白名单
           createAnnotation.headerAnnotation(editor, {
             create: true,
           })
