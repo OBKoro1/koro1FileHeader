@@ -122,13 +122,25 @@
             ],
             "moveCursor": true,
             "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "atSymbol": [ "@", "@"],
+            "atSymbol": [
+              "@",
+              "@"
+            ],
             "atSymbolObj": {
-              "文件后缀": [ "头部注释@符号", "函数注释@符号" ]
+              "文件后缀": [
+                "头部注释@符号",
+                "函数注释@符号"
+              ]
             },
-            "colon": [ ": ", ": " ],
+            "colon": [
+              ": ",
+              ": "
+            ],
             "colonObj": {
-              "文件后缀": [ "头部注释冒号", "函数注释冒号" ]
+              "文件后缀": [
+                "头部注释冒号",
+                "函数注释冒号"
+              ]
             },
             "filePathColon": "路径分隔符替换",
             "showErrorMessage": false,
@@ -262,14 +274,14 @@
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
-    "@types/node": "^7.0.43",
+    "@types/node": "^7.10.14",
     "eslint": "^5.16.0",
     "eslint-friendly-formatter": "^4.0.1",
     "typescript": "^2.6.1",
-    "vscode": "^1.1.34"
+    "vscode": "^1.1.37"
   },
   "dependencies": {
-    "hoek": "^6.0.4",
-    "moment": "^2.24.0"
+    "hoek": "^6.1.3",
+    "moment": "^2.29.1"
   }
 }
