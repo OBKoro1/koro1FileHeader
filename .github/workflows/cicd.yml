@@ -1,0 +1,71 @@
+name: vscode plugin cd # github 持续集成 持续部署
+# github会默认执行 .github/workflows/**.yml 文件
+
+on: 
+  push: # 触发workflow的条件
+    tags:
+      - "v*"
+jobs:
+  build:
+    name: My Job
+    runs-on: macOS-latest # cicd的运行环境
+    # 获取node
+    strategy:
+       matrix:
+         node-version: [12.x]
+    steps:
+     - name: Checkout source
+       uses: actions/checkout@master # 获得仓库的代码
+     # 缓存node modules
+     # https://docs.github.com/cn/free-pro-team@latest/actions/guides/caching-dependencies-to-speed-up-workflows
+     - name: Cache node modules
+       uses: actions/cache@v2 # 缓存插件
+       env:
+        cache-name: cache-node-modules
+       with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+     - name: Set output
+       id: vars
+      # github.ref的值是: refs/tags/v0.0.13
+      # 取值到0.0.13 这样可以灵活的取打包的版本号
+       run: echo ::set-output name=tag::${GITHUB_REF:11}
+     - name: set env
+       env:
+        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+       run: |
+         echo $RELEASE_VERSION
+         echo ${{ steps.vars.outputs.tag }} ${{ env.RELEASE_VERSION }} ${{ github.ref }}
+     - name: use node
+       id: use_node
+       uses: actions/setup-node@v1 # 获得node
+       with:
+         node-version: ${{ matrix.node-version }}
+     - name: Create Release
+       id: create_release
+       uses: actions/create-release@v1 # 使用创建release插件
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         tag_name: ${{ github.ref }}
+         release_name: Release ${{ github.ref }} # 版本名字
+         draft: false
+         prerelease: false
+     - run: npm i -g vsce # 安装vsce 用于打包插件
+     - run: npm install # 安装依赖
+     - run: vsce package --yarn # 打包插件
+     - run: ls
+     # 上传插件包
+     - name: Upload Release Asset
+       uses: actions/upload-release-asset@v1.0.2 # 使用上传资源的插件
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # github token
+       with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }} # 默认上传地址
+         asset_path: ./autoCommit-test-${{ steps.vars.outputs.tag }}.vsix # 需要上传的资源
+         asset_name: autoCommit2-test-${{ steps.vars.outputs.tag }}.vsix # 更改资源名
+         asset_content_type: application # 一个包
