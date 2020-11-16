@@ -66,6 +66,6 @@ jobs:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # github token
        with:
          upload_url: ${{ steps.create_release.outputs.upload_url }} # 默认上传地址
-         asset_path: ./autoCommit-test-${{ steps.vars.outputs.tag }}.vsix # 需要上传的资源
-         asset_name: autoCommit2-test-${{ steps.vars.outputs.tag }}.vsix # 更改资源名
+         asset_path: ./korofileheader-${{ steps.vars.outputs.tag }}.vsix # 需要上传的资源
+         asset_name: korofileheader-${{ steps.vars.outputs.tag }}.vsix # 更改资源名
          asset_content_type: application # 一个包
