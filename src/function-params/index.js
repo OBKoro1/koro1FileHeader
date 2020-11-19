@@ -28,7 +28,9 @@ class functionParams {
       html: 'function-js.js',
       java: 'function-java.js',
       python: 'function-python.js',
-      go: 'function-go.js'
+      go: 'function-go.js',
+      c: 'function-c.js',
+      cpp: 'function-c.js'
     }
     const typeSupport = obj[option.languageId]
     if (typeSupport) {
@@ -40,9 +42,9 @@ class functionParams {
     const languageGetParams = require(`./${languageType}`)
     languageGetParams.init(this.option.lineProperty)
     // 匹配到将param 变成数组
-    if(languageGetParams.match){
-        this.paramsData.param = languageGetParams.res
-        this.match =true
+    if (languageGetParams.match) {
+      this.paramsData.param = languageGetParams.res
+      this.match = true
     }
   }
 }

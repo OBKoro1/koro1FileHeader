@@ -94,6 +94,9 @@ class functionTplStr {
       if (key === 'param') {
         return this.paramsHandle(obj)
       }
+      if (key === 'return') {
+        return this.returnValueHandle(obj)
+      }
     }
     return new languageDifferent.tplJudge(obj).res
   }
@@ -104,9 +107,29 @@ class functionTplStr {
       let params = ''
       const paramArr = this.data['param']
       paramArr.forEach((item) => {
-        obj.typeVal = `{${item.type}} ${item.param}`
-        const str = new languageDifferent.tplJudge(obj).res
-        params += str
+        if (item.hasOwnProperty("type") && item.hasOwnProperty("param")) {
+          obj.typeVal = `{${item.type}} ${item.param}`
+          const str = new languageDifferent.tplJudge(obj).res
+          params += str
+        }
+      })
+      return params
+    }
+    return new languageDifferent.tplJudge(obj).res
+  }
+
+  // 返回值类型
+  returnValueHandle(obj) {
+    // 识别到参数
+    if (Array.isArray(this.data['param'])) {
+      let params = ''
+      const paramArr = this.data['param']
+      paramArr.forEach((item) => {
+        if (item.hasOwnProperty("retType") && item.hasOwnProperty("param")) {
+          obj.typeVal = `{${item.retType}} `
+          const str = new languageDifferent.tplJudge(obj).res
+          params += str
+        }
       })
       return params
     }
