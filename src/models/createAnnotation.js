@@ -21,7 +21,7 @@ const functionParams = require('../function-params')
 function headerAnnotation(editor, option = {}) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   // 头部注释直接生成头部注释图案
-  if(config.configObj.headDesign){
+  if (config.configObj.headDesign) {
     new design().headDesignCreate('header')
     return
   }
@@ -70,7 +70,7 @@ const functionAnnotation = () => {
         fileEnd,
         data
       })
-      if(functionParams.match){
+      if (functionParams.match) {
         data = functionParams.paramsData
       }
       let fontTpl = new languageOutput.functionTplStr(
@@ -78,7 +78,8 @@ const functionAnnotation = () => {
         fileEnd,
         lineSpace,
         nextLine,
-        frontStr
+        frontStr,
+        editor._documentData._languageId
       ).generate() // 函数注释的模板字符串
       editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl) // 插入
       setTimeout(() => {

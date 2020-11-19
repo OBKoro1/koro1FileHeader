@@ -54,7 +54,7 @@ class functionTplStr {
    * @param {String} frontStr 函数注释第一行的长度
    * @return: 函数注释的模板字符串
    */
-  constructor(data, fileEnd, lineSpace, nextLine, frontStr) {
+  constructor(data, fileEnd, lineSpace, nextLine, frontStr, languageId) {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     this.frontStr = frontStr
@@ -62,6 +62,7 @@ class functionTplStr {
     this.strContent = '' // 中间模板部分的字符
     this.data = data
     this.config = vscode.workspace.getConfiguration('fileheader')
+    this.languageId = languageId
   }
   // 生成函数注释模板
   generate() {
@@ -94,8 +95,11 @@ class functionTplStr {
       if (key === 'param') {
         return this.paramsHandle(obj)
       }
-      if (key === 'return') {
+      if (key === 'return' && ('h' === this.languageId || 'c' === this.languageId
+        || 'cpp' === this.languageId || 'hpp' === this.languageId)) {
         return this.returnValueHandle(obj)
+      } else {
+        return new languageDifferent.tplJudge(obj).res
       }
     }
     return new languageDifferent.tplJudge(obj).res
