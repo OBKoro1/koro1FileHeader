@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-11-10 19:34:10
+ * LastEditTime : 2020-11-29 15:13:02
  * @Description: 不同语言的逻辑
  */
 const languageDifferent = require('./languageDifferent')
@@ -85,16 +85,14 @@ class functionTplStr {
     }
     obj.type = 'fnMiddle_key'
     // 注释是参数和返回值的话 多加一个参数的属性
-    if (
-      this.config.configObj.typeParam &&
-      (key === 'param' || key === 'return')
-    ) {
+    if (key === 'param' || key === 'return') {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{*}'
       if (key === 'param') {
         return this.paramsHandle(obj)
       }
     }
+
     return new languageDifferent.tplJudge(obj).res
   }
   // 合成参数
