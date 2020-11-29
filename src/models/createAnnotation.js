@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-18 16:17:55
+ * LastEditTime : 2020-11-29 14:58:57
  * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -59,7 +59,7 @@ const functionAnnotation = () => {
     const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
     const fileEnd = util.fileEndMatch(editor._documentData._languageId)
-    const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor)
+    const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor, config)
 
     editor.edit((editBuilder) => {
       let data = logic.cursorOptionHandleFn(config)
