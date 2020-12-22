@@ -48,9 +48,9 @@ const changePrototypeNameFn = (data, config) => {
       objData[specialOptions[item]] = data[item]
     } else if (item.indexOf(global.specialString) !== -1) {
       // 更改用户自定义输出字段 后期需要切割它
-      if (item === `${global.specialString}_copyright`) {
+      if (item === `${global.specialString}1_copyright`) {
         objData[global.customStringCopyRight] = data[item]
-      } else if (item === `${global.specialString}_date`) {
+      } else if (item === `${global.specialString}1_date`) {
         objData[global.customStringTime] = data[item]
       } else {
         objData[`symbol_${item}`] = data[item]

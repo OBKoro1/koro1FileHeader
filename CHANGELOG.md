@@ -2,16 +2,23 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-11-29 15:31:35
+ * LastEditTime : 2020-12-22 14:04:13
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
  -->
 
+<!-- TODO: 引入eslint 提交检查eslint -->
+<!-- TODO: 修改webpack配置 -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+### [V4.7.13]
+
+* fix: `specialOptions`设置`FilePath`失效
+* fix: `custom_string_obkoro2`~`custom_string_obkoro100`设置异常
 
 ### [V4.7.12]
 

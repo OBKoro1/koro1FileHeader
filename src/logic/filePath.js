@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-06 13:23:18
- * FilePath     : /koro1FileHeader/src/logic/filePath.js23333
+ * LastEditTime : 2020-12-18 22:02:31
+ * FilePath     : \koro1FileHeader\src\logic\filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
  */
@@ -34,9 +34,12 @@ const createFilePath = (FilePath) => {
 
 // 模拟生成中间部分
 const mockCreateMiddle = (FilePath, fileEnd) => {
+  const config = vscode.workspace.getConfiguration('fileheader')
   FilePath = createFilePath(FilePath) // 生成FilePath
+  const specialFileName = config.configObj.specialOptions.FilePath
+  const name = specialFileName ? specialFileName : 'FilePath'
   let data = {
-    FilePath,
+    [name]: FilePath,
   }
   data = logicUtil.sameLengthFn(data) // FilePath长度
   // 只生成路径

@@ -45,14 +45,14 @@ const annotationSymbol = {
 // 插件上下文
 let context = ''
 let autoAddFiles = [] // 自动添加的文件
-const lineNum = 70 // 检测头部注释的行数 需要检测注释图案
+const lineNum = 15 // 检测头部注释的行数 需要检测注释图案
 
 // pre commit 执行node的字符串
 const handleNodeString =
   'node ./.git/hooks/fileHeader-checkChange.js # koroFileHeader的commit hooks，判断文件只改变时间，就不进行操作'
 
 // 特殊字符串
-const specialString = `custom_string_obkoro1`
+const specialString = `custom_string_obkoro`
 
 // 自定义模板字符串
 const customStringConst = 'symbol_custom_string_obkoro'
