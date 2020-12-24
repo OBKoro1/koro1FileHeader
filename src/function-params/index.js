@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
- * ,@LastEditors  : OBKoro1
- * ,@LastEditTime : 2020-10-19 15:38:05
- * ,@FilePath     : \koro1FileHeader\src\function-params\index.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-12-24 15:29:05
+ * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
 
@@ -18,17 +18,24 @@ class functionParams {
    * return {type}
    */
   init(option) {
+    console.log('option',option)
     this.option = option
     this.match = false
     this.paramsData = this.option.data
     const obj = {
       javascript: 'function-js.js',
-      typescript: 'function-ts.js',
-      vue: 'function-js.js',
-      html: 'function-js.js',
-      java: 'function-java.js',
-      python: 'function-python.js',
-      go: 'function-go.js'
+      javascriptreact: 'function-js.js', // react jsx
+      vue: 'function-js.js', // vue
+      html: 'function-js.js', // html
+      typescript: 'function-ts.js', // ts
+      typescriptreact: 'function-ts.js', // react tsx
+      java: 'function-java.js',  // java
+      python: 'function-python.js', // py
+      rust: 'function-rust.js', // rust
+      go: 'function-go.js', // go
+      c: 'function-c.js',
+      cpp: 'function-c.js',
+      php: 'function-php.js',
     }
     const typeSupport = obj[option.languageId]
     if (typeSupport) {
