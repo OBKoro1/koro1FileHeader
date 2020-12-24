@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-22 14:04:13
- * FilePath     : \koro1FileHeader\CHANGELOG.md
+ * LastEditTime : 2020-12-24 15:46:27
+ * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
  -->
@@ -14,6 +14,14 @@
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+### [V4.8.0]
+
+* feat: 支持`rust`语言，自动添加头部注释与函数参数识别
+* feat: 支持`c`和`c++`的函数参数自动提取
+* feat: 支持`php`的函数参数自动提取
+* fix: 修复ts在class中方法前面的static等字段导致的参数识别失败
+* fix: 修复`go`函数注释参数提取时，提取函数签名的问题。
 
 ### [V4.7.13]
 
