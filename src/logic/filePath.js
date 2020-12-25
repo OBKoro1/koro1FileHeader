@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-18 22:02:31
+ * LastEditTime : 2020-12-25 16:46:07
  * FilePath     : \koro1FileHeader\src\logic\filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
@@ -11,11 +11,11 @@ const vscode = require('vscode')
 const util = require('../utile/util')
 const path = require('path')
 const logicUtil = require('../utile/logicUtil')
-const languageDifferent = require('../languageOutPut/languageDifferent')
+const LanguageDifferent = require('../languageOutPut/languageDifferent')
 
 const createFilePath = (FilePath) => {
   const config = vscode.workspace.getConfiguration('fileheader')
-  let { itemName, fileItemPath } = util.getFileRelativeSite()
+  const { itemName, fileItemPath } = util.getFileRelativeSite()
   let res = `${path.sep}${itemName}${fileItemPath}` // 拼接项目名称和相对于项目的路径
   if (FilePath === 'no item name') {
     res = `${fileItemPath}`
@@ -37,9 +37,9 @@ const mockCreateMiddle = (FilePath, fileEnd) => {
   const config = vscode.workspace.getConfiguration('fileheader')
   FilePath = createFilePath(FilePath) // 生成FilePath
   const specialFileName = config.configObj.specialOptions.FilePath
-  const name = specialFileName ? specialFileName : 'FilePath'
+  const name = specialFileName || 'FilePath'
   let data = {
-    [name]: FilePath,
+    [name]: FilePath
   }
   data = logicUtil.sameLengthFn(data) // FilePath长度
   // 只生成路径
@@ -49,9 +49,9 @@ const mockCreateMiddle = (FilePath, fileEnd) => {
       fileEnd,
       type: 'topMiddle',
       key,
-      value: data[key],
+      value: data[key]
     }
-    let res = new languageDifferent.tplJudge(obj).res
+    let res = new LanguageDifferent(obj).res
     res = res.split('\r\n')
     if (res[1] !== undefined) {
       // 如果换行后增加了空格等 则拼接在前面
@@ -66,5 +66,5 @@ const mockCreateMiddle = (FilePath, fileEnd) => {
 
 module.exports = {
   createFilePath,
-  mockCreateMiddle,
+  mockCreateMiddle
 }

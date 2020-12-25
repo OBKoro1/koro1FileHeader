@@ -2,16 +2,17 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 19:53:36
+ * LastEditTime : 2020-12-25 16:35:14
  * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
  -->
 
 <!-- TODO: 引入eslint 提交检查eslint -->
-<!-- TODO: 修改webpack配置 -->
 <!-- TODO: 函数注释再来一个配置 自定义语言设置函数选项 -->
 <!-- TODO: filepath 更改特殊字段后 无法回滚 -->
+<!-- TODO: 引入webpack 重新编译成es5 -->
+
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~

@@ -3,10 +3,10 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-11-29 15:13:02
+ * LastEditTime : 2020-12-25 16:44:08
  * @Description: 不同语言的逻辑
  */
-const languageDifferent = require('./languageDifferent')
+const LanguageDifferent = require('./languageDifferent')
 const vscode = require('vscode')
 const constFile = require('../utile/CONST')
 const util = require('../utile/util')
@@ -19,10 +19,10 @@ const middleTpl = (data, fileEnd, config) => {
       fileEnd,
       type: 'topMiddle',
       key,
-      value: newlineAddAnnotationFn(data[key], fileEnd, config),
+      value: newlineAddAnnotationFn(data[key], fileEnd, config)
     }
-    const res = new languageDifferent.tplJudge(obj).res
-    str = str + res
+    const TplJudge = new LanguageDifferent(obj)
+    str = str + TplJudge.res
   })
   return str
 }
@@ -34,17 +34,17 @@ const middleTpl = (data, fileEnd, config) => {
  * @return: 字符串
  */
 const headNotes = (data, fileEnd, config) => {
-  let str = middleTpl(data, fileEnd, config)
+  const str = middleTpl(data, fileEnd, config)
   // 头部 中间模板 尾部合并
   const obj = {
     fileEnd,
     type: 'topHeadEnd',
-    str,
+    str
   }
-  return new languageDifferent.tplJudge(obj).res
+  return new LanguageDifferent(obj).res
 }
 
-class functionTplStr {
+class FunctionTplStr {
   /**
    * @description: 函数注释模板生成
    * @param {Object} data 模板数据对象
@@ -54,7 +54,7 @@ class functionTplStr {
    * @param {String} frontStr 函数注释第一行的长度
    * @return: 函数注释的模板字符串
    */
-  constructor(data, fileEnd, lineSpace, nextLine, frontStr) {
+  constructor (data, fileEnd, lineSpace, nextLine, frontStr) {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     this.frontStr = frontStr
@@ -63,8 +63,9 @@ class functionTplStr {
     this.data = data
     this.config = vscode.workspace.getConfiguration('fileheader')
   }
+
   // 生成函数注释模板
-  generate() {
+  generate () {
     // 生成中间模板
     Object.keys(this.data).forEach((key) => {
       this.strContent += this.paramStr(key)
@@ -76,12 +77,12 @@ class functionTplStr {
   /**
    * @param {String} key 数据对象的key
    */
-  paramStr(key) {
+  paramStr (key) {
     const obj = {
       fileEnd: this.fileEnd,
       str: this.str,
       key,
-      value: this.data[key],
+      value: this.data[key]
     }
     obj.type = 'fnMiddle_key'
     // 注释是参数和返回值的话 多加一个参数的属性
@@ -93,30 +94,31 @@ class functionTplStr {
       }
     }
 
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
+
   // 合成参数
-  paramsHandle(obj) {
+  paramsHandle (obj) {
     // 识别到参数
-    if (Array.isArray(this.data['param'])) {
+    if (Array.isArray(this.data.param)) {
       let params = ''
-      const paramArr = this.data['param']
+      const paramArr = this.data.param
       paramArr.forEach((item) => {
         obj.typeVal = `{${item.type}} ${item.param}`
-        const str = new languageDifferent.tplJudge(obj).res
+        const str = new LanguageDifferent(obj).res
         params += str
       })
       return params
     }
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
 
-  mergeStr() {
+  mergeStr () {
     const obj = {
       fileEnd: this.fileEnd,
       frontStr: this.frontStr,
       strContent: this.strContent,
-      str: this.str,
+      str: this.str
     }
     if (this.nextLine === undefined) {
       // 当前行不为空
@@ -125,7 +127,7 @@ class functionTplStr {
       // 当前行为空
       obj.type = 'topHeadEnd_nextLineYes'
     }
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
 }
 
@@ -133,39 +135,42 @@ class functionTplStr {
  * @description: 保存触发修改时的需要的字符输出
  * @param {String} fileEnd 文件语言
  */
-class changeFont {
-  constructor(fileEnd) {
+class ChangeFont {
+  constructor (fileEnd) {
     this.fileEnd = fileEnd
   }
+
   // 输出注释开头：用以判断是否进入注释
-  star() {
+  star () {
     const obj = {
       fileEnd: this.fileEnd,
-      type: 'annotationStarts',
+      type: 'annotationStarts'
     }
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
+
   // 最后编辑人
-  LastEditorsStr(LastEditors) {
+  LastEditorsStr (LastEditors) {
     const obj = {
       fileEnd: this.fileEnd,
       type: 'LastEditorsStr',
-      LastEditors,
+      LastEditors
     }
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
+
   // 最后编辑时间
-  lastTimeStr() {
+  lastTimeStr () {
     const obj = {
       fileEnd: this.fileEnd,
-      type: 'lastTimeStr',
+      type: 'lastTimeStr'
     }
-    return new languageDifferent.tplJudge(obj).res
+    return new LanguageDifferent(obj).res
   }
 }
 
 // 换行符加注释符号
-function newlineAddAnnotationFn(value, fileEnd, config) {
+function newlineAddAnnotationFn (value, fileEnd, config) {
   if (config.configObj.switch.newlineAddAnnotation) {
     let middle = null
     // 匹配用户定义语言符号
@@ -185,9 +190,11 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
       // \n 换行
       // \r 回车
       // \r\n Windows系统里面，每行结尾是“<回车><换行>”
+      // eslint-disable-next-line no-useless-escape
       value = value.replace(/\r\n/g, `\obkoro1\obkoro1${middle}`) // 转化为特殊字符 不影响下面的替换
       value = value.replace(/\n/g, `\n${middle}`)
       value = value.replace(/\r/g, `\r${middle}`)
+      // eslint-disable-next-line no-useless-escape
       value = value.replace(/\obkoro1\obkoro1/g, '\r\n') // 转化回来
     }
   }
@@ -196,7 +203,7 @@ function newlineAddAnnotationFn(value, fileEnd, config) {
 
 module.exports = {
   headNotes,
-  functionTplStr,
-  changeFont,
-  middleTpl,
+  FunctionTplStr,
+  ChangeFont,
+  middleTpl
 }

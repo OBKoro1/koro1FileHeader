@@ -2,12 +2,12 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 15:29:05
+ * LastEditTime : 2020-12-25 17:42:01
  * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
 
-class functionParams {
+class FunctionParams {
   /**
    * description:
    * param {Object} option
@@ -17,8 +17,8 @@ class functionParams {
    * option.languageId 文件的语言类型
    * return {type}
    */
-  init(option) {
-    console.log('option',option)
+  init (option) {
+    console.log('option', option)
     this.option = option
     this.match = false
     this.paramsData = this.option.data
@@ -29,29 +29,30 @@ class functionParams {
       html: 'function-js.js', // html
       typescript: 'function-ts.js', // ts
       typescriptreact: 'function-ts.js', // react tsx
-      java: 'function-java.js',  // java
+      java: 'function-java.js', // java
       python: 'function-python.js', // py
       rust: 'function-rust.js', // rust
       go: 'function-go.js', // go
       c: 'function-c.js',
       cpp: 'function-c.js',
-      php: 'function-php.js',
+      php: 'function-php.js'
     }
     const typeSupport = obj[option.languageId]
     if (typeSupport) {
       this.require(typeSupport)
     }
   }
+
   // 引用语言文件 匹配函数 匹配参数
-  require(languageType) {
+  require (languageType) {
     const languageGetParams = require(`./${languageType}`)
     languageGetParams.init(this.option.lineProperty)
     // 匹配到将param 变成数组
-    if(languageGetParams.match){
-        this.paramsData.param = languageGetParams.res
-        this.match =true
+    if (languageGetParams.match) {
+      this.paramsData.param = languageGetParams.res
+      this.match = true
     }
   }
 }
 
-module.exports = new functionParams()
+module.exports = FunctionParams

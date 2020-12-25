@@ -17,8 +17,8 @@ const logic = require('../logic/logic')
 const languageOutput = require('../languageOutPut/languageOutput')
 const handleTpl = require('../models/handleTpl')
 
-class designCommand {
-  constructor(initWatch = false) {
+class DesignCommand {
+  constructor () {
     this.commandArr = [
       'random', // 随机
       'buddhalImg', // 佛祖
@@ -35,16 +35,13 @@ class designCommand {
       'dog', // 狗
       'grassHorse', // 草泥马
       'grassHorse2', // 草泥马2
-      'totemBat', // 蝙蝠
+      'totemBat' // 蝙蝠
     ]
     this.context = global.context
-    if (initWatch) {
-      // 初始化监听命令行
-      this.registerCommand()
-    }
   }
+
   // 注册命令
-  registerCommand() {
+  registerCommand () {
     this.commandArr.forEach((item) => {
       const command = vscode.commands.registerCommand(
         `fileheader.${item}`,
@@ -55,22 +52,22 @@ class designCommand {
   }
 
   // 是否随机注释图案
-  getCommandName(commandName){
+  getCommandName (commandName) {
     // 随机图案
-    if(commandName === 'random'){
+    if (commandName === 'random') {
       const commandNum = this.commandArr.length - 1 // 小于数组长度 索引值最后
-       const index = Math.ceil(Math.random()* commandNum)
-       return this.commandArr[index]
+      const index = Math.ceil(Math.random() * commandNum)
+      return this.commandArr[index]
     }
     return commandName
   }
 
   // 头部注释直接生成
-  headDesignCreate(head = 'have'){
+  headDesignCreate (head = 'have') {
     this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     let commandName = this.config.configObj.headDesignName
     const isCommandName = this.commandArr.includes(commandName)
-    if(!isCommandName){
+    if (!isCommandName) {
       // 没找到注释图案 改为随机
       commandName = 'random'
     }
@@ -78,16 +75,16 @@ class designCommand {
   }
 
   // 命令行回调
-  commandHandel(commandName) {
+  commandHandel (commandName) {
     commandName = this.getCommandName(commandName)
     return (head) => {
       this.config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
-      if(head !== 'header'){
+      if (head !== 'header') {
         // 根据配置是否添加注释模板
         this.designAddHead = this.config.configObj.designAddHead
-      }else{
-       // 头部注释永远添加注释模板
-       this.designAddHead = true
+      } else {
+        // 头部注释永远添加注释模板
+        this.designAddHead = true
       }
       const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
       this.fileEnd = util.fileEndMatch(editor._documentData._languageId) // 提取文件后缀 或者语言类型
@@ -105,14 +102,16 @@ class designCommand {
       })
     }
   }
+
   // 生成注释图案
-  designCreate(commandName) {
+  designCreate (commandName) {
     let designStr = design[commandName]
     designStr = this.deleteBegin(designStr)
     return designStr
   }
+
   // 去掉开始的注释
-  deleteBegin(designStr) {
+  deleteBegin (designStr) {
     const regString = /\r\n|\r|\n/ // 切割换行字符串 转义\\
     let stringArr = designStr.split(regString) // 切割换行字符串
     stringArr.forEach((item, index) => {
@@ -122,8 +121,9 @@ class designCommand {
     stringArr = this.addAnnotation(stringArr)
     return stringArr.join('\n')
   }
+
   // 增加语言的注释符号
-  addAnnotation(stringArr) {
+  addAnnotation (stringArr) {
     // 获取不同设置下 语言项
     const languageOption = logicUtil.getLanguageSymbol(this.fileEnd)
     if (this.designAddHead) {
@@ -151,12 +151,13 @@ class designCommand {
     stringArr.push('\n') // 末尾换行
     return stringArr
   }
+
   // 生成插件中间的注释
-  getPluginAnnotation() {
+  getPluginAnnotation () {
     const data = logic.userSet(this.config)
     const tpl = languageOutput.middleTpl(data, this.fileEnd, this.config)
     return util.replaceSymbolStr(tpl, this.fileEnd)
   }
 }
 
-module.exports = designCommand
+module.exports = DesignCommand

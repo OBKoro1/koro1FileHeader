@@ -2,14 +2,14 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-12-24 13:34:52
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 14:12:59
+ * LastEditTime : 2020-12-25 17:44:46
  * File         : \koro1FileHeader\src\function-params\function-c.js
  * Description  : c语言获取函数参数
  * Copyright 2020 OBKoro1
  */
 
 class GetParams {
-  init(lineProperty) {
+  init (lineProperty) {
     this.text = lineProperty._text // 代码
     this.match = false // 是否匹配到参数
     this.res = ''
@@ -17,10 +17,10 @@ class GetParams {
   }
 
   // 匹配流程
-  matchProcess() {
+  matchProcess () {
     let params = ''
     const matchObj = {
-      matchFunction: 3,
+      matchFunction: 3
     }
     const keyArr = Object.keys(matchObj)
     for (const item of keyArr.values()) {
@@ -36,16 +36,17 @@ class GetParams {
   }
 
   // 匹配方法声明的参数
-  matchFunction() {
+  matchFunction () {
     // 函数名 可能有空格 匹配一个括号 可能有空格 类型可能的值: [\w[].] 匹配2个字符以上 必须的空格 匹配一个参数名\w 到这里已经判定它是函数声明后面匹配括号内的其他一切
     const reg = /^(\s*\w*?\s+)?\s*([A-Za-z_]\w*?)\s*\((.*)\)/
     return reg.exec(this.text)
   }
 
-  parsing(params) {
+  parsing (params) {
     let res
-    let paramsArr = [] // 参数列表
+    const paramsArr = [] // 参数列表
     // 可能的空格 匹配类型声明 至少2个字符以上 至少一个必须的空格 参数名 匹配一切除了逗号
+    // eslint-disable-next-line no-useless-escape
     const reg = /\s*([\w\[\]\.\s]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
     // 捕获函数参数
     while ((res = reg.exec(params))) {
@@ -53,7 +54,7 @@ class GetParams {
       res[1] = res[1].replace(/\s+/g, '')
       const obj = {
         type: res[1],
-        param: res[3],
+        param: res[3]
       }
       paramsArr.push(obj)
     }

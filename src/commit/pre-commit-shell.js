@@ -8,7 +8,7 @@
  */
 
 const CONST = require('../utile/CONST')
-let orderString = CONST.handleNodeString
+const orderString = CONST.handleNodeString
 
 const preCommitString = `#!/bin/sh
 ###
@@ -23,6 +23,5 @@ const preCommitString = `#!/bin/sh
 ###
 echo "执行commit hooks --- koroFileHeader"
 ${orderString}`
-
 
 module.exports = preCommitString

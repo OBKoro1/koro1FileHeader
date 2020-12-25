@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 14:56:55
+ * LastEditTime : 2020-12-25 17:39:57
  */
 
 const vscode = require('vscode')
@@ -20,7 +20,7 @@ const global = require('./CONST')
  */
 const throttle = (fn, gapTime, _lastTime = null) => {
   return function () {
-    let _nowTime = Date.now()
+    const _nowTime = Date.now()
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
       // !_lastTime 第一次进入
       fn() // 当前时间- 上次执行的时间 超过 给定时间间隔 就执行回调
@@ -56,7 +56,7 @@ const getFsNameEnd = (fileName) => {
   for (const index of fileNameArr.keys()) {
     const newArr = JSON.parse(JSON.stringify(fileNameArr))
     newArr.splice(0, index + 1)
-    let endStr = newArr.join('.')
+    const endStr = newArr.join('.')
     if (language[endStr]) {
       return endStr
     }
@@ -76,7 +76,7 @@ const fileEndMatch = (fileEnd) => {
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
   const fsName = fsPathFn(editor._documentData._uri.fsPath) // 文件后缀
   //  匹配用户自定义语言
-  let isMatch = userLanguageFn(
+  const isMatch = userLanguageFn(
     config,
     fileEnd,
     fsName,
@@ -93,7 +93,7 @@ const fileEndMatch = (fileEnd) => {
     '/^lua$/': 'lua',
     '/^vb$/': 'vb',
     '/^vue$|^html$|^markdown$/': 'html',
-    '/^shellscript$/': 'shellscript',
+    '/^shellscript$/': 'shellscript'
   }
   const matchRes = matchProperty(obj, fileEnd)
   if (matchRes === 'no_match_property') {
@@ -105,14 +105,14 @@ const fileEndMatch = (fileEnd) => {
 }
 
 // 是否使用用户配置
-function userLanguageFn(config, fileEnd, fsName, fsPath) {
+function userLanguageFn (config, fileEnd, fsName, fsPath) {
   // 特殊文件
   const language = config.configObj.language // 自定义语言项
-  let isSpecial = specialLanguageFn(fsPath, config)
+  const isSpecial = specialLanguageFn(fsPath, config)
   if (isSpecial) {
     return {
       fileEnd: isSpecial,
-      userLanguage: true, // 使用用户的配置
+      userLanguage: true // 使用用户的配置
     }
   }
 
@@ -120,23 +120,23 @@ function userLanguageFn(config, fileEnd, fsName, fsPath) {
   if (language[fileEnd]) {
     return {
       fileEnd,
-      userLanguage: true, // 使用用户的配置
+      userLanguage: true // 使用用户的配置
     }
   } else if (language[fsName]) {
     // 语言没有匹配到 单独匹配一下文件后缀
     return {
       fileEnd: fsName,
-      userLanguage: true,
+      userLanguage: true
     }
   }
-  for (let key in language) {
+  for (const key in language) {
     if (key.indexOf('/') !== -1) {
       const keyArr = key.split('/')
-      for (let item of keyArr.values()) {
+      for (const item of keyArr.values()) {
         if (item === fsName) {
           return {
             fileEnd: key,
-            userLanguage: true,
+            userLanguage: true
           }
         }
       }
@@ -146,9 +146,10 @@ function userLanguageFn(config, fileEnd, fsName, fsPath) {
 }
 
 // 正则匹配对象中的属性
-function matchProperty(matchObj, matchStr) {
+function matchProperty (matchObj, matchStr) {
   for (const key in matchObj) {
     // 属性即正则
+    // eslint-disable-next-line no-eval
     const reg = eval(key)
     const isMatch = reg.test(matchStr)
     if (isMatch) {
@@ -159,8 +160,8 @@ function matchProperty(matchObj, matchStr) {
 }
 
 // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同
-function specialLanguageFn(fsPath, config) {
-  config = config.configObj['language'] // 自定义语言项
+function specialLanguageFn (fsPath, config) {
+  config = config.configObj.language // 自定义语言项
   const pathArr = fsPath.split('/')
   const fileName = pathArr[pathArr.length - 1] // 取/最后一位
   Object.keys(config).forEach((item) => {
@@ -174,6 +175,7 @@ function specialLanguageFn(fsPath, config) {
 }
 
 // 修改时间格式
+// eslint-disable-next-line no-extend-native
 Date.prototype.format = function (formatStr) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   if (!formatStr) formatStr = config.configObj.dateFormat
@@ -206,7 +208,7 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
   const sinceOut = tpl.indexOf([global.customStringConst])
   // 是否存在自定义信息
   if (sinceOut !== -1) {
-    let colon = getColon(fileEnd, customName)
+    const colon = getColon(fileEnd, customName)
     // 替换全部自定义信息
     const reg = new RegExp(`${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
@@ -224,8 +226,8 @@ const spaceStringFn = (oldStr, maxNum) => {
     // 不为数字默认为13
     maxNum = 13
   }
-  let diffNum = maxNum - oldStr.length
-  let spaceStr = ''.padStart(diffNum)
+  const diffNum = maxNum - oldStr.length
+  const spaceStr = ''.padStart(diffNum)
   return `${oldStr}${spaceStr}`
 }
 
@@ -238,18 +240,18 @@ const getFileRelativeSite = () => {
   try {
     itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
     // path.sep window: \ mac: /
-    let itemNameArr = itemPath.split(path.sep)
+    const itemNameArr = itemPath.split(path.sep)
     itemName = itemNameArr[itemNameArr.length - 1] // 取/最后一位
   } catch (err) {
     itemName = vscode.workspace.name
     itemPath = vscode.workspace.rootPath
   }
-  let fileItemPath = fsPath.replace(itemPath, '') // 相对地址
+  const fileItemPath = fsPath.replace(itemPath, '') // 相对地址
   return {
     fsPath, // 文件绝对地址
     itemPath, // 项目的绝对地址
     fileItemPath, // 文件相对地址
-    itemName, // 项目名称
+    itemName // 项目名称
   }
 }
 
@@ -258,8 +260,8 @@ const authList = (fsPath) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   let match = false // 默认没被添加进黑名单
   let support = true // 默认允许
-  let prohibit = config.configObj.prohibitAutoAdd // 黑名单
-  let fsName = fsPathFn(fsPath)
+  const prohibit = config.configObj.prohibitAutoAdd // 黑名单
+  const fsName = fsPathFn(fsPath)
   if (prohibit && prohibit.length > 0) {
     match = !prohibit.includes(fsName)
   }
@@ -281,5 +283,5 @@ module.exports = {
   spaceStringFn, // 使用空格填充字符
   getFileRelativeSite, // 获取文件和项目的地址
   authList, // 自动添加是否匹配黑名单
-  matchProperty, // 正则匹配对象中的属性
+  matchProperty // 正则匹配对象中的属性
 }

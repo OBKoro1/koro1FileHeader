@@ -3,24 +3,23 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-09-07 14:35:05
+ * LastEditTime : 2020-12-25 16:35:39
  */
 const vscode = require('vscode')
 const global = require('./utile/CONST')
 const createAnnotation = require('./models/createAnnotation')
-const activeHandle = require('./models/activeHandle')
-const design = require('./design')
+const ActiveHandle = require('./models/activeHandle')
+const Design = require('./design')
 
-// 扩展激活 默认运行
-function activate(context) {
-  global.context = context
-  const fileheaderFn = () => {
-    const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
-    createAnnotation.headerAnnotation(editor)
-  }
-  const fileheader = vscode.commands.registerCommand(
+// 注册命令
+function registerCommand (context) {
+  // 注册命令
+  const fileHeader = vscode.commands.registerCommand(
     'extension.fileheader',
-    fileheaderFn
+    () => {
+      const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
+      createAnnotation.headerAnnotation(editor)
+    }
   )
   const cursorTip = vscode.commands.registerCommand(
     'extension.cursorTip',
@@ -29,19 +28,25 @@ function activate(context) {
   const codeDesign = vscode.commands.registerCommand(
     'extension.codeDesign',
     () => {
-      new design().headDesignCreate()
+      new Design().headDesignCreate()
     }
   )
-  new design(true)
-  new activeHandle()
-  // 当插件关闭时被清理的可清理列表
-  context.subscriptions.push(fileheader)
+  context.subscriptions.push(fileHeader)
   context.subscriptions.push(cursorTip)
   context.subscriptions.push(codeDesign)
+}
+
+// 扩展激活 默认运行
+function activate (context) {
+  global.context = context
+  registerCommand(context) // 注册命令
+  new Design().registerCommand() // 监听注释图案
+  new ActiveHandle().watch() // 监听事件
+  // 当插件关闭时被清理的可清理列表
 }
 
 exports.activate = activate
 
 // 扩展被禁用 调用
-function deactivate() {}
+function deactivate () {}
 exports.deactivate = deactivate

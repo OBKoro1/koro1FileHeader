@@ -8,7 +8,7 @@
  */
 
 class GetParams {
-  init(lineProperty) {
+  init (lineProperty) {
     this.text = lineProperty._text // 代码
     this.match = false // 是否匹配到参数
     this.res = ''
@@ -16,10 +16,10 @@ class GetParams {
   }
 
   // 匹配流程
-  matchProcess() {
+  matchProcess () {
     const matchObj = {
       matchFunction: 2,
-      matchFuncNoName: 1,
+      matchFuncNoName: 1
     }
     let params = ''
     const keyArr = Object.keys(matchObj)
@@ -37,20 +37,21 @@ class GetParams {
   }
 
   // 匹配方法声明的参数
-  matchFunction() {
+  matchFunction () {
     // 匹配单词func 可能有空格 可能有函数名 可能有空格 匹配括号 匹配括号内的一切
     const reg = /\bfunc\b.*(\w+)\s*\((.*?)\)/
     return reg.exec(this.text)
   }
+
   // 匹配匿名函数  var Add = func(a, b int) int {
-  matchFuncNoName() {
+  matchFuncNoName () {
     const reg = /\bfunc\b\s*\((.*?)\)/
     return reg.exec(this.text)
   }
 
-  parsing(params) {
+  parsing (params) {
     let res
-    let paramsArr = [] // 参数列表
+    const paramsArr = [] // 参数列表
     // 可能的空格 匹配参数 匹配可能的参数类型 遇到逗号停下来
     const reg = /\s*([A-Za-z_]\w*)(\s+[^,]*)?[^,]*/g
     // 捕获函数参数
@@ -63,7 +64,7 @@ class GetParams {
       }
       const obj = {
         type: res[2],
-        param: res[1],
+        param: res[1]
       }
       paramsArr.push(obj)
     }

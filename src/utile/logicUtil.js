@@ -16,8 +16,8 @@ const global = require('../utile/CONST')
 const sameLengthFn = (data) => {
   const config = vscode.workspace.getConfiguration('fileheader')
   if (!config.configObj.wideSame) return data // 不改变长度
-  let maxNum = config.configObj.wideNum
-  let objData = {}
+  const maxNum = config.configObj.wideNum
+  const objData = {}
   // 修改属性
   Object.keys(data).forEach((item) => {
     const newItem = util.spaceStringFn(item, maxNum)
@@ -32,15 +32,15 @@ const sameLengthFn = (data) => {
  * @return {Object} 更换字段后的对象
  */
 const changePrototypeNameFn = (data, config) => {
-  let keysArr = Object.keys(data)
-  let specialOptions = config.configObj.specialOptions // 时间字段重命名配置
-  let objData = {}
-  let specialArr = [
+  const keysArr = Object.keys(data)
+  const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
+  const objData = {}
+  const specialArr = [
     'Date',
     'LastEditTime',
     'LastEditors',
     'Description',
-    'FilePath',
+    'FilePath'
   ]
   keysArr.forEach((item) => {
     // 特殊字段 且 有设置特殊字段
@@ -105,5 +105,5 @@ module.exports = {
   sameLengthFn,
   changePrototypeNameFn,
   getAnnotationTemplate,
-  getLanguageSymbol,
+  getLanguageSymbol
 }

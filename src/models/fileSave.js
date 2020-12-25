@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-07-29 15:38:59
+ * LastEditTime : 2020-12-25 16:45:36
  * FilePath     : \koro1FileHeader\src\models\fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
@@ -12,22 +12,22 @@ const vscode = require('vscode')
 const util = require('../utile/util')
 const handleError = require('../logic/handleError')
 const checkFile = require('./checkFile')
-const repealChange = require('./repealChange')
+const RepealChange = require('./repealChange')
 const createAnnotation = require('./createAnnotation')
 const global = require('../utile/CONST')
 
-function watchSaveFn() {
+function watchSaveFn () {
   let intervalVal = null // 保存上次触发时间，用于节流
   let fileName = '' // 保存操作的文件
   // 文件保存时 触发
   vscode.workspace.onWillSaveTextDocument(file => {
     if (!file.document.isDirty) return // 文件没有修改 不操作
-    let editor = vscode.editor || vscode.window.activeTextEditor
+    const editor = vscode.editor || vscode.window.activeTextEditor
     const config = vscode.workspace.getConfiguration('fileheader')
     // 先保存本次编辑 再查看文件的修改
     file.document.save().then(() => {
-      const RepealChange = new repealChange(config.configObj.CheckFileChange)
-      if (RepealChange.resetFile) return
+      const repealChange = new RepealChange(config.configObj.CheckFileChange)
+      if (repealChange.resetFile) return
       try {
         if (file.fileName === fileName) {
           // 同一个文件操作 节流
@@ -40,7 +40,7 @@ function watchSaveFn() {
         handleError.showErrorMessage(err)
       }
     })
-    function documentSaveFn() {
+    function documentSaveFn () {
       // 配置项默认值
       let fileEnd = editor._documentData._languageId // 文件后缀
       fileEnd = util.fileEndMatch(fileEnd)
@@ -65,14 +65,14 @@ function watchSaveFn() {
       }
       // 检测文件注释,自动添加注释
       setTimeout(() => {
-        let params = {
+        const params = {
           fsPath: editor._documentData._uri.fsPath,
           lineCount: editor.document.lineCount,
           fileEnd,
           hasAnnotation,
           config
         }
-        let isAutoAdd = isAutoAddFn(params)
+        const isAutoAdd = isAutoAddFn(params)
         if (isAutoAdd) {
           global.autoAddFiles.push(params.fsPath)
           const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
@@ -94,15 +94,14 @@ function watchSaveFn() {
  * @Created_time: 2019-11-02 17:12:51
  * @return {Boolean} 是否自动添加
  */
-function isAutoAddFn(params) {
+function isAutoAddFn (params) {
   // 文件超过一定行数时 不自动添加头部注释
   if (params.config.configObj.autoAddLine < params.lineCount) return false
   if (!params.config.configObj.autoAdd) return false // 关闭自动添加
   if (params.hasAnnotation) return false // 文件已经有注释
   const hasAddProhibit = util.authList(params.fsPath)
   if (!hasAddProhibit) return false // 被添加进黑名单 或者没有添加进白名单
-  if (autoAddItemBlacklist(params.config.configObj.prohibitItemAutoAdd))
-    return false // 项目黑名单
+  if (autoAddItemBlacklist(params.config.configObj.prohibitItemAutoAdd)) { return false } // 项目黑名单
   // 曾经自动添加过头部注释 不再添加
   if (global.autoAddFiles.includes(params.fsPath)) return false
   if (
@@ -116,7 +115,7 @@ function isAutoAddFn(params) {
 }
 
 // 项目黑名单
-function autoAddItemBlacklist(prohibitItemAutoAdd) {
+function autoAddItemBlacklist (prohibitItemAutoAdd) {
   const {
     itemName // 项目名称
   } = util.getFileRelativeSite()

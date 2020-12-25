@@ -16,7 +16,7 @@ const util = require('../utile/util')
  * @param {String} else 逻辑下需要的参数
  * @return: 不同逻辑下的字符串
  */
-function tplJudge(obj) {
+function TplJudge (obj) {
   this.initConfig(obj)
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
   let res
@@ -31,7 +31,7 @@ function tplJudge(obj) {
   } else {
     // 插件默认设置
     obj.fileEnd = 'javascript'
-    return new tplJudge(obj)
+    return new TplJudge(obj)
   }
   this.res = res
 }
@@ -40,7 +40,7 @@ function tplJudge(obj) {
  * 防止用户在使用期间更改配置导致的没有同步的问题
  * 在每次运行的时候都重新读取一下配置就不会出现这个问题了。
  */
-tplJudge.prototype = {
+TplJudge.prototype = {
   fsPathEndFn: function (fsPath) {
     let special
     const pathArr = fsPath.split('/')
@@ -101,7 +101,7 @@ tplJudge.prototype = {
   getSymbolColonHelp: function (symbolName) {
     const obj = {
       atSymbol: ['atSymbol', 'atSymbolObj'],
-      colon: ['colon', 'colonObj'],
+      colon: ['colon', 'colonObj']
     }
     const [constName, objName] = obj[symbolName]
     let arr = this.config.configObj[objName][this.fsPath] // 文件后缀是否设置
@@ -139,7 +139,7 @@ tplJudge.prototype = {
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
         this.colon[1]
       }${new Date().format()}`,
-      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon[1]}${obj.LastEditors}`,
+      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon[1]}${obj.LastEditors}`
     }
     return userObj[obj.type]
   },
@@ -151,7 +151,7 @@ tplJudge.prototype = {
       python: `'''\r\n${this.obj.str}'''\r\n`,
       html: `<!--\r\n${this.obj.str}-->\r\n`,
       vb: `'\r\n${this.obj.str}'\r\n`,
-      shellscript: `###\r\n${this.obj.str}### \r\n`,
+      shellscript: `###\r\n${this.obj.str}### \r\n`
     }
     return topHeadEndObj[this.obj.fileEnd]
   },
@@ -161,7 +161,7 @@ tplJudge.prototype = {
       '/^javascript$|^html$/': ` * ${this.atSymbol[0]}${this.obj.key}${this.colon[0]}${this.obj.value}\r\n`,
       '/^python|^lua$/': `${this.obj.key}${this.colon[0]}${this.obj.value}\r\n`,
       '/^vb$/': `' ${this.atSymbol[0]}${this.obj.key}${this.colon[0]}${this.obj.value}\r\n`,
-      '/^shellscript$/': ` # ${this.atSymbol[0]}${this.obj.key}${this.colon[0]}${this.obj.value}\r\n`,
+      '/^shellscript$/': ` # ${this.atSymbol[0]}${this.obj.key}${this.colon[0]}${this.obj.value}\r\n`
     }
     return util.matchProperty(topMiddleObj, this.obj.fileEnd)
   },
@@ -177,7 +177,7 @@ tplJudge.prototype = {
       '/^javascript$|^html$/': ` * ${this.atSymbol[0]}${this.LastEditorsName}${this.colon[0]}${this.obj.LastEditors}`,
       '/^python|^lua$/': `${this.LastEditorsName}${this.colon[0]}${this.obj.LastEditors}`,
       '/^vb$/': `' ${this.atSymbol[0]}${this.LastEditorsName}${this.colon[0]}${this.obj.LastEditors}`,
-      '/^shellscript$/': ` # ${this.atSymbol[0]}${this.LastEditorsName}${this.colon[0]}${this.obj.LastEditors}`,
+      '/^shellscript$/': ` # ${this.atSymbol[0]}${this.LastEditorsName}${this.colon[0]}${this.obj.LastEditors}`
     }
     // 切换
     return util.matchProperty(LastEditorsStrObj, this.obj.fileEnd)
@@ -202,7 +202,7 @@ tplJudge.prototype = {
       }${new Date().format()}`,
       '/^shellscript$/': ` # ${this.atSymbol[0]}${this.LastEditTimeName}${
         this.colon[0]
-      }${new Date().format()}`,
+      }${new Date().format()}`
     }
     return util.matchProperty(lastTimeStrObj, this.obj.fileEnd)
   },
@@ -211,15 +211,15 @@ tplJudge.prototype = {
   },
   // 函数注释处理头尾字符串
   topHeadEnd_nextLineYes: function (nextLine = false) {
-    const topHeadEnd_nextLineNoObj = {
+    const TopHeadEndNextLineNoObj = {
       javascript: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
       python: `${this.obj.frontStr}'''\r\n${this.obj.strContent}${this.obj.str}'''`,
       lua: `${this.obj.frontStr}--[[\r\n${this.obj.strContent}${this.obj.str}--]]`,
       html: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
       vb: `${this.obj.frontStr}'\r\n${this.obj.strContent}${this.obj.str}'`,
-      shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${this.obj.str}###`,
+      shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${this.obj.str}###`
     }
-    let res = topHeadEnd_nextLineNoObj[this.obj.fileEnd]
+    let res = TopHeadEndNextLineNoObj[this.obj.fileEnd]
     // 当前行不为空 下一行加空格
     if (nextLine) {
       res += `${this.obj.str}\r\n${this.obj.str}`
@@ -228,24 +228,24 @@ tplJudge.prototype = {
   },
   // 函数注释中间写死的key
   fnMiddle_key: function () {
-    const fnMiddle_keyObj = {
+    const FnMiddleKeyObj = {
       '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n `,
       '/^python|^lua$/': `${this.obj.str}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
       '/^vb$/': `${this.obj.str}' ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
-      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`
     }
-    return util.matchProperty(fnMiddle_keyObj, this.obj.fileEnd)
+    return util.matchProperty(FnMiddleKeyObj, this.obj.fileEnd)
   },
 
   // 函数注释参数
   fnMiddle_param: function () {
-    const fnMiddle_paramObj = {
+    const FnMiddleParamObj = {
       '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n `,
       '/^python|^lua$/': `${this.obj.str}${this.obj.key} ${this.obj.typeVal}\r\n`,
       '/^vb$/': `${this.obj.str}' ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`,
-      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`,
+      '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`
     }
-    return util.matchProperty(fnMiddle_paramObj, this.obj.fileEnd)
+    return util.matchProperty(FnMiddleParamObj, this.obj.fileEnd)
   },
 
   // 注释开头：用以判断是否进入注释
@@ -257,12 +257,10 @@ tplJudge.prototype = {
       lua: '--[[',
       html: '<!--',
       vb: '\'',
-      shellscript: '###',
+      shellscript: '###'
     }
     return annotationStartsObj[this.obj.fileEnd]
-  },
+  }
 }
 
-module.exports = {
-  tplJudge,
-}
+module.exports = TplJudge

@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2019-12-18 15:04:39
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-12 11:03:51
- * FilePath     : /koro1FileHeader/src/repealChange.js
+ * LastEditTime : 2020-12-25 16:13:49
+ * FilePath     : \koro1FileHeader\src\models\repealChange.js
  * Description  : 文件没有变化 取消头部注释的变更
  * https://github.com/OBKoro1
  */
@@ -17,13 +17,14 @@ class RepealChange {
   /**
    * @param {Boolean} CheckFileChange 是否进行diff检查
    */
-  constructor(CheckFileChange) {
+  constructor (CheckFileChange) {
     this.resetFile = false // 依据这个值来判断文件是否重置
     if (CheckFileChange) {
       this.init()
     }
   }
-  init() {
+
+  init () {
     const filePathObj = util.getFileRelativeSite()
     this.itemPath = filePathObj.itemPath
     if (this.hasGit()) {
@@ -31,10 +32,11 @@ class RepealChange {
       this.getDiff()
     }
   }
-  hasGit() {
+
+  hasGit () {
     const url = `${this.itemPath}/.git` // 文件路径
     try {
-      let isDirectory = fs.statSync(url).isDirectory() // 判断是否为文件夹 返回布尔值
+      const isDirectory = fs.statSync(url).isDirectory() // 判断是否为文件夹 返回布尔值
       if (isDirectory) {
         return true
       } else {
@@ -44,7 +46,8 @@ class RepealChange {
       return false // 路径不存在的情况
     }
   }
-  getDiff() {
+
+  getDiff () {
     const diffStr = this.myExecSync(
       `cd ${this.itemPath} && git diff ${this.fsPath}`
     )
@@ -55,24 +58,25 @@ class RepealChange {
       this.resetFile = true
     }
   }
-  checkDiff(diffString) {
+
+  checkDiff (diffString) {
     // 切割diff字符串
-    let splitReg = /@@ [+-].*@@/m
-    let splitArr = diffString.split(splitReg)
+    const splitReg = /@@ [+-].*@@/m
+    const splitArr = diffString.split(splitReg)
     if (splitArr.length !== 2) {
       return true // 应该只有一个变更 只能切出一个@@
     }
     diffString = splitArr[1]
-    let regString = /\r\n|\r|\n/ // 切割换行字符串 转义\\
-    let stringArr = diffString.split(regString) // 切割换行字符串
+    const regString = /\r\n|\r|\n/ // 切割换行字符串 转义\\
+    const stringArr = diffString.split(regString) // 切割换行字符串
     // 检测每行字符串
-    let reg = /^[-+]/ // 必须以 - 或者 + 开头
+    const reg = /^[-+]/ // 必须以 - 或者 + 开头
     // 获取文件头
-    languageDiff.tplJudge.prototype.initConfig()
-    let lastEditorName = languageDiff.tplJudge.prototype.LastEditorsName
-    let lastTimeName = languageDiff.tplJudge.prototype.LastEditTimeName
-    let filePathName = languageDiff.tplJudge.prototype.filePathName
-    for (let item of stringArr.values()) {
+    languageDiff.prototype.initConfig()
+    const lastEditorName = languageDiff.prototype.LastEditorsName
+    const lastTimeName = languageDiff.prototype.LastEditTimeName
+    const filePathName = languageDiff.prototype.filePathName
+    for (const item of stringArr.values()) {
       // 检测有变更的字符串
       if (item.match(reg) !== null) {
         const nameReg = new RegExp(`[\\s\\W]${lastEditorName}[\\W\\s]`, 'g')
@@ -80,8 +84,11 @@ class RepealChange {
         const filePathReg = new RegExp(`[\\s\\W]${filePathName}[\\W\\s]`, 'g')
         // 检测是否只有这三个变更
         if (nameReg.test(item)) {
+          continue
         } else if (timeReg.test(item)) {
+          continue
         } else if (filePathReg.test(item)) {
+          continue
         } else {
           return true // 有其他变更 不恢复文件
         }
@@ -89,7 +96,8 @@ class RepealChange {
     }
     return false // 恢复文件
   }
-  myExecSync(cmd) {
+
+  myExecSync (cmd) {
     // 除了该方法直到子进程完全关闭后才返回 执行完毕 返回
     try {
       const res = execSync(cmd, {
@@ -98,7 +106,7 @@ class RepealChange {
         maxBuffer: 200 * 1024,
         killSignal: 'SIGTERM',
         cwd: undefined,
-        env: undefined,
+        env: undefined
       })
       return res
     } catch (err) {

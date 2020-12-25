@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-12 11:29:09
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-02-12 15:24:34
- * FilePath     : /koro1FileHeader/src/models/handleTpl.js
+ * LastEditTime : 2020-12-25 16:45:46
+ * FilePath     : \koro1FileHeader\src\models\handleTpl.js
  * Description  : 已经生成注释模板，处理模板
  * https://github.com/OBKoro1
  */
@@ -41,9 +41,9 @@ const handleTplFn = (tpl, fsPath, config) => {
  * @param {Object} config 用户设置
  * @return: [生成注释的行数,注释之前添加的内容,注释之前添加的内容]
  */
-function editLineFn(fsPath, config) {
+function editLineFn (fsPath, config) {
   let fileEnd = util.fsPathFn(fsPath) // 文件后缀
-  let isSpecial = util.specialLanguageFn(fsPath, config)
+  const isSpecial = util.specialLanguageFn(fsPath, config)
   // 特殊文件
   if (isSpecial) {
     fileEnd = isSpecial
@@ -65,7 +65,7 @@ function editLineFn(fsPath, config) {
 }
 
 // 获取文件后缀的对应配置
-function getFileEndConfig(config, configName, fileEnd) {
+function getFileEndConfig (config, configName, fileEnd) {
   if (config.configObj[configName][fileEnd]) {
     // 单独文件的配置
     return config.configObj[configName][fileEnd]
