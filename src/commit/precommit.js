@@ -3,7 +3,7 @@
  * Github: https://github.com/OBKoro1
  * Date: 2019-08-27 11:33:33
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:40:12
+ * LastEditTime : 2020-12-28 11:13:37
  * Description: git commit 拦截
  */
 
@@ -131,7 +131,7 @@ class PreCommit {
   myExecSync (cmd) {
     // 除了该方法直到子进程完全关闭后才返回 执行完毕 返回
     try {
-      const res = execSync(
+      execSync(
         cmd,
         {
           encoding: 'utf8',

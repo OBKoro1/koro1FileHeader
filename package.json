@@ -11,6 +11,17 @@
     "lint": "eslint --ext .js,.vue src --fix",
     "d": "bash deploy.sh"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "npm run lint",
+      "git add"
+    ]
+  },
   "author": {
     "name": "OBKoro1",
     "email": "obkoro1@foxmail.com",
@@ -281,6 +292,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3",
     "vscode": "^1.1.37"
   },
   "dependencies": {
