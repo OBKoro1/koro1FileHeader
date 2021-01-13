@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-10-08 11:58:24
+ * LastEditTime : 2021-01-13 17:14:38
  * FilePath     : \koro1FileHeader\src\function-params\function-js.js
  * Description  : js语言获取函数参数
  */
@@ -25,24 +25,25 @@ class GetParams {
   // 匹配对象或者class 的函数
   matchClassFunction () {
     // 开头可能有空格 函数名 可能的空格 括号 可能的空格 必须包含{ 这样才能表示是对象或者class的函数
-    const reg = /^\s*([A-Za-z_]\w*?)\s*\((.*)\)\s*{/
+    const reg = /\s*([A-Za-z_]\w*?)\s*\((.*)\)\s*{/
     return reg.exec(this.text)
   }
 
   // 匹配流程
   matchProcess () {
-    const processArr = [
-      'matchFunction',
-      'arrowFunction',
-      'matchClassFunction',
-      'matchObjFunction'
-    ]
+    const matchObj = {
+      matchFunction: 2,
+      arrowFunction: 1,
+      matchClassFunction: 2,
+      matchObjFunction: 2
+    }
     let params = ''
-    for (const item of processArr.values()) {
+    const keyArr = Object.keys(matchObj)
+    for (const item of keyArr.values()) {
       const match = this[item]()
       if (match) {
-        // let methodName = res[1] // 方法名
-        params = match[2]
+        const index = matchObj[item]
+        params = match[index]
         break
       }
     }
