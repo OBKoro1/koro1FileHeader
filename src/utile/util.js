@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:39:57
+ * LastEditTime : 2021-01-14 13:33:58
  */
 
 const vscode = require('vscode')
@@ -87,7 +87,7 @@ const fileEndMatch = (fileEnd) => {
   }
   // 支持语言
   const obj = {
-    '/^java$|^javascript$|^typescript$|^go$|^cpp$|^php$|^rust$|^dart$|^c$/':
+    '/^java$|^javascript$|^typescript$|^typescriptreact$|^go$|^cpp$|^php$|^rust$|^dart$|^c$/':
       'javascript',
     '/^python$/': 'python',
     '/^lua$/': 'lua',
@@ -222,11 +222,13 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
 const spaceStringFn = (oldStr, maxNum) => {
   const config = vscode.workspace.getConfiguration('fileheader')
   if (!config.configObj.wideSame) return oldStr // 不改变长度
+  if (maxNum === 0) return oldStr // 不改变长度
   if (typeof maxNum !== 'number') {
     // 不为数字默认为13
     maxNum = 13
   }
   const diffNum = maxNum - oldStr.length
+  if (diffNum < 0) return oldStr
   const spaceStr = ''.padStart(diffNum)
   return `${oldStr}${spaceStr}`
 }
