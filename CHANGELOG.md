@@ -2,24 +2,43 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-18 13:47:13
+ * LastEditTime : 2021-01-18 19:16:10
  * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
  -->
 
-<!-- TODO: 引入eslint 提交检查eslint -->
-<!-- TODO: 函数注释再来一个配置 自定义语言设置函数选项 -->
-<!-- TODO: filepath 更改特殊字段后 无法回滚 -->
-<!-- TODO: 引入webpack 重新编译成es5 -->
-
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.2]
+
+* feat: 新增[函数注释自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E7%AC%A6%E5%8F%B7)
+
+```js
+// 设置
+"fileheader.configObj": {
+    "language": {
+        // js后缀文件
+        "js": {
+            "head": "/*",
+            "middle": " * @",
+            "end": " */",
+            // 函数自定义注释符号：如果有此配置 会默认使用
+            "functionSymbol": {
+              "head": "/******* ", // 统一增加几个*号
+              "middle": " * @",
+              "end": " */"
+            }
+        }
+    },
+}
+```
+
 ### [V4.8.1]
 
-* feat: 新增`functionWideNum`函数注释等宽, 默认为0 即关闭。
+* feat: 新增`functionWideNum`[函数注释等宽](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E6%B3%A8%E9%87%8A%E7%AD%89%E5%AE%BD%E8%AE%BE%E7%BD%AE), 默认为0 即关闭。
 * feat: 支持`tsx`文件后缀
 * fix: 支持`async`函数的参数提取
 ### [V4.8.0]
