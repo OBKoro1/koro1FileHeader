@@ -127,6 +127,11 @@ TplJudge.prototype = {
   userLanguageSetFn: function (obj, type) {
     if (type === '自定义语言注释') {
       this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd]
+      // 函数注释符号
+      const functionAnnotationSymbol = obj.isFunctionAnnotation && this.annotationSymbol.functionSymbol
+      if (functionAnnotationSymbol) {
+        this.annotationSymbol = this.annotationSymbol.functionSymbol
+      }
     }
     const userObj = {
       topMiddle: `${this.annotationSymbol.middle}${obj.key}${this.colon[0]}${obj.value}\r\n`,

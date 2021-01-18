@@ -79,6 +79,7 @@ class FunctionTplStr {
    */
   paramStr (key) {
     const obj = {
+      isFunctionAnnotation: true, // 函数注释
       fileEnd: this.fileEnd,
       str: this.str,
       key,
@@ -115,6 +116,7 @@ class FunctionTplStr {
 
   mergeStr () {
     const obj = {
+      isFunctionAnnotation: true, // 函数注释
       fileEnd: this.fileEnd,
       frontStr: this.frontStr,
       strContent: this.strContent,
