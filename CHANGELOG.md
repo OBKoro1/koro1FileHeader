@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-18 13:41:56
+ * LastEditTime : 2021-01-18 13:47:13
  * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -21,6 +21,7 @@
 
 * feat: 新增`functionWideNum`函数注释等宽, 默认为0 即关闭。
 * feat: 支持`tsx`文件后缀
+* fix: 支持`async`函数的参数提取
 ### [V4.8.0]
 
 * feat: 支持`rust`语言，自动添加头部注释与函数参数识别
