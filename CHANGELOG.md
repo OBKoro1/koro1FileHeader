@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:35:14
+ * LastEditTime : 2021-01-18 13:41:56
  * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -17,6 +17,10 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.1]
+
+* feat: 新增`functionWideNum`函数注释等宽, 默认为0 即关闭。
+* feat: 支持`tsx`文件后缀
 ### [V4.8.0]
 
 * feat: 支持`rust`语言，自动添加头部注释与函数参数识别

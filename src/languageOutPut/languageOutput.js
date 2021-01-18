@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:44:08
+ * LastEditTime : 2021-01-13 18:52:06
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -86,10 +86,10 @@ class FunctionTplStr {
     }
     obj.type = 'fnMiddle_key'
     // 注释是参数和返回值的话 多加一个参数的属性
-    if (key === 'param' || key === 'return') {
+    if (key.startsWith('param') || key.startsWith('return')) {
       obj.type = 'fnMiddle_param'
       obj.typeVal = '{*}'
-      if (key === 'param') {
+      if (key.startsWith('param')) {
         return this.paramsHandle(obj)
       }
     }
@@ -100,9 +100,9 @@ class FunctionTplStr {
   // 合成参数
   paramsHandle (obj) {
     // 识别到参数
-    if (Array.isArray(this.data.param)) {
+    const paramArr = this.data[obj.key]
+    if (Array.isArray(paramArr)) {
       let params = ''
-      const paramArr = this.data.param
       paramArr.forEach((item) => {
         obj.typeVal = `{${item.type}} ${item.param}`
         const str = new LanguageDifferent(obj).res

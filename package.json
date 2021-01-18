@@ -158,6 +158,7 @@
             "showErrorMessage": false,
             "wideSame": false,
             "wideNum": 13,
+            "functionWideNum": 0,
             "CheckFileChange": false,
             "createHeader": true,
             "useWorker": false,

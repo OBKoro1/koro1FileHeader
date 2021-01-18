@@ -13,10 +13,14 @@ const vscode = require('vscode')
 const global = require('../utile/CONST')
 
 // 将字段弄得一样长
-const sameLengthFn = (data) => {
+const sameLengthFn = (data, type = 'head') => {
   const config = vscode.workspace.getConfiguration('fileheader')
-  if (!config.configObj.wideSame) return data // 不改变长度
-  const maxNum = config.configObj.wideNum
+  let maxNum = config.configObj.functionWideNum // 函数长度
+  if (type === 'head') {
+    maxNum = config.configObj.wideNum // 头部长度
+    if (!config.configObj.wideSame) return data // 不改变长度
+  }
+  if (maxNum === 0) return data // 不改变长度
   const objData = {}
   // 修改属性
   Object.keys(data).forEach((item) => {

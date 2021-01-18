@@ -2,14 +2,13 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:32:48
+ * LastEditTime : 2021-01-18 11:34:18
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
 
 const vscode = require('vscode')
-const languageOutput = require('../languageOutPut/languageOutput')
 const fs = require('fs')
 const filePathFile = require('./filePath')
 const logicUtil = require('../utile/logicUtil')
@@ -159,6 +158,7 @@ const cursorOptionHandleFn = (config) => {
     data.Date = new Date().format()
   }
   data = changNameFn(data, config)
+  data = logicUtil.sameLengthFn(data, 'function') // 将字段弄得一样长
   return data
 }
 
@@ -199,11 +199,6 @@ const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   const DescriptionName = specialOptions.Description
     ? specialOptions.Description
     : 'Description'
-  const data = {
-    [DescriptionName]: ''
-  }
-  let str = languageOutput.middleTpl(data, fileEnd, config)
-  str = str.trim()
   // 计算函数注释模板行数
   const newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1
   let i = lineNum - 1 // 初始行数
@@ -211,7 +206,7 @@ const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   for (i < i + newLineNum; i++;) {
     const line = editor.document.lineAt(i)
     const lineNoTrim = line.text // line
-    if (lineNoTrim.indexOf(str) !== -1) {
+    if (lineNoTrim.indexOf(DescriptionName) !== -1) {
       descriptionLineNum = i
       break
     }

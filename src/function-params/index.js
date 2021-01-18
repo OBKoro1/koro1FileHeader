@@ -2,10 +2,13 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:42:01
+ * LastEditTime : 2021-01-13 18:49:43
  * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
+
+const vscode = require('vscode')
+const util = require('../utile/util')
 
 class FunctionParams {
   /**
@@ -49,7 +52,10 @@ class FunctionParams {
     languageGetParams.init(this.option.lineProperty)
     // 匹配到将param 变成数组
     if (languageGetParams.match) {
-      this.paramsData.param = languageGetParams.res
+      this.config = vscode.workspace.getConfiguration('fileheader')
+      const maxNum = this.config.configObj.functionWideNum
+      const key = util.spaceStringFn('param', maxNum)
+      this.paramsData[key] = languageGetParams.res
       this.match = true
     }
   }
