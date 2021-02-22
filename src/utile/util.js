@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-14 13:33:58
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-22 14:54:42
  */
 
 const vscode = require('vscode')
@@ -182,13 +182,25 @@ Date.prototype.format = function (formatStr) {
   return moment(this).local().format(formatStr)
 }
 
-// 获取该文件的冒号
-const getColon = (fileEnd, customName = 'head') => {
+/**
+ * @description 获取该文件的符号
+ * @param {*} options
+ * options.fileEnd 文件后缀
+ * options.customName 'head' || 'fn' 头部或者函数
+ * options.type 'colonObj' || 'atSymbolObj' 符号类型
+ * @return {*}
+ */
+const getColon = (options) => {
+  const { fileEnd, customName = 'head', type = 'colonObj' } = options
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
-  let colon = config.configObj.colonObj[fileEnd] // 冒号
+  let globalName = 'colon'
+  if (type !== 'colonObj') {
+    globalName = 'atSymbol'
+  }
+  let colon = config.configObj[type][fileEnd] // 冒号
   // 文件没有设置 采用全局
   if (colon === undefined) {
-    colon = config.configObj.colon
+    colon = config.configObj[globalName]
   }
   if (Array.isArray(colon)) {
     if (customName === 'head') {
@@ -208,9 +220,17 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
   const sinceOut = tpl.indexOf([global.customStringConst])
   // 是否存在自定义信息
   if (sinceOut !== -1) {
-    const colon = getColon(fileEnd, customName)
+    const colon = getColon({
+      fileEnd,
+      customName
+    })
+    const atClone = getColon({
+      fileEnd,
+      customName,
+      type: 'atSymbolObj'
+    })
     // 替换全部自定义信息
-    const reg = new RegExp(`${global.customStringConst}\\d+${colon}`, 'gim')
+    const reg = new RegExp(`${atClone}${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
   }
   return tpl
