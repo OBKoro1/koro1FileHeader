@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-13 17:14:38
- * FilePath     : \koro1FileHeader\src\function-params\function-js.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-22 16:19:46
+ * @FilePath     : \koro1FileHeader\src\function-params\function-js.js
  * Description  : js语言获取函数参数
  */
 
@@ -33,7 +33,7 @@ class GetParams {
   matchProcess () {
     const matchObj = {
       matchFunction: 2,
-      arrowFunction: 1,
+      arrowFunction: 2,
       matchClassFunction: 2,
       matchObjFunction: 2
     }
