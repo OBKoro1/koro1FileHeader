@@ -105,16 +105,20 @@ TplJudge.prototype = {
     }
     const [constName, objName] = obj[symbolName]
     let arr = this.config.configObj[objName][this.fsPath] // 文件后缀是否设置
-    if (arr !== undefined && !Array.isArray(arr)) {
-      // 有值 不是数组 设置为数组
-      arr = [arr, arr]
-    } else {
-      arr = this.config.configObj[constName] // 所有文件后缀的默认值
+    if (arr === undefined) {
+      // 没值 采用所有文件后缀的默认值
+      arr = this.config.configObj[constName]
       if (!Array.isArray(arr)) {
         // 不是数组 设置为数组
         arr = [arr, arr]
       }
+    } else {
+      // 有值 不是数组 设置为数组
+      if (!Array.isArray(arr)) {
+        arr = [arr, arr]
+      }
     }
+
     this[constName] = arr
   },
 
