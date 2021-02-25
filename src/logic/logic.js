@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-18 11:34:18
- * FilePath     : \koro1FileHeader\src\logic\logic.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-25 16:34:41
+ * @FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
@@ -104,8 +104,8 @@ function noEditorValue (data, config) {
     }
   }
   // 去掉@Date
-  if (data.custom_string_obkoro1_date) {
-    data.custom_string_obkoro1_date = time
+  if (data[`${global.specialString}1_date`]) {
+    data[`${global.specialString}1_date`] = time
   }
   // 判断是否设置
   if (data.Date !== undefined) {
