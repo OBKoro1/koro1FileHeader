@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:43:56
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-24 14:17:24
  * File         : \koro1FileHeader\src\function-params\function-php.js
  * Description  : js语言获取函数参数
  */
@@ -43,17 +43,20 @@ class GetParams {
   parsing (params) {
     let res
     const paramsArr = [] // 参数列表
-    // 匹配函数参数: 前面可能是... 也可以是空格 捕获参数名(变量名第一个不能是数字) 匹配后面的一切 除了,不匹配
-    const reg = /\s*([...\s]*)([&$A-Za-z_][$\w]*)[^,]*/g
+    // 匹配函数参数: 前面可能是... 也可以是空格 匹配可能的类型声明 匹配$以及一切 匹配后面的一切 除了,不匹配
+    const reg = /\s*([...\s]*)((\w+)\s+)?(\$[$\w]*)[^,]*/g
     // 捕获函数参数
     while ((res = reg.exec(params))) {
       if (!res) break
       const obj = {
         type: '*',
-        param: res[2]
+        param: res[4]
       }
       if (res[1].startsWith('...')) {
         obj.type = 'array'
+      }
+      if (res[3]) {
+        obj.type = res[3]
       }
       paramsArr.push(obj)
     }
