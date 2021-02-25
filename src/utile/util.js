@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-22 14:54:42
+ * @LastEditTime : 2021-02-25 16:33:52
  */
 
 const vscode = require('vscode')
@@ -13,17 +13,18 @@ const global = require('./CONST')
 
 /**
  * @description: 节流函数 单位时间内有事件被多次触发则，只生效一次
- * @param {Function} fn 节流的函数
  * @param {Number} gapTime 节流执行间隔
  * @param {Number} _lastTime 上次执行时间
+ * @param {Function} fn 节流的函数
+ * @param {Array} arr 节流的函数的参数
  * @return: 上次触发time
  */
-const throttle = (fn, gapTime, _lastTime = null) => {
+const throttle = (gapTime, _lastTime = null, fn, ...arr) => {
   return function () {
     const _nowTime = Date.now()
     if (_nowTime - _lastTime > gapTime || !_lastTime) {
       // !_lastTime 第一次进入
-      fn() // 当前时间- 上次执行的时间 超过 给定时间间隔 就执行回调
+      fn(...arr) // 当前时间- 上次执行的时间 超过 给定时间间隔 就执行回调
       _lastTime = _nowTime // 触发后，上次执行时间赋值为当前时间
       return _lastTime
     }
@@ -96,6 +97,7 @@ const fileEndMatch = (fileEnd) => {
     '/^shellscript$/': 'shellscript'
   }
   const matchRes = matchProperty(obj, fileEnd)
+  // TODO: 增加常量
   if (matchRes === 'no_match_property') {
     // 默认注释符号
     return '匹配不到_默认注释'
