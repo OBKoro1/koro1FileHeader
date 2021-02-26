@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-25 16:33:52
+ * @LastEditTime : 2021-02-26 17:40:02
  */
 
 const vscode = require('vscode')
@@ -96,14 +96,7 @@ const fileEndMatch = (fileEnd) => {
     '/^vue$|^html$|^markdown$/': 'html',
     '/^shellscript$/': 'shellscript'
   }
-  const matchRes = matchProperty(obj, fileEnd)
-  // TODO: 增加常量
-  if (matchRes === 'no_match_property') {
-    // 默认注释符号
-    return '匹配不到_默认注释'
-  } else {
-    return matchRes
-  }
+  return matchProperty(obj, fileEnd)
 }
 
 // 是否使用用户配置
@@ -158,7 +151,8 @@ function matchProperty (matchObj, matchStr) {
       return matchObj[key]
     }
   }
-  return 'no_match_property'
+  // 默认注释符号
+  return global.NoMatchLanguage
 }
 
 // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同

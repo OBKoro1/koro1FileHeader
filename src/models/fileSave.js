@@ -117,7 +117,7 @@ function isAutoAddFn (params) {
   if (global.autoAddFiles.includes(params.fsPath)) return false
   if (
     params.config.configObj.autoAlready &&
-    params.fileEnd === '匹配不到_默认注释'
+    params.fileEnd === global.NoMatchLanguage
   ) {
     // 只自动添加支持的语言 该文件不是插件支持的语言
     return false

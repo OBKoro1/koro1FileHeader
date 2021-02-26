@@ -92,7 +92,7 @@ const getLanguageSymbol = (fileEnd) => {
   // 匹配用户定义语言符号
   if (fileEnd.userLanguage) {
     languageOption = config.configObj.language[fileEnd.fileEnd]
-  } else if (fileEnd !== '匹配不到_默认注释') {
+  } else if (fileEnd !== global.NoMatchLanguage) {
     // 匹配插件的符号
     languageOption = global.annotationSymbol[fileEnd]
   } else if (config.configObj.annotationStr.use) {

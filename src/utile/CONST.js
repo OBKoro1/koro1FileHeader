@@ -15,9 +15,9 @@ let autoAddFiles = [] // 自动添加的文件
 let errPath = '默认地址' // 错误地址 
 
 
-
 // 不可修改的
-const initErrPath = '默认地址'
+const initErrPath = '默认地址' // 错误日志地址
+const NoMatchLanguage = '匹配不到语言_默认注释'
 
 // 检测头部注释的行数 需要检测注释图案
 const lineNum = 15 
@@ -88,5 +88,6 @@ module.exports = {
   specialString,
   errPath,
   initErrPath,
-  globalStateData
+  globalStateData,
+  NoMatchLanguage
 }

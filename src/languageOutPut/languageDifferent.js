@@ -8,6 +8,8 @@
  */
 
 const util = require('../utile/util')
+const global = require('../utile/CONST')
+const customLanguage = '自定义语言注释'
 
 /**
  * @description: 通过fileEnd使用正则匹配各个语言已调好的注释符号
@@ -21,8 +23,8 @@ function TplJudge (obj) {
   // 匹配用户定义语言符号 在fileEndMatch中如果用户定义了 会返回一个对象
   let res
   if (obj.fileEnd.userLanguage) {
-    res = this.userLanguageSetFn(obj, '自定义语言注释')
-  } else if (obj.fileEnd !== '匹配不到_默认注释') {
+    res = this.userLanguageSetFn(obj, customLanguage)
+  } else if (obj.fileEnd !== global.NoMatchLanguage) {
     // 匹配插件的符号
     res = this[obj.type]()
   } else if (this.annotationSymbol.use) {
@@ -67,7 +69,6 @@ TplJudge.prototype = {
     const editor = this.vscode.editor || this.vscode.window.activeTextEditor // 每次运行选中文件
     this.config = this.vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     this.annotationSymbol = this.config.configObj.annotationStr // 默认注释配置
-    // TODO： 自定义语言 设置函数对象选项
     this.languageObj = this.config.configObj.language // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
     this.getSymbolColonHelp('atSymbol')
@@ -129,7 +130,7 @@ TplJudge.prototype = {
    * @param {Boolean} isDefault 默认的注释形式和自定义的语言注释形式
    */
   userLanguageSetFn: function (obj, type) {
-    if (type === '自定义语言注释') {
+    if (type === customLanguage) {
       this.annotationSymbol = this.languageObj[obj.fileEnd.fileEnd]
       // 函数注释符号
       const functionAnnotationSymbol = obj.isFunctionAnnotation && this.annotationSymbol.functionSymbol

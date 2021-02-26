@@ -2,13 +2,13 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-13 18:52:06
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-26 17:41:51
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
 const vscode = require('vscode')
-const constFile = require('../utile/CONST')
+const global = require('../utile/CONST')
 const util = require('../utile/util')
 
 // 头部注释中间部分生成
@@ -178,15 +178,15 @@ function newlineAddAnnotationFn (value, fileEnd, config) {
     // 匹配用户定义语言符号
     if (fileEnd.userLanguage) {
       middle = config.configObj.language[fileEnd.fileEnd].middle
-    } else if (fileEnd !== '匹配不到_默认注释') {
+    } else if (fileEnd !== global.NoMatchLanguage) {
       // 匹配插件的符号
-      middle = constFile.annotationSymbol[fileEnd].middle
+      middle = global.annotationSymbol[fileEnd].middle
     } else if (config.configObj.annotationStr.use) {
       // 调用用户设置的默认注释符号
       middle = config.configObj.language.middle
     } else {
       // 插件默认设置
-      middle = constFile.annotationSymbol.javascript.middle
+      middle = global.annotationSymbol.javascript.middle
     }
     if (middle !== null) {
       // \n 换行
