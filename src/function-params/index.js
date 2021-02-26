@@ -1,14 +1,15 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-01-13 18:49:43
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-26 14:12:39
  * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
 
 const vscode = require('vscode')
 const util = require('../utile/util')
+const handleError = require('../logic/handleError')
 
 class FunctionParams {
   /**
@@ -48,15 +49,19 @@ class FunctionParams {
 
   // 引用语言文件 匹配函数 匹配参数
   require (languageType) {
-    const languageGetParams = require(`./${languageType}`)
-    languageGetParams.init(this.option.lineProperty)
-    // 匹配到将param 变成数组
-    if (languageGetParams.match) {
-      this.config = vscode.workspace.getConfiguration('fileheader')
-      const maxNum = this.config.configObj.functionWideNum
-      const key = util.spaceStringFn('param', maxNum)
-      this.paramsData[key] = languageGetParams.res
-      this.match = true
+    try {
+      const languageGetParams = require(`./${languageType}`)
+      languageGetParams.init(this.option.lineProperty)
+      // 匹配到将param 变成数组
+      if (languageGetParams.match) {
+        this.config = vscode.workspace.getConfiguration('fileheader')
+        const maxNum = this.config.configObj.functionWideNum
+        const key = util.spaceStringFn('param', maxNum)
+        this.paramsData[key] = languageGetParams.res
+        this.match = true
+      }
+    } catch (err) {
+      handleError.showErrorMessage('fileHeader: FunctionParams', err)
     }
   }
 }

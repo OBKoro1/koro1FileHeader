@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2019-12-18 15:04:39
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:13:49
- * FilePath     : \koro1FileHeader\src\models\repealChange.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-25 17:43:10
+ * @FilePath     : \koro1FileHeader\src\models\repealChange.js
  * Description  : 文件没有变化 取消头部注释的变更
  * https://github.com/OBKoro1
  */
@@ -12,6 +12,7 @@ const util = require('../utile/util')
 const execSync = require('child_process').execSync
 const fs = require('fs')
 const languageDiff = require('../languageOutPut/languageDifferent')
+const handleError = require('../logic/handleError')
 
 class RepealChange {
   /**
@@ -110,7 +111,7 @@ class RepealChange {
       })
       return res
     } catch (err) {
-      console.log('执行命令出错:' + cmd)
+      handleError.showErrorMessage('fileHeader: RepealChange', cmd)
     }
   }
 }

@@ -12,10 +12,12 @@
 // 可以修改的
 let context = '' // 插件上下文
 let autoAddFiles = [] // 自动添加的文件
-let errPath = '' // 错误地址 
+let errPath = '默认地址' // 错误地址 
+
 
 
 // 不可修改的
+const initErrPath = '默认地址'
 
 // 检测头部注释的行数 需要检测注释图案
 const lineNum = 15 
@@ -68,8 +70,10 @@ const annotationSymbol = {
   },
 }
 
-
-
+// vscode全局储存
+const globalStateData = {
+  errPath: 'error-path'
+}
 
 
 module.exports = {
@@ -77,10 +81,12 @@ module.exports = {
   autoAddFiles,
   annotationSymbol,
   context,
-  errPath,
   customStringConst,
   customStringTime,
   customStringCopyRight,
   handleNodeString,
-  specialString
+  specialString,
+  errPath,
+  initErrPath,
+  globalStateData
 }

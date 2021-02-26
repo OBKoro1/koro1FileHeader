@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:45:36
- * FilePath     : \koro1FileHeader\src\models\fileSave.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-26 16:52:16
+ * @FilePath     : \koro1FileHeader\src\models\fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
  */
@@ -26,61 +26,72 @@ function watchSaveFn () {
     const config = vscode.workspace.getConfiguration('fileheader')
     // 先保存本次编辑 再查看文件的修改
     file.document.save().then(() => {
-      const repealChange = new RepealChange(config.configObj.CheckFileChange)
-      if (repealChange.resetFile) return
       try {
+        const repealChange = new RepealChange(config.configObj.CheckFileChange)
+        if (repealChange.resetFile) return
         if (file.fileName === fileName) {
           // 同一个文件操作 节流
-          intervalVal = util.throttle(documentSaveFn, 6666, intervalVal)()
+          intervalVal = util.throttle(6666, intervalVal, documentSaveFn, config, editor)()
         } else {
           fileName = file.fileName // 保存上次编辑的文件
-          documentSaveFn()
+          documentSaveFn(config, editor)
         }
       } catch (err) {
-        handleError.showErrorMessage(err)
+        handleError.showErrorMessage('fileHeader: watchSaveFn', err)
       }
     })
-    function documentSaveFn () {
-      // 配置项默认值
-      let fileEnd = editor._documentData._languageId // 文件后缀
-      fileEnd = util.fileEndMatch(fileEnd)
-      const document = editor.document
-      const { hasAnnotation, replaceArr } = checkFile.saveReplaceTime(
-        document,
-        config,
-        fileEnd
-      )
-      let replace = false
-      // 更新最后编辑人，时间，路径
-      editor.edit(edit => {
-        replaceArr.forEach(item => {
-          if (!item.range) return
-          replace = true
-          edit.replace(item.range, item.value)
-        })
-      })
-
-      if (replace) {
-        editor.document.save()
-      }
-      // 检测文件注释,自动添加注释
-      setTimeout(() => {
-        const params = {
-          fsPath: editor._documentData._uri.fsPath,
-          lineCount: editor.document.lineCount,
-          fileEnd,
-          hasAnnotation,
-          config
-        }
-        const isAutoAdd = isAutoAddFn(params)
-        if (isAutoAdd) {
-          global.autoAddFiles.push(params.fsPath)
-          const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
-          createAnnotation.headerAnnotation(editor)
-        }
-      }, 500)
-    }
   })
+}
+
+function documentSaveFn (config, editor) {
+  // 配置项默认值
+  let fileEnd = editor._documentData._languageId // 文件后缀
+  fileEnd = util.fileEndMatch(fileEnd)
+  const document = editor.document
+  const { hasAnnotation, replaceArr } = checkFile.saveReplaceTime(
+    document,
+    config,
+    fileEnd
+  )
+  let replace = false
+  // 更新最后编辑人，时间，路径
+  editor.edit(edit => {
+    replaceArr.forEach(item => {
+      if (!item.range) return
+      replace = true
+      edit.replace(item.range, item.value)
+    })
+  })
+
+  if (replace) {
+    editor.document.save()
+  }
+
+  // 自动添加头部注释
+  function autoAdd () {
+    const params = {
+      fsPath: editor._documentData._uri.fsPath,
+      lineCount: editor.document.lineCount,
+      fileEnd,
+      hasAnnotation,
+      config
+    }
+    const isAutoAdd = isAutoAddFn(params)
+    if (isAutoAdd) {
+      global.autoAddFiles.push(params.fsPath)
+      const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
+      createAnnotation.headerAnnotation(editor)
+    }
+  }
+
+  // 检测文件注释,自动添加注释
+  setTimeout(() => {
+    try {
+      autoAdd()
+    } catch (err) {
+      handleError.showErrorMessage('fileHeader: documentSaveFn', err)
+    }
+  }, 500)
 }
 
 /**

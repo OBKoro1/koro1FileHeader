@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:42:31
- * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-02-25 13:53:30
+ * @FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
  */
@@ -44,11 +44,15 @@ function headerAnnotation (editor, option = {}) {
       )
       editBuilder.insert(new vscode.Position(lineNum, 0), newTpl) // 插入
       setTimeout(() => {
-        editor.document.save()
-        logic.moveCursor(newTpl)
+        try {
+          editor.document.save()
+          logic.moveCursor(newTpl)
+        } catch (err) {
+          handleError.showErrorMessage('fileHeader: headerAnnotation save', err)
+        }
       }, 200)
     } catch (err) {
-      handleError.showErrorMessage(err)
+      handleError.showErrorMessage('fileHeader: headerAnnotation', err)
     }
   })
 }
@@ -84,11 +88,15 @@ const functionAnnotation = () => {
       const fontTpl = functionTplStr.generate() // 函数注释的模板字符串
       editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl) // 插入
       setTimeout(() => {
-        logic.moveCursorDesFn(fileEnd, config, fontTpl, line)
+        try {
+          logic.moveCursorDesFn(fileEnd, config, fontTpl, line)
+        } catch (err) {
+          handleError.showErrorMessage('fileHeader: functionAnnotation moveCursorDesFn', err)
+        }
       }, 100)
     })
   } catch (err) {
-    handleError.showErrorMessage(err)
+    handleError.showErrorMessage('fileHeader: functionAnnotation', err)
   }
 }
 
