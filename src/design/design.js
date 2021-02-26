@@ -406,7 +406,28 @@ const loitumaGirl = `//
 //______#####______;###________###______#________ 
 //________##_______####________####______________ 
 `
+
+const commandArr = [
+  'random', // 随机
+  'buddhalImg', // 佛祖
+  'buddhalImgSay', // 佛祖+佛曰
+  'buddhalSay', // 佛曰
+  'totemDragon', // 龙图腾
+  'belle', // 美女
+  'coderSong', // 程序员之歌
+  'loitumaGirl', // 甩葱少女
+  'keyboardAll', // 全键盘
+  'keyboardSmall', // 小键盘
+  'totemWestDragon', // 喷火龙
+  'jesus', // 耶稣
+  'dog', // 狗
+  'grassHorse', // 草泥马
+  'grassHorse2', // 草泥马2
+  'totemBat' // 蝙蝠
+]
+
 module.exports = {
+  commandArr,
   buddhalImg,
   buddhalSay,
   buddhalImgSay,
