@@ -2,12 +2,13 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 17:41:51
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-01 16:32:08
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
 const vscode = require('vscode')
+const handleError = require('../logic/handleError')
 const global = require('../utile/CONST')
 const util = require('../utile/util')
 
@@ -34,14 +35,18 @@ const middleTpl = (data, fileEnd, config) => {
  * @return: 字符串
  */
 const headNotes = (data, fileEnd, config) => {
-  const str = middleTpl(data, fileEnd, config)
-  // 头部 中间模板 尾部合并
-  const obj = {
-    fileEnd,
-    type: 'topHeadEnd',
-    str
+  try {
+    const str = middleTpl(data, fileEnd, config)
+    // 头部 中间模板 尾部合并
+    const obj = {
+      fileEnd,
+      type: 'topHeadEnd',
+      str
+    }
+    return new LanguageDifferent(obj).res
+  } catch (err) {
+    handleError.showErrorMessage('fileHeader: headerAnnotation', err)
   }
-  return new LanguageDifferent(obj).res
 }
 
 class FunctionTplStr {
@@ -66,12 +71,16 @@ class FunctionTplStr {
 
   // 生成函数注释模板
   generate () {
+    try {
     // 生成中间模板
-    Object.keys(this.data).forEach((key) => {
-      this.strContent += this.paramStr(key)
-    })
-    this.tpl = this.mergeStr()
-    return util.replaceSymbolStr(this.tpl, this.fileEnd, 'methodCustom')
+      Object.keys(this.data).forEach((key) => {
+        this.strContent += this.paramStr(key)
+      })
+      this.tpl = this.mergeStr()
+      return util.replaceSymbolStr(this.tpl, this.fileEnd, 'methodCustom')
+    } catch (err) {
+      handleError.showErrorMessage('fileHeader: headerAnnotation', err)
+    }
   }
 
   /**
