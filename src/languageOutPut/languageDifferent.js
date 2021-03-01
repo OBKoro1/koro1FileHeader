@@ -71,8 +71,14 @@ TplJudge.prototype = {
     this.annotationSymbol = this.config.configObj.annotationStr // 默认注释配置
     this.languageObj = this.config.configObj.language // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor._documentData._uri.fsPath)
-    this.getSymbolColonHelp('atSymbol')
-    this.getSymbolColonHelp('colon')
+    const options = {
+      symbolName: 'atSymbol',
+      fileEnd: this.fsPath,
+      getValueType: 'arr'
+    }
+    this.atSymbol = util.getColon(options)
+    options.symbolName = 'colon'
+    this.colon = util.getColon(options)
     // LastEditTime、LastEditors 特殊字段用户有没有设置
     const specialOptions = this.config.configObj.specialOptions
     this.LastEditTimeName = specialOptions.LastEditTime
@@ -96,31 +102,6 @@ TplJudge.prototype = {
       this.filePathName,
       this.config.configObj.wideNum
     )
-  },
-
-  // 获取冒号和@符号的设置 如果不是数组改为数组
-  getSymbolColonHelp: function (symbolName) {
-    const obj = {
-      atSymbol: ['atSymbol', 'atSymbolObj'],
-      colon: ['colon', 'colonObj']
-    }
-    const [constName, objName] = obj[symbolName]
-    let arr = this.config.configObj[objName][this.fsPath] // 文件后缀是否设置
-    if (arr === undefined) {
-      // 没值 采用所有文件后缀的默认值
-      arr = this.config.configObj[constName]
-      if (!Array.isArray(arr)) {
-        // 不是数组 设置为数组
-        arr = [arr, arr]
-      }
-    } else {
-      // 有值 不是数组 设置为数组
-      if (!Array.isArray(arr)) {
-        arr = [arr, arr]
-      }
-    }
-
-    this[constName] = arr
   },
 
   /**

@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 17:40:02
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-01 16:06:05
  */
 
 const vscode = require('vscode')
@@ -181,31 +181,38 @@ Date.prototype.format = function (formatStr) {
 /**
  * @description 获取该文件的符号
  * @param {*} options
+ * symbolName 'atSymbol' || 'colon' 获取艾特符号或者冒号
  * options.fileEnd 文件后缀
- * options.customName 'head' || 'fn' 头部或者函数
- * options.type 'colonObj' || 'atSymbolObj' 符号类型
+ * getValueType 'arr' || 'head' || 'fn' 数组或者头部或者函数
  * @return {*}
  */
 const getColon = (options) => {
-  const { fileEnd, customName = 'head', type = 'colonObj' } = options
-  const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
-  let globalName = 'colon'
-  if (type !== 'colonObj') {
-    globalName = 'atSymbol'
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项
+  const obj = {
+    atSymbol: ['atSymbol', 'atSymbolObj'],
+    colon: ['colon', 'colonObj']
   }
-  let colon = config.configObj[type][fileEnd] // 冒号
-  // 文件没有设置 采用全局
-  if (colon === undefined) {
-    colon = config.configObj[globalName]
-  }
-  if (Array.isArray(colon)) {
-    if (customName === 'head') {
-      colon = colon[0]
-    } else {
-      colon = colon[1]
+  const [constName, objName] = obj[options.symbolName]
+  let arr = config.configObj[objName][options.fileEnd] // 文件后缀是否设置
+  if (arr === undefined) {
+    // 没值 采用所有文件后缀的默认值
+    arr = config.configObj[constName]
+    if (!Array.isArray(arr)) {
+      // 不是数组 设置为数组
+      arr = [arr, arr]
+    }
+  } else {
+    // 有值 不是数组 设置为数组
+    if (!Array.isArray(arr)) {
+      arr = [arr, arr]
     }
   }
-  return colon
+  const getValueTypeOptions = {
+    arr: arr, // 数组
+    head: arr[0], // 头部
+    fn: arr[1] // 函数
+  }
+  return getValueTypeOptions[options.getValueType]
 }
 
 /**
@@ -216,15 +223,14 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
   const sinceOut = tpl.indexOf([global.customStringConst])
   // 是否存在自定义信息
   if (sinceOut !== -1) {
-    const colon = getColon({
+    const option = {
+      symbolName: 'colon',
       fileEnd,
-      customName
-    })
-    const atClone = getColon({
-      fileEnd,
-      customName,
-      type: 'atSymbolObj'
-    })
+      getValueType: customName
+    }
+    const colon = getColon(option)
+    option.symbolName = 'atSymbol'
+    const atClone = getColon(option)
     // 替换全部自定义信息
     const reg = new RegExp(`${atClone}${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
@@ -293,11 +299,11 @@ const authList = (fsPath) => {
 
 module.exports = {
   throttle, // 节流
+  getColon, // 获取该文件的符号
   fileEndMatch, // 匹配文件后缀 以哪种形式生成注释
   fsPathFn, // 切割文件路径 获取文件后缀
   specialLanguageFn, // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配
   replaceSymbolStr, // 切割特殊字符串生成空行
-  getColon, // 获取该文件的冒号
   spaceStringFn, // 使用空格填充字符
   getFileRelativeSite, // 获取文件和项目的地址
   authList, // 自动添加是否匹配黑名单

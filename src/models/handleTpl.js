@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-12 11:29:09
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:45:46
+ * LastEditTime : 2021-03-01 16:14:09
  * FilePath     : \koro1FileHeader\src\models\handleTpl.js
  * Description  : 已经生成注释模板，处理模板
  * https://github.com/OBKoro1
@@ -61,7 +61,7 @@ function editLineFn (fsPath, config) {
   const beforeAnnotation = getFileEndConfig(config, 'beforeAnnotation', fileEnd)
   // 注释之后添加内容
   const afterAnnotation = getFileEndConfig(config, 'afterAnnotation', fileEnd)
-  return { lineNum, beforeAnnotation, afterAnnotation }
+  return { lineNum, beforeAnnotation, afterAnnotation, fileEnd }
 }
 
 // 获取文件后缀的对应配置
