@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-12-24 13:34:52
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:44:46
+ * LastEditTime : 2021-03-02 15:36:25
  * File         : \koro1FileHeader\src\function-params\function-c.js
  * Description  : c语言获取函数参数
  * Copyright 2020 OBKoro1
@@ -38,7 +38,7 @@ class GetParams {
   // 匹配方法声明的参数
   matchFunction () {
     // 函数名 可能有空格 匹配一个括号 可能有空格 类型可能的值: [\w[].] 匹配2个字符以上 必须的空格 匹配一个参数名\w 到这里已经判定它是函数声明后面匹配括号内的其他一切
-    const reg = /^(\s*\w*?\s+)?\s*([A-Za-z_]\w*?)\s*\((.*)\)/
+    const reg = /(\s*\w*?\s+)?\s*([A-Za-z_]\w*?)\s*\((.*)\)/
     return reg.exec(this.text)
   }
 
