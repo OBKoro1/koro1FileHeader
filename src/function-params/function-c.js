@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-12-24 13:34:52
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-02 15:36:25
+ * LastEditTime : 2021-03-02 18:02:59
  * File         : \koro1FileHeader\src\function-params\function-c.js
  * Description  : c语言获取函数参数
  * Copyright 2020 OBKoro1
@@ -51,7 +51,6 @@ class GetParams {
     // 捕获函数参数
     while ((res = reg.exec(params))) {
       if (!res) break
-      res[1] = res[1].replace(/\s+/g, '')
       const obj = {
         type: res[1],
         param: res[3]
