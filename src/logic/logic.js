@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-25 16:34:41
- * @FilePath     : \koro1FileHeader\src\logic\logic.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-02 10:13:58
+ * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
@@ -93,8 +93,9 @@ function noEditorValue (data, config) {
       vscode.window.activeTextEditor._documentData._document.fileName
     const fileStat = fs.statSync(filePath)
     let createTime = fileStat.birthtime
+    const format = new Date(createTime).format()
     // 不支持创建时间的系统 比如linux可能会保存1970-01-01T00:00Z
-    if (time.startsWith('1970')) {
+    if (format.startsWith('1970')) {
       createTime = fileStat.ctime
     }
 
