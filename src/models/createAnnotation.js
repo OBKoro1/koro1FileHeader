@@ -30,7 +30,7 @@ function headerAnnotation (editor, option = {}) {
   editor.edit((editBuilder) => {
     try {
       // 文件后缀
-      let fileEnd = editor._documentData._languageId // 语言
+      let fileEnd = editor.document.languageId // 语言
       fileEnd = util.fileEndMatch(fileEnd) // 提取文件后缀 或者语言类型
       if (option.create && fileEnd === global.NoMatchLanguage) return // 创建文件匹配不到_默认注释 不自动添加头部注释
       // 返回生成模板的数据对象
@@ -40,7 +40,7 @@ function headerAnnotation (editor, option = {}) {
       // 处理生成的模板
       const { lineNum, newTpl } = handleTpl.handleTplFn(
         tpl,
-        editor._documentData._uri.fsPath,
+        editor.document.uri.fsPath,
         config
       )
       editBuilder.insert(new vscode.Position(lineNum, 0), newTpl) // 插入
@@ -63,7 +63,7 @@ const functionAnnotation = () => {
   try {
     const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-    const fileEnd = util.fileEndMatch(editor._documentData._languageId)
+    const fileEnd = util.fileEndMatch(editor.document.languageId)
     const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor, config)
 
     editor.edit((editBuilder) => {
@@ -71,7 +71,7 @@ const functionAnnotation = () => {
       // 匹配参数
       const functionParams = new FunctionParams()
       functionParams.init({
-        languageId: editor._documentData._languageId,
+        languageId: editor.document.languageId,
         lineProperty,
         fileEnd,
         data

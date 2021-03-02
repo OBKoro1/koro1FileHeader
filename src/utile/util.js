@@ -75,13 +75,13 @@ const getFsNameEnd = (fileName) => {
 const fileEndMatch = (fileEnd) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-  const fsName = fsPathFn(editor._documentData._uri.fsPath) // 文件后缀
+  const fsName = fsPathFn(editor.document.uri.fsPath) // 文件后缀
   //  匹配用户自定义语言
   const isMatch = userLanguageFn(
     config,
     fileEnd,
     fsName,
-    editor._documentData._uri.fsPath
+    editor.document.uri.fsPath
   )
   if (isMatch) {
     return isMatch // 匹配到了 返回对象
@@ -258,7 +258,7 @@ const spaceStringFn = (oldStr, maxNum) => {
 // 获取文件和项目的地址
 const getFileRelativeSite = () => {
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-  const fsPath = editor._documentData._uri.fsPath // 文件路径
+  const fsPath = editor.document.uri.fsPath // 文件路径
   let itemName = '' // 项目名称
   let itemPath = '' // 项目路径
   try {

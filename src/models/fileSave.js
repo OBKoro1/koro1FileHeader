@@ -45,7 +45,7 @@ function watchSaveFn () {
 
 function documentSaveFn (config, editor) {
   // 配置项默认值
-  let fileEnd = editor._documentData._languageId // 文件后缀
+  let fileEnd = editor.document.languageId // 文件后缀
   fileEnd = util.fileEndMatch(fileEnd)
   const document = editor.document
   const { hasAnnotation, replaceArr } = checkFile.saveReplaceTime(
@@ -70,7 +70,7 @@ function documentSaveFn (config, editor) {
   // 自动添加头部注释
   function autoAdd () {
     const params = {
-      fsPath: editor._documentData._uri.fsPath,
+      fsPath: editor.document.uri.fsPath,
       lineCount: editor.document.lineCount,
       fileEnd,
       hasAnnotation,

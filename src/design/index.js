@@ -70,11 +70,11 @@ class DesignCommand {
         this.designAddHead = true
       }
       const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
-      this.fileEnd = util.fileEndMatch(editor._documentData._languageId) // 提取文件后缀 或者语言类型
+      this.fileEnd = util.fileEndMatch(editor.document.languageId) // 提取文件后缀 或者语言类型
       const tpl = this.designCreate(commandName)
       const { lineNum } = handleTpl.handleTplFn(
         tpl,
-        editor._documentData._uri.fsPath,
+        editor.document.uri.fsPath,
         this.config
       )
       editor.edit((editBuilder) => {

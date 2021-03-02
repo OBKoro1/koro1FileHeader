@@ -56,7 +56,7 @@ const lineSpaceFn = (editor, config) => {
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
   if (
     lineProperty.isEmptyOrWhitespace &&
-    editor._documentData.document.lineCount !== activeLine + 1
+    editor.document.lineCount !== activeLine + 1
   ) {
     nextLine = activeLine + 1
     lineProperty = editor.document.lineAt(nextLine)
@@ -89,8 +89,7 @@ function noEditorValue (data, config) {
   let time = new Date().format()
   // 文件创建时间
   if (config.configObj.createFileTime) {
-    const filePath =
-      vscode.window.activeTextEditor._documentData._document.fileName
+    const filePath = vscode.window.activeTextEditor.document.fileName
     const fileStat = fs.statSync(filePath)
     let createTime = fileStat.birthtime
     const format = new Date(createTime).format()
