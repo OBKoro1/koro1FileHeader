@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Github: https://github.com/OBKoro1
  * Date: 2019-09-04 20:36:56
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 16:40:12
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-03 11:36:46
  * Description: 报错拦截
  */
 
@@ -16,7 +16,7 @@ const showErrorMessage = (tag, e) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   if (!config.configObj.showErrorMessage) return // 关闭报错
   if (typeof e !== 'string') {
-    e = e.message
+    e = `message: ${e.message}\nstack: ${e.stack}`
   }
   writeLog(tag, e)
   vscode.window.showErrorMessage(tag, e)
