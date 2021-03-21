@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-01 16:32:08
+ * LastEditTime : 2021-03-21 18:45:39
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -77,7 +77,7 @@ class FunctionTplStr {
         this.strContent += this.paramStr(key)
       })
       this.tpl = this.mergeStr()
-      return util.replaceSymbolStr(this.tpl, this.fileEnd, 'methodCustom')
+      return util.replaceSymbolStr(this.tpl, this.fileEnd, 'fn')
     } catch (err) {
       handleError.showErrorMessage('fileHeader: headerAnnotation', err)
     }

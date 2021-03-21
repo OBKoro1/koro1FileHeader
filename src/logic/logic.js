@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-02 10:13:58
+ * LastEditTime : 2021-03-21 19:00:47
  * FilePath     : \koro1FileHeader\src\logic\logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -157,33 +157,10 @@ const cursorOptionHandleFn = (config) => {
   if (data.Date !== undefined) {
     data.Date = new Date().format()
   }
-  data = changNameFn(data, config)
+  data = logicUtil.changePrototypeNameFn(data, config)
+  data = changeTplValue(data, config) // 修改模板设置的值
   data = logicUtil.sameLengthFn(data, 'function') // 将字段弄得一样长
   return data
-}
-
-/**
- * 更改字段，不改变他们的顺序
- * @param {obeject} data 函数模板配置
- * @param {*} config 顶层配置
- */
-function changNameFn (data, config) {
-  const keysArr = Object.keys(data)
-  const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
-  const objData = {}
-  // 支持日期和描述
-  const specialArr = ['Date', 'Description']
-  keysArr.forEach((item) => {
-    if (specialArr.includes(item) && specialOptions[item]) {
-      // 特殊字段重新赋值
-      objData[specialOptions[item]] = data[item]
-    } else if (item.indexOf(global.specialString) !== -1) {
-      objData[`symbol_${item}`] = data[item]
-    } else {
-      objData[item] = data[item]
-    }
-  })
-  return objData
 }
 
 /**

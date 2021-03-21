@@ -221,7 +221,7 @@ TplJudge.prototype = {
   fnMiddle_key: function () {
     const FnMiddleKeyObj = {
       '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n `,
-      '/^python|^lua$/': `${this.obj.str}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
+      '/^python|^lua$/': `${this.obj.str}${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
       '/^vb$/': `${this.obj.str}' ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`,
       '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key}${this.colon[1]}${this.obj.value}\r\n`
     }
@@ -232,7 +232,7 @@ TplJudge.prototype = {
   fnMiddle_param: function () {
     const FnMiddleParamObj = {
       '/^javascript$|^html$/': `${this.obj.str}* ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n `,
-      '/^python|^lua$/': `${this.obj.str}${this.obj.key} ${this.obj.typeVal}\r\n`,
+      '/^python|^lua$/': `${this.obj.str}${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`,
       '/^vb$/': `${this.obj.str}' ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`,
       '/^shellscript$/': `${this.obj.str} # ${this.atSymbol[1]}${this.obj.key} ${this.obj.typeVal}\r\n`
     }
