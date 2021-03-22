@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-02-17 13:24:54
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-02 15:38:01
+ * 最后编辑时间       : 2021-03-22 10:08:47
  * File         : \koro1FileHeader\CHANGELOG.md
  * Description  : 
  * https://github.com/OBKoro1
@@ -11,6 +11,11 @@
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+### [V4.8.4]
+
+* fix: 修复函数注释无法使用[自定义信息](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#7-%E5%9C%A8%E6%B3%A8%E9%87%8A%E4%B8%AD%E8%BE%93%E5%87%BA%E4%B8%80%E6%AE%B5%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BF%A1%E6%81%AF)的问题 [#296](https://github.com/OBKoro1/koro1FileHeader/issues/296)
+* fix: c语言参数类型无空格 [#294](https://github.com/OBKoro1/koro1FileHeader/issues/294)
 
 ### [V4.8.3]
 
