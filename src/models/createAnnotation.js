@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 17:42:28
+ * @LastEditTime : 2021-03-27 17:28:44
  * @FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -41,7 +41,8 @@ function headerAnnotation (editor, option = {}) {
       const { lineNum, newTpl } = handleTpl.handleTplFn(
         tpl,
         editor.document.uri.fsPath,
-        config
+        config,
+        fileEnd
       )
       editBuilder.insert(new vscode.Position(lineNum, 0), newTpl) // 插入
       setTimeout(() => {

@@ -20,9 +20,9 @@ const util = require('../utile/util')
  * @return: {String} tpl
  * @Created_time: 2019-05-14 14:25:26
  */
-const handleTplFn = (tpl, fsPath, config) => {
+const handleTplFn = (tpl, fsPath, config, fileEnd) => {
   const option = editLineFn(fsPath, config)
-  let newTpl = util.replaceSymbolStr(tpl, option.fileEnd)
+  let newTpl = util.replaceSymbolStr(tpl, fileEnd)
   if (option.beforeAnnotation) {
     newTpl = `${option.beforeAnnotation}\n${newTpl}`
   }

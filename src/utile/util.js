@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-01 16:06:05
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-03-27 17:18:49
  */
 
 const vscode = require('vscode')
@@ -191,6 +191,10 @@ const getColon = (options) => {
   const obj = {
     atSymbol: ['atSymbol', 'atSymbolObj'],
     colon: ['colon', 'colonObj']
+  }
+  // 自定义语言不使用@符号
+  if (options.fileEnd.userLanguage && options.symbolName === 'atSymbol') {
+    return ''
   }
   const [constName, objName] = obj[options.symbolName]
   let arr = config.configObj[objName][options.fileEnd] // 文件后缀是否设置

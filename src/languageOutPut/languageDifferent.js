@@ -73,7 +73,7 @@ TplJudge.prototype = {
     this.fsPath = this.fsPathEndFn(editor.document.uri.fsPath)
     const options = {
       symbolName: 'atSymbol',
-      fileEnd: this.fsPath,
+      fileEnd: this.obj.fileEnd,
       getValueType: 'arr'
     }
     this.atSymbol = util.getColon(options)
