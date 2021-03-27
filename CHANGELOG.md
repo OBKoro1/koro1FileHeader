@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 17:34:46
+ * LastEditTime : 2021-03-27 17:36:52
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
 -->
@@ -13,7 +13,7 @@
 
 ### [V4.8.5]
 
-* fix: 修复自定义语言@符号出错的问题 [#296](https://github.com/OBKoro1/koro1FileHeader/issues/296)
+* fix: 修复自定义语言@符号出错的问题[#296](https://github.com/OBKoro1/koro1FileHeader/issues/296)
 
 ### [V4.8.4]
 
