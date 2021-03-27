@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-03-27 17:28:44
- * @FilePath     : \koro1FileHeader\src\models\createAnnotation.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-27 18:04:03
+ * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
  */
@@ -68,18 +68,14 @@ const functionAnnotation = () => {
     const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor, config)
 
     editor.edit((editBuilder) => {
-      let data = logic.cursorOptionHandleFn(config)
-      // 匹配参数
-      const functionParams = new FunctionParams()
-      functionParams.init({
-        languageId: editor.document.languageId,
-        lineProperty,
-        fileEnd,
-        data
-      })
-      if (functionParams.match) {
-        data = functionParams.paramsData
+      const data = logic.cursorOptionHandleFn(config)
+      const matchFunctionParamsOptions = {
+        languageId: editor.document.languageId, // 语言
+        lineProperty, // 函数行内容
+        fileEnd, // 文件后缀
+        data // 函数注释模板数据
       }
+      matchFunctionParams(config, matchFunctionParamsOptions)
       const functionTplStr = new languageOutput.FunctionTplStr(
         data,
         fileEnd,
@@ -100,6 +96,27 @@ const functionAnnotation = () => {
   } catch (err) {
     handleError.showErrorMessage('fileHeader: functionAnnotation', err)
   }
+}
+
+/**
+ * @description 匹配函数参数
+ * @param {*} config 插件配置
+ * @param {*} options.languageId 语言
+ * @param {*} options.lineProperty 函数行内容
+ * @param {*} options.fileEnd 文件后缀
+ * @param {*} options.data 函数注释模板数据
+ * @return {*}
+ */
+function matchFunctionParams (config, options) {
+  // 匹配参数
+  if (config.configObj.openFunctionParamsCheck) {
+    const functionParams = new FunctionParams()
+    functionParams.init(options)
+    if (functionParams.match) {
+      return functionParams.paramsData
+    }
+  }
+  return options.data
 }
 
 module.exports = {

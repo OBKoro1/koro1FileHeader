@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 17:36:52
+ * LastEditTime : 2021-03-27 18:15:05
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
 -->
@@ -13,6 +13,12 @@
 
 ### [V4.8.5]
 
+* feat: 新增`openFunctionParamsCheck`用于控制开启关闭自动提取添加函数参数 [#303](https://github.com/OBKoro1/koro1FileHeader/issues/303)
+```js
+"fileheader.configObj": {
+  "openFunctionParamsCheck": true // 默认关闭
+}
+```
 * fix: 修复自定义语言@符号出错的问题[#296](https://github.com/OBKoro1/koro1FileHeader/issues/296)
 
 ### [V4.8.4]
