@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 16:52:16
- * @FilePath     : \koro1FileHeader\src\models\fileSave.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-03-27 18:33:09
+ * FilePath     : \koro1FileHeader\src\models\fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
  */
@@ -15,6 +15,7 @@ const checkFile = require('./checkFile')
 const RepealChange = require('./repealChange')
 const createAnnotation = require('./createAnnotation')
 const global = require('../utile/CONST')
+const path = require('path')
 
 function watchSaveFn () {
   let intervalVal = null // 保存上次触发时间，用于节流
@@ -110,6 +111,7 @@ function isAutoAddFn (params) {
   if (params.config.configObj.autoAddLine < params.lineCount) return false
   if (!params.config.configObj.autoAdd) return false // 关闭自动添加
   if (params.hasAnnotation) return false // 文件已经有注释
+  if (folderBlacklistFn(params.config.configObj.folderBlacklist, params.fsPath)) return false // 文件夹禁止自动添加
   const hasAddProhibit = util.authList(params.fsPath)
   if (!hasAddProhibit) return false // 被添加进黑名单 或者没有添加进白名单
   if (autoAddItemBlacklist(params.config.configObj.prohibitItemAutoAdd)) { return false } // 项目黑名单
@@ -123,6 +125,19 @@ function isAutoAddFn (params) {
     return false
   }
   return true // 自动添加
+}
+
+/**
+ * @description 文件夹名称禁止自动添加头部注释
+ * @param {*} fsPath 文件路径
+ * @return {Boolean} 是否禁止
+ */
+function folderBlacklistFn (folderBlacklist, fsPath) {
+  const folderArr = fsPath.split(path.sep)
+  const index = folderArr.findIndex((item) => {
+    return folderBlacklist.includes(item)
+  })
+  return index !== -1 // 代表找到了 找到了 就不自动添加头部注释
 }
 
 // 项目黑名单

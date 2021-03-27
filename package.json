@@ -129,6 +129,10 @@
             "prohibitAutoAdd": [
               "json"
             ],
+            "folderBlacklist": [
+              "node_modules",
+              "文件夹禁止自动添加头部注释"
+            ],
             "prohibitItemAutoAdd": [
               "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加"
             ],

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 18:15:05
+ * LastEditTime : 2021-03-27 18:37:00
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
 -->
@@ -13,6 +13,15 @@
 
 ### [V4.8.5]
 
+* feat: 新增`folderBlacklist`文件夹禁止自动添加头部注释 [#302](https://github.com/OBKoro1/koro1FileHeader/issues/302)
+```js
+"fileheader.configObj": {
+  "folderBlacklist": [
+    "node_modules",
+    "文件夹禁止自动添加头部注释"
+  ]
+}
+```
 * feat: 新增`openFunctionParamsCheck`用于控制开启关闭自动提取添加函数参数 [#303](https://github.com/OBKoro1/koro1FileHeader/issues/303)
 ```js
 "fileheader.configObj": {
