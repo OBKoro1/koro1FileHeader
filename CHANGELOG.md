@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 18:37:00
+ * LastEditTime : 2021-03-29 11:32:10
  * FilePath     : \koro1FileHeader\CHANGELOG.md
  * Description  : 
 -->
@@ -13,21 +13,26 @@
 
 ### [V4.8.5]
 
-* feat: 新增`folderBlacklist`文件夹禁止自动添加头部注释 [#302](https://github.com/OBKoro1/koro1FileHeader/issues/302)
-```js
-"fileheader.configObj": {
-  "folderBlacklist": [
-    "node_modules",
-    "文件夹禁止自动添加头部注释"
-  ]
-}
-```
-* feat: 新增`openFunctionParamsCheck`用于控制开启关闭自动提取添加函数参数 [#303](https://github.com/OBKoro1/koro1FileHeader/issues/303)
-```js
-"fileheader.configObj": {
-  "openFunctionParamsCheck": true // 默认关闭
-}
-```
+* feat: 新增[folderBlacklist文件夹或文件名禁止自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%88%96%E6%96%87%E4%BB%B6%E5%90%8D%E7%A6%81%E6%AD%A2%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A) [#302](https://github.com/OBKoro1/koro1FileHeader/issues/302)
+
+  插件会对地址进行切割，如果完全匹配到文件夹或者文件名字符串则禁止添加。
+
+  ```js
+  "fileheader.configObj": {
+    "folderBlacklist": [
+      "node_modules",
+      "文件夹或文件名禁止自动添加头部注释",
+      // "webpack.config.js" // 可以禁止某些文件自动添加注释
+    ]
+  }
+  ```
+
+* feat: 新增[openFunctionParamsCheck用于控制开启关闭自动提取添加函数参数](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E6%B3%A8%E9%87%8A%E8%87%AA%E5%8A%A8%E6%8F%90%E5%8F%96%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0) [#303](https://github.com/OBKoro1/koro1FileHeader/issues/303)
+  ```js
+  "fileheader.configObj": {
+    "openFunctionParamsCheck": true // 默认开启
+  }
+  ```
 * fix: 修复自定义语言@符号出错的问题[#296](https://github.com/OBKoro1/koro1FileHeader/issues/296)
 
 ### [V4.8.4]
