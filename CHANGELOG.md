@@ -11,6 +11,41 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.6]
+
+* feat: 新增[函数参数外形自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%A4%96%E5%BD%A2%E8%87%AA%E5%AE%9A%E4%B9%89)，参数显示更加自由，喜欢的话，就点个Star吧😊~
+```js
+"fileheader.configObj": {
+    "functionParamsShape": "normal" // 正常
+    // "functionParamsShape": "no bracket" // 没有方括号
+    // "functionParamsShape": "no type" // 没有类型
+}
+```
+
+示例：
+
+```js
+/**
+ * @description normal
+ * @param {number} c
+ * @param {string} b
+ * @return {*}
+ */
+/**
+ * @description "no bracket" 没有方括号
+ * @param number c
+ * @param string b
+ * @return {*}
+ */
+/**
+ * @description "no type" 没有类型
+ * @param c
+ * @param b
+ * @return {*}
+ */
+function test(c: number, b: string = '2') {}
+```
+
 ### [V4.8.5]
 
 * feat: 新增[folderBlacklist文件夹或文件名禁止自动添加头部注释](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%96%87%E4%BB%B6%E5%A4%B9%E6%88%96%E6%96%87%E4%BB%B6%E5%90%8D%E7%A6%81%E6%AD%A2%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A) [#302](https://github.com/OBKoro1/koro1FileHeader/issues/302)

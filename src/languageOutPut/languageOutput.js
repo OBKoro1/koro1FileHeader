@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-21 18:45:39
+ * LastEditTime : 2021-04-10 16:53:35
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -72,7 +72,7 @@ class FunctionTplStr {
   // 生成函数注释模板
   generate () {
     try {
-    // 生成中间模板
+      // 生成中间模板
       Object.keys(this.data).forEach((key) => {
         this.strContent += this.paramStr(key)
       })
@@ -107,6 +107,20 @@ class FunctionTplStr {
     return new LanguageDifferent(obj).res
   }
 
+  paramsShape (item) {
+    const functionParamsShape = this.config.configObj.functionParamsShape
+    if (functionParamsShape === 'no bracket') {
+      // 不要方括号
+      return `${item.type} ${item.param}`
+    } else if (functionParamsShape === 'no type') {
+      // 不要类型捕获
+      return `${item.param}`
+    } else {
+      // 正常 都有
+      return `{${item.type}} ${item.param}`
+    }
+  }
+
   // 合成参数
   paramsHandle (obj) {
     // 识别到参数
@@ -114,7 +128,7 @@ class FunctionTplStr {
     if (Array.isArray(paramArr)) {
       let params = ''
       paramArr.forEach((item) => {
-        obj.typeVal = `{${item.type}} ${item.param}`
+        obj.typeVal = this.paramsShape(item)
         const str = new LanguageDifferent(obj).res
         params += str
       })
