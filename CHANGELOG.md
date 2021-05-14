@@ -11,13 +11,17 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.7]
+
+* fix: 修复python@符号切割自定义字段的问题[#321](https://github.com/OBKoro1/koro1FileHeader/issues/321)
+
 ### [V4.8.6]
 
 * feat: 新增[函数参数外形自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%A4%96%E5%BD%A2%E8%87%AA%E5%AE%9A%E4%B9%89)，参数显示更加自由，喜欢的话，就点个Star吧😊~
 ```js
 "fileheader.configObj": {
     "functionParamsShape": "normal" // 正常
-    // "functionParamsShape": "no bracket" // 没有方括号
+    // "functionParamsShape": "no bracket" // **没有方括号**
     // "functionParamsShape": "no type" // 没有类型
 }
 ```
