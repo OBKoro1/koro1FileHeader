@@ -52,6 +52,11 @@
 
 ## 注释模板的设置
 
+
+### 快速查看插件功能与配置方法
+
+[配置字段](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)
+
 ## wiki文档
 
 [更新日志](https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97)
@@ -106,3 +111,5 @@
 如果觉得还不错的话，就给个 [Star](https://github.com/OBKoro1/koro1FileHeader) ⭐️ 鼓励一下我吧~
 
 [掘金](https://juejin.im/user/78820536236951)、[前端进阶积累](http://obkoro1.com/web_accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)
+
+![赞赏](https://github.com/OBKoro1/koro1FileHeader/blob/master/images/money.jpg?raw=true)
