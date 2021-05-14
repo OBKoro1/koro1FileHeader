@@ -234,9 +234,10 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
     }
     const colon = getColon(option)
     option.symbolName = 'atSymbol'
+    // 艾特符号 为可选匹配 因为python没有
     const atClone = getColon(option)
     // 替换全部自定义信息
-    const reg = new RegExp(`${atClone}${global.customStringConst}\\d+${colon}`, 'gim')
+    const reg = new RegExp(`${atClone}?${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
   }
   return tpl
