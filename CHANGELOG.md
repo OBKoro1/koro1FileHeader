@@ -4,14 +4,14 @@
  * LastEditors  : OBKoro1
  * LastEditTime : 2021-03-29 11:32:10
  * FilePath     : \koro1FileHeader\CHANGELOG.md
- * Description  : 
+ * Description  :
 -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
-### [V4.8.10]
+### [V4.8.11]
 
 * feat: 新增用户自定义缩进空格数量 [#320](https://github.com/OBKoro1/koro1FileHeader/issues/320)
 ```js
