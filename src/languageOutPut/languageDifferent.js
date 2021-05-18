@@ -65,20 +65,13 @@ TplJudge.prototype = {
   },
   initConfig: function (obj = {}) {
     this.obj = obj
+    this.setSymbol(obj)
     this.vscode = require('vscode')
     const editor = this.vscode.editor || this.vscode.window.activeTextEditor // 每次运行选中文件
     this.config = this.vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     this.annotationSymbol = this.config.configObj.annotationStr // 默认注释配置
     this.languageObj = this.config.configObj.language // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor.document.uri.fsPath)
-    const options = {
-      symbolName: 'atSymbol',
-      fileEnd: this.obj.fileEnd,
-      getValueType: 'arr'
-    }
-    this.atSymbol = util.getColon(options)
-    options.symbolName = 'colon'
-    this.colon = util.getColon(options)
     // LastEditTime、LastEditors 特殊字段用户有没有设置
     const specialOptions = this.config.configObj.specialOptions
     this.LastEditTimeName = specialOptions.LastEditTime
@@ -103,7 +96,19 @@ TplJudge.prototype = {
       this.config.configObj.wideNum
     )
   },
-
+  // 设置@符号和冒号
+  setSymbol (obj) {
+    if (obj.fileEnd) {
+      const options = {
+        symbolName: 'atSymbol',
+        fileEnd: this.obj.fileEnd,
+        getValueType: 'arr'
+      }
+      this.atSymbol = util.getColon(options)
+      options.symbolName = 'colon'
+      this.colon = util.getColon(options)
+    }
+  },
   /**
    * @description: 用户自定义语言注释符号和未设置下的默认注释符号
    * @param {String} obj.type 匹配成功后，输出哪个属性下的字符串
@@ -124,8 +129,8 @@ TplJudge.prototype = {
       topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${this.annotationSymbol.end}\r\n`,
       fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal}\r\n`,
       fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon[1]}${obj.value}\r\n`,
-      topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.originSpace}`,
-      topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
+      topHeadEnd_nextLineNo: `${obj.str}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n`,
+      topHeadEnd_nextLineYes: `${obj.str}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
       annotationStarts: `${this.annotationSymbol.head}`,
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
         this.colon[1]
@@ -203,17 +208,17 @@ TplJudge.prototype = {
   // 函数注释处理头尾字符串
   topHeadEnd_nextLineYes: function (nextLine = false) {
     const TopHeadEndNextLineNoObj = {
-      javascript: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
-      python: `${this.obj.frontStr}'''\r\n${this.obj.strContent}${this.obj.str}'''`,
-      lua: `${this.obj.frontStr}--[[\r\n${this.obj.strContent}${this.obj.str}--]]`,
-      html: `${this.obj.frontStr}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
-      vb: `${this.obj.frontStr}'\r\n${this.obj.strContent}${this.obj.str}'`,
-      shellscript: `${this.obj.frontStr}###\r\n${this.obj.strContent}${this.obj.str}###`
+      javascript: `${this.obj.str}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
+      python: `${this.obj.str}'''\r\n${this.obj.strContent}${this.obj.str}'''`,
+      lua: `${this.obj.str}--[[\r\n${this.obj.strContent}${this.obj.str}--]]`,
+      html: `${this.obj.str}/**\r\n ${this.obj.strContent}${this.obj.str}*/`,
+      vb: `${this.obj.str}'\r\n${this.obj.strContent}${this.obj.str}'`,
+      shellscript: `${this.obj.str}###\r\n${this.obj.strContent}${this.obj.str}###`
     }
     let res = TopHeadEndNextLineNoObj[this.obj.fileEnd]
-    // 当前行不为空 下一行加空格
+    // 当前行不为空 下一行换行
     if (nextLine) {
-      res += `${this.obj.str}\r\n${this.obj.originSpace}`
+      res += '\r\n'
     }
     return res
   },

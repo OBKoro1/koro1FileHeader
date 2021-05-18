@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-05-18 14:02:50
+ * @LastEditTime : 2021-05-18 15:05:45
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -56,20 +56,15 @@ class FunctionTplStr {
    * @param {String} fileEnd 文件采用语言
    * @param {Number} lineSpace 每行前面的长度
    * @param {String} nextLine 当前行为空 不换行
-   * @param {String} frontStr 函数注释第一行的长度
    * @return: 函数注释的模板字符串
    */
-  constructor (data, fileEnd, lineSpace, nextLine, frontStr) {
+  constructor (data, fileEnd, lineSpace, nextLine) {
     this.config = vscode.workspace.getConfiguration('fileheader')
     this.fileEnd = fileEnd
     this.nextLine = nextLine
-    // 函数前面的长度
-    const frontStrLength = frontStr + this.config.configObj.functionBlankSpace
-    this.frontStr = ''.padStart(frontStrLength)
-    // 原先的长度 用于下一行函数长度还原
-    this.originSpace = ''.padStart(lineSpace)
+    // 加上用户设置的长度
     lineSpace = lineSpace + this.config.configObj.functionBlankSpace
-    this.str = ''.padStart(lineSpace)
+    this.str = ''.padStart(lineSpace) // 函数注释每行前面的空格
     this.strContent = '' // 中间模板部分的字符
     this.data = data
   }
@@ -146,10 +141,8 @@ class FunctionTplStr {
     const obj = {
       isFunctionAnnotation: true, // 函数注释
       fileEnd: this.fileEnd,
-      frontStr: this.frontStr,
       strContent: this.strContent,
-      str: this.str,
-      originSpace: this.originSpace
+      str: this.str
     }
     if (this.nextLine === undefined) {
       // 当前行不为空

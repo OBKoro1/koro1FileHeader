@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-05-18 11:59:04
+ * @LastEditTime : 2021-05-18 14:58:08
  * @FilePath     : /koro1FileHeader/src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -44,32 +44,29 @@ const userSet = (config) => {
 /**
  * @description: 函数注释前面的长度
  * @param {Object} editor 当前激活文件
- * @return: lineSpace：前面的长度，frontStr：函数注释第一行的长度，line:当前行(数字)，nextLine 激活行的下一行是否有内容
+ * @return: lineSpace：前面的长度 line:当前行(数字)，nextLine 激活行的下一行是否有内容
  */
 const lineSpaceFn = (editor, config) => {
   let activeLine = editor.selection.active.line // 激活行 行号
-  let lineProperty = editor.document.lineAt(activeLine) // 解析行的属性 包括text等
-  let lineFirst = lineProperty.firstNonWhitespaceCharacterIndex // 激活行 前面是否有值
-  let lineSpace = lineFirst
+  let lineProperty = editor.document.lineAt(activeLine) // 激活行内容
+  let lineSpace = lineProperty.firstNonWhitespaceCharacterIndex // 激活行前面的空格
   let nextLine
-  let frontStr = 0 // 前面空几行
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
   if (
     lineProperty.isEmptyOrWhitespace &&
     editor.document.lineCount !== activeLine + 1
   ) {
+    // 选择下一行
     nextLine = activeLine + 1
     lineProperty = editor.document.lineAt(nextLine)
     lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
-    lineFirst = lineFirst === 0 ? lineSpace : 0
-    frontStr = lineFirst
   } else {
     if (config.configObj.cursorModeInternal) {
       // 当前行有内容 是否想生成在函数内部
       activeLine = activeLine + 1
     }
   }
-  return [lineSpace, frontStr, activeLine, nextLine, lineProperty]
+  return [lineSpace, activeLine, nextLine, lineProperty]
 }
 
 /**

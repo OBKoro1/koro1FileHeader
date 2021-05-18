@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 18:04:03
- * FilePath     : \koro1FileHeader\src\models\createAnnotation.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-05-18 14:58:25
+ * @FilePath     : /koro1FileHeader/src/models/createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
  */
@@ -65,7 +65,7 @@ const functionAnnotation = () => {
     const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
     const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
     const fileEnd = util.fileEndMatch(editor.document.languageId)
-    const [lineSpace, frontStr, line, nextLine, lineProperty] = logic.lineSpaceFn(editor, config)
+    const [lineSpace, line, nextLine, lineProperty] = logic.lineSpaceFn(editor, config)
 
     editor.edit((editBuilder) => {
       const data = logic.cursorOptionHandleFn(config)
@@ -80,11 +80,10 @@ const functionAnnotation = () => {
         data,
         fileEnd,
         lineSpace,
-        nextLine,
-        frontStr
+        nextLine
       )
       const fontTpl = functionTplStr.generate() // 函数注释的模板字符串
-      editBuilder.insert(new vscode.Position(line, lineSpace), fontTpl) // 插入
+      editBuilder.insert(new vscode.Position(line, 0), fontTpl) // 插入
       setTimeout(() => {
         try {
           logic.moveCursorDesFn(fileEnd, config, fontTpl, line)
