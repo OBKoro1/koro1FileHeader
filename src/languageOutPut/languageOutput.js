@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-04-10 16:53:35
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-05-18 14:02:50
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -60,13 +60,18 @@ class FunctionTplStr {
    * @return: 函数注释的模板字符串
    */
   constructor (data, fileEnd, lineSpace, nextLine, frontStr) {
+    this.config = vscode.workspace.getConfiguration('fileheader')
     this.fileEnd = fileEnd
     this.nextLine = nextLine
-    this.frontStr = frontStr
+    // 函数前面的长度
+    const frontStrLength = frontStr + this.config.configObj.functionBlankSpace
+    this.frontStr = ''.padStart(frontStrLength)
+    // 原先的长度 用于下一行函数长度还原
+    this.originSpace = ''.padStart(lineSpace)
+    lineSpace = lineSpace + this.config.configObj.functionBlankSpace
     this.str = ''.padStart(lineSpace)
     this.strContent = '' // 中间模板部分的字符
     this.data = data
-    this.config = vscode.workspace.getConfiguration('fileheader')
   }
 
   // 生成函数注释模板
@@ -143,7 +148,8 @@ class FunctionTplStr {
       fileEnd: this.fileEnd,
       frontStr: this.frontStr,
       strContent: this.strContent,
-      str: this.str
+      str: this.str,
+      originSpace: this.originSpace
     }
     if (this.nextLine === undefined) {
       // 当前行不为空

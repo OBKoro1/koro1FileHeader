@@ -63,7 +63,7 @@ TplJudge.prototype = {
       return fileNameArr[fileNameArr.length - 1] // 取.最后一位
     }
   },
-  initConfig: function (obj) {
+  initConfig: function (obj = {}) {
     this.obj = obj
     this.vscode = require('vscode')
     const editor = this.vscode.editor || this.vscode.window.activeTextEditor // 每次运行选中文件
@@ -124,7 +124,7 @@ TplJudge.prototype = {
       topHeadEnd: `${this.annotationSymbol.head}\r\n${obj.str}${this.annotationSymbol.end}\r\n`,
       fnMiddle_param: `${obj.str}${this.annotationSymbol.middle}${obj.key} ${obj.typeVal}\r\n`,
       fnMiddle_key: `${obj.str}${this.annotationSymbol.middle}${obj.key}${this.colon[1]}${obj.value}\r\n`,
-      topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.str}`,
+      topHeadEnd_nextLineNo: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n${obj.originSpace}`,
       topHeadEnd_nextLineYes: `${obj.frontStr}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
       annotationStarts: `${this.annotationSymbol.head}`,
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
@@ -213,7 +213,7 @@ TplJudge.prototype = {
     let res = TopHeadEndNextLineNoObj[this.obj.fileEnd]
     // 当前行不为空 下一行加空格
     if (nextLine) {
-      res += `${this.obj.str}\r\n${this.obj.str}`
+      res += `${this.obj.str}\r\n${this.obj.originSpace}`
     }
     return res
   },

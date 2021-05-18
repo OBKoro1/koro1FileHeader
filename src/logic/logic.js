@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-21 19:00:47
- * FilePath     : \koro1FileHeader\src\logic\logic.js
+ * @LastEditors  : OBKoro1
+ * @LastEditTime : 2021-05-18 11:59:04
+ * @FilePath     : /koro1FileHeader/src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
@@ -52,7 +52,7 @@ const lineSpaceFn = (editor, config) => {
   let lineFirst = lineProperty.firstNonWhitespaceCharacterIndex // 激活行 前面是否有值
   let lineSpace = lineFirst
   let nextLine
-  let frontStr = '' // 前面空几行
+  let frontStr = 0 // 前面空几行
   // 判断当前行有没有内容 决定选择当前行还是下一行的长度
   if (
     lineProperty.isEmptyOrWhitespace &&
@@ -62,7 +62,7 @@ const lineSpaceFn = (editor, config) => {
     lineProperty = editor.document.lineAt(nextLine)
     lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
     lineFirst = lineFirst === 0 ? lineSpace : 0
-    frontStr = ''.padStart(lineFirst)
+    frontStr = lineFirst
   } else {
     if (config.configObj.cursorModeInternal) {
       // 当前行有内容 是否想生成在函数内部

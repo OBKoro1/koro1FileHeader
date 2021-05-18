@@ -11,6 +11,41 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.10]
+
+* feat: 新增用户自定义缩进空格数量 [#320](https://github.com/OBKoro1/koro1FileHeader/issues/320)
+```js
+"fileheader.configObj": {
+  "functionBlankSpace": 0 // 默认不缩进
+}
+```
+
+示例：
+
+```js
+
+// "functionBlankSpace": 0
+/**
+ * @description functionBlankSpace为0默认不缩进
+ * @param a
+ * @param b
+ * @return {*}
+ */
+async function test(a, ...b) {}
+
+// "functionBlankSpace": 2 缩进两格
+// "cursorModeInternal": true 将注释写在函数内部
+
+async function test(a, ...b) {
+  /**
+   * @description 缩进两格 否则应该在async下面
+   * @param * a
+   * @param array b
+   * @return {*}
+   */
+}
+```
+
 ### [V4.8.7]
 
 * fix: 修复python@符号切割自定义字段的问题[#321](https://github.com/OBKoro1/koro1FileHeader/issues/321)
