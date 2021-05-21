@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-03-27 17:18:49
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-05-21 15:15:56
  */
 
 const vscode = require('vscode')
@@ -216,7 +216,7 @@ const getColon = (options) => {
     head: arr[0], // 头部
     fn: arr[1] // 函数
   }
-  return getValueTypeOptions[options.getValueType]
+  return getValueTypeOptions[options.getValueType] || ''
 }
 
 /**
@@ -236,8 +236,13 @@ const replaceSymbolStr = (tpl, fileEnd, customName = 'head') => {
     option.symbolName = 'atSymbol'
     // 艾特符号 为可选匹配 因为python没有
     const atClone = getColon(option)
+    let reg = ''
+    // python没有@符号
+    if (atClone) {
+      reg = `${atClone}?`
+    }
     // 替换全部自定义信息
-    const reg = new RegExp(`${atClone}?${global.customStringConst}\\d+${colon}`, 'gim')
+    reg = new RegExp(`${reg}${global.customStringConst}\\d+${colon}`, 'gim')
     tpl = tpl.replace(reg, '')
   }
   return tpl
