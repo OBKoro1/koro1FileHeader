@@ -2,14 +2,18 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-29 11:32:10
- * FilePath     : \koro1FileHeader\CHANGELOG.md
+ * LastEditTime : 2021-05-21 15:18:24
+ * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
 
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+### [V4.8.12]
+
+* fix: 修复了一个问题
 
 ### [V4.8.11]
 
