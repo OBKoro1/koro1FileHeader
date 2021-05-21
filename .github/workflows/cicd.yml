@@ -56,7 +56,7 @@ jobs:
          draft: false
          prerelease: false
      - run: npm i -g vsce # 安装vsce 用于打包插件
-     - run: yarn # 安装依赖
+     - run: npm install # 安装依赖
      - run: vsce package --yarn # 打包插件
      - run: ls
      # 上传插件包
