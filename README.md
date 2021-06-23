@@ -97,12 +97,12 @@
 * [自动添加头部注释-项目黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%A1%B9%E7%9B%AE%E9%BB%91%E5%90%8D%E5%8D%95)
 
 ### 我的其他开源推荐
-#### stop-mess-around
+#### [stop-mess-around](https://github.com/OBKoro1/stop-mess-around)
 
 chrome插件**通过强制的手段禁止大家浪费时间摸鱼**，在上班/学习期间下意识的打开摸鱼网站, 自动检测摸鱼网站, 提示激励信息后, 关闭摸鱼网站。
 
 ![](https://github.com/OBKoro1/stop-mess-around/raw/dev/static/start.gif?raw=true)
-#### AutoCommit
+#### [AutoCommit](https://github.com/OBKoro1/autoCommit)
 
 这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满。
 
