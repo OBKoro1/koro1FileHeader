@@ -96,20 +96,28 @@
 
 * [自动添加头部注释-项目黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%A1%B9%E7%9B%AE%E9%BB%91%E5%90%8D%E5%8D%95)
 
-### Auto Commit
+### 我的其他开源推荐
+#### stop-mess-around
 
-推荐一个新开源的插件：[Auto Commit](https://github.com/OBKoro1/autoCommit)
+chrome插件**通过强制的手段禁止大家浪费时间摸鱼**，在上班/学习期间下意识的打开摸鱼网站, 自动检测摸鱼网站, 提示激励信息后, 关闭摸鱼网站。
 
-  **这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满**。
+![](https://github.com/OBKoro1/stop-mess-around/raw/dev/static/start.gif?raw=true)
+#### AutoCommit
 
-![autoCommit演示](https://github.com/OBKoro1/autoCommit/blob/master/images/autoCommit.gif?raw=true)
+这是一个用于Git自动commit的VSCode插件，它可以用来补充之前忘记提交commit，帮助你把首页的绿色格子填满。
 
-设置也超方便的，[传送门](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE)
+![](https://github.com/OBKoro1/autoCommit/raw/master/images/autoCommit.gif?raw=true)
+
+### 欢迎赞助
+
+如果觉得插件还不错，对你有所帮助的话，就请我喝杯水吧~
+
+十块八块不嫌多，三块五块也是爱 😘
+
+![](https://github.com/OBKoro1/koro1FileHeader/raw/master/images/money1.jpg?raw=true)
 
 ## 最后
 
 如果觉得还不错的话，就给个 [Star](https://github.com/OBKoro1/koro1FileHeader) ⭐️ 鼓励一下我吧~
 
-[掘金](https://juejin.im/user/78820536236951)、[前端进阶积累](http://obkoro1.com/web_accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)
-
-![赞赏](https://github.com/OBKoro1/koro1FileHeader/blob/master/images/money1.jpg?raw=true)
+[掘金](https://juejin.im/user/78820536236951)、[前端进阶积累](http://obkoro1.com/web_accumulate/)、[公众号](https://user-gold-cdn.xitu.io/2018/5/1/1631b6f52f7e7015?w=344&h=344&f=jpeg&s=8317)、[GitHub](https://github.com/OBKoro1)、[微信](https://raw.githubusercontent.com/OBKoro1/articleImg_src/master/weibo_img_move/005Y4rCogy1fsnslyz5pnj309j0cdgm6.jpg):OBkoro1、邮箱：obkoro1@foxmail.com
