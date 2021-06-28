@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 22:44:40
+ * LastEditTime : 2021-06-28 23:18:56
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -15,9 +15,9 @@
 ### [V4.8.13]
 
 
-* feat: 加强函数注释参数部分的自定义程度: `functionParamsShape`、`functionTypeSymbol`、`typeParamOrder` [#328](https://github.com/OBKoro1/koro1FileHeader/issues/328)
+* feat: 加强函数注释参数部分的自定义程度: [functionParamsShape](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%A4%96%E5%BD%A2%E8%87%AA%E5%AE%9A%E4%B9%89)、[functionTypeSymbol](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E6%B2%A1%E6%9C%89%E7%B1%BB%E5%9E%8B%E6%97%B6%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC)、[typeParamOrder](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B-%E5%92%8C-%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89)  [#328](https://github.com/OBKoro1/koro1FileHeader/issues/328)
 
-1. `functionParamsShape` 参数类型外面的符号
+1. [functionParamsShape](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E5%A4%96%E5%BD%A2%E8%87%AA%E5%AE%9A%E4%B9%89) 参数类型外面的符号
 
 ```js
 // functionParamsShape: [ "{", "}"] // 默认值
@@ -38,7 +38,7 @@ function test2(c: number, b: string = '2') {}
 function test2(c: number, b: string = '2') {}
 ```
 
-2. `functionTypeSymbol` 参数没有类型时的默认值
+2. [functionTypeSymbol](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E6%B2%A1%E6%9C%89%E7%B1%BB%E5%9E%8B%E6%97%B6%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC) 参数没有类型时的默认值
 
 ```js
 // "functionTypeSymbol": "*" // 默认值
@@ -62,7 +62,7 @@ export const download = async (axiosMethods, apiLink, opts, fileName) => {};
  */
 export const download = async (axiosMethods, apiLink, opts, fileName) => {};
 ```
-3. `typeParamOrder` 参数类型 和 参数的位置自定义
+3. [typeParamOrder](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B-%E5%92%8C-%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89) 参数类型 和 参数的位置自定义
 
 ```js
 // "typeParamOrder": "type param" // 默认值
