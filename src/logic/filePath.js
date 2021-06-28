@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:46:07
- * FilePath     : \koro1FileHeader\src\logic\filePath.js
+ * LastEditTime : 2021-06-28 11:36:39
+ * FilePath     : /koro1FileHeader/src/logic/filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
  */
@@ -19,6 +19,9 @@ const createFilePath = (FilePath) => {
   let res = `${path.sep}${itemName}${fileItemPath}` // 拼接项目名称和相对于项目的路径
   if (FilePath === 'no item name') {
     res = `${fileItemPath}`
+  } else if (FilePath === 'only file name') {
+    const arr = fileItemPath.split(path.sep)
+    res = arr[arr.length - 1]
   }
   if (config.configObj.filePathColon !== '路径分隔符替换') {
     // path.sep window: \ mac: /
