@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-12-24 13:34:52
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-02 18:02:59
+ * LastEditTime : 2021-06-28 14:30:47
  * File         : \koro1FileHeader\src\function-params\function-c.js
  * Description  : c语言获取函数参数
  * Copyright 2020 OBKoro1
@@ -47,7 +47,7 @@ class GetParams {
     const paramsArr = [] // 参数列表
     // 可能的空格 匹配类型声明 至少2个字符以上 至少一个必须的空格 参数名 匹配一切除了逗号
     // eslint-disable-next-line no-useless-escape
-    const reg = /\s*([\w\[\]\.\s]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
+    const reg = /\s*([\w\[\]\.\s*]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
     // 捕获函数参数
     while ((res = reg.exec(params))) {
       if (!res) break
