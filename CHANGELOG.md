@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-05-21 15:18:24
+ * LastEditTime : 2021-06-28 22:44:40
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -10,6 +10,106 @@
 # 更新日志
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
+
+
+### [V4.8.13]
+
+
+* feat: 加强函数注释参数部分的自定义程度: `functionParamsShape`、`functionTypeSymbol`、`typeParamOrder` [#328](https://github.com/OBKoro1/koro1FileHeader/issues/328)
+
+1. `functionParamsShape` 参数类型外面的符号
+
+```js
+// functionParamsShape: [ "{", "}"] // 默认值
+/**
+ * @description: type包围起来的大括号: {}
+ * @param {number} c
+ * @param {string} b
+ * @return {type}
+ */
+function test2(c: number, b: string = '2') {}
+// functionParamsShape: [ "[", "]"]
+/**
+ * @description: 
+ * @param [number] c
+ * @param [string] b
+ * @return [type]
+ */
+function test2(c: number, b: string = '2') {}
+```
+
+2. `functionTypeSymbol` 参数没有类型时的默认值
+
+```js
+// "functionTypeSymbol": "*" // 默认值
+/**
+ * @description: 
+ * @param {*} axiosMethods
+ * @param {*} apiLink
+ * @param {*} opts
+ * @param {*} fileName
+ * @return {*}
+ */
+export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+// "functionTypeSymbol": "type"
+/**
+ * @description: 
+ * @param {type} axiosMethods
+ * @param {type} apiLink
+ * @param {type} opts
+ * @param {type} fileName
+ * @return {type}
+ */
+export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+```
+3. `typeParamOrder` 参数类型 和 参数的位置自定义
+
+```js
+// "typeParamOrder": "type param" // 默认值
+/**
+ * @description: 类型在前面 参数在后面
+ * @param {type} axiosMethods
+ * @param {type} apiLink
+ * @param {type} opts
+ * @param {type} fileName
+ * @return {type}
+ */
+export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+// "typeParamOrder": "param type"
+/**
+ * @description: 参数在前面 类型在后面 
+ * @param axiosMethods {type}
+ * @param apiLink {type}
+ * @param opts {type}
+ * @param fileName {type}
+ * @return {type}
+ */
+export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+```
+
+
+* feat: `FilePath`增加单独文件name [#322](https://github.com/OBKoro1/koro1FileHeader/issues/321)。
+
+```js
+// 配置
+"fileheader.customMade": {
+  // 头部注释模板其他选项
+  "FilePath": "only file name", // 只有文件名
+},
+// 头部注释效果
+/*
+ * Author       : OBKoro1
+ * Date         : 2020-07-03 14:50:17
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-06-28 11:37:25
+ * FilePath     : function.js
+ * Description  :  FilePath没有路径只有文件名
+ * Copyright (c) 2021 by OBKoro1, All Rights Reserved. 
+ */
+```
+* fix: 修复自定义冒号和@符号使用文件后缀失效的问题 [#328](https://github.com/OBKoro1/koro1FileHeader/issues/328)。
+* fix: 修复C++按照谷歌编程格式函数无法提取参数的问题 [#325](https://github.com/OBKoro1/koro1FileHeader/issues/325)
+* fix: 修复箭头函数async函数参数提取问题 [#335](https://github.com/OBKoro1/koro1FileHeader/issues/335)
 
 ### [V4.8.12]
 

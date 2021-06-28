@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 14:12:39
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-06-28 14:28:51
  * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
@@ -22,7 +22,6 @@ class FunctionParams {
    * return {type}
    */
   init (option) {
-    console.log('option', option)
     this.option = option
     this.match = false
     this.paramsData = this.option.data
