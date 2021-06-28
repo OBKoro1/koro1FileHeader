@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-05-18 15:05:45
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-06-28 17:38:37
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -98,7 +98,7 @@ class FunctionTplStr {
     // 注释是参数和返回值的话 多加一个参数的属性
     if (key.startsWith('param') || key.startsWith('return')) {
       obj.type = 'fnMiddle_param'
-      obj.typeVal = '{*}'
+      obj.typeVal = this.getTypeVal()
       if (key.startsWith('param')) {
         return this.paramsHandle(obj)
       }
@@ -107,28 +107,43 @@ class FunctionTplStr {
     return new LanguageDifferent(obj).res
   }
 
-  paramsShape (item) {
-    const functionParamsShape = this.config.configObj.functionParamsShape
+  // 拼接type和param参数
+  getTypeVal (item = {}) {
+    let functionParamsShape = this.config.configObj.functionParamsShape
+    const typeParamOrder = this.config.configObj.typeParamOrder
+    let functionTypeSymbol = item.type
+
+    // 不要方括号
     if (functionParamsShape === 'no bracket') {
-      // 不要方括号
-      return `${item.type} ${item.param}`
-    } else if (functionParamsShape === 'no type') {
-      // 不要类型捕获
+      functionParamsShape = ['', '']
+    }
+    // 当没有type时的默认type
+    if (item.type === undefined || item.type === '*') {
+      functionTypeSymbol = this.config.configObj.functionTypeSymbol
+    }
+    const typeVal = `${functionParamsShape[0]}${functionTypeSymbol}${functionParamsShape[1]}`
+    // 默认值没有匹配到param
+    if (item.type === undefined && item.param === undefined) {
+      return typeVal
+    }
+    // 配置不要类型捕获
+    if (functionParamsShape === 'no type') {
       return `${item.param}`
-    } else {
-      // 正常 都有
-      return `{${item.type}} ${item.param}`
+    }
+    if (typeParamOrder === 'type param') {
+      return `${typeVal} ${item.param}`
+    } else if (typeParamOrder === 'param type') {
+      return `${item.param} ${typeVal}`
     }
   }
 
   // 合成参数
   paramsHandle (obj) {
-    // 识别到参数
     const paramArr = this.data[obj.key]
     if (Array.isArray(paramArr)) {
       let params = ''
       paramArr.forEach((item) => {
-        obj.typeVal = this.paramsShape(item)
+        obj.typeVal = this.getTypeVal(item)
         const str = new LanguageDifferent(obj).res
         params += str
       })
