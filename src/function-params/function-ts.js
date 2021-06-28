@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 17:45:39
+ * LastEditTime : 2021-06-28 13:57:39
  * File         : \koro1FileHeader\src\function-params\function-ts.js
  * Description  : js语言获取函数参数
  */
@@ -35,7 +35,7 @@ class GetParams {
   matchProcess () {
     const matchObj = {
       matchFunction: 2,
-      arrowFunction: 2,
+      arrowFunction: 3,
       matchClassFunction: 3,
       matchObjFunction: 2
     }
@@ -56,7 +56,7 @@ class GetParams {
   // 箭头函数
   arrowFunction () {
     // 函数名 匹配可能的类型声明和泛型等 匹配= 匹配参数和其他的匹配=>
-    const reg = /([A-Za-z_]\w*?)\s*[^=]*=\s*\(?(.+)\)?.*=>/
+    const reg = /([A-Za-z_]\w*?)\s*[^=]*=\s*(async)?\s*\(?(.+)\)?.*=>/
     return reg.exec(this.text)
   }
 
