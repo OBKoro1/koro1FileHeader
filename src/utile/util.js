@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-05-21 15:15:56
+ * LastEditors  OBKoro1
+ * LastEditTime 2021-06-28 16:13:16
  */
 
 const vscode = require('vscode')
@@ -197,7 +197,17 @@ const getColon = (options) => {
     return ''
   }
   const [constName, objName] = obj[options.symbolName]
-  let arr = config.configObj[objName][options.fileEnd] // 文件后缀是否设置
+  let arr
+  // 文件语言
+  if (options.fileEnd !== '') {
+    arr = config.configObj[objName][options.fileEnd]
+  }
+  // 说明没有找到语言后缀 找一下文件后缀
+  if (arr === undefined) {
+    const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
+    const fsName = fsPathFn(editor.document.uri.fsPath) // 文件后缀
+    arr = config.configObj[objName][fsName]
+  }
   if (arr === undefined) {
     // 没值 采用所有文件后缀的默认值
     arr = config.configObj[constName]

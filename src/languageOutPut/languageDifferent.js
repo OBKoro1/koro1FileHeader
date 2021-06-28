@@ -65,7 +65,7 @@ TplJudge.prototype = {
   },
   initConfig: function (obj = {}) {
     this.obj = obj
-    this.setSymbol(obj)
+    this.setSymbol(obj.fileEnd)
     this.vscode = require('vscode')
     const editor = this.vscode.editor || this.vscode.window.activeTextEditor // 每次运行选中文件
     this.config = this.vscode.workspace.getConfiguration('fileheader') // 配置项默认值
@@ -97,17 +97,15 @@ TplJudge.prototype = {
     )
   },
   // 设置@符号和冒号
-  setSymbol (obj) {
-    if (obj.fileEnd) {
-      const options = {
-        symbolName: 'atSymbol',
-        fileEnd: this.obj.fileEnd,
-        getValueType: 'arr'
-      }
-      this.atSymbol = util.getColon(options)
-      options.symbolName = 'colon'
-      this.colon = util.getColon(options)
+  setSymbol (fileEnd = '') {
+    const options = {
+      symbolName: 'atSymbol',
+      fileEnd: fileEnd || '',
+      getValueType: 'arr'
     }
+    this.atSymbol = util.getColon(options)
+    options.symbolName = 'colon'
+    this.colon = util.getColon(options)
   },
   /**
    * @description: 用户自定义语言注释符号和未设置下的默认注释符号
