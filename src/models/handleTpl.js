@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-12 11:29:09
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-01 16:14:09
- * FilePath     : \koro1FileHeader\src\models\handleTpl.js
+ * LastEditTime : 2021-07-01 20:24:04
+ * FilePath     : handleTpl.js
  * Description  : 已经生成注释模板，处理模板
  * https://github.com/OBKoro1
  */
@@ -43,7 +43,7 @@ const handleTplFn = (tpl, fsPath, config, fileEnd) => {
  */
 function editLineFn (fsPath, config) {
   let fileEnd = util.fsPathFn(fsPath) // 文件后缀
-  const isSpecial = util.specialLanguageFn(fsPath, config)
+  const isSpecial = util.specialLanguageFn(fsPath)
   // 特殊文件
   if (isSpecial) {
     fileEnd = isSpecial

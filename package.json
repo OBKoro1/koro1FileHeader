@@ -171,6 +171,7 @@
             "headDesignName": "random",
             "headDesign": false,
             "cursorModeInternal": false,
+            "cursorModeInternalAll": {},
             "openFunctionParamsCheck": true,
             "functionParamsShape": ["{", "}"],
             "functionBlankSpace": 0,

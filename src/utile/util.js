@@ -2,8 +2,8 @@
  * @Description: 公共函数
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
- * LastEditors  OBKoro1
- * LastEditTime 2021-06-28 16:13:16
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-07-01 20:44:13
  */
 
 const vscode = require('vscode')
@@ -103,7 +103,7 @@ const fileEndMatch = (fileEnd) => {
 function userLanguageFn (config, fileEnd, fsName, fsPath) {
   // 特殊文件
   const language = config.configObj.language // 自定义语言项
-  const isSpecial = specialLanguageFn(fsPath, config)
+  const isSpecial = specialLanguageFn(fsPath)
   if (isSpecial) {
     return {
       fileEnd: isSpecial,
@@ -156,11 +156,12 @@ function matchProperty (matchObj, matchStr) {
 }
 
 // 项目使用特殊库/规则，导致文件语言跟注释形式不匹配 如：变量.blade.php与test.php的注释不同
-function specialLanguageFn (fsPath, config) {
-  config = config.configObj.language // 自定义语言项
+function specialLanguageFn (fsPath, name = 'language') {
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项
+  const options = config.configObj[name]
   const pathArr = fsPath.split('/')
   const fileName = pathArr[pathArr.length - 1] // 取/最后一位
-  Object.keys(config).forEach((item) => {
+  Object.keys(options).forEach((item) => {
     if (item.indexOf('.') !== -1) {
       // 限制key包含. fileName包含key fileName与key不等(变量.后缀.后缀)
       if (fileName.indexOf(item) !== -1 && fileName !== item) {

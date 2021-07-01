@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-30 10:17:42
+ * LastEditTime : 2021-07-01 21:00:42
  * FilePath     : CHANGELOG.md
  * Description  :
 -->
@@ -12,6 +12,20 @@
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 ### [V4.8.14]
+
+* feat: `cursorModeInternalAll`用于根据不同的文件、语言类型来配置在函数内或者函数外添加注释。
+```js
+"fileheader.configObj": {
+  // ... 其他配置
+  // "cursorModeInternal": false // 这个默认值被defaultSetting给替代了 设置了defaultSetting 不设置该值也没关系
+  "cursorModeInternalAll": {
+    "ts": true, // ts文件后缀是函数内生成函数注释
+    "js": false, // js文件后缀是在函数外生成函数注释
+    "python": true, // python语言类型文件时在函数内生成函数注释
+    "defaultSetting": false // 默认是在函数外生成注释
+  },
+}
+```
 
 * fix: 修复`functionParamsShape`的兼容问题。
 
