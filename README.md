@@ -12,7 +12,7 @@
     <img alt="持续维护" src="https://img.shields.io/badge/2018年开源-持续维护-blue">
 </a>
 <a href="https://github.com/OBKoro1/koro1FileHeader/releases">
-    <img alt="cicd-MIT" src="https://img.shields.io/badge/版本打包-release-blue">
+    <img alt="cicd" src="https://img.shields.io/badge/版本打包-release-blue">
 </a>
 <a href="https://github.com/OBKoro1/koro1FileHeader/blob/master/LICENSE">
     <img alt="开源协议-MIT" src="https://img.shields.io/badge/license-MIT-blue">
