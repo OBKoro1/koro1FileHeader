@@ -1,7 +1,24 @@
 # koroFileHeader 
 
-> 在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,灵活方便，文档齐全，食用简单！觉得插件不错的话，就给个[Star](https://github.com/OBKoro1/koro1FileHeader)⭐️吧~
 
+
+<a href="https://github.com/OBKoro1/koro1FileHeader">
+    <img alt="koro1FileHeader Repo stars" src="https://img.shields.io/github/stars/OBKoro1/koro1FileHeader">
+</a>
+<a href="https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5">
+    <img alt="wiki文档详细" src="https://img.shields.io/badge/wiki文档-齐全详细-blue">
+</a>
+<a href="https://github.com/OBKoro1/koro1FileHeader/wiki/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97">
+    <img alt="持续维护" src="https://img.shields.io/badge/2018年开源-持续维护-blue">
+</a>
+<a href="https://github.com/OBKoro1/koro1FileHeader/releases">
+    <img alt="cicd-MIT" src="https://img.shields.io/badge/版本打包-release-blue">
+</a>
+<a href="https://github.com/OBKoro1/koro1FileHeader/blob/master/LICENSE">
+    <img alt="开源协议-MIT" src="https://img.shields.io/badge/license-MIT-blue">
+</a>
+
+在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,灵活方便，文档齐全，食用简单！觉得插件不错的话，就给个[Star](https://github.com/OBKoro1/koro1FileHeader)⭐️吧~
 ### 使用效果：
 
 **头部注释和注释图案**
