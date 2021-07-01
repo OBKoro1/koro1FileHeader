@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 23:18:56
- * FilePath     : /koro1FileHeader/CHANGELOG.md
+ * LastEditTime : 2021-06-30 10:17:42
+ * FilePath     : CHANGELOG.md
  * Description  :
 -->
 
@@ -11,6 +11,9 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+### [V4.8.14]
+
+* fix: 修复`functionParamsShape`的兼容问题。
 
 ### [V4.8.13]
 
