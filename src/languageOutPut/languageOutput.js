@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 17:38:37
+ * LastEditTime : 2021-06-30 10:09:05
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -116,6 +116,8 @@ class FunctionTplStr {
     // 不要方括号
     if (functionParamsShape === 'no bracket') {
       functionParamsShape = ['', '']
+    } else if (functionParamsShape === 'normal') {
+      functionParamsShape = ['{', '}']
     }
     // 当没有type时的默认type
     if (item.type === undefined || item.type === '*') {
