@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-30 10:09:05
+ * LastEditTime : 2021-07-25 13:33:40
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -11,6 +11,7 @@ const vscode = require('vscode')
 const handleError = require('../logic/handleError')
 const global = require('../utile/CONST')
 const util = require('../utile/util')
+const logicUtil = require('../utile/logicUtil')
 
 // 头部注释中间部分生成
 const middleTpl = (data, fileEnd, config) => {
@@ -63,7 +64,8 @@ class FunctionTplStr {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     // 加上用户设置的长度
-    lineSpace = lineSpace + this.config.configObj.functionBlankSpace
+    const functionBlankSpace = logicUtil.getLanguageOrFileSetting('functionBlankSpaceAll', 'functionBlankSpace', 0)
+    lineSpace = lineSpace + functionBlankSpace
     this.str = ''.padStart(lineSpace) // 函数注释每行前面的空格
     this.strContent = '' // 中间模板部分的字符
     this.data = data
