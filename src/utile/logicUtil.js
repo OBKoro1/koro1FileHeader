@@ -109,9 +109,10 @@ const getLanguageSymbol = (fileEnd) => {
  * @description: 获取用户设置当前文件的语言/文件后缀 对应的配置，没有的话就用全局配置
  * @param optionsName 某项配置比如 language语言设置
  * @param globalSetting 该项配置的全局默认配置
+ * @param default 参数没找到的默认值
  * @return options
  */
-function getLanguageOrFileSetting (optionsName = '', globalSetting = '') {
+function getLanguageOrFileSetting (optionsName = '', globalSetting = '', defaultValue) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
   const languageId = editor.document.languageId
@@ -134,7 +135,11 @@ function getLanguageOrFileSetting (optionsName = '', globalSetting = '') {
     if (defaultSetting) {
       return defaultSetting
     } else {
-      return config.configObj[globalSetting]
+      const res = config.configObj[globalSetting]
+      if (res) {
+        return res
+      }
+      return defaultValue // 找不到值就返回这个值的默认值
     }
   }
 }
