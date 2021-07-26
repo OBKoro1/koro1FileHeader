@@ -11,6 +11,8 @@
 const languageOutput = require('../languageOutPut/languageOutput')
 const CONST = require('../utile/CONST')
 const filePathLogic = require('../logic/filePath')
+const logicUtil = require('../utile/logicUtil')
+const util = require('../utile/util')
 
 /**
  * @description: 保存时触发修改 替换最后编辑时间 最后修改时间 文件路径
@@ -36,13 +38,20 @@ function saveReplaceTime (document, config, fileEnd) {
   const totalLine = document.lineCount - 1 // 总行数
   let enter = false
   let hasAnnotation = false // 默认没有
+  // 获取文件的@符号精准判断
+  const options = {
+    symbolName: 'atSymbol',
+    fileEnd: fileEnd || '',
+    getValueType: 'head'
+  }
+  const atSymbol = util.getColon(options)
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false // 已经找到要替换的
     const userSetName = config.configObj.specialOptions[name]
-    const reg = new RegExp(`[\\s\\W]?${name}[\\W\\s]`, 'g')
+    const reg = new RegExp(`[\\s\\W]?${atSymbol}${name}[\\W\\s]`, 'g')
     if (userSetName) {
-      const regUser = new RegExp(`[\\s\\W]?${userSetName}[\\W\\s]`, 'g')
+      const regUser = new RegExp(`[\\s\\W]?${atSymbol}${userSetName}[\\W\\s]`, 'g')
       if (!regUser.test(line)) {
         // 没有检测用户自己更改的 再检测特殊变量
         return reg.test(line)
@@ -68,7 +77,13 @@ function saveReplaceTime (document, config, fileEnd) {
     const line = linetAt.text.trim()
     if (!enter) {
       // 判断进入注释
-      if (annotationStarts === line || annotationStarts === lineNoTrim) {
+      if (logicUtil.noLinkHeadEnd(fileEnd, 'head')) {
+        // 没有head 和end 判断是否以中间部分开头
+        if (line.startsWith(annotationStarts)) {
+          enter = true
+        }
+      } else if (annotationStarts === line || annotationStarts === lineNoTrim) {
+        // 正常情况判断头部
         enter = true
       }
     } else {

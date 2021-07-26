@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-25 13:33:40
+ * LastEditTime : 2021-07-25 16:49:02
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -38,6 +38,7 @@ const middleTpl = (data, fileEnd, config) => {
 const headNotes = (data, fileEnd, config) => {
   try {
     const str = middleTpl(data, fileEnd, config)
+    if (logicUtil.noLinkHeadEnd(fileEnd, 'head')) return str
     // 头部 中间模板 尾部合并
     const obj = {
       fileEnd,
@@ -64,7 +65,11 @@ class FunctionTplStr {
     this.fileEnd = fileEnd
     this.nextLine = nextLine
     // 加上用户设置的长度
-    const functionBlankSpace = logicUtil.getLanguageOrFileSetting('functionBlankSpaceAll', 'functionBlankSpace', 0)
+    const functionBlankSpace = logicUtil.getLanguageOrFileSetting({
+      optionsName: 'functionBlankSpaceAll',
+      globalSetting: 'functionBlankSpace',
+      defaultValue: 0
+    })
     lineSpace = lineSpace + functionBlankSpace
     this.str = ''.padStart(lineSpace) // 函数注释每行前面的空格
     this.strContent = '' // 中间模板部分的字符
@@ -78,7 +83,11 @@ class FunctionTplStr {
       Object.keys(this.data).forEach((key) => {
         this.strContent += this.paramStr(key)
       })
-      this.tpl = this.mergeStr()
+      if (logicUtil.noLinkHeadEnd(this.fileEnd, 'function')) {
+        this.tpl = this.strContent
+      } else {
+        this.tpl = this.mergeStr()
+      }
       return util.replaceSymbolStr(this.tpl, this.fileEnd, 'fn')
     } catch (err) {
       handleError.showErrorMessage('fileHeader: headerAnnotation', err)
@@ -156,6 +165,7 @@ class FunctionTplStr {
     return new LanguageDifferent(obj).res
   }
 
+  // 函数注释处理头尾字符串
   mergeStr () {
     const obj = {
       isFunctionAnnotation: true, // 函数注释
@@ -188,6 +198,10 @@ class ChangeFont {
     const obj = {
       fileEnd: this.fileEnd,
       type: 'annotationStarts'
+    }
+    // 没有head 和end 获取中间部分
+    if (logicUtil.noLinkHeadEnd(this.fileEnd, 'head')) {
+      obj.type = 'annotationStartsNoHead'
     }
     return new LanguageDifferent(obj).res
   }

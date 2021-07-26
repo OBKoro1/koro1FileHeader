@@ -107,12 +107,13 @@ const getLanguageSymbol = (fileEnd) => {
 
 /**
  * @description: 获取用户设置当前文件的语言/文件后缀 对应的配置，没有的话就用全局配置
- * @param optionsName 某项配置比如 language语言设置
- * @param globalSetting 该项配置的全局默认配置
- * @param default 参数没找到的默认值
+ * @param options.optionsName 某项配置比如 language语言设置
+ * @param options.globalSetting 该项配置的全局默认配置
+ * @param options.defaultValue 参数没找到的默认值
  * @return options
  */
-function getLanguageOrFileSetting (optionsName = '', globalSetting = '', defaultValue) {
+function getLanguageOrFileSetting (options) {
+  const { optionsName, globalSetting = '', defaultValue } = options
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
   const languageId = editor.document.languageId
@@ -144,7 +145,31 @@ function getLanguageOrFileSetting (optionsName = '', globalSetting = '', default
   }
 }
 
+/**
+ * @description: 函数注释与头部注释 是否需要头部和尾部
+ * @param type [string] 'function' | 'head'
+ * @return [boolean]
+ */
+function noLinkHeadEnd (fileEnd, type) {
+  if (!fileEnd.userLanguage) return false
+  const customHasHeadEnd = getLanguageOrFileSetting({
+    optionsName: 'customHasHeadEnd',
+    defaultValue: '' // 只要不为取消 即使用
+  })
+  if (customHasHeadEnd === 'cancel head and function') {
+    return true
+  }
+  if (type === 'function' && customHasHeadEnd === 'cancel function') {
+    return true
+  }
+  if (type === 'head' && customHasHeadEnd === 'cancel head') {
+    return true
+  }
+  return false // 链接头尾
+}
+
 module.exports = {
+  noLinkHeadEnd,
   sameLengthFn,
   changePrototypeNameFn,
   getAnnotationTemplate,

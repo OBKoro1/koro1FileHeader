@@ -130,6 +130,8 @@ TplJudge.prototype = {
       topHeadEnd_nextLineNo: `${obj.str}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}\r\n`,
       topHeadEnd_nextLineYes: `${obj.str}${this.annotationSymbol.head}\r\n${obj.strContent}${obj.str}${this.annotationSymbol.end}`,
       annotationStarts: `${this.annotationSymbol.head}`,
+      // 没有头部和尾部的情况 使用中间
+      annotationStartsNoHead: `${this.annotationSymbol.middle}`,
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
         this.colon[1]
       }${new Date().format()}`,

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-24 16:56:54
+ * LastEditTime : 2021-07-25 15:04:06
  * FilePath     : logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -61,7 +61,11 @@ const lineSpaceFn = (editor, config) => {
     lineProperty = editor.document.lineAt(nextLine)
     lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
   } else {
-    const cursorModeInternal = logicUtil.getLanguageOrFileSetting('cursorModeInternalAll', 'cursorModeInternal', false)
+    const cursorModeInternal = logicUtil.getLanguageOrFileSetting({
+      optionsName: 'cursorModeInternalAll',
+      globalSetting: 'cursorModeInternal',
+      defaultValue: false
+    })
     // 当前行有内容 是否想生成在函数内部
     if (cursorModeInternal) {
       activeLine = activeLine + 1
