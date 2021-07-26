@@ -2,7 +2,7 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-26 17:40:38
+ * LastEditTime : 2021-07-26 20:25:52
  * FilePath     : fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
@@ -28,11 +28,11 @@ function watchSaveFn () {
     try {
       const repealChange = new RepealChange(config.configObj.CheckFileChange)
       if (repealChange.resetFile) return
-      if (file.fileName === fileName) {
+      if (file.document.fileName === fileName) {
         // 同一个文件操作 节流
         intervalVal = util.throttle(6666, intervalVal, documentSaveFn, config, editor)()
       } else {
-        fileName = file.fileName // 保存上次编辑的文件
+        fileName = file.document.fileName // 保存上次编辑的文件
         documentSaveFn(config, editor)
       }
     } catch (err) {
