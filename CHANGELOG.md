@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-26 17:43:14
+ * LastEditTime : 2021-07-26 19:42:32
  * FilePath     : CHANGELOG.md
  * Description  :
 -->
@@ -11,11 +11,17 @@
 
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
+## 文档
+
+[配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
+
+[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
 ### [V4.8.15]
 
-- feat: `customHasHeadEnd`自定义语言注释，自定义取消 head、end 部分。
+- feat: [customHasHeadEnd](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%96%E6%B6%88%E6%B3%A8%E9%87%8A%E7%9A%84head%E5%92%8Cend%E9%83%A8%E5%88%86)自定义语言注释，自定义取消 head、end 部分。
 
-**注意该配置只在自定义语言注释`language`中生效**
+**注意该配置只在自定义语言注释`language`也配置了，才会生效**
 
 ```js
 // 配置示例
@@ -67,7 +73,7 @@
 function updateFillBuilderYAML(option) {}
 ```
 
-- feat: `functionBlankSpaceAll`函数缩进长度控制不同文件、语言类型。
+- feat: [functionBlankSpaceAll](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E6%B3%A8%E9%87%8A%E7%A9%BA%E6%A0%BC%E7%BC%A9%E8%BF%9B)函数缩进长度控制不同文件、语言类型。
 
 ```js
 // 配置示例
@@ -111,7 +117,7 @@ def printinfo( arg1, **vardict ):
 
 ### [V4.8.14]
 
-- feat: `cursorModeInternalAll`用于根据不同的文件、语言类型来配置在函数内或者函数外添加注释。
+- feat: [cursorModeInternalAll](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%87%BD%E6%95%B0%E5%86%85%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0%E6%B3%A8%E9%87%8A)用于根据不同的文件、语言类型来配置在函数内或者函数外添加注释。
 
 ```js
 "fileheader.configObj": {
