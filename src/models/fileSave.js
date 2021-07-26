@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-03-27 18:33:09
- * FilePath     : \koro1FileHeader\src\models\fileSave.js
+ * LastEditTime : 2021-07-26 17:40:38
+ * FilePath     : fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
  */
@@ -25,22 +25,19 @@ function watchSaveFn () {
     if (!file.document.isDirty) return // 文件没有修改 不操作
     const editor = vscode.editor || vscode.window.activeTextEditor
     const config = vscode.workspace.getConfiguration('fileheader')
-    // 先保存本次编辑 再查看文件的修改
-    file.document.save().then(() => {
-      try {
-        const repealChange = new RepealChange(config.configObj.CheckFileChange)
-        if (repealChange.resetFile) return
-        if (file.fileName === fileName) {
-          // 同一个文件操作 节流
-          intervalVal = util.throttle(6666, intervalVal, documentSaveFn, config, editor)()
-        } else {
-          fileName = file.fileName // 保存上次编辑的文件
-          documentSaveFn(config, editor)
-        }
-      } catch (err) {
-        handleError.showErrorMessage('fileHeader: watchSaveFn', err)
+    try {
+      const repealChange = new RepealChange(config.configObj.CheckFileChange)
+      if (repealChange.resetFile) return
+      if (file.fileName === fileName) {
+        // 同一个文件操作 节流
+        intervalVal = util.throttle(6666, intervalVal, documentSaveFn, config, editor)()
+      } else {
+        fileName = file.fileName // 保存上次编辑的文件
+        documentSaveFn(config, editor)
       }
-    })
+    } catch (err) {
+      handleError.showErrorMessage('fileHeader: watchSaveFn', err)
+    }
   })
 }
 
