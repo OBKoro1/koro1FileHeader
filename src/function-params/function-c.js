@@ -47,13 +47,16 @@ class GetParams {
     const paramsArr = [] // 参数列表
     // 可能的空格 匹配类型声明 至少2个字符以上 至少一个必须的空格 参数名 匹配一切除了逗号
     // eslint-disable-next-line no-useless-escape
-    const reg = /\s*([\w\[\]\.\s*]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
+
+    // const std::map<int, std::vector<std::string>>& xxx
+    // std::function<void (int)>&& foo
+    const reg = /\s*((const\s*)?(\w*::)*\w*(\s*<.*>)?(\s*const)?(\s*(\[.*\]|\*|&)*)(\s*const)?)\s+((\[.*\]|\*|&)*)\s*(\w*)[^,]*/g
     // 捕获函数参数
     while ((res = reg.exec(params))) {
-      if (!res) break
+      if (!res || res[1].length === 0) break
       const obj = {
-        type: res[1],
-        param: res[3]
+        type: res[1] + res[9],
+        param: res[11]
       }
       paramsArr.push(obj)
     }

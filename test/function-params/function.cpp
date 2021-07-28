@@ -23,3 +23,12 @@ int sum(int a, int b=20)
   
   return (result);
 }
+
+// 复杂的函数
+void sort(int[] a, int n, std::function<bool(int, int)>&& cmp)
+{
+   for (int i = 0; i < n; i++)
+      for (int j = i - 1; j >= 0; j--)
+         if (!cmp(a[j], a[i]))
+            swap(a[i], a[j]);
+}
