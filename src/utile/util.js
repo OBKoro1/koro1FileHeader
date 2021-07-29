@@ -193,10 +193,7 @@ const getColon = (options) => {
     atSymbol: ['atSymbol', 'atSymbolObj'],
     colon: ['colon', 'colonObj']
   }
-  // 自定义语言不使用@符号
-  if (options.fileEnd.userLanguage && options.symbolName === 'atSymbol') {
-    return ''
-  }
+
   const [constName, objName] = obj[options.symbolName]
   let arr
   // 文件语言
@@ -222,6 +219,17 @@ const getColon = (options) => {
       arr = [arr, arr]
     }
   }
+  if (options.symbolName === 'atSymbol') {
+  // 自定义语言不使用@符号
+    if (options.fileEnd.userLanguage) {
+      arr = ['', '']
+    }
+    // python没有@
+    if ((options.fileEnd === 'py' || options.fileEnd === 'python')) {
+      arr = ['', '']
+    }
+  }
+
   const getValueTypeOptions = {
     arr: arr, // 数组
     head: arr[0], // 头部
