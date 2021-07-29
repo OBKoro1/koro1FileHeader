@@ -133,9 +133,9 @@ TplJudge.prototype = {
       // 没有头部和尾部的情况 使用中间
       annotationStartsNoHead: `${this.annotationSymbol.middle}`,
       lastTimeStr: `${this.annotationSymbol.middle}${this.LastEditTimeName}${
-        this.colon[1]
+        this.colon[0]
       }${new Date().format()}`,
-      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon[1]}${obj.LastEditors}`
+      LastEditorsStr: `${this.annotationSymbol.middle}${this.LastEditorsName}${this.colon[0]}${obj.LastEditors}`
     }
     return userObj[obj.type]
   },
