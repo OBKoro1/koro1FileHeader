@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-26 19:42:32
+ * LastEditTime : 2021-07-29 18:23:42
  * FilePath     : CHANGELOG.md
  * Description  :
 -->
@@ -16,6 +16,11 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.8.16]
+
+* fix: 修复getColon 获取@没有置空的问题
+* fix: 修复头部注释最后编辑人和最后编辑时间冒号使用错误的问题
 
 ### [V4.8.15]
 
