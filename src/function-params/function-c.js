@@ -42,10 +42,20 @@ class GetParams {
     return reg.exec(this.text)
   }
 
+  // 替换关键字
+  replaceKeyword (params, keywordArr) {
+    keywordArr.forEach(item => {
+      const reg = new RegExp(`\\s*${item}\\s+`, 'g')
+      params = params.replace(reg, '') // 去掉const声明的情况
+    })
+    return params
+  }
+
   parsing (params) {
     let res
     const paramsArr = [] // 参数列表
-    params = params.replace(/\s*const\s*/g, '') // 去掉const声明的情况
+    const keywordArr = ['const', 'struct'] // c ++ 关键字
+    params = this.replaceKeyword(params, keywordArr)
     // 可能的空格 匹配类型声明 至少2个字符以上 至少一个必须的空格 参数名 匹配一切除了逗号
     // eslint-disable-next-line no-useless-escape
     const reg = /\s*([\w\[\]\.\s*]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
