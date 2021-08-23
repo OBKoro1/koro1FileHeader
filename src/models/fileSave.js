@@ -17,24 +17,51 @@ const createAnnotation = require('./createAnnotation')
 const global = require('../utile/CONST')
 const path = require('path')
 
+// 添加文件、LRU更新当前操作文件成最新
+function updateFileNameArr (fileNameArr, fileName) {
+  // 查找文件
+  const index = fileNameArr.findIndex((item) => {
+    return item.fileName === fileName
+  })
+  let item = null
+  if (index !== -1) {
+    item = fileNameArr[index]
+    fileNameArr.splice(index, 1) // 删除
+  } else {
+    // 插入新的元素 维护数组的最大值10个
+    if (fileNameArr.length >= 10) {
+      fileNameArr.shift() // 删除不活跃的文件
+    }
+    item = {
+      lastTime: null, // 上次执行时间
+      fileName // 文件
+    }
+  }
+  // 保持文件的活跃度，更新文件到最末尾
+  fileNameArr.push(item)
+  return fileNameArr
+}
+
 function watchSaveFn () {
-  let intervalVal = null // 保存上次触发时间，用于节流
-  let fileName = '' // 保存操作的文件
+  let fileNameArr = [] // 保存最近操作的文件
   // 文件保存时 触发
-  vscode.workspace.onWillSaveTextDocument(file => {
+  vscode.workspace.onWillSaveTextDocument((file) => {
     if (!file.document.isDirty) return // 文件没有修改 不操作
     const editor = vscode.editor || vscode.window.activeTextEditor
     const config = vscode.workspace.getConfiguration('fileheader')
     try {
       const repealChange = new RepealChange(config.configObj.CheckFileChange)
       if (repealChange.resetFile) return
-      if (file.document.fileName === fileName) {
-        // 同一个文件操作 节流
-        intervalVal = util.throttle(config.configObj.throttleTime, intervalVal, documentSaveFn, config, editor)()
-      } else {
-        fileName = file.document.fileName // 保存上次编辑的文件
-        documentSaveFn(config, editor)
-      }
+      fileNameArr = updateFileNameArr(fileNameArr, file.document.fileName)
+      const lastItem = fileNameArr[fileNameArr.length - 1]
+      // 同一个文件操作 节流
+      lastItem.lastTime = util.throttle(
+        config.configObj.throttleTime,
+        lastItem.lastTime,
+        documentSaveFn,
+        config,
+        editor
+      )()
     } catch (err) {
       handleError.showErrorMessage('fileHeader: watchSaveFn', err)
     }
