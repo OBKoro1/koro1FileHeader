@@ -30,7 +30,7 @@ function watchSaveFn () {
       if (repealChange.resetFile) return
       if (file.document.fileName === fileName) {
         // 同一个文件操作 节流
-        intervalVal = util.throttle(6666, intervalVal, documentSaveFn, config, editor)()
+        intervalVal = util.throttle(config.configObj.throttleTime, intervalVal, documentSaveFn, config, editor)()
       } else {
         fileName = file.document.fileName // 保存上次编辑的文件
         documentSaveFn(config, editor)
