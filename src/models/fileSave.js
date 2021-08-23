@@ -29,7 +29,7 @@ function updateFileNameArr (fileNameArr, fileName) {
     fileNameArr.splice(index, 1) // 删除
   } else {
     // 插入新的元素 维护数组的最大值10个
-    if (fileNameArr.length >= 10) {
+    if (fileNameArr.length >= 30) {
       fileNameArr.shift() // 删除不活跃的文件
     }
     item = {
