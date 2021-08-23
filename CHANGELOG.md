@@ -2,13 +2,12 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-29 18:23:42
+ * LastEditTime : 2021-08-15 17:33:25
  * FilePath     : CHANGELOG.md
  * Description  :
 -->
 
 # 更新日志
-
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 ## 文档
@@ -16,6 +15,44 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.8.17]
+
+* feat: [throttleTime节流时间自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%8A%82%E6%B5%81%E6%97%B6%E9%97%B4%E8%87%AA%E5%AE%9A%E4%B9%89-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E8%A7%A6%E5%8F%91%E4%BF%9D%E5%AD%98%E7%9A%84%E9%A2%91%E7%8E%87), 自定义同一个文件触发保存的频率。
+
+```js
+"fileheader.configObj": {
+    "throttleTime": 60000 // 对同一个文件 需要过1分钟再次修改文件并保存才会更新注释
+}
+```
+
+  一个文件第一次修改内容并保存后，会触发更新注释的最后编辑人，最后编辑时间。
+
+  之后在该文件上进行修改，并且再次保存后，是否更新注释，取决于`throttleTime`所设定的时间。
+
+  当：（当前时间 - 上次执行事件 > throttleTime设定的时间），即触发更新注释函数。
+
+  PS：插件会保存最近30个文件的最后更新注释的时间，并使用LRU算法，在每次更新注释后，会将该文件更新成最新的。
+
+
+  这个配置的意义在于，通过减少触发更新注释的方式，降低撤销更改重新保存后，导致被撤销内容被注释的更新所覆盖的问题 [#358](https://github.com/OBKoro1/koro1FileHeader/issues/358)。
+
+
+* fix: c++ 参数去掉关键字`['const', 'struct']` [#349](https://github.com/OBKoro1/koro1FileHeader/issues/349)、[#325](https://github.com/OBKoro1/koro1FileHeader/issues/325)
+
+```c++
+/**
+ * @description: 
+ * @param t2 [my_type]
+ * @param str [string]
+ * @param str2 [string]
+ * @param t [my_type]
+ * @return [type]
+ */
+void test(struct my_type t2, const std::string str, const std::string str2, struct my_type t){
+
+}
+```
 
 ### [V4.8.16]
 
