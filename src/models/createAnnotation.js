@@ -1,8 +1,8 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-05-18 14:58:25
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-11-02 17:08:25
  * @FilePath     : /koro1FileHeader/src/models/createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -73,6 +73,7 @@ const functionAnnotation = () => {
         languageId: editor.document.languageId, // 语言
         lineProperty, // 函数行内容
         fileEnd, // 文件后缀
+        config,
         data // 函数注释模板数据
       }
       matchFunctionParams(config, matchFunctionParamsOptions)
