@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : zfb132
- * LastEditTime : 2021-11-04 18:10:22
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2021-11-02 16:29:13
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
