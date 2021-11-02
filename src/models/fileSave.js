@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:40:32
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-26 20:25:52
- * FilePath     : fileSave.js
+ * LastEditTime : 2021-11-01 21:35:45
+ * FilePath     : /koro1FileHeader/src/models/fileSave.js
  * Description: 文件保存时触发
  * https://github.com/OBKoro1
  */
@@ -50,8 +50,6 @@ function watchSaveFn () {
     const editor = vscode.editor || vscode.window.activeTextEditor
     const config = vscode.workspace.getConfiguration('fileheader')
     try {
-      const repealChange = new RepealChange(config.configObj.CheckFileChange)
-      if (repealChange.resetFile) return
       fileNameArr = updateFileNameArr(fileNameArr, file.document.fileName)
       const lastItem = fileNameArr[fileNameArr.length - 1]
       // 同一个文件操作 节流
@@ -113,6 +111,11 @@ function documentSaveFn (config, editor) {
   setTimeout(() => {
     try {
       autoAdd()
+      // 异步等文件被保存过后 再读取diff
+      const repealChange = new RepealChange(config.configObj.CheckFileChange)
+      if (repealChange.resetFile) {
+        console.log('文件未更改 恢复')
+      }
     } catch (err) {
       handleError.showErrorMessage('fileHeader: documentSaveFn', err)
     }
