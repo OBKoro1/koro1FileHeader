@@ -23,3 +23,30 @@ int sum(int a, int b=20)
   
   return (result);
 }
+
+/**
+ * @description
+ * @param {const} vector
+ * @param {int} begNumber
+ * @param {int} addNumber
+ * @param {double} offsetZ
+ * @return {*}
+ */
+void addOH(const vector<tuple<double, double, double> >& data, vector& dataStr, int begNumber, int addNumber, double offsetZ, vector<bool>& book){}
+
+
+/**
+ * description: 
+ * param temp [string&]
+ * return [type]
+ */
+void test(const std::string& temp) {
+}
+
+/**
+ * description: 
+ * param temp [string*]
+ * return [type]
+ */
+void test2(const std::string* temp) {
+}
