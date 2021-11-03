@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-02 16:29:13
+ * LastEditTime : 2021-11-03 15:16:56
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -108,10 +108,15 @@ class FunctionTplStr {
     obj.type = 'fnMiddle_key'
     // 注释是参数和返回值的话 多加一个参数的属性
     if (key.startsWith('param') || key.startsWith('return')) {
+      if (this.config.configObj.specialOptions.param && key === 'param') {
+        obj.key = this.config.configObj.specialOptions.param
+      } else if (this.config.configObj.specialOptions.return && key === 'return') {
+        obj.key = this.config.configObj.specialOptions.return
+      }
       obj.type = 'fnMiddle_param'
       obj.typeVal = this.getTypeVal()
       if (key.startsWith('param')) {
-        return this.paramsHandle(obj)
+        return this.paramsHandle(obj, key)
       }
     }
 
@@ -156,8 +161,8 @@ class FunctionTplStr {
   }
 
   // 合成参数
-  paramsHandle (obj) {
-    const paramArr = this.data[obj.key]
+  paramsHandle (obj, key) {
+    const paramArr = this.data[key]
     if (Array.isArray(paramArr)) {
       let params = ''
       paramArr.forEach((item) => {
