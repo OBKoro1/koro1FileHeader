@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-08-15 17:33:25
- * FilePath     : CHANGELOG.md
+ * LastEditTime : 2021-11-04 12:21:10
+ * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
 
@@ -15,6 +15,88 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+<!-- TODO: web网站推荐项目 以及搬上web网站 -->
+
+### [V4.8.18]
+
+* feat: `FilePath`新增`only file name without ext` [取消文件名后缀](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
+* feat: 函数注释关键字`param`和`return`为[特殊字段可自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89) [#377](https://github.com/OBKoro1/koro1FileHeader/issues/377)
+
+```js
+"fileheader.configObj": {
+    "specialOptions": { // 特殊字段自定义
+      "param": "paramAlias", // 别名
+      "return": "returnAlias", // 别名
+    }
+}
+// 效果
+/**
+ * description: 
+ * param2 [type] 字段重命名
+ * return2 [type] 字段重命名
+ */
+function test(a, b) {}
+```
+
+* feat: [自定义语言支持函数参数提取](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%8F%90%E5%8F%96)
+
+```js
+"fileheader.configObj": {
+    // 自定义语言
+    "language": {
+      "tsx": { // jsx后缀的文件
+        "head": "/**",
+        "middle": " * ",
+        "end": "*/",
+        "functionParams": "typescript" // 函数注释使用ts语言的解析逻辑
+      }
+    }
+}
+```
+
+使用下列对象的`key`，即可获取对应语言解析函数参数的逻辑。
+
+```js
+// 支持函数注释的语言
+const supportLanguage = {
+  javascript: 'function-js.js',
+  javascriptreact: 'function-js.js', // react jsx
+  vue: 'function-js.js', // vue
+  html: 'function-js.js', // html
+  typescript: 'function-ts.js', // ts
+  typescriptreact: 'function-ts.js', // react tsx
+  java: 'function-java.js', // java
+  python: 'function-python.js', // py
+  rust: 'function-rust.js', // rust
+  go: 'function-go.js', // go
+  c: 'function-c.js',
+  cpp: 'function-c.js',
+  php: 'function-php.js',
+  solidity: 'function-solidity.js' // 智能合约的语言
+}
+```
+
+* feat: 支持`solidity`智能合约语言 [#365](https://github.com/OBKoro1/koro1FileHeader/issues/365)
+
+ps: vscode本身不支持`solidity`,需要安装`solidity`插件来支持该语言，而后才能开启函数注释。
+
+```js
+/**
+ * description:
+ * param x [uint256]
+ * param y [uint256]
+ * return [type]
+ */
+function multiply(uint256 x, uint256 y) returns (uint256 z) {
+    z = x * y;
+}
+```
+* fix: C++函数注释无法提取带有引用符号&的参数 [#379](https://github.com/OBKoro1/koro1FileHeader/issues/379)
+* fix: 修复文档错误。
+* fix: 修复`Ubuntu`下的快捷键: `ctrl+super+i`、`ctrl+super+t`
+* fix: 修复`functionParamsShape`为`no type`时，函数注释`return`返回值出错的问题 [#382](https://github.com/OBKoro1/koro1FileHeader/issues/382)。
+* fix: 修复文件未保存到系统中，就进行读取diff，导致diff重置不准的问题
 
 ### [V4.8.17]
 

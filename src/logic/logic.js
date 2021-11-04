@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-25 15:04:06
+ * LastEditTime : 2021-11-04 20:21:34
  * FilePath     : logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -30,7 +30,7 @@ const userSet = (config) => {
       Date: '',
       LastEditTime: '',
       LastEditors: 'your name',
-      Description: 'In User Settings Edit',
+      Description: '打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE',
       FilePath: ''
     }
   } else {
