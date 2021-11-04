@@ -82,7 +82,7 @@
    * **复制默认配置+修改配置**
    * **重启编辑器生效**
     
-      ![](http://ww1.sinaimg.cn/large/005Y4rCogy1fxa0frvwowj310s0iujwt.jpg)
+      ![](https://github.com/OBKoro1/koro1FileHeader/raw/master/images/seting-muba.jpg?raw=true)
 
     如上设置，生成注释：
 ```js
