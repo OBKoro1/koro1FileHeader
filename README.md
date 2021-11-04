@@ -19,6 +19,14 @@
 </a>
 
 在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,灵活方便，文档齐全，食用简单！觉得插件不错的话，就给个[Star](https://github.com/OBKoro1/koro1FileHeader)⭐️吧~
+
+### 插件主要功能
+
+1. 自动生成，自动更新VSCode文件头部注释 。
+2. 自动生成函数注释，对函数参数自动提取并输出。
+3. 支持所有主流语言,配置灵活方便，文档齐全。
+4. 支持添加佛祖保佑永无bug、神兽护体、甩葱少女等好玩有趣的图像注释
+
 ### 使用效果：
 
 **头部注释和注释图案**
@@ -82,7 +90,7 @@
    * **复制默认配置+修改配置**
    * **重启编辑器生效**
     
-      ![](https://github.com/OBKoro1/koro1FileHeader/raw/master/images/seting-muba.jpg?raw=true)
+      ![](http://ww1.sinaimg.cn/large/005Y4rCogy1fxa0frvwowj310s0iujwt.jpg)
 
     如上设置，生成注释：
 ```js
