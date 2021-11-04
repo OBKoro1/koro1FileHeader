@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 11:36:39
+ * LastEditors  : kent119
+ * LastEditTime : 2021-10-05 10:52:39
  * FilePath     : /koro1FileHeader/src/logic/filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
@@ -22,6 +22,14 @@ const createFilePath = (FilePath) => {
   } else if (FilePath === 'only file name') {
     const arr = fileItemPath.split(path.sep)
     res = arr[arr.length - 1]
+  } else if (FilePath === 'only file name without ext') {
+	  // Remove ext from the file name.
+	  // If the file name is `README.md`, then remove `.md`, output `README`.
+	  // The file name could also be `foo.bar.js`, then remove `.js` and output `foo.bar`.
+    const arr = fileItemPath.split(path.sep)
+    res_ext = arr[arr.length - 1]
+	  const res_arr = res_ext.split('.')
+	  res = res_arr.slice(0, res_arr.length - 1).join('.')
   }
   if (config.configObj.filePathColon !== '路径分隔符替换') {
     // path.sep window: \ mac: /
