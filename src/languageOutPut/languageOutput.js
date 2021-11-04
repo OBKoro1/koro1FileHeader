@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-25 16:49:02
+ * LastEditors  : zfb132
+ * LastEditTime : 2021-11-04 18:10:22
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -135,14 +135,19 @@ class FunctionTplStr {
       functionTypeSymbol = this.config.configObj.functionTypeSymbol
     }
     const typeVal = `${functionParamsShape[0]}${functionTypeSymbol}${functionParamsShape[1]}`
+    // 配置不要类型捕获
+    if (functionParamsShape === 'no type') {
+      // return 没有param
+      if (item.param === undefined) {
+        return ''
+      }
+      return `${item.param}`
+    }
     // 默认值没有匹配到param
     if (item.type === undefined && item.param === undefined) {
       return typeVal
     }
-    // 配置不要类型捕获
-    if (functionParamsShape === 'no type') {
-      return `${item.param}`
-    }
+
     if (typeParamOrder === 'type param') {
       return `${typeVal} ${item.param}`
     } else if (typeParamOrder === 'param type') {
