@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-03 15:16:56
+ * LastEditTime : 2022-01-15 17:54:14
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -157,6 +157,8 @@ class FunctionTplStr {
       return `${typeVal} ${item.param}`
     } else if (typeParamOrder === 'param type') {
       return `${item.param} ${typeVal}`
+    } else if (typeParamOrder === 'param') {
+      return `${item.param}`
     }
   }
 

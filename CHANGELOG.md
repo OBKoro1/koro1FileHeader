@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-04 12:21:10
+ * LastEditTime : 2022-01-18 17:29:07
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -17,6 +17,17 @@
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
 
 <!-- TODO: web网站推荐项目 以及搬上web网站 -->
+
+### [V4.8.19]
+
+* feat: 支持函数参数提取只显示函数参数，不展示type类型
+```js
+"fileheader.configObj": {
+    "typeParamOrder": "param"
+}
+```
+* fix: 修复箭头函数参数的提取错误 #394
+
 
 ### [V4.8.18]
 
