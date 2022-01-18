@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-01-18 17:29:07
+ * LastEditTime : 2022-01-19 00:26:00
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -19,14 +19,28 @@
 <!-- TODO: web网站推荐项目 以及搬上web网站 -->
 
 ### [V4.8.19]
+<!-- TODO:  快速上手 -->
 
-* feat: 支持函数参数提取只显示函数参数，不展示type类型
+* feat: 新增光标移动快捷键，用于函数参数填写时使用（光标移动到下一行的末尾）
+```js
+// 快捷键
+{
+  "command": "koroFileheader.table",
+  "key": "alt+y", // window系统
+  "mac": "cmd+y", // mac
+  "linux": "meta+y", // linux
+  "when": "editorTextFocus"
+}
+```
+* feat: 函数注释参数提取新增支持`tsx`
+* feat: 支持函数参数提取只显示函数参数，不展示type类型, 关联[#397](https://github.com/OBKoro1/koro1FileHeader/issues/397)
 ```js
 "fileheader.configObj": {
     "typeParamOrder": "param"
 }
 ```
-* fix: 修复箭头函数参数的提取错误 #394
+* docs: 常见问题更新。
+* fix: 修复箭头函数参数的提取错误， 关联[#394](https://github.com/OBKoro1/koro1FileHeader/issues/394)
 
 
 ### [V4.8.18]

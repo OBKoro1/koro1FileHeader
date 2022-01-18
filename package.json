@@ -178,7 +178,10 @@
             "headDesign": false,
             "cursorModeInternalAll": {},
             "openFunctionParamsCheck": true,
-            "functionParamsShape": ["{", "}"],
+            "functionParamsShape": [
+              "{",
+              "}"
+            ],
             "functionBlankSpaceAll": {},
             "functionTypeSymbol": "*",
             "typeParamOrder": "type param",
@@ -202,6 +205,11 @@
         "command": "fileheader.errPathSet",
         "title": "设置报错日志储存",
         "category": "errPath"
+      },
+      {
+        "command": "koroFileheader.table",
+        "title": "函数参数输入换行",
+        "category": "table"
       },
       {
         "command": "fileheader.random",
@@ -297,6 +305,13 @@
         "key": "ctrl+alt+i",
         "mac": "ctrl+cmd+i",
         "linux": "ctrl+meta+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "koroFileheader.table",
+        "key": "alt+y",
+        "mac": "cmd+y",
+        "linux": "meta+y",
         "when": "editorTextFocus"
       },
       {

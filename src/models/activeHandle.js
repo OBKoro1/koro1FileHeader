@@ -1,9 +1,9 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:49:37
- * @LastEditors  : OBKoro1
- * @LastEditTime : 2021-02-26 16:44:09
- * @FilePath     : \koro1FileHeader\src\models\activeHandle.js
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2022-01-19 00:17:29
+ * FilePath     : /koro1FileHeader/src/models/activeHandle.js
  * Description: 扩展激活的一些监听等事情
  * https://github.com/OBKoro1
  */
@@ -20,6 +20,20 @@ class ActiveHandle {
     fileSave() // 监听文件保存
     this.createFile()
     this.errPath()
+    this.watchTable()
+  }
+
+  watchTable () {
+    const table = vscode.commands.registerCommand(
+      'koroFileheader.table',
+      () => {
+        const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
+        const activeLine = editor.selection.active.line // 激活行 行号
+        const position = editor.selection.active
+        const newPosition = position.with(activeLine + 1, 10000)
+        editor.selection = new vscode.Selection(newPosition, newPosition)
+      })
+    global.context.subscriptions.push(table)
   }
 
   // 监听用户输入的错误日志地址
