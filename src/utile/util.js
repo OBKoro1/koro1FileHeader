@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-01 20:44:13
+ * LastEditTime : 2022-01-15 17:35:57
  */
 
 const vscode = require('vscode')
@@ -88,7 +88,7 @@ const fileEndMatch = (fileEnd) => {
   }
   // 支持语言
   const obj = {
-    '/^java$|^javascript$|^typescript$|^typescriptreact$|^go$|^cpp$|^php$|^rust$|^dart$|^c$/':
+    '/^java$|^javascript$|^typescript$|^javascriptreact$|^typescriptreact$|^go$|^cpp$|^php$|^rust$|^dart$|^c$/':
       'javascript',
     '/^python$/': 'python',
     '/^lua$/': 'lua',
