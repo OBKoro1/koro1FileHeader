@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 13:49:12
+ * LastEditTime : 2022-01-15 17:42:56
  * FilePath     : /koro1FileHeader/src/function-params/function-js.js
  * Description  : js语言获取函数参数
  */
@@ -54,7 +54,7 @@ class GetParams {
   // 箭头函数
   arrowFunction () {
     // 匹配 a = 参数 => 的形式
-    const reg = /([A-Za-z_]\w*?)\s*=\s*(async)\s*?\(?(.*)\)?\s*=>/
+    const reg = /([A-Za-z_]\w*?)\s*=\s*(async)?\s*?\(?(.*)\)?\s*=>/
     return reg.exec(this.text)
   }
 
