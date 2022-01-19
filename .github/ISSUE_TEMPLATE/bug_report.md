@@ -4,12 +4,22 @@ about: Create a report to help us improve
 
 ---
 
+### 注意！很多问题都可以在[配置字段查看所有配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)中和issue里得到解决！
+### 注意！很多问题都可以在[配置字段查看所有配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)中和issue里得到解决！
+### 注意！很多问题都可以在[配置字段查看所有配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5)中和issue里得到解决！
+
+
+
 ### 注意： 
 
 1. 可以先试一下常见问题中的方法.
 2. 然后搜一搜以前关闭的issue看有没有相似的问题可以帮助解决问题。
 3. 打开`fileheader.configObj.showErrorMessage`看看没有没有报错信息
 4. issue提的越清晰，越容易定位问题/找到bug，越快速的解决问题。 
+
+### 注意！请一定要按照规范来提Issue，这样能更快的得到解决！
+### 注意！请一定要按照规范来提Issue，这样能更快的得到解决！
+### 注意！请一定要按照规范来提Issue，这样能更快的得到解决！
 
 **描述bug(必填)**
 一个清楚而简洁的bug描述。
