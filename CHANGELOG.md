@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-01-19 00:26:00
+ * LastEditTime : 2022-01-21 16:22:21
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -16,10 +16,7 @@
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
 
-<!-- TODO: web网站推荐项目 以及搬上web网站 -->
-
 ### [V4.8.19]
-<!-- TODO:  快速上手 -->
 
 * feat: 新增光标移动快捷键，用于函数参数填写时使用（光标移动到下一行的末尾）
 ```js
@@ -32,14 +29,29 @@
   "when": "editorTextFocus"
 }
 ```
+![](https://github.com/OBKoro1/koro1FileHeader/raw/dev/images/docs/param-description.gif?raw=true)
+
 * feat: 函数注释参数提取新增支持`tsx`
-* feat: 支持函数参数提取只显示函数参数，不展示type类型, 关联[#397](https://github.com/OBKoro1/koro1FileHeader/issues/397)
+* feat: [typeParamOrder](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B-%E5%92%8C-%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89)支持函数参数提取只显示函数参数，不展示type类型, 关联[#397](https://github.com/OBKoro1/koro1FileHeader/issues/397)
 ```js
 "fileheader.configObj": {
     "typeParamOrder": "param"
 }
 ```
-* docs: 常见问题更新。
+```js
+// "typeParamOrder": "param"
+/**
+ * @description: 只有参数 没有类型
+ * @param axiosMethods
+ * @param apiLink
+ * @param opts
+ * @param fileName
+ * @return {type}
+ */
+export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+```
+
+* docs: 文档更新。
 * fix: 修复箭头函数参数的提取错误， 关联[#394](https://github.com/OBKoro1/koro1FileHeader/issues/394)
 
 
