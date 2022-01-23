@@ -5,7 +5,7 @@
 # 打包
 # vsce package
 
-vsce package --yarn # 解决下文报错
+yes | vsce package --yarn # 解决下文报错
 
 # 发布地址: https://marketplace.visualstudio.com/manage/publishers/obkoro1
 
