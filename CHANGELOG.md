@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-01-21 16:22:21
+ * LastEditTime : 2022-02-20 15:08:26
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -15,6 +15,11 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.8.20]
+
+* fix: 佛祖保佑与永不宕机之间是否多了两个空格 [#424](https://github.com/OBKoro1/koro1FileHeader/issues/424)
+
 
 ### [V4.8.19]
 
