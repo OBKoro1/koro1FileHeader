@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-02-12 11:29:09
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-07-01 20:24:04
- * FilePath     : handleTpl.js
+ * LastEditTime : 2022-02-26 17:27:46
+ * FilePath     : /koro1FileHeader/src/models/handleTpl.js
  * Description  : 已经生成注释模板，处理模板
  * https://github.com/OBKoro1
  */
@@ -27,7 +27,11 @@ const handleTplFn = (tpl, fsPath, config, fileEnd) => {
     newTpl = `${option.beforeAnnotation}\n${newTpl}`
   }
   if (option.afterAnnotation) {
-    newTpl = `${newTpl}${option.afterAnnotation}\n`
+    if (option.afterAnnotation === '\n') {
+      newTpl = `${newTpl}${option.afterAnnotation}`
+    } else {
+      newTpl = `${newTpl}${option.afterAnnotation}\n`
+    }
   }
   return {
     newTpl,
