@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:23
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-02 17:29:56
+ * LastEditTime : 2022-02-26 23:52:18
  * File         : \koro1FileHeader\src\function-params\index.js
  * Description  :
  */
@@ -21,7 +21,7 @@ class FunctionParams {
    * option.languageId 文件的语言类型
    * return {type}
    */
-  init (option) {
+  constructor (option) {
     this.option = option
     this.match = false
     this.paramsData = this.option.data

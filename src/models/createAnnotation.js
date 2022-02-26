@@ -2,8 +2,8 @@
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-02 17:08:25
- * @FilePath     : /koro1FileHeader/src/models/createAnnotation.js
+ * LastEditTime : 2022-02-26 23:52:46
+ * FilePath     : /koro1FileHeader/src/models/createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
  */
@@ -110,8 +110,7 @@ const functionAnnotation = () => {
 function matchFunctionParams (config, options) {
   // 匹配参数
   if (config.configObj.openFunctionParamsCheck) {
-    const functionParams = new FunctionParams()
-    functionParams.init(options)
+    const functionParams = new FunctionParams(options)
     if (functionParams.match) {
       return functionParams.paramsData
     }

@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-04 20:21:34
- * FilePath     : logic.js
+ * LastEditTime : 2022-02-26 18:58:03
+ * FilePath     : /koro1FileHeader/src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
@@ -47,31 +47,99 @@ const userSet = (config) => {
  * @return: lineSpace：前面的长度 line:当前行(数字)，nextLine 激活行的下一行是否有内容
  */
 const lineSpaceFn = (editor, config) => {
-  let activeLine = editor.selection.active.line // 激活行 行号
-  let lineProperty = editor.document.lineAt(activeLine) // 激活行内容
-  let lineSpace = lineProperty.firstNonWhitespaceCharacterIndex // 激活行前面的空格
-  let nextLine
-  // 判断当前行有没有内容 决定选择当前行还是下一行的长度
-  if (
-    lineProperty.isEmptyOrWhitespace &&
-    editor.document.lineCount !== activeLine + 1
-  ) {
-    // 选择下一行
-    nextLine = activeLine + 1
-    lineProperty = editor.document.lineAt(nextLine)
-    lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
+  const moreLineObj = isMoreLine(editor)
+  const cursorModeInternal = logicUtil.getLanguageOrFileSetting({
+    optionsName: 'cursorModeInternalAll',
+    globalSetting: 'cursorModeInternal',
+    defaultValue: false
+  })
+  if (moreLineObj) {
+    // 函数参数注释多行逻辑
+    return getMoreLine(cursorModeInternal, editor, moreLineObj, cursorModeInternal)
   } else {
-    const cursorModeInternal = logicUtil.getLanguageOrFileSetting({
-      optionsName: 'cursorModeInternalAll',
-      globalSetting: 'cursorModeInternal',
-      defaultValue: false
-    })
-    // 当前行有内容 是否想生成在函数内部
-    if (cursorModeInternal) {
-      activeLine = activeLine + 1
+    // 函数注释单行逻辑
+    let activeLine = editor.selection.active.line // 激活行 行号
+    let lineProperty = editor.document.lineAt(activeLine) // 激活行内容
+    let lineSpace = lineProperty.firstNonWhitespaceCharacterIndex // 激活行前面的空格
+    let nextLine
+    // 判断当前行有没有内容 决定选择当前行还是下一行的长度
+    if (
+      lineProperty.isEmptyOrWhitespace &&
+    editor.document.lineCount !== activeLine + 1
+    ) {
+    // 选择下一行
+      nextLine = activeLine + 1
+      lineProperty = editor.document.lineAt(nextLine)
+      lineSpace = lineProperty.firstNonWhitespaceCharacterIndex
+    } else {
+      // 当前行有内容 是否想生成在函数内部
+      if (cursorModeInternal) {
+        activeLine = activeLine + 1
+      }
     }
+    return [lineSpace, activeLine, nextLine, lineProperty]
   }
-  return [lineSpace, activeLine, nextLine, lineProperty]
+}
+
+// 多行的生成行号，多行文本合并
+function getMoreLine (cursorModeInternal, editor, moreLineObj) {
+  const lineProperty = getMultilineText(editor, moreLineObj)
+  let activeLine = getFirstLineNoEmpty(editor, moreLineObj)
+  let lineSpace = editor.document.lineAt(activeLine).firstNonWhitespaceCharacterIndex
+  // 函数内生成 获取最后一行的行号和前面的空格 用于生成
+  if (cursorModeInternal) {
+    const endLineNoEmpty = getEndLineNoEmpty(editor, moreLineObj)
+    activeLine = endLineNoEmpty + 1
+    // 最后一行的前面空格
+    lineSpace = editor.document.lineAt(endLineNoEmpty).firstNonWhitespaceCharacterIndex
+  }
+  return [lineSpace, activeLine, undefined, lineProperty]
+}
+// 获取最后一行不为空的行数
+function getEndLineNoEmpty (editor, moreLineObj) {
+  const { startObj, endObj } = moreLineObj
+  const lineNumber = endObj._line
+  for (let i = endObj._line; i >= startObj._line; i--) {
+    const lineProperty = editor.document.lineAt(i)
+    if (!lineProperty.isEmptyOrWhitespace) return i
+  }
+  return lineNumber
+}
+
+// 获取第一行不为空的行数
+function getFirstLineNoEmpty (editor, moreLineObj) {
+  const { startObj, endObj } = moreLineObj
+  const lineNumber = startObj._line
+  for (let i = startObj._line; i <= endObj._line; i++) {
+    const lineProperty = editor.document.lineAt(i)
+    if (!lineProperty.isEmptyOrWhitespace) return i
+  }
+  return lineNumber
+}
+
+// 多行合并成一行
+function getMultilineText (editor, moreLineObj) {
+  const { startObj, endObj } = moreLineObj
+  let text = ''
+  for (let i = startObj._line; i <= endObj._line; i++) {
+    const lineProperty = editor.document.lineAt(i)
+    text += lineProperty._text
+  }
+  return {
+    _text: text
+  }
+}
+
+// 选择多行判断
+function isMoreLine (editor) {
+  const selectionsArr = editor.selections
+  const selectItem = selectionsArr[0]
+  const startObj = selectItem._start
+  const endObj = selectItem._end
+  // 多行返回对象
+  if (startObj._line !== endObj._line) {
+    return { startObj, endObj }
+  }
 }
 
 /**
