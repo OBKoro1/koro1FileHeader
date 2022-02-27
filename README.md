@@ -40,7 +40,13 @@
 
 **函数注释: 自动提取函数参数**
 
+1. 支持主流语言自动提取函数参数
+
 ![koroFileHeader函数参数提取](https://github.com/OBKoro1/koro1FileHeader/blob/master/images/function-params.gif?raw=true)
+
+2. 多行函数参数支持自动提取
+
+![多行函数参数自动提取参数](https://github.com/OBKoro1/koro1FileHeader/blob/dev/images/docs/multiLineParamsCreate.gif?raw=true)
 
 **注释图案**
 

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-02-20 15:08:26
+ * LastEditTime : 2022-02-27 19:30:27
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -18,6 +18,13 @@
 
 ### [V4.8.20]
 
+* feat: 多行函数参数支持选中后按函数注释快捷键自动提取
+  1. 鼠标左键选择多行函数声明区域，函数声明区域尽量精准
+  2. 按生成函数注释快捷键
+
+  ![多行函数参数自动提取参数](https://github.com/OBKoro1/koro1FileHeader/blob/dev/images/docs/multiLineParamsCreate.gif?raw=true)
+  
+* fix:  afterAnnotation只有一个换行，取消自动输入换行 防止换行两次 [#430](https://github.com/OBKoro1/koro1FileHeader/issues/430)
 * fix: 佛祖保佑与永不宕机之间是否多了两个空格 [#424](https://github.com/OBKoro1/koro1FileHeader/issues/424)
 
 
