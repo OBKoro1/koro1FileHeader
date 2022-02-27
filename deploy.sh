@@ -21,7 +21,7 @@ yes | vsce package --yarn # 解决下文报错
 # tag
 # https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE
 
-# git tag -a 'v0.0.12' -m 'tag信息'
+# git tag -a 'v4.8.20' -m 'tag信息'
 # git push origin --tags
 # git tag
 
