@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-01-15 17:54:14
+ * LastEditTime : 2022-03-06 15:37:32
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -108,10 +108,10 @@ class FunctionTplStr {
     obj.type = 'fnMiddle_key'
     // 注释是参数和返回值的话 多加一个参数的属性
     if (key.startsWith('param') || key.startsWith('return')) {
-      if (this.config.configObj.specialOptions.param && key === 'param') {
-        obj.key = this.config.configObj.specialOptions.param
-      } else if (this.config.configObj.specialOptions.return && key === 'return') {
-        obj.key = this.config.configObj.specialOptions.return
+      if (this.config.configObj.specialOptions.param && key.startsWith('param')) {
+        obj.key = util.spaceStringFn(this.config.configObj.specialOptions.param, this.config.functionWideNum)
+      } else if (this.config.configObj.specialOptions.return && key.startsWith('return')) {
+        obj.key = util.spaceStringFn(this.config.configObj.specialOptions.return, this.config.functionWideNum)
       }
       obj.type = 'fnMiddle_param'
       obj.typeVal = this.getTypeVal()

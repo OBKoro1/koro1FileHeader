@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-02-27 19:30:27
+ * LastEditTime : 2022-03-06 15:59:07
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -15,6 +15,10 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.8.21]
+
+* fix: 函数注释特殊字段与函数注释等宽共同使用的问题. [#434](https://github.com/OBKoro1/koro1FileHeader/issues/434)
 
 ### [V4.8.20]
 
