@@ -104,13 +104,16 @@
 
 ![大厂前端需要掌握的能力](https://github.com/OBKoro1/web-basics/blob/main/static/web-basic-example.gif?raw=true)
 
-### 欢迎赞助
+### 用爱发电，求赞助 😭
 
-如果觉得插件还不错，对你有所帮助的话，就请我喝杯水吧~
+开源不易，本插件的开发与维护全都是利用业余时间。
 
-十块八块不嫌多，三块五块也是爱 😘
+开源工作对我来说就是用爱发电，从18年开始在社区开源到现在，可以说基本没有收益。
 
-![](https://github.com/OBKoro1/koro1FileHeader/raw/master/images/money1.jpg?raw=true)
+如果觉得这个效率工具还不错, 对你有所帮助，就赞助支持一下我的工作吧。
+
+<img src="https://raw.githubusercontent.com/OBKoro1/koro1FileHeader/dev/images/pay.jpg" alt="赞助" width="500px" style="display: block;"/>
+
 
 ### License
 
