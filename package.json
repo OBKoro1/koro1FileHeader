@@ -339,6 +339,6 @@
     "vscode": "^1.1.37"
   },
   "dependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.2"
   }
 }
