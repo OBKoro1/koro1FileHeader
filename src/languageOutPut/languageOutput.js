@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-03-06 15:37:32
+ * LastEditTime : 2022-05-01 16:51:05
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -125,23 +125,9 @@ class FunctionTplStr {
 
   // 拼接type和param参数
   getTypeVal (item = {}) {
-    let functionParamsShape = this.config.configObj.functionParamsShape
-    const typeParamOrder = this.config.configObj.typeParamOrder
-    let functionTypeSymbol = item.type
-
-    // 不要方括号
-    if (functionParamsShape === 'no bracket') {
-      functionParamsShape = ['', '']
-    } else if (functionParamsShape === 'normal') {
-      functionParamsShape = ['{', '}']
-    }
-    // 当没有type时的默认type
-    if (item.type === undefined || item.type === '*') {
-      functionTypeSymbol = this.config.configObj.functionTypeSymbol
-    }
-    const typeVal = `${functionParamsShape[0]}${functionTypeSymbol}${functionParamsShape[1]}`
+    const typeVal = this.getTodoType(item)
     // 配置不要类型捕获
-    if (functionParamsShape === 'no type') {
+    if (this.config.configObj.functionParamsShape === 'no type') {
       // return 没有param
       if (item.param === undefined) {
         return ''
@@ -152,7 +138,7 @@ class FunctionTplStr {
     if (item.type === undefined && item.param === undefined) {
       return typeVal
     }
-
+    const typeParamOrder = this.config.configObj.typeParamOrder
     if (typeParamOrder === 'type param') {
       return `${typeVal} ${item.param}`
     } else if (typeParamOrder === 'param type') {
@@ -193,6 +179,28 @@ class FunctionTplStr {
       obj.type = 'topHeadEnd_nextLineYes'
     }
     return new LanguageDifferent(obj).res
+  }
+
+  // 获取注释type [] [*] {item.type}
+  getTodoType (item) {
+    let functionParamsShape = this.config.configObj.functionParamsShape
+    // 不要方括号
+    if (functionParamsShape === 'no bracket') {
+      functionParamsShape = ['', '']
+    } else if (functionParamsShape === 'normal') {
+      functionParamsShape = ['{', '}']
+    }
+    let functionTypeSymbol = item.type
+    // 当没有匹配到type时的默认type 设置type的默认值
+    if (item.type === undefined || item.type === '*') {
+      functionTypeSymbol = this.config.configObj.functionTypeSymbol
+    }
+    let typeVal = `${functionParamsShape[0]}${functionTypeSymbol}${functionParamsShape[1]}`
+    // 匹配到param 但是不需要param时 只显示type 比如: [*] 改成 []
+    if (this.config.configObj.functionTypeSymbol === 'match param no type') {
+      typeVal = `${functionParamsShape[0]}${functionParamsShape[1]}`
+    }
+    return typeVal
   }
 }
 
