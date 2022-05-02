@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : OBKoro1
- * LastEditTime : 2022-05-01 16:51:05
+ * LastEditors  : git config user.name && git config user.email
+ * LastEditTime : 2022-05-02 18:40:34
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -139,12 +139,18 @@ class FunctionTplStr {
       return typeVal
     }
     const typeParamOrder = this.config.configObj.typeParamOrder
+    let res = ''
     if (typeParamOrder === 'type param') {
-      return `${typeVal} ${item.param}`
+      res = `${typeVal} ${item.param}`
     } else if (typeParamOrder === 'param type') {
-      return `${item.param} ${typeVal}`
+      res = `${item.param} ${typeVal}`
     } else if (typeParamOrder === 'param') {
-      return `${item.param}`
+      res = `${item.param}`
+    }
+    // 在type param 后面增加字符串 可能是冒号，方便输入参数描述
+    const functionParamAddStr = this.config.configObj.functionParamAddStr
+    if (functionParamAddStr) {
+      return `${res}${functionParamAddStr}`
     }
   }
 

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : git config user.name && git config user.email
- * LastEditTime : 2022-05-02 18:18:00
+ * LastEditTime : 2022-05-02 18:41:46
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -16,6 +16,33 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的 json 文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.8.23]
+
+* feat: `functionParamAddStr`在`type param`后面增加字符串, 在type param 后面增加字符串 可能是冒号，方便输入参数描述。
+```js
+"fileheader.configObj": {
+  "functionParamAddStr": "" // 默认不增加字符串
+}
+```
+
+示例:
+
+```js
+// "functionParamAddStr": ":"
+/**
+ * @description: 增加冒号 方便输入参数描述
+ * @param {type} a:
+ * @param {type} b:
+ * @param {array} c:
+ * @return {type}
+ */
+function test2 ( a, b, ...c ){
+
+}
+```
+
+
 
 ### [V4.8.22]
 
