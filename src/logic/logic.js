@@ -1,8 +1,9 @@
+/* eslint-disable no-template-curly-in-string */
 /*
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
- * LastEditors  : OBKoro1
- * LastEditTime : 2022-02-26 18:58:03
+ * LastEditors  : git config user.name && git config user.email
+ * LastEditTime : 2022-05-02 14:35:42
  * FilePath     : /koro1FileHeader/src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -13,6 +14,7 @@ const fs = require('fs')
 const filePathFile = require('./filePath')
 const logicUtil = require('../utile/logicUtil')
 const global = require('../utile/CONST')
+const { runExecSync } = require('../utile/node')
 
 /**
  * @description: 头部注释根据用户设置返回模板数据对象
@@ -26,12 +28,12 @@ const userSet = (config) => {
   if (Object.keys(userObj).length === 0) {
     // 默认模板
     data = {
-      Author: 'your name',
+      Author: 'git config user.name && git config user.email',
       Date: '',
+      LastEditors: 'git config user.name && git config user.email',
       LastEditTime: '',
-      LastEditors: 'your name',
-      Description: '打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE',
-      FilePath: ''
+      FilePath: '',
+      Description: '这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE'
     }
   } else {
     // 如果用户设置了模板，那将默认根据用户设置模板
@@ -173,6 +175,9 @@ function noEditorValue (data, config) {
       time = new Date(createTime).format()
     }
   }
+  data.Author = setGitConfig(data.Author)
+  data.LastEditors = setGitConfig(data.LastEditors)
+
   // 去掉@Date
   if (data[`${global.specialString}1_date`]) {
     data[`${global.specialString}1_date`] = time
@@ -192,16 +197,47 @@ function noEditorValue (data, config) {
   return data
 }
 
+/**
+ * @description: 如果value配置了，获取并设置git用户名、git用户邮箱
+ * @return {string} value 配置项
+ */
+function setGitConfig (value) {
+  let res = ''
+  if (value && value.indexOf('git config') !== -1) {
+    const userName = runExecSync('git config --get user.name').trim()
+    const userEmail = runExecSync('git config --get user.email').trim()
+    if (value === 'git config user.name') {
+      res = userName
+    }
+    if (value === 'git config user.email') {
+      res = userEmail
+    }
+    if (value === 'git config user.name && git config user.email') {
+      res = `${userName} ${userEmail}`
+    }
+  }
+  return res || value
+}
+
 // 修改模板设置的值
 function changeTplValue (data) {
   // 版权自定义
   if (data[global.customStringCopyRight]) {
     const copyright = data[global.customStringCopyRight]
-    data[global.customStringCopyRight] = copyright.replace(
-      // eslint-disable-next-line no-template-curly-in-string
+    let res = copyright.replace(
       '${now_year}',
       new Date().format('YYYY')
     )
+    // 获取用户名和邮箱
+    const templateObj = {
+      '${git_name_email}': 'git config user.name && git config user.email',
+      '${git_name}': 'git config user.name',
+      '${git_email}': 'git config user.email'
+    }
+    Object.keys(templateObj).forEach(key => {
+      res = res.replace(key, setGitConfig(templateObj[key]))
+    })
+    data[global.customStringCopyRight] = res
   }
   return data
 }

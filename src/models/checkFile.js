@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-02-05 16:09:11
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-25 16:44:22
- * FilePath     : \koro1FileHeader\src\models\checkFile.js
+ * LastEditors  : git config user.name
+ * LastEditTime : 2022-05-01 21:49:26
+ * FilePath     : /koro1FileHeader/src/models/checkFile.js
  * Description  : 检测文件的一些逻辑
  * https://github.com/OBKoro1
  */
@@ -12,12 +12,13 @@ const languageOutput = require('../languageOutPut/languageOutput')
 const CONST = require('../utile/CONST')
 const filePathLogic = require('../logic/filePath')
 const logicUtil = require('../utile/logicUtil')
+const logic = require('../logic/logic')
 const util = require('../utile/util')
 
 /**
  * @description: 保存时触发修改 替换最后编辑时间 最后修改时间 文件路径
  * @param {object} document 文档对象
- * @param {object} userObj 用户设置
+ * @param {object} userObj 用户模板
  * @param {String} fileEnd 文件后缀
  * @return: authorRange 原修改人行
  * @return: authorText  当前修改人
@@ -26,7 +27,7 @@ const util = require('../utile/util')
  * @return: hasAnnotation 是否自动添加头部注释
  */
 function saveReplaceTime (document, config, fileEnd) {
-  const userObj = config.customMade
+  const data = logic.userSet(config)
   let authorRange,
     authorText,
     lastTimeRange,
@@ -92,7 +93,8 @@ function saveReplaceTime (document, config, fileEnd) {
         // 表示是修改人
         hasAnnotation = true
         authorRange = range
-        const LastEditors = userObj.LastEditors || 'Please set LastEditors'
+        const key = util.spaceStringFn('LastEditors', config.configObj.wideNum)
+        const LastEditors = data[key] || 'Please set LastEditors'
         authorText = changeFont.LastEditorsStr(LastEditors)
       } else if (checkHasAnnotation('LastEditTime', line, lastTimeRange)) {
         // 最后修改时间
