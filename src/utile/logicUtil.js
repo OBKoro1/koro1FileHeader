@@ -40,10 +40,13 @@ const changePrototypeNameFn = (data, config) => {
   const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
   const objData = {}
   const specialArr = [
+    // 没有操作
+    'Author',
     'Date',
+    'Description',
+    // 需要变更
     'LastEditTime',
     'LastEditors',
-    'Description',
     'FilePath'
   ]
   keysArr.forEach((item) => {
