@@ -82,7 +82,7 @@
         "fileheader.customMade": {
           "type": "object",
           "default": {},
-          "description": "头部注释,默认设置：{'Author':'your name','Date':'Do not edit','LastEditors':'your name','LastEditTime':'Do not edit','Description':'file content'}"
+          "description": "头部注释,默认设置：{'Author':'git config user.name && git config user.email','Date':'Do not edit','LastEditors':'git config user.name','LastEditTime':'Do not edit','Description':'file content'}"
         },
         "fileheader.cursorMode": {
           "type": "object",

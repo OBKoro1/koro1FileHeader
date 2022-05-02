@@ -1,40 +1,117 @@
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
- * LastEditors  : OBKoro1
- * LastEditTime : 2022-03-06 15:59:07
+ * LastEditors  : git config user.name && git config user.email
+ * LastEditTime : 2022-05-02 18:18:00
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
 
 # 更新日志
+
 ### 如果觉得本插件还不错的话，给个[Star](https://github.com/OBKoro1/koro1FileHeader)吧~
 
 ## 文档
 
-[配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的json文件
+[配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的 json 文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
 
+### [V4.8.22]
+
+* feat: [新增头部注释模板`Author`和`LastEditors`从 git config中读取`user.name`、`user.email`的功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#author%E5%92%8Clasteditors%E8%8E%B7%E5%8F%96git-config%E9%85%8D%E7%BD%AE)。
+* feat: [新增版权声明获取git config配置: `${git_name}、${git_email}、${git_name_email}`](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E%E4%B9%9F%E6%94%AF%E6%8C%81%E8%AF%BB%E5%8F%96git-config%E9%85%8D%E7%BD%AE)
+
+配置: 
+
+```js
+// 头部注释模板
+"fileheader.customMade": {
+  // 获取当前项目下git config中的: 用户名、邮箱
+  // 公司项目和个人项目可以配置不同的用户名与邮箱 搜索: gitconfig includeIf  比如: https://ayase.moe/2021/03/09/customized-git-config/
+  "Author": "git config user.name && git config user.email", // 同时获取用户名与邮箱
+  // "Author": "git config user.name", // 仅获取用户名
+  // "Author": "git config user.email", // 仅获取邮箱
+  // "Author": "OBKoro1", // 固定值 不从git config中获取
+  "Date": "Do not edit",
+  // 设置后，保存文件更改默认更新最后编辑人
+  "LastEditors": "git config user.name && git config user.email", // 配置规则与Author字段一致
+  "LastEditTime": "Do not edit",
+  "FilePath": "",
+  // 个人版权声明: ${git_name} ${git_email} ${git_name_email}
+  // 公司版权声明: 写死即可
+  "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by ${git_name} email: ${git_email}, All Rights Reserved. "
+},
+```
+
+示例: 
+
+```js
+// "Author": "git config user.name && git config user.email"
+// "LastEditors": "git config user.name"
+//  "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by ${git_name} email: ${git_email}, All Rights Reserved. "
+/*
+ * Author       : OBKoro1 obkoro1@foxmail.com
+ * Date         : 2022-05-01 15:35:12
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2022-05-02 11:31:09
+ * FilePath     : /fileHead/function-params/test.js
+ * Copyright (c) 2022 by OBKoro1 email: obkoro1@foxmail.com, All Rights Reserved. 
+ */
+```
+
+* feat: 函数注释匹配到param 但是不需要type时 只显示param 比如: [*] 改成 []
+
+配置: 
+
+```js
+"fileheader.configObj": {
+    "functionTypeSymbol": "match param no type"
+}
+```
+
+示例: 
+
+```js
+/**
+ * @description: 这边匹配到param 但是没有type 正常是 [number] c [string] b
+ * @param [] c
+ * @param [] b
+ * @return []
+ */
+function test2(c: number, b: string = '2') {}
+```
+
+* feat: 新建文件自动添加头部注释,不再自动打开。
+```js
+"fileheader.configObj": {
+  "createHeader": false // 默认关闭 之前是true
+}
+```
+
+* feat: `specialOptions`特殊字段新增`Author`
+
+
 ### [V4.8.21]
 
-* fix: 函数注释特殊字段与函数注释等宽共同使用的问题. [#434](https://github.com/OBKoro1/koro1FileHeader/issues/434)
+- fix: 函数注释特殊字段与函数注释等宽共同使用的问题. [#434](https://github.com/OBKoro1/koro1FileHeader/issues/434)
 
 ### [V4.8.20]
 
-* feat: 多行函数参数支持选中后按函数注释快捷键自动提取
+- feat: 多行函数参数支持选中后按函数注释快捷键自动提取
+
   1. 鼠标左键选择多行函数声明区域，函数声明区域尽量精准
   2. 按生成函数注释快捷键
 
   ![多行函数参数自动提取参数](https://github.com/OBKoro1/koro1FileHeader/blob/dev/images/docs/multiLineParamsCreate.gif?raw=true)
-  
-* fix:  afterAnnotation只有一个换行，取消自动输入换行 防止换行两次 [#430](https://github.com/OBKoro1/koro1FileHeader/issues/430)
-* fix: 佛祖保佑与永不宕机之间是否多了两个空格 [#424](https://github.com/OBKoro1/koro1FileHeader/issues/424)
 
+- fix: afterAnnotation 只有一个换行，取消自动输入换行 防止换行两次 [#430](https://github.com/OBKoro1/koro1FileHeader/issues/430)
+- fix: 佛祖保佑与永不宕机之间是否多了两个空格 [#424](https://github.com/OBKoro1/koro1FileHeader/issues/424)
 
 ### [V4.8.19]
 
-* feat: 新增光标移动快捷键，用于函数参数填写时使用（光标移动到下一行的末尾）
+- feat: 新增光标移动快捷键，用于函数参数填写时使用（光标移动到下一行的末尾）
+
 ```js
 // 快捷键
 {
@@ -45,15 +122,18 @@
   "when": "editorTextFocus"
 }
 ```
+
 ![](https://github.com/OBKoro1/koro1FileHeader/raw/dev/images/docs/param-description.gif?raw=true)
 
-* feat: 函数注释参数提取新增支持`tsx`
-* feat: [typeParamOrder](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B-%E5%92%8C-%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89)支持函数参数提取只显示函数参数，不展示type类型, 关联[#397](https://github.com/OBKoro1/koro1FileHeader/issues/397)
+- feat: 函数注释参数提取新增支持`tsx`
+- feat: [typeParamOrder](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B-%E5%92%8C-%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89)支持函数参数提取只显示函数参数，不展示 type 类型, 关联[#397](https://github.com/OBKoro1/koro1FileHeader/issues/397)
+
 ```js
 "fileheader.configObj": {
     "typeParamOrder": "param"
 }
 ```
+
 ```js
 // "typeParamOrder": "param"
 /**
@@ -64,17 +144,16 @@
  * @param fileName
  * @return {type}
  */
-export const download = async (axiosMethods, apiLink, opts, fileName) => {};
+export const download = async (axiosMethods, apiLink, opts, fileName) => {}
 ```
 
-* docs: 文档更新。
-* fix: 修复箭头函数参数的提取错误， 关联[#394](https://github.com/OBKoro1/koro1FileHeader/issues/394)
-
+- docs: 文档更新。
+- fix: 修复箭头函数参数的提取错误， 关联[#394](https://github.com/OBKoro1/koro1FileHeader/issues/394)
 
 ### [V4.8.18]
 
-* feat: `FilePath`新增`only file name without ext` [取消文件名后缀](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
-* feat: 函数注释关键字`param`和`return`为[特殊字段可自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89) [#377](https://github.com/OBKoro1/koro1FileHeader/issues/377)
+- feat: `FilePath`新增`only file name without ext` [取消文件名后缀](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#filepath%E6%96%87%E4%BB%B6%E7%9B%B8%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84)
+- feat: 函数注释关键字`param`和`return`为[特殊字段可自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89) [#377](https://github.com/OBKoro1/koro1FileHeader/issues/377)
 
 ```js
 "fileheader.configObj": {
@@ -85,14 +164,14 @@ export const download = async (axiosMethods, apiLink, opts, fileName) => {};
 }
 // 效果
 /**
- * description: 
+ * description:
  * param2 [type] 字段重命名
  * return2 [type] 字段重命名
  */
 function test(a, b) {}
 ```
 
-* feat: [自定义语言支持函数参数提取](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%8F%90%E5%8F%96)
+- feat: [自定义语言支持函数参数提取](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%8F%90%E5%8F%96)
 
 ```js
 "fileheader.configObj": {
@@ -126,13 +205,13 @@ const supportLanguage = {
   c: 'function-c.js',
   cpp: 'function-c.js',
   php: 'function-php.js',
-  solidity: 'function-solidity.js' // 智能合约的语言
+  solidity: 'function-solidity.js', // 智能合约的语言
 }
 ```
 
-* feat: 支持`solidity`智能合约语言 [#365](https://github.com/OBKoro1/koro1FileHeader/issues/365)
+- feat: 支持`solidity`智能合约语言 [#365](https://github.com/OBKoro1/koro1FileHeader/issues/365)
 
-ps: vscode本身不支持`solidity`,需要安装`solidity`插件来支持该语言，而后才能开启函数注释。
+ps: vscode 本身不支持`solidity`,需要安装`solidity`插件来支持该语言，而后才能开启函数注释。
 
 ```js
 /**
@@ -145,15 +224,16 @@ function multiply(uint256 x, uint256 y) returns (uint256 z) {
     z = x * y;
 }
 ```
-* fix: C++函数注释无法提取带有引用符号&的参数 [#379](https://github.com/OBKoro1/koro1FileHeader/issues/379)
-* fix: 修复文档错误。
-* fix: 修复`Ubuntu`下的快捷键: `ctrl+super+i`、`ctrl+super+t`
-* fix: 修复`functionParamsShape`为`no type`时，函数注释`return`返回值出错的问题 [#382](https://github.com/OBKoro1/koro1FileHeader/issues/382)。
-* fix: 修复文件未保存到系统中，就进行读取diff，导致diff重置不准的问题
+
+- fix: C++函数注释无法提取带有引用符号&的参数 [#379](https://github.com/OBKoro1/koro1FileHeader/issues/379)
+- fix: 修复文档错误。
+- fix: 修复`Ubuntu`下的快捷键: `ctrl+super+i`、`ctrl+super+t`
+- fix: 修复`functionParamsShape`为`no type`时，函数注释`return`返回值出错的问题 [#382](https://github.com/OBKoro1/koro1FileHeader/issues/382)。
+- fix: 修复文件未保存到系统中，就进行读取 diff，导致 diff 重置不准的问题
 
 ### [V4.8.17]
 
-* feat: [throttleTime节流时间自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%8A%82%E6%B5%81%E6%97%B6%E9%97%B4%E8%87%AA%E5%AE%9A%E4%B9%89-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E8%A7%A6%E5%8F%91%E4%BF%9D%E5%AD%98%E7%9A%84%E9%A2%91%E7%8E%87), 自定义同一个文件触发保存的频率。
+- feat: [throttleTime 节流时间自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%8A%82%E6%B5%81%E6%97%B6%E9%97%B4%E8%87%AA%E5%AE%9A%E4%B9%89-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E8%A7%A6%E5%8F%91%E4%BF%9D%E5%AD%98%E7%9A%84%E9%A2%91%E7%8E%87), 自定义同一个文件触发保存的频率。
 
 ```js
 "fileheader.configObj": {
@@ -161,23 +241,21 @@ function multiply(uint256 x, uint256 y) returns (uint256 z) {
 }
 ```
 
-  一个文件第一次修改内容并保存后，会触发更新注释的最后编辑人，最后编辑时间。
+一个文件第一次修改内容并保存后，会触发更新注释的最后编辑人，最后编辑时间。
 
-  之后在该文件上进行修改，并且再次保存后，是否更新注释，取决于`throttleTime`所设定的时间。
+之后在该文件上进行修改，并且再次保存后，是否更新注释，取决于`throttleTime`所设定的时间。
 
-  当：（当前时间 - 上次执行事件 > throttleTime设定的时间），即触发更新注释函数。
+当：（当前时间 - 上次执行事件 > throttleTime 设定的时间），即触发更新注释函数。
 
-  PS：插件会保存最近30个文件的最后更新注释的时间，并使用LRU算法，在每次更新注释后，会将该文件更新成最新的。
+PS：插件会保存最近 30 个文件的最后更新注释的时间，并使用 LRU 算法，在每次更新注释后，会将该文件更新成最新的。
 
+这个配置的意义在于，通过减少触发更新注释的方式，降低撤销更改重新保存后，导致被撤销内容被注释的更新所覆盖的问题 [#358](https://github.com/OBKoro1/koro1FileHeader/issues/358)。
 
-  这个配置的意义在于，通过减少触发更新注释的方式，降低撤销更改重新保存后，导致被撤销内容被注释的更新所覆盖的问题 [#358](https://github.com/OBKoro1/koro1FileHeader/issues/358)。
-
-
-* fix: c++ 参数去掉关键字`['const', 'struct']` [#349](https://github.com/OBKoro1/koro1FileHeader/issues/349)、[#325](https://github.com/OBKoro1/koro1FileHeader/issues/325)
+- fix: c++ 参数去掉关键字`['const', 'struct']` [#349](https://github.com/OBKoro1/koro1FileHeader/issues/349)、[#325](https://github.com/OBKoro1/koro1FileHeader/issues/325)
 
 ```c++
 /**
- * @description: 
+ * @description:
  * @param t2 [my_type]
  * @param str [string]
  * @param str2 [string]
@@ -191,8 +269,8 @@ void test(struct my_type t2, const std::string str, const std::string str2, stru
 
 ### [V4.8.16]
 
-* fix: 修复getColon 获取@没有置空的问题
-* fix: 修复头部注释最后编辑人和最后编辑时间冒号使用错误的问题
+- fix: 修复 getColon 获取@没有置空的问题
+- fix: 修复头部注释最后编辑人和最后编辑时间冒号使用错误的问题
 
 ### [V4.8.15]
 
@@ -971,7 +1049,7 @@ function test(a, b) {
 
 ### [V4.0.0]
 
-- **自定义注释中的`@`和`: `**：允许全局修改`@`和`: `，和单独为某些文件修改它们，[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E4%B8%AD%E7%9A%84%E8%89%BE%E7%89%B9%E5%92%8C%E5%86%92%E5%8F%B7)。
+- **自定义注释中的`@`和`:`**：允许全局修改`@`和`:`，和单独为某些文件修改它们，[配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E9%87%8A%E4%B8%AD%E7%9A%84%E8%89%BE%E7%89%B9%E5%92%8C%E5%86%92%E5%8F%B7)。
 
 - **自动添加注释，现在改为默认打开**：自动添加头部注释功能现在比较稳定，应该很多同学不知道这个能力，反正我非常喜欢用！不喜欢的话也可以这样关闭它：
 
@@ -984,7 +1062,7 @@ function test(a, b) {
 - **破坏性修改**：由于配置选项对象会被覆盖，导致默认配置不生效，**将`fileheader.configObj.config`移除，并将以下三个选项移动到`fileheader.configObj`中**
 
   - `prohibitAutoAdd`：[自动添加头部注释黑名单](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E5%A4%B4%E9%83%A8%E6%B3%A8%E9%87%8A%E9%BB%91%E5%90%8D%E5%8D%95)
-  - `dateFormat`：[时间格式化](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E5%8C%96), 使用`moment `的 format 方法
+  - `dateFormat`：[时间格式化](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E5%8C%96), 使用`moment`的 format 方法
   - `moveCursor`：[移动光标到`Description`](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E5%88%B0description-%E6%89%80%E5%9C%A8%E8%A1%8C)
 
 ```js
