@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-14 15:56:49
+ * LastEditTime : 2022-05-14 16:46:48
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -41,6 +41,7 @@
 function test2(a, b, ...c) {}
 ```
 * fix: 在VSCode打开的对应项目中获取`git config`信息 [#469](https://github.com/OBKoro1/koro1FileHeader/issues/469)
+* fix: 修复`java`函数注释参数提取不精准的问题 [#470](https://github.com/OBKoro1/koro1FileHeader/issues/470)
 * fix: 修复不设置`Author`和`LastEditors`时出现的无法生成注释的bug
 * fix: c、java、solidity不支持连续的容器对象作为参数  [#468](https://github.com/OBKoro1/koro1FileHeader/issues/468)
 

@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-14 15:25:23
+ * LastEditTime : 2022-05-14 16:46:15
  * FilePath     : /koro1FileHeader/src/function-params/function-java.js
  * Description  : java语言获取函数参数
  */
@@ -12,18 +12,32 @@ class GetParams {
     this.text = lineProperty._text // 代码
     this.match = false // 是否匹配到参数
     this.res = ''
+    this.replaceModifier()
+  }
+
+  // 切割修饰符
+  replaceModifier () {
+    const modifierArr = ['public', 'private', 'protected', 'default']
+    this.text = this.text.trim()
+    modifierArr.forEach(item => {
+      const reg = new RegExp(`^\\s*(${item})\\s+`, 'g')
+      this.text = this.text.replace(reg, '')
+    })
     this.matchProcess()
   }
 
   // 匹配流程
   matchProcess () {
-    const processArr = ['matchFunction']
+    const matchObj = {
+      matchFunction: 3
+    }
     let params = ''
-    for (const item of processArr.values()) {
+    const keyArr = Object.keys(matchObj)
+    for (const item of keyArr.values()) {
       const match = this[item]()
       if (match) {
-        // let methodName = res[1] // 方法名
-        params = match[2]
+        const index = matchObj[item]
+        params = match[index]
         break
       }
     }
@@ -33,9 +47,9 @@ class GetParams {
 
   // 匹配方法声明的参数
   matchFunction () {
-    // 函数名 可能有空格 匹配一个括号 可能有空格 类型可能的值: [\w[].] 匹配2个字符以上 必须的空格 匹配一个参数名\w 到这里已经判定它是函数声明后面匹配括号内的其他一切
+    // 类型 函数名 可能的空格 匹配括号
     // eslint-disable-next-line no-useless-escape
-    const reg = /([A-Za-z_]\w*?)\s*\((\s*([\w\[\]\.\s]{2,}(\s*<.*?>)?)\s+([A-Za-z_]\w+).*)\)/
+    const reg = /([A-Za-z_]\w*?)\s+(\w+)\s*\((.*?)\)/
     return reg.exec(this.text)
   }
 
