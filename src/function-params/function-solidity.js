@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-12-24 13:34:52
- * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-02 16:51:54
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-14 15:26:32
  * File         : \koro1FileHeader\src\function-params\function-c.js
  * Description  : solidity语言获取函数参数 - 智能合约的语言
  * Copyright 2020 OBKoro1
@@ -47,7 +47,7 @@ class GetParams {
     const paramsArr = [] // 参数列表
     // 可能的空格 匹配类型声明 至少2个字符以上 至少一个必须的空格 参数名 匹配一切除了逗号
     // eslint-disable-next-line no-useless-escape
-    const reg = /\s*([\w\[\]\.\s*]{2,}(\s*<.*>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
+    const reg = /\s*([\w\[\]\.\s*]{2,}(\s*<.*?>)?)\s+([A-Za-z_*&]\w*)[^,]*/g
     // 捕获函数参数
     while ((res = reg.exec(params))) {
       if (!res) break
