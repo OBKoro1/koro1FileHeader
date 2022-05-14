@@ -175,8 +175,12 @@ function noEditorValue (data, config) {
       time = new Date(createTime).format()
     }
   }
-  data.Author = setGitConfig(data.Author)
-  data.LastEditors = setGitConfig(data.LastEditors)
+  if (data.Author) {
+    data.Author = setGitConfig(data.Author)
+  }
+  if (data.LastEditors) {
+    data.LastEditors = setGitConfig(data.LastEditors)
+  }
 
   // 去掉@Date
   if (data[`${global.specialString}1_date`]) {
