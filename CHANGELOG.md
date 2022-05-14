@@ -3,7 +3,7 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-14 21:03:53
+ * LastEditTime : 2022-05-14 21:13:34
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -20,7 +20,7 @@
 
 ### [V4.9.0]
 
-* feat: `NoMatchParams`当没有匹配到函数注释参数时是否显示`param`参数
+* feat: `NoMatchParams`当没有匹配到函数注释参数时是否显示`param`和`return`
 
 ```js
 "fileheader.configObj": {
