@@ -1,8 +1,8 @@
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
- * LastEditors  : git config user.name && git config user.email
- * LastEditTime : 2022-05-02 18:41:46
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-14 15:56:49
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -19,7 +19,8 @@
 
 ### [V4.8.23]
 
-* feat: `functionParamAddStr`在`type param`后面增加字符串, 在type param 后面增加字符串 可能是冒号，方便输入参数描述。
+- feat: `functionParamAddStr`在`type param`后面增加字符串, 在 type param 后面增加字符串 可能是冒号，方便输入参数描述。 [#443](https://github.com/OBKoro1/koro1FileHeader/issues/443)
+
 ```js
 "fileheader.configObj": {
   "functionParamAddStr": "" // 默认不增加字符串
@@ -37,19 +38,18 @@
  * @param {array} c:
  * @return {type}
  */
-function test2 ( a, b, ...c ){
-
-}
+function test2(a, b, ...c) {}
 ```
-
-
+* fix: 在VSCode打开的对应项目中获取`git config`信息 [#469](https://github.com/OBKoro1/koro1FileHeader/issues/469)
+* fix: 修复不设置`Author`和`LastEditors`时出现的无法生成注释的bug
+* fix: c、java、solidity不支持连续的容器对象作为参数  [#468](https://github.com/OBKoro1/koro1FileHeader/issues/468)
 
 ### [V4.8.22]
 
-* feat: [新增头部注释模板`Author`和`LastEditors`从 git config中读取`user.name`、`user.email`的功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#author%E5%92%8Clasteditors%E8%8E%B7%E5%8F%96git-config%E9%85%8D%E7%BD%AE)。
-* feat: [新增版权声明获取git config配置: `${git_name}、${git_email}、${git_name_email}`](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E%E4%B9%9F%E6%94%AF%E6%8C%81%E8%AF%BB%E5%8F%96git-config%E9%85%8D%E7%BD%AE)
+- feat: [新增头部注释模板`Author`和`LastEditors`从 git config 中读取`user.name`、`user.email`的功能](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#author%E5%92%8Clasteditors%E8%8E%B7%E5%8F%96git-config%E9%85%8D%E7%BD%AE)。
+- feat: [新增版权声明获取 git config 配置: `${git_name}、${git_email}、${git_name_email}`](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%89%88%E6%9D%83%E5%A3%B0%E6%98%8E%E4%B9%9F%E6%94%AF%E6%8C%81%E8%AF%BB%E5%8F%96git-config%E9%85%8D%E7%BD%AE)
 
-配置: 
+配置:
 
 ```js
 // 头部注释模板
@@ -71,7 +71,7 @@ function test2 ( a, b, ...c ){
 },
 ```
 
-示例: 
+示例:
 
 ```js
 // "Author": "git config user.name && git config user.email"
@@ -83,13 +83,13 @@ function test2 ( a, b, ...c ){
  * LastEditors  : OBKoro1
  * LastEditTime : 2022-05-02 11:31:09
  * FilePath     : /fileHead/function-params/test.js
- * Copyright (c) 2022 by OBKoro1 email: obkoro1@foxmail.com, All Rights Reserved. 
+ * Copyright (c) 2022 by OBKoro1 email: obkoro1@foxmail.com, All Rights Reserved.
  */
 ```
 
-* feat: 函数注释匹配到param 但是不需要type时 只显示param 比如: [*] 改成 []
+- feat: 函数注释匹配到 param 但是不需要 type 时 只显示 param 比如: [*] 改成 []
 
-配置: 
+配置:
 
 ```js
 "fileheader.configObj": {
@@ -97,7 +97,7 @@ function test2 ( a, b, ...c ){
 }
 ```
 
-示例: 
+示例:
 
 ```js
 /**
@@ -109,15 +109,15 @@ function test2 ( a, b, ...c ){
 function test2(c: number, b: string = '2') {}
 ```
 
-* feat: 新建文件自动添加头部注释,不再自动打开。
+- feat: 新建文件自动添加头部注释,不再自动打开。
+
 ```js
 "fileheader.configObj": {
   "createHeader": false // 默认关闭 之前是true
 }
 ```
 
-* feat: `specialOptions`特殊字段新增`Author`
-
+- feat: `specialOptions`特殊字段新增`Author`
 
 ### [V4.8.21]
 
