@@ -1,8 +1,9 @@
+
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-14 16:46:48
+ * LastEditTime : 2022-05-14 21:03:53
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -16,6 +17,52 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的 json 文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.9.0]
+
+* feat: `NoMatchParams`当没有匹配到函数注释参数时是否显示`param`参数
+
+```js
+"fileheader.configObj": {
+  "NoMatchParams": "no param" // 默认不显示param那一行
+}
+```
+
+示例:
+
+```js
+// "NoMatchParams": "no show param"
+/**
+ * @description: 没匹配到函数参数，不显示@param那行
+ * @return {type} 填写返回值
+ */
+
+export const download = async ( ) => {
+  // do something
+  console.log('空参数 匹配不到函数参数: NoMatchParams')
+  return 'something'
+};
+
+// "NoMatchParams": "no show param and return"
+/**
+ * @description: 只显示description 不显示@param与@return这两行
+ */
+export const download = async ( ) => {
+  // do something
+  console.log('空参数 匹配不到函数参数: NoMatchParams')
+  return 'something'
+};
+
+// "NoMatchParams": "show param"
+/**
+ * @description: 没匹配到函数参数 也显示@param与@return
+ * @param {type}
+ * @return {type}
+ */
+export const download = async ( ) => {
+  console.log('空参数 匹配不到函数参数: NoMatchParams')
+};
+```
 
 ### [V4.8.23]
 

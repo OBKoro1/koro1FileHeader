@@ -2,8 +2,8 @@
  * @Author: OBKoro1
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
- * LastEditors  : git config user.name && git config user.email
- * LastEditTime : 2022-05-02 18:40:34
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-14 20:51:32
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -74,6 +74,7 @@ class FunctionTplStr {
     this.str = ''.padStart(lineSpace) // 函数注释每行前面的空格
     this.strContent = '' // 中间模板部分的字符
     this.data = data
+    this.noMatch = false
   }
 
   // 生成函数注释模板
@@ -106,21 +107,41 @@ class FunctionTplStr {
       value: this.data[key]
     }
     obj.type = 'fnMiddle_key'
-    // 注释是参数和返回值的话 多加一个参数的属性
     if (key.startsWith('param') || key.startsWith('return')) {
-      if (this.config.configObj.specialOptions.param && key.startsWith('param')) {
-        obj.key = util.spaceStringFn(this.config.configObj.specialOptions.param, this.config.functionWideNum)
-      } else if (this.config.configObj.specialOptions.return && key.startsWith('return')) {
-        obj.key = util.spaceStringFn(this.config.configObj.specialOptions.return, this.config.functionWideNum)
-      }
-      obj.type = 'fnMiddle_param'
-      obj.typeVal = this.getTypeVal()
-      if (key.startsWith('param')) {
-        return this.paramsHandle(obj, key)
+      return this.handleParamReturn(obj, key)
+    }
+    return new LanguageDifferent(obj).res
+  }
+
+  /**
+   * @description: 参数和返回值处理
+   * @return {string} res
+   */
+  handleParamReturn (obj, key) {
+    if (this.config.configObj.specialOptions.param && key.startsWith('param')) {
+      obj.key = util.spaceStringFn(this.config.configObj.specialOptions.param, this.config.functionWideNum)
+    } else if (this.config.configObj.specialOptions.return && key.startsWith('return')) {
+      obj.key = util.spaceStringFn(this.config.configObj.specialOptions.return, this.config.functionWideNum)
+    }
+    obj.type = 'fnMiddle_param'
+    obj.typeVal = this.getTypeVal()
+    const NoMatchParams = this.config.configObj.NoMatchParams
+    if (key.startsWith('param')) {
+      if (!Array.isArray(this.data[key])) {
+        // 没匹配到函数参数
+        this.noMatch = true
+        // 没匹配到函数参数 param返回空字符串
+        if (NoMatchParams === 'no show param') {
+          return ''
+        }
       }
     }
 
-    return new LanguageDifferent(obj).res
+    // 没匹配到函数参数 return 返回空字符串
+    if (NoMatchParams === 'no show param and return' && this.noMatch) {
+      return ''
+    }
+    return this.paramsHandle(obj, key)
   }
 
   // 拼接type和param参数
