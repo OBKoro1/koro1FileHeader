@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
- * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 15:44:06
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-14 16:34:29
  * File         : \koro1FileHeader\src\function-params\function-go.js
  * Description  : java语言获取函数参数
  */
@@ -26,7 +26,6 @@ class GetParams {
     for (const item of keyArr.values()) {
       const match = this[item]()
       if (match) {
-        // let methodName = res[1] // 方法名
         const index = matchObj[item]
         params = match[index]
         break
