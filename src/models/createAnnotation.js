@@ -1,8 +1,8 @@
 /*
  * Author: OBKoro1
  * Date: 2020-02-05 14:27:10
- * LastEditors  : OBKoro1
- * LastEditTime : 2022-02-26 23:52:46
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-14 17:29:28
  * FilePath     : /koro1FileHeader/src/models/createAnnotation.js
  * Description: 在对应的文件添加头部/函数注释
  * https://github.com/OBKoro1
@@ -76,9 +76,9 @@ const functionAnnotation = () => {
         config,
         data // 函数注释模板数据
       }
-      matchFunctionParams(config, matchFunctionParamsOptions)
+      const newData = matchFunctionParams(config, matchFunctionParamsOptions)
       const functionTplStr = new languageOutput.FunctionTplStr(
-        data,
+        newData,
         fileEnd,
         lineSpace,
         nextLine
