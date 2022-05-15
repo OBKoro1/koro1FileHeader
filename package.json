@@ -133,7 +133,8 @@
             },
             "supportAutoLanguage": [],
             "prohibitAutoAdd": [
-              "json"
+              "json",
+              "xml"
             ],
             "folderBlacklist": [
               "node_modules",
