@@ -134,7 +134,8 @@
             "supportAutoLanguage": [],
             "prohibitAutoAdd": [
               "json",
-              "xml"
+              "xml",
+              "md"
             ],
             "folderBlacklist": [
               "node_modules",
