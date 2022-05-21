@@ -1,9 +1,8 @@
-
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-14 21:13:34
+ * LastEditTime : 2022-05-21 18:10:25
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -18,9 +17,13 @@
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
 
+### [V4.9.1]
+
+* fix: 修复git config读取失败的问题 [#475](https://github.com/OBKoro1/koro1FileHeader/issues/475)
+
 ### [V4.9.0]
 
-* feat: `NoMatchParams`当没有匹配到函数注释参数时是否显示`param`和`return`
+- feat: `NoMatchParams`当没有匹配到函数注释参数时是否显示`param`和`return`
 
 ```js
 "fileheader.configObj": {
@@ -37,21 +40,21 @@
  * @return {type} 填写返回值
  */
 
-export const download = async ( ) => {
+export const download = async () => {
   // do something
   console.log('空参数 匹配不到函数参数: NoMatchParams')
   return 'something'
-};
+}
 
 // "NoMatchParams": "no show param and return"
 /**
  * @description: 只显示description 不显示@param与@return这两行
  */
-export const download = async ( ) => {
+export const download = async () => {
   // do something
   console.log('空参数 匹配不到函数参数: NoMatchParams')
   return 'something'
-};
+}
 
 // "NoMatchParams": "show param"
 /**
@@ -59,9 +62,9 @@ export const download = async ( ) => {
  * @param {type}
  * @return {type}
  */
-export const download = async ( ) => {
+export const download = async () => {
   console.log('空参数 匹配不到函数参数: NoMatchParams')
-};
+}
 ```
 
 ### [V4.8.23]
@@ -87,10 +90,11 @@ export const download = async ( ) => {
  */
 function test2(a, b, ...c) {}
 ```
-* fix: 在VSCode打开的对应项目中获取`git config`信息 [#469](https://github.com/OBKoro1/koro1FileHeader/issues/469)
-* fix: 修复`java`函数注释参数提取不精准的问题 [#470](https://github.com/OBKoro1/koro1FileHeader/issues/470)
-* fix: 修复不设置`Author`和`LastEditors`时出现的无法生成注释的bug
-* fix: c、java、solidity不支持连续的容器对象作为参数  [#468](https://github.com/OBKoro1/koro1FileHeader/issues/468)
+
+- fix: 在 VSCode 打开的对应项目中获取`git config`信息 [#469](https://github.com/OBKoro1/koro1FileHeader/issues/469)
+- fix: 修复`java`函数注释参数提取不精准的问题 [#470](https://github.com/OBKoro1/koro1FileHeader/issues/470)
+- fix: 修复不设置`Author`和`LastEditors`时出现的无法生成注释的 bug
+- fix: c、java、solidity 不支持连续的容器对象作为参数 [#468](https://github.com/OBKoro1/koro1FileHeader/issues/468)
 
 ### [V4.8.22]
 

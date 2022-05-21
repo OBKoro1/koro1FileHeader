@@ -2,8 +2,8 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
- * LastEditors  : git config user.name && git config user.email
- * LastEditTime : 2022-05-02 14:35:42
+ * LastEditors  : OBKoro1 obkoro1@foxmail.com
+ * LastEditTime : 2022-05-21 18:08:02
  * FilePath     : /koro1FileHeader/src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -207,19 +207,24 @@ function noEditorValue (data, config) {
  */
 function setGitConfig (value) {
   let res = ''
-  if (value && value.indexOf('git config') !== -1) {
-    const userName = runExecSync('git config --get user.name').trim()
-    const userEmail = runExecSync('git config --get user.email').trim()
-    if (value === 'git config user.name') {
-      res = userName
+  try {
+    if (value && value.indexOf('git config') !== -1) {
+      const userName = runExecSync('git config --get user.name').trim()
+      const userEmail = runExecSync('git config --get user.email').trim()
+      if (value === 'git config user.name') {
+        res = userName
+      }
+      if (value === 'git config user.email') {
+        res = userEmail
+      }
+      if (value === 'git config user.name && git config user.email') {
+        res = `${userName} ${userEmail}`
+      }
     }
-    if (value === 'git config user.email') {
-      res = userEmail
-    }
-    if (value === 'git config user.name && git config user.email') {
-      res = `${userName} ${userEmail}`
-    }
+  } catch (err) {
+    res = `error: ${value} & please set dead value or install git`
   }
+
   return res || value
 }
 
