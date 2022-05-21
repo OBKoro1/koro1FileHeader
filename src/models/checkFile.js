@@ -1,8 +1,8 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-02-05 16:09:11
- * LastEditors  : git config user.name
- * LastEditTime : 2022-05-01 21:49:26
+ * Last Author  : Please set LastEditors
+ * LastEditTime : 2022-05-21 18:34:59
  * FilePath     : /koro1FileHeader/src/models/checkFile.js
  * Description  : 检测文件的一些逻辑
  * https://github.com/OBKoro1
@@ -49,21 +49,10 @@ function saveReplaceTime (document, config, fileEnd) {
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false // 已经找到要替换的
-    const userSetName = config.configObj.specialOptions[name]
-    const reg = new RegExp(`[\\s\\W]?${atSymbol}${name}[\\W\\s]`, 'g')
-    if (userSetName) {
-      const regUser = new RegExp(`[\\s\\W]?${atSymbol}${userSetName}[\\W\\s]`, 'g')
-      if (!regUser.test(line)) {
-        // 没有检测用户自己更改的 再检测特殊变量
-        return reg.test(line)
-      } else {
-        // 检测用户自己更改的
-        return true
-      }
-    } else {
-      // 检测特殊变量
-      return reg.test(line)
-    }
+    const key = logicUtil.getSpecialOptionsKey(config, name)
+    const reg = new RegExp(`[\\s\\W]?${atSymbol}${key}[\\W\\s]`, 'g')
+    // 检测特殊变量
+    return reg.test(line)
   }
   let lineNum = CONST.lineNum
   // 注释图案 比较长 需要检测更多行数
@@ -93,7 +82,7 @@ function saveReplaceTime (document, config, fileEnd) {
         // 表示是修改人
         hasAnnotation = true
         authorRange = range
-        const key = util.spaceStringFn('LastEditors', config.configObj.wideNum)
+        const key = logicUtil.getSpecialOptionsKey(config, 'LastEditors')
         const LastEditors = data[key] || 'Please set LastEditors'
         authorText = changeFont.LastEditorsStr(LastEditors)
       } else if (checkHasAnnotation('LastEditTime', line, lastTimeRange)) {

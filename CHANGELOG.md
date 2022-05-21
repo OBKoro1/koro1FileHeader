@@ -1,8 +1,8 @@
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
- * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-21 18:10:25
+ * Last Author  : Please set LastEditors
+ * LastEditTime : 2022-05-21 18:41:23
  * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
@@ -19,6 +19,8 @@
 
 ### [V4.9.1]
 
+* fix: 自定义特殊字段LastEditors取值导致的问题 [#478](https://github.com/OBKoro1/koro1FileHeader/issues/477)
+* fix: 修复params读取失败的问题 [#477](https://github.com/OBKoro1/koro1FileHeader/issues/477)
 * fix: 修复git config读取失败的问题 [#475](https://github.com/OBKoro1/koro1FileHeader/issues/475)
 
 ### [V4.9.0]

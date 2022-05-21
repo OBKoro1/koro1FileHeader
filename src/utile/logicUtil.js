@@ -171,11 +171,25 @@ function noLinkHeadEnd (fileEnd, type) {
   return false // 链接头尾
 }
 
+/**
+ * @description: 获取特殊字段的key
+ */
+function getSpecialOptionsKey (config, keyName) {
+  let key = keyName
+  const userSetName = config.configObj.specialOptions[key]
+  if (userSetName) {
+    key = userSetName
+  }
+  key = util.spaceStringFn(key, config.configObj.wideNum)
+  return key
+}
+
 module.exports = {
   noLinkHeadEnd,
   sameLengthFn,
   changePrototypeNameFn,
   getAnnotationTemplate,
   getLanguageSymbol,
-  getLanguageOrFileSetting
+  getLanguageOrFileSetting,
+  getSpecialOptionsKey
 }
