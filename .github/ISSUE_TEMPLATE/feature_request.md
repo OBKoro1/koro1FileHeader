@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: 新增功能建议
 about: Suggest an idea for this project
 
 ---
@@ -8,8 +8,17 @@ about: Suggest an idea for this project
 
 语言：
 
+目前插件生成的模板:
+
+```js
+
+```
+
 提供你最终想要的注释模板:
 
+```js
+
+```
 
 **您的特性请求是否与问题相关?请描述**
 

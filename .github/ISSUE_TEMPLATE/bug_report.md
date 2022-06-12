@@ -1,6 +1,6 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug 反馈 - 请按照规范创建issue，这样可以使问题更快得到解决
+about: 请按照规范创建issue，这样可以使问题更快得到解决
 
 ---
 
