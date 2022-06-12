@@ -1,346 +1,356 @@
 {
-  "name": "korofileheader",
-  "displayName": "koroFileHeader",
-  "description": "用于生成文件头部注释和函数注释的插件，支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
-  "version": "4.9.1",
-  "publisher": "OBKoro1",
-  "scripts": {
-    "build": "vsce package",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test",
-    "lint": "eslint --ext .js,.vue src --fix",
-    "d": "bash deploy.sh"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -e $GIT_PARAMS"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,vue}": [
-      "npm run lint",
-      "git add"
-    ]
-  },
-  "author": {
-    "name": "OBKoro1",
-    "email": "obkoro1@foxmail.com",
-    "url": "http://obkoro1.com/"
-  },
-  "galleryBanner": {
-    "color": "#3B4859",
-    "theme": "dark"
-  },
-  "homepage": "https://github.com/OBKoro1/koro1FileHeader",
-  "license": "SEE LICENSE IN LICENSE",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/OBKoro1/koro1FileHeader"
-  },
-  "bugs": {
-    "url": "https://github.com/OBKoro1/koro1FileHeader/issues",
-    "email": "obkoro1@foxmail.com"
-  },
-  "icon": "images/icon.png",
-  "engines": {
-    "vscode": "^1.23.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "vscode korofileheader",
-    "korofileheader",
-    "annotation",
-    "comment",
-    "vscode comment",
-    "vscode annotation",
-    "vscode 注释",
-    "vscode 文件头部注释",
-    "注释",
-    "文件注释",
-    "头部注释",
-    "函数注释",
-    "fileheader",
-    "vscode-fileheader",
-    "Document This",
-    "obkoro1",
-    "koro1"
-  ],
-  "activationEvents": [
-    "*",
-    "onCommand:extension.fileheader",
-    "onCommand:extension.cursorTip"
-  ],
-  "main": "./src/main.js",
-  "contributes": {
-    "configuration": {
-      "type": "object",
-      "title": "File header Configuration",
-      "properties": {
-        "fileheader.customMade": {
-          "type": "object",
-          "default": {},
-          "description": "头部注释,默认设置：{'Author':'git config user.name && git config user.email','Date':'Do not edit','LastEditors':'git config user.name','LastEditTime':'Do not edit','Description':'file content'}"
-        },
-        "fileheader.cursorMode": {
-          "type": "object",
-          "default": {},
-          "description": "在光标处插入函数注释,默认配置:{'description':'','param':'','return':''}"
-        },
-        "fileheader.configObj": {
-          "type": "object",
-          "default": {
-            "createFileTime": true,
-            "language": {
-              "languagetest": {
-                "head": "/$$",
-                "middle": " $ @",
-                "end": " $/",
-                "functionSymbol": {
-                  "head": "/** ",
-                  "middle": " * @",
-                  "end": " */"
-                },
-                "functionParams": "js"
-              }
-            },
-            "autoAdd": true,
-            "autoAddLine": 100,
-            "autoAlready": true,
-            "annotationStr": {
-              "head": "/*",
-              "middle": " * @",
-              "end": " */",
-              "use": false
-            },
-            "headInsertLine": {
-              "php": 2,
-              "sh": 2
-            },
-            "beforeAnnotation": {
-              "文件后缀": "该文件后缀的头部注释之前添加某些内容"
-            },
-            "afterAnnotation": {
-              "文件后缀": "该文件后缀的头部注释之后添加某些内容"
-            },
-            "specialOptions": {
-              "特殊字段": "自定义比如LastEditTime/LastEditors"
-            },
-            "switch": {
-              "newlineAddAnnotation": true
-            },
-            "supportAutoLanguage": [],
-            "prohibitAutoAdd": [
-              "json"
-            ],
-            "folderBlacklist": [
-              "node_modules",
-              "文件夹禁止自动添加头部注释"
-            ],
-            "prohibitItemAutoAdd": [
-              "项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加"
-            ],
-            "moveCursor": true,
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
-            "atSymbol": [
-              "@",
-              "@"
-            ],
-            "atSymbolObj": {
-              "文件后缀": [
-                "头部注释@符号",
-                "函数注释@符号"
-              ]
-            },
-            "colon": [
-              ": ",
-              ": "
-            ],
-            "colonObj": {
-              "文件后缀": [
-                "头部注释冒号",
-                "函数注释冒号"
-              ]
-            },
-            "filePathColon": "路径分隔符替换",
-            "showErrorMessage": false,
-            "writeLog": false,
-            "wideSame": false,
-            "wideNum": 13,
-            "functionWideNum": 0,
-            "CheckFileChange": false,
-            "createHeader": false,
-            "useWorker": false,
-            "designAddHead": false,
-            "headDesignName": "random",
-            "headDesign": false,
-            "cursorModeInternalAll": {},
-            "openFunctionParamsCheck": true,
-            "functionParamsShape": [
-              "{",
-              "}"
-            ],
-            "functionBlankSpaceAll": {},
-            "functionTypeSymbol": "*",
-            "typeParamOrder": "type param",
-            "customHasHeadEnd": {},
-            "throttleTime": 60000,
-            "functionParamAddStr": "",
-            "NoMatchParams": "no show param"
-          },
-          "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
-        }
-      }
-    },
-    "commands": [
-      {
-        "command": "extension.fileheader",
-        "title": "fileheader"
-      },
-      {
-        "command": "extension.cursorTip",
-        "title": "cursorTip"
-      },
-      {
-        "command": "fileheader.errPathSet",
-        "title": "设置报错日志储存",
-        "category": "errPath"
-      },
-      {
-        "command": "koroFileheader.table",
-        "title": "函数参数输入换行",
-        "category": "table"
-      },
-      {
-        "command": "fileheader.random",
-        "title": "随机注释图案",
-        "category": "codeDesign-随机"
-      },
-      {
-        "command": "fileheader.buddhalImg",
-        "title": "注释图案-佛祖",
-        "category": "codeDesign-佛祖"
-      },
-      {
-        "command": "fileheader.buddhalImgSay",
-        "title": "注释图案-佛祖+佛曰",
-        "category": "codeDesign-佛祖+佛曰"
-      },
-      {
-        "command": "fileheader.buddhalSay",
-        "title": "注释图案-佛曰",
-        "category": "codeDesign-佛曰"
-      },
-      {
-        "command": "fileheader.totemDragon",
-        "title": "注释图案-龙图腾",
-        "category": "codeDesign-b-龙图腾"
-      },
-      {
-        "command": "fileheader.belle",
-        "title": "注释图案-美女",
-        "category": "codeDesign-美女"
-      },
-      {
-        "command": "fileheader.dog",
-        "title": "注释图案-狗",
-        "category": "codeDesign-狗"
-      },
-      {
-        "command": "fileheader.coderSong",
-        "title": "注释图案-程序员之歌",
-        "category": "codeDesign-程序员之歌"
-      },
-      {
-        "command": "fileheader.jesus",
-        "title": "注释图案-耶稣",
-        "category": "codeDesign-耶稣"
-      },
-      {
-        "command": "fileheader.totemWestDragon",
-        "title": "注释图案-喷火龙",
-        "category": "codeDesign-喷火龙"
-      },
-      {
-        "command": "fileheader.totemBat",
-        "title": "注释图案-蝙蝠",
-        "category": "codeDesign-蝙蝠"
-      },
-      {
-        "command": "fileheader.loitumaGirl",
-        "title": "注释图案-甩葱少女",
-        "category": "codeDesign-甩葱少女"
-      },
-      {
-        "command": "fileheader.grassHorse",
-        "title": "注释图案-草泥马",
-        "category": "codeDesign-草泥马"
-      },
-      {
-        "command": "fileheader.grassHorse2",
-        "title": "注释图案-草泥马2",
-        "category": "codeDesign-草泥马2"
-      },
-      {
-        "command": "fileheader.keyboardAll",
-        "title": "注释图案-全键盘",
-        "category": "codeDesign-全键盘"
-      },
-      {
-        "command": "fileheader.keyboardSmall",
-        "title": "注释图案-小键盘",
-        "category": "codeDesign-小键盘"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "extension.codeDesign",
-        "key": "ctrl+alt+j",
-        "mac": "ctrl+cmd+j",
-        "linux": "ctrl+meta+j",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "extension.fileheader",
-        "key": "ctrl+alt+i",
-        "mac": "ctrl+cmd+i",
-        "linux": "ctrl+meta+i",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "koroFileheader.table",
-        "key": "alt+y",
-        "mac": "cmd+y",
-        "linux": "meta+y",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "extension.cursorTip",
-        "key": "ctrl+alt+t",
-        "mac": "ctrl+cmd+t",
-        "linux": "ctrl+meta+t",
-        "when": "editorTextFocus"
-      }
-    ]
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^7.10.14",
-    "eslint": "^7.16.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^5.0.0",
-    "husky": "^4.3.6",
-    "lint-staged": "^10.5.3",
-    "vscode": "^1.1.37"
-  },
-  "dependencies": {
-    "moment": "^2.29.1"
-  }
+	"name": "korofileheader",
+	"displayName": "koroFileHeader",
+	"description": "用于生成文件头部注释和函数注释的插件，支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
+	"version": "4.9.1",
+	"publisher": "OBKoro1",
+	"scripts": {
+		"build": "vsce package",
+		"pretest": "node scripts/pretest.js",
+		"test": "node ./test/runTest.js",
+		"lint": "eslint --ext .js,.vue src --fix",
+		"d": "bash deploy.sh"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged",
+			"commit-msg": "commitlint -e $GIT_PARAMS"
+		}
+	},
+	"lint-staged": {
+		"src/**/*.{js,vue}": [
+			"npm run lint",
+			"git add"
+		]
+	},
+	"author": {
+		"name": "OBKoro1",
+		"email": "obkoro1@foxmail.com",
+		"url": "http://obkoro1.com/"
+	},
+	"galleryBanner": {
+		"color": "#3B4859",
+		"theme": "dark"
+	},
+	"homepage": "https://github.com/OBKoro1/koro1FileHeader",
+	"license": "SEE LICENSE IN LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/OBKoro1/koro1FileHeader"
+	},
+	"bugs": {
+		"url": "https://github.com/OBKoro1/koro1FileHeader/issues",
+		"email": "obkoro1@foxmail.com"
+	},
+	"icon": "images/icon.png",
+	"engines": {
+		"vscode": "^1.23.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"vscode korofileheader",
+		"korofileheader",
+		"annotation",
+		"comment",
+		"vscode comment",
+		"vscode annotation",
+		"vscode 注释",
+		"vscode 文件头部注释",
+		"注释",
+		"文件注释",
+		"头部注释",
+		"函数注释",
+		"fileheader",
+		"vscode-fileheader",
+		"Document This",
+		"obkoro1",
+		"koro1"
+	],
+	"activationEvents": [
+		"*",
+		"onCommand:extension.fileheader",
+		"onCommand:extension.cursorTip"
+	],
+	"main": "./src/main.js",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "File header Configuration",
+			"properties": {
+				"fileheader.customMade": {
+					"type": "object",
+					"default": {},
+					"description": "头部注释,默认设置：{'Author':'git config user.name && git config user.email','Date':'Do not edit','LastEditors':'git config user.name','LastEditTime':'Do not edit','Description':'file content'}"
+				},
+				"fileheader.cursorMode": {
+					"type": "object",
+					"default": {},
+					"description": "在光标处插入函数注释,默认配置:{'description':'','param':'','return':''}"
+				},
+				"fileheader.configObj": {
+					"type": "object",
+					"default": {
+						"createFileTime": true,
+						"language": {
+							"languagetest": {
+								"head": "/$$",
+								"middle": " $ @",
+								"end": " $/",
+								"functionSymbol": {
+									"head": "/** ",
+									"middle": " * @",
+									"end": " */"
+								},
+								"functionParams": "js"
+							}
+						},
+						"autoAdd": true,
+						"autoAddLine": 100,
+						"autoAlready": true,
+						"annotationStr": {
+							"head": "/*",
+							"middle": " * @",
+							"end": " */",
+							"use": false
+						},
+						"headInsertLine": {
+							"php": 2,
+							"sh": 2
+						},
+						"beforeAnnotation": {
+							"文件后缀": "该文件后缀的头部注释之前添加某些内容"
+						},
+						"afterAnnotation": {
+							"文件后缀": "该文件后缀的头部注释之后添加某些内容"
+						},
+						"specialOptions": {
+							"特殊字段": "自定义比如LastEditTime/LastEditors"
+						},
+						"switch": {
+							"newlineAddAnnotation": true
+						},
+						"supportAutoLanguage": [],
+						"prohibitAutoAdd": [
+							"json"
+						],
+						"folderBlacklist": [
+							"node_modules",
+							"文件夹禁止自动添加头部注释"
+						],
+						"prohibitItemAutoAdd": [
+							"项目的全称, 整个项目禁止自动添加头部注释, 可以使用快捷键添加"
+						],
+						"moveCursor": true,
+						"dateFormat": "YYYY-MM-DD HH:mm:ss",
+						"atSymbol": [
+							"@",
+							"@"
+						],
+						"atSymbolObj": {
+							"文件后缀": [
+								"头部注释@符号",
+								"函数注释@符号"
+							]
+						},
+						"colon": [
+							": ",
+							": "
+						],
+						"colonObj": {
+							"文件后缀": [
+								"头部注释冒号",
+								"函数注释冒号"
+							]
+						},
+						"filePathColon": "路径分隔符替换",
+						"showErrorMessage": false,
+						"writeLog": false,
+						"wideSame": false,
+						"wideNum": 13,
+						"functionWideNum": 0,
+						"CheckFileChange": false,
+						"createHeader": false,
+						"useWorker": false,
+						"designAddHead": false,
+						"headDesignName": "random",
+						"headDesign": false,
+						"cursorModeInternalAll": {},
+						"openFunctionParamsCheck": true,
+						"functionParamsShape": [
+							"{",
+							"}"
+						],
+						"functionBlankSpaceAll": {},
+						"functionTypeSymbol": "*",
+						"typeParamOrder": "type param",
+						"customHasHeadEnd": {},
+						"throttleTime": 60000,
+						"functionParamAddStr": "",
+						"NoMatchParams": "no show param"
+					},
+					"description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "extension.fileheader",
+				"title": "fileheader"
+			},
+			{
+				"command": "extension.cursorTip",
+				"title": "cursorTip"
+			},
+			{
+				"command": "fileheader.errPathSet",
+				"title": "设置报错日志储存",
+				"category": "errPath"
+			},
+			{
+				"command": "koroFileheader.table",
+				"title": "函数参数输入换行",
+				"category": "table"
+			},
+			{
+				"command": "fileheader.random",
+				"title": "随机注释图案",
+				"category": "codeDesign-随机"
+			},
+			{
+				"command": "fileheader.buddhalImg",
+				"title": "注释图案-佛祖",
+				"category": "codeDesign-佛祖"
+			},
+			{
+				"command": "fileheader.buddhalImgSay",
+				"title": "注释图案-佛祖+佛曰",
+				"category": "codeDesign-佛祖+佛曰"
+			},
+			{
+				"command": "fileheader.buddhalSay",
+				"title": "注释图案-佛曰",
+				"category": "codeDesign-佛曰"
+			},
+			{
+				"command": "fileheader.totemDragon",
+				"title": "注释图案-龙图腾",
+				"category": "codeDesign-b-龙图腾"
+			},
+			{
+				"command": "fileheader.belle",
+				"title": "注释图案-美女",
+				"category": "codeDesign-美女"
+			},
+			{
+				"command": "fileheader.dog",
+				"title": "注释图案-狗",
+				"category": "codeDesign-狗"
+			},
+			{
+				"command": "fileheader.coderSong",
+				"title": "注释图案-程序员之歌",
+				"category": "codeDesign-程序员之歌"
+			},
+			{
+				"command": "fileheader.jesus",
+				"title": "注释图案-耶稣",
+				"category": "codeDesign-耶稣"
+			},
+			{
+				"command": "fileheader.totemWestDragon",
+				"title": "注释图案-喷火龙",
+				"category": "codeDesign-喷火龙"
+			},
+			{
+				"command": "fileheader.totemBat",
+				"title": "注释图案-蝙蝠",
+				"category": "codeDesign-蝙蝠"
+			},
+			{
+				"command": "fileheader.loitumaGirl",
+				"title": "注释图案-甩葱少女",
+				"category": "codeDesign-甩葱少女"
+			},
+			{
+				"command": "fileheader.grassHorse",
+				"title": "注释图案-草泥马",
+				"category": "codeDesign-草泥马"
+			},
+			{
+				"command": "fileheader.grassHorse2",
+				"title": "注释图案-草泥马2",
+				"category": "codeDesign-草泥马2"
+			},
+			{
+				"command": "fileheader.keyboardAll",
+				"title": "注释图案-全键盘",
+				"category": "codeDesign-全键盘"
+			},
+			{
+				"command": "fileheader.keyboardSmall",
+				"title": "注释图案-小键盘",
+				"category": "codeDesign-小键盘"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.codeDesign",
+				"key": "ctrl+alt+j",
+				"mac": "ctrl+cmd+j",
+				"linux": "ctrl+meta+j",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.fileheader",
+				"key": "ctrl+alt+i",
+				"mac": "ctrl+cmd+i",
+				"linux": "ctrl+meta+i",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "koroFileheader.table",
+				"key": "alt+y",
+				"mac": "cmd+y",
+				"linux": "meta+y",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.cursorTip",
+				"key": "ctrl+alt+t",
+				"mac": "ctrl+cmd+t",
+				"linux": "ctrl+meta+t",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^11.0.0",
+		"@commitlint/config-conventional": "^11.0.0",
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^7.10.14",
+		"@vscode/test-electron": "^2.1.3",
+		"chai": "^4.3.6",
+		"eslint": "^7.16.0",
+		"eslint-config-standard": "^16.0.2",
+		"eslint-plugin-import": "^2.22.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^4.2.1",
+		"eslint-plugin-standard": "^5.0.0",
+		"husky": "^4.3.6",
+		"lint-staged": "^10.5.3",
+		"mocha": "^10.0.0",
+		"rimraf": "^3.0.2"
+	},
+	"dependencies": {
+		"delay": "^5.0.0",
+		"moment": "^2.29.1"
+	},
+	"__metadata": {
+		"id": "0398f8a5-da8e-4c21-ae4d-12a40652a517",
+		"publisherDisplayName": "OBKoro1",
+		"publisherId": "471fa7bd-7150-4d78-a6e5-334b290177c0",
+		"isPreReleaseVersion": false
+	}
 }
