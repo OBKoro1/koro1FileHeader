@@ -1,0 +1,180 @@
+/*
+ * Description: 
+ * Version: 1.0
+ * Autor: Qi
+ * Date: 2020-02-05 10:01:35
+ * LastEditors: Qi
+ * LastEditTime: 2020-02-05 10:05:21
+ */
+/*
+ * Author: OBKoro1
+ * Date: 2020-02-05 10:01:35
+ * LastEditors: OBKoro1
+ * LastEditTime: 2020-02-05 10:01:40
+ * FilePath: /fileHead/test.json
+ * Description: 
+ * https://github.com/OBKoro1
+ */
+{
+  "name": "korofileheader",
+  "displayName": "koroFileHeader",
+  "description": "在vscode中用于生成文件头部注释和函数注释的插件，经过多版迭代后，插件：支持所有主流语言,功能强大，灵活方便，文档齐全，食用简单！",
+  "version": "4.5.2",
+  "publisher": "OBKoro1",
+  "scripts": {
+    "build": "vsce package",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test",
+    "d": "bash deploy.sh"
+  },
+  "author": {
+    "name": "OBKoro1",
+    "email": "obkoro1@foxmail.com",
+    "url": "http://obkoro1.com/"
+  },
+  "galleryBanner": {
+    "color": "#3B4859",
+    "theme": "dark"
+  },
+  "homepage": "https://github.com/OBKoro1/koro1FileHeader",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OBKoro1/koro1FileHeader"
+  },
+  "bugs": {
+    "url": "https://github.com/OBKoro1/koro1FileHeader/issues",
+    "email": "obkoro1@foxmail.com"
+  },
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.23.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "vscode korofileheader",
+    "korofileheader",
+    "annotation",
+    "comment",
+    "vscode comment",
+    "vscode annotation",
+    "vscode 注释",
+    "vscode 文件头部注释",
+    "注释",
+    "文件注释",
+    "头部注释",
+    "函数注释",
+    "fileheader",
+    "vscode-fileheader",
+    "Document This",
+    "obkoro1",
+    "koro1"
+  ],
+  "activationEvents": [
+    "*",
+    "onCommand:extension.fileheader",
+    "onCommand:extension.cursorTip"
+  ],
+  "main": "./src/koroFileHead.js",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "File header Configuration",
+      "properties": {
+        "fileheader.customMade": {
+          "type": "object",
+          "default": {},
+          "description": "头部注释,默认设置：{'Author':'your name','Date':'Do not edit','LastEditors':'your name','LastEditTime':'Do not edit','Description':'file content'}"
+        },
+        "fileheader.cursorMode": {
+          "type": "object",
+          "default": {},
+          "description": "在光标处插入函数注释,默认配置:{'description':'','param':'','return':''}"
+        },
+        "fileheader.configObj": {
+          "type": "object",
+          "default": {
+            "createFileTime": true,
+            "language": {
+              "languagetest": {
+                "head": "/$$",
+                "middle": " $ @",
+                "end": " $/"
+              }
+            },
+            "autoAdd": true,
+            "autoAddLine": 100,
+            "autoAlready": true,
+            "annotationStr": {
+              "head": "/*",
+              "middle": " * @",
+              "end": " */",
+              "use": false
+            },
+            "headInsertLine": {
+              "php": 2
+            },
+            "beforeAnnotation": {},
+            "afterAnnotation": {},
+            "specialOptions": {},
+            "switch": {
+              "newlineAddAnnotation": true
+            },
+            "prohibitAutoAdd": [
+              "json"
+            ],
+            "moveCursor": true,
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "atSymbol": "@",
+            "atSymbolObj": {},
+            "colon": ": ",
+            "colonObj": {},
+            "filePathColon": "路径分隔符替换",
+            "showErrorMessage": false,
+            "wideSame": false,
+            "wideNum": 13,
+            "CheckFileChange": false
+          },
+          "description": "插件配置选项,readme:https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "extension.fileheader",
+        "title": "fileheader"
+      },
+      {
+        "command": "extension.cursorTip",
+        "title": "cursorTip"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.fileheader",
+        "key": "ctrl+alt+i",
+        "mac": "ctrl+cmd+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.cursorTip",
+        "key": "ctrl+alt+t",
+        "mac": "ctrl+cmd+t",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^7.0.43",
+    "eslint": "^5.16.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.34"
+  },
+  "dependencies": {
+    "hoek": "^6.0.4",
+    "moment": "^2.24.0"
+  }
+}

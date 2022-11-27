@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "path": ".."
+    }
+  ],
+  "settings": {
+    "fileheader.customMade": {
+      "Author": "OBKoro2",
+      "Date": "Do not edit",
+      "LastEditors": "OBKoro2",
+      "LastEditTime": "Do not edit",
+      "FilePath": "", // 设置后，默认生成文件相对于项目的路径
+      "Description": "工作区测试",
+      "custom_string_obkoro1": "koroFileheader VSCode插件",
+      "custom_string_obkoro1_copyright": "Copyright (c) ${now_year} by OBKoro1, All Rights Reserved. "
+	  },
+    "fileheader.configObj": {
+      "showErrorMessage": true,
+    }
+  }
+}

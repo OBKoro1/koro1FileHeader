@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+let str = `/*
+ * Author       : OBKoro1
+ * CreateDate   : 2020-07-03 14:50:17
+ * LastEditors  : OBKoro1
+ * LastEditTime : 2020-11-10 19:14:36
+ * FilePath     : \function-params\function.js
+ * Description  : 
+ * symbol_custom_string_obkoro11: 啦啦啦
+ * symbol_custom_string_obkoro10001: Copyright 2020 OBKoro1
+ */`
+ let colon = ': '
+    const reg = new RegExp(`symbol_custom_string_obkoro\\d+${colon}`, 'gim')
+    let tpl = str.replace(reg, '')
+console.log('tpl', tpl, str)
+    // let res, num = 0;
+    // while(res = reg.exec(str)){
+    //     if (!res) break
+    //     console.log('exec', res)
+    //     if (num === 10) break
+    // }
+    </script>
+</body>
+</html>
