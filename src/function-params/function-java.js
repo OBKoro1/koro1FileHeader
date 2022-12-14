@@ -9,7 +9,7 @@
 
 class GetParams {
   init (lineProperty) {
-    this.text = lineProperty._text // 代码
+    this.text = lineProperty.text // 代码
     this.match = false // 是否匹配到参数
     this.res = ''
     this.replaceModifier()

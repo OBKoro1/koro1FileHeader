@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1 obkoro1@foxmail.com
  * Date         : 2022-05-01 15:35:12
- * Last Author  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-06-04 11:32:26
- * FilePath     : /fileHead/function-params/function.js
+ * Last Author  : OBKoro1 1677593011@qq.com
+ * LastEditTime : 2022-12-14 22:23:22
+ * FilePath     : /function-params/function.js
  * description  : 
  * koroFileheader VSCode插件
  * Copyright (c) 2022 by OBKoro1 email: obkoro1@foxmail.com, All Rights Reserved. 
@@ -30,6 +30,7 @@ export const download = async ( ) => {
  * @return {type}
  */
 export const download = async ( axiosMethods, apiLink, opts, fileName) => {};
+
 /**
  * @description: 
  * @param axiosMethods [type]
