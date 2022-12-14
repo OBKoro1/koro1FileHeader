@@ -1,9 +1,9 @@
 <!--
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
- * Last Author  : Please set LastEditors
- * LastEditTime : 2022-05-21 18:41:23
- * FilePath     : /koro1FileHeader/CHANGELOG.md
+ * Last Author  : OBKoro1 1677593011@qq.com
+ * LastEditTime : 2022-12-14 23:15:59
+ * FilePath     : /CHANGELOG.md
  * Description  :
 -->
 
@@ -16,6 +16,10 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的 json 文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.9.2]
+
+* fix: VSCode 1.74.0 兼容，解决函数注释无法使用的问题
 
 ### [V4.9.1]
 
