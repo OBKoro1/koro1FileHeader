@@ -2,14 +2,14 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-09-07 15:47:40
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-06-28 13:57:39
+ * LastEditTime : 2022-12-14 22:17:24
  * File         : \koro1FileHeader\src\function-params\function-ts.js
  * Description  : js语言获取函数参数
  */
 
 class GetParams {
   init (lineProperty) {
-    this.text = lineProperty._text // 代码
+    this.text = lineProperty.text // 代码
     this.match = false // 是否匹配到参数
     this.res = ''
     this.matchProcess()

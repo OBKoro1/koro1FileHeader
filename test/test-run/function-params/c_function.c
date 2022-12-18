@@ -2,7 +2,7 @@
  * Author       : OBKoro1
  * CreateDate   : 2020-12-23 19:43:47
  * LastEditors  : OBKoro1
- * LastEditTime : 2020-12-24 14:13:38
+ * LastEditTime : 2022-12-13 18:25:41
  * File         : \fileHead\function-params\c_function.c
  * Description  : c语言 
  * 2020-12-23 19:43:47
@@ -28,10 +28,9 @@ int max(int num1, int num2) {
  * @description: 
  * @param {int} a
  * @param {int} b
- * @param {array} args
  * @return {*}
  */
-int sum(int a, int b=20, ...)
+int sum(int a, int b=20)
 {
   int result;
  

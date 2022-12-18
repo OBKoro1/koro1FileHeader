@@ -3,8 +3,8 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-05-21 18:08:02
- * FilePath     : /koro1FileHeader/src/logic/logic.js
+ * LastEditTime : 2022-12-14 22:17:09
+ * FilePath     : /src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
  */
@@ -100,8 +100,8 @@ function getMoreLine (cursorModeInternal, editor, moreLineObj) {
 // 获取最后一行不为空的行数
 function getEndLineNoEmpty (editor, moreLineObj) {
   const { startObj, endObj } = moreLineObj
-  const lineNumber = endObj._line
-  for (let i = endObj._line; i >= startObj._line; i--) {
+  const lineNumber = endObj.line
+  for (let i = endObj.line; i >= startObj.line; i--) {
     const lineProperty = editor.document.lineAt(i)
     if (!lineProperty.isEmptyOrWhitespace) return i
   }
@@ -111,8 +111,8 @@ function getEndLineNoEmpty (editor, moreLineObj) {
 // 获取第一行不为空的行数
 function getFirstLineNoEmpty (editor, moreLineObj) {
   const { startObj, endObj } = moreLineObj
-  const lineNumber = startObj._line
-  for (let i = startObj._line; i <= endObj._line; i++) {
+  const lineNumber = startObj.line
+  for (let i = startObj.line; i <= endObj.line; i++) {
     const lineProperty = editor.document.lineAt(i)
     if (!lineProperty.isEmptyOrWhitespace) return i
   }
@@ -123,12 +123,12 @@ function getFirstLineNoEmpty (editor, moreLineObj) {
 function getMultilineText (editor, moreLineObj) {
   const { startObj, endObj } = moreLineObj
   let text = ''
-  for (let i = startObj._line; i <= endObj._line; i++) {
+  for (let i = startObj.line; i <= endObj.line; i++) {
     const lineProperty = editor.document.lineAt(i)
-    text += lineProperty._text
+    text += lineProperty.text
   }
   return {
-    _text: text
+    text: text
   }
 }
 
@@ -136,10 +136,10 @@ function getMultilineText (editor, moreLineObj) {
 function isMoreLine (editor) {
   const selectionsArr = editor.selections
   const selectItem = selectionsArr[0]
-  const startObj = selectItem._start
-  const endObj = selectItem._end
+  const startObj = selectItem.start
+  const endObj = selectItem.end
   // 多行返回对象
-  if (startObj._line !== endObj._line) {
+  if (startObj.line !== endObj.line) {
     return { startObj, endObj }
   }
 }
