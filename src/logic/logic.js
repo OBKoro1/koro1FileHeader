@@ -3,7 +3,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2022-12-14 22:17:09
+ * LastEditTime : 2023-01-13 21:48:58
  * FilePath     : /src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -175,12 +175,6 @@ function noEditorValue (data, config) {
       time = new Date(createTime).format()
     }
   }
-  if (data.Author) {
-    data.Author = setGitConfig(data.Author)
-  }
-  if (data.LastEditors) {
-    data.LastEditors = setGitConfig(data.LastEditors)
-  }
 
   // 去掉@Date
   if (data[`${global.specialString}1_date`]) {
@@ -230,10 +224,13 @@ function setGitConfig (value) {
 
 // 修改模板设置的值
 function changeTplValue (data) {
-  // 版权自定义
-  if (data[global.customStringCopyRight]) {
-    const copyright = data[global.customStringCopyRight]
-    let res = copyright.replace(
+  const newData = {}
+  Object.keys(data).forEach(key => {
+    newData[key] = writeValue(data[key])
+  })
+  function writeValue (value) {
+    // now_year
+    let res = value.replace(
       '${now_year}',
       new Date().format('YYYY')
     )
@@ -244,11 +241,11 @@ function changeTplValue (data) {
       '${git_email}': 'git config user.email'
     }
     Object.keys(templateObj).forEach(key => {
-      res = res.replace(key, setGitConfig(templateObj[key]))
+      res = res.replace(templateObj[key], setGitConfig(templateObj[key]))
     })
-    data[global.customStringCopyRight] = res
+    return res
   }
-  return data
+  return newData
 }
 
 /**
