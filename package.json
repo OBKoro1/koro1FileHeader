@@ -297,14 +297,14 @@
     "keybindings": [
       {
         "command": "extension.codeDesign",
-        "key": "ctrl+alt+j",
+        "key": "ctrl+win+j",
         "mac": "ctrl+cmd+j",
         "linux": "ctrl+meta+j",
         "when": "editorTextFocus"
       },
       {
         "command": "extension.fileheader",
-        "key": "ctrl+alt+i",
+        "key": "ctrl+win+i",
         "mac": "ctrl+cmd+i",
         "linux": "ctrl+meta+i",
         "when": "editorTextFocus"
@@ -318,7 +318,7 @@
       },
       {
         "command": "extension.cursorTip",
-        "key": "ctrl+alt+t",
+        "key": "ctrl+win+t",
         "mac": "ctrl+cmd+t",
         "linux": "ctrl+meta+t",
         "when": "editorTextFocus"
