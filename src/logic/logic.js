@@ -3,7 +3,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2023-01-13 21:48:58
+ * LastEditTime : 2023-01-19 21:07:29
  * FilePath     : /src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -229,9 +229,9 @@ function changeTplValue (data) {
     newData[key] = writeValue(data[key])
   })
   function writeValue (value) {
-    // now_year
+    // now_year 全局替换
     let res = value.replace(
-      '${now_year}',
+      /\$\{now_year}/g,
       new Date().format('YYYY')
     )
     // 获取用户名和邮箱
