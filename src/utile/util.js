@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2022-01-15 17:35:57
+ * LastEditTime : 2023-01-28 22:00:11
  */
 
 const vscode = require('vscode')
@@ -326,6 +326,28 @@ const authList = (fsPath) => {
   return match && support // 不在黑名单 并且在白名单中
 }
 
+/**
+ * @description: 深拷贝
+ */
+function deepClone (obj, hash = new WeakMap()) {
+  if (obj == null) return obj
+  if (obj instanceof RegExp) return new RegExp(obj) // 处理正则类型数据
+  if (obj instanceof Date) return new Date(obj) // 处理时间类型数据
+  if (typeof obj !== 'object') return obj // 返回函数等正常值
+  if (hash.has(obj)) return hash.get(obj) //  查询循环引用
+  const copy = new obj.constructor() //  根据constructor实例化数组、对象
+  hash.set(obj, copy) // 设置hash值 用于查询循环引用
+  for (const key in obj) {
+    // 循环对象属性 原型链的值 不拷贝
+    // eslint-disable-next-line no-prototype-builtins
+    if (obj.hasOwnProperty(key)) {
+      //  循环递归拷贝
+      copy[key] = deepClone(obj[key], hash)
+    }
+  }
+  return copy
+}
+
 module.exports = {
   throttle, // 节流
   getColon, // 获取该文件的符号
@@ -336,5 +358,6 @@ module.exports = {
   spaceStringFn, // 使用空格填充字符
   getFileRelativeSite, // 获取文件和项目的地址
   authList, // 自动添加是否匹配黑名单
-  matchProperty // 正则匹配对象中的属性
+  matchProperty, // 正则匹配对象中的属性
+  deepClone // 深拷贝
 }

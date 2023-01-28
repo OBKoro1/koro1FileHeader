@@ -1,9 +1,9 @@
 /*
  * Author       : OBKoro1
  * Date         : 2020-02-05 16:09:11
- * Last Author  : Please set LastEditors
- * LastEditTime : 2022-05-21 18:34:59
- * FilePath     : /koro1FileHeader/src/models/checkFile.js
+ * Last Author  : OBKoro1 1677593011@qq.com
+ * LastEditTime : 2023-01-28 21:22:40
+ * FilePath     : /src/models/checkFile.js
  * Description  : 检测文件的一些逻辑
  * https://github.com/OBKoro1
  */
@@ -49,7 +49,7 @@ function saveReplaceTime (document, config, fileEnd) {
   // 有没有更改特殊变量
   const checkHasAnnotation = (name, line, checked) => {
     if (checked) return false // 已经找到要替换的
-    const key = logicUtil.getSpecialOptionsKey(config, name)
+    const key = logicUtil.getSpecialOptionsKey(name)
     const reg = new RegExp(`[\\s\\W]?${atSymbol}${key}[\\W\\s]`, 'g')
     // 检测特殊变量
     return reg.test(line)
@@ -82,7 +82,7 @@ function saveReplaceTime (document, config, fileEnd) {
         // 表示是修改人
         hasAnnotation = true
         authorRange = range
-        const key = logicUtil.getSpecialOptionsKey(config, 'LastEditors')
+        const key = logicUtil.getSpecialOptionsKey(CONST.SPECIAL_LAST_EDITORS)
         const LastEditors = data[key] || 'Please set LastEditors'
         authorText = changeFont.LastEditorsStr(LastEditors)
       } else if (checkHasAnnotation('LastEditTime', line, lastTimeRange)) {

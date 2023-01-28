@@ -3,7 +3,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2023-01-28 14:55:34
+ * LastEditTime : 2023-01-28 21:28:22
  * FilePath     : /src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -284,10 +284,7 @@ const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   // 生成Description行
   if (!config.configObj.moveCursor) return
   const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
-  const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
-  const DescriptionName = specialOptions.description
-    ? specialOptions.description
-    : 'description'
+  const DescriptionName = logicUtil.getSpecialOptionName(global.SPECIAL_FN_DESCRIPTION)
   // 计算函数注释模板行数
   const newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1
   let i = lineNum - 1 // 初始行数
@@ -320,10 +317,7 @@ const moveCursor = (tpl) => {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项默认值
   if (config.configObj.moveCursor) {
     const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
-    const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
-    const DescriptionName = specialOptions.Description
-      ? specialOptions.Description
-      : 'Description'
+    const DescriptionName = logicUtil.getSpecialOptionName(global.SPECIAL_HEAD_DESCRIPTION)
     // 注释总行数 最后多一行注释开头 一行注释结尾 最后一行换行
     const strLine = tpl.split(/\r\n|\r|\n/).length
     // 文档是从0开始 行数从1开始 要减去1

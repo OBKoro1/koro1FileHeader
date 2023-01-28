@@ -37,23 +37,23 @@ const sameLengthFn = (data, type = 'head') => {
  */
 const changePrototypeNameFn = (data, config) => {
   const keysArr = Object.keys(data)
-  const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
   const objData = {}
   const specialArr = [
     // 没有操作
-    'Author',
-    'Date',
-    'Description',
-    'description',
+    global.SPECIAL_AUTHOR,
+    global.SPECIAL_DATE,
+    global.SPECIAL_HEAD_DESCRIPTION,
+    global.SPECIAL_FN_DESCRIPTION,
     // 需要变更
-    'LastEditTime',
-    'LastEditors',
-    'FilePath'
+    global.SPECIAL_LAST_EDIT_TIME,
+    global.SPECIAL_LAST_EDITORS,
+    global.SPECIAL_FILE_PATH
   ]
   keysArr.forEach((item) => {
     // 特殊字段 且 有设置特殊字段
-    if (specialArr.includes(item) && specialOptions[item]) {
-      objData[specialOptions[item]] = data[item]
+    const specialItem = getSpecialOptionName(item, true)
+    if (specialArr.includes(item) && specialItem) {
+      objData[specialItem] = data[item]
     } else if (item.indexOf(global.specialString) !== -1) {
       // 更改用户自定义输出字段 后期需要切割它
       if (item === `${global.specialString}1_copyright`) {
@@ -121,27 +121,27 @@ function getLanguageOrFileSetting (options) {
   const config = vscode.workspace.getConfiguration('fileheader') // 配置项
   const editor = vscode.editor || vscode.window.activeTextEditor // 选中文件
   const languageId = editor.document.languageId
-  const language = config.configObj[optionsName]
+  const languageOptions = config.configObj[optionsName] || {}
   const fsPath = editor.document.uri.fsPath
   const fsName = util.fsPathFn(editor.document.uri.fsPath) // 文件后缀
   // 匹配特殊文件
   const isSpecial = util.specialLanguageFn(fsPath, optionsName)
-  if (isSpecial) { return language[isSpecial] }
+  if (isSpecial && languageOptions[isSpecial] !== undefined) { return languageOptions[isSpecial] }
   // 检查用户是否设自定义语言 匹配语言
-  if (language[languageId]) {
-    return language[languageId]
-  } else if (language[fsName]) {
+  if (languageOptions[languageId] !== undefined) {
+    return languageOptions[languageId]
+  } else if (languageOptions[fsName] !== undefined) {
     // 语言没有匹配到 单独匹配一下文件后缀
-    return language[fsName]
+    return languageOptions[fsName]
   } else {
     // 没匹配到 使用默认
     // 如果配置项中有defaultSetting 就用配置项中的 否则用全局的
-    const defaultSetting = config.configObj[optionsName].defaultSetting
-    if (defaultSetting) {
+    const defaultSetting = languageOptions.defaultSetting
+    if (defaultSetting !== undefined) {
       return defaultSetting
     } else {
       const res = config.configObj[globalSetting]
-      if (res) {
+      if (res !== undefined) {
         return res
       }
       return defaultValue // 找不到值就返回这个值的默认值
@@ -175,14 +175,38 @@ function noLinkHeadEnd (fileEnd, type) {
 /**
  * @description: 获取特殊字段的key
  */
-function getSpecialOptionsKey (config, keyName) {
-  let key = keyName
-  const userSetName = config.configObj.specialOptions[key]
-  if (userSetName) {
-    key = userSetName
-  }
+function getSpecialOptionsKey (keyName) {
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项
+  let key = getSpecialOptionName(keyName)
   key = util.spaceStringFn(key, config.configObj.wideNum)
   return key
+}
+
+/**
+ * @description: 获取某个key的特殊字段
+ * 可以根据语言单独配置
+ */
+/**
+ * @description: 获取某个key的特殊字段，可以根据语言单独配置
+ * @param {type} key 获取哪个特殊字段的key
+ * @param {type} isHas 是否存在
+ * @return {type}
+ */
+function getSpecialOptionName (key, isHas) {
+  // 获取用户语言特殊字符、或者整体的特殊字符
+  const specialOptions = getLanguageOrFileSetting({
+    optionsName: 'specialOptions',
+    globalSetting: 'specialOptions',
+    defaultValue: {}
+  })
+  const config = vscode.workspace.getConfiguration('fileheader') // 配置项
+  const specialOptionsDefault = config.configObj.specialOptions
+  // 合并配置项，默认配置与单独配置结合。
+  const options = Object.assign(util.deepClone(specialOptionsDefault), util.deepClone(specialOptions))
+  if (isHas) {
+    return options[key]
+  }
+  return options[key] ? options[key] : key
 }
 
 module.exports = {
@@ -192,5 +216,6 @@ module.exports = {
   getAnnotationTemplate,
   getLanguageSymbol,
   getLanguageOrFileSetting,
-  getSpecialOptionsKey
+  getSpecialOptionsKey,
+  getSpecialOptionName
 }

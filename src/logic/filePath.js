@@ -2,13 +2,14 @@
  * Author       : OBKoro1
  * Date         : 2020-02-06 12:26:22
  * LastEditors  : OBKoro1
- * LastEditTime : 2021-11-05 16:39:27
- * FilePath     : /koro1FileHeader/src/logic/filePath.js
+ * LastEditTime : 2023-01-28 21:17:21
+ * FilePath     : /src/logic/filePath.js
  * Description  : 文件路径相关
  * https://github.com/OBKoro1
  */
 const vscode = require('vscode')
 const util = require('../utile/util')
+const CONST = require('../utile/CONST')
 const path = require('path')
 const logicUtil = require('../utile/logicUtil')
 const LanguageDifferent = require('../languageOutPut/languageDifferent')
@@ -45,10 +46,8 @@ const createFilePath = (FilePath) => {
 
 // 模拟生成中间部分
 const mockCreateMiddle = (FilePath, fileEnd) => {
-  const config = vscode.workspace.getConfiguration('fileheader')
   FilePath = createFilePath(FilePath) // 生成FilePath
-  const specialFileName = config.configObj.specialOptions.FilePath
-  const name = specialFileName || 'FilePath'
+  const name = logicUtil.getSpecialOptionName(CONST.SPECIAL_FILE_PATH)
   let data = {
     [name]: FilePath
   }

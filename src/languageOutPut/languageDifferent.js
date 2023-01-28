@@ -8,6 +8,7 @@
  */
 
 const util = require('../utile/util')
+const logicUtil = require('../utile/logicUtil')
 const global = require('../utile/CONST')
 const customLanguage = '自定义语言注释'
 
@@ -73,28 +74,9 @@ TplJudge.prototype = {
     this.languageObj = this.config.configObj.language // 自定义语言项
     this.fsPath = this.fsPathEndFn(editor.document.uri.fsPath)
     // LastEditTime、LastEditors 特殊字段用户有没有设置
-    const specialOptions = this.config.configObj.specialOptions
-    this.LastEditTimeName = specialOptions.LastEditTime
-      ? specialOptions.LastEditTime
-      : 'LastEditTime'
-    this.LastEditTimeName = util.spaceStringFn(
-      this.LastEditTimeName,
-      this.config.configObj.wideNum
-    )
-    this.LastEditorsName = specialOptions.LastEditors
-      ? specialOptions.LastEditors
-      : 'LastEditors'
-    this.LastEditorsName = util.spaceStringFn(
-      this.LastEditorsName,
-      this.config.configObj.wideNum
-    )
-    this.filePathName = specialOptions.LastEditors
-      ? specialOptions.LastEditors
-      : 'FilePath'
-    this.filePathName = util.spaceStringFn(
-      this.filePathName,
-      this.config.configObj.wideNum
-    )
+    this.LastEditTimeName = logicUtil.getSpecialOptionsKey(global.SPECIAL_LAST_EDIT_TIME)
+    this.LastEditorsName = logicUtil.getSpecialOptionsKey(global.SPECIAL_LAST_EDITORS)
+    this.filePathName = logicUtil.getSpecialOptionsKey(global.SPECIAL_FILE_PATH)
   },
   // 设置@符号和冒号
   setSymbol (fileEnd = '') {

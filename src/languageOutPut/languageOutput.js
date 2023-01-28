@@ -3,7 +3,7 @@
  * @Github: https://github.com/OBKoro1
  * @Date: 2018-11-08 12:58:51
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2023-01-13 20:45:53
+ * LastEditTime : 2023-01-28 21:15:52
  * @Description: 不同语言的逻辑
  */
 const LanguageDifferent = require('./languageDifferent')
@@ -118,10 +118,12 @@ class FunctionTplStr {
    * @return {string} res
    */
   handleParamReturn (obj, key) {
-    if (this.config.configObj.specialOptions.param && key.startsWith('param')) {
-      obj.key = util.spaceStringFn(this.config.configObj.specialOptions.param, this.config.configObj.functionWideNum)
-    } else if (this.config.configObj.specialOptions.return && key.startsWith('return')) {
-      obj.key = util.spaceStringFn(this.config.configObj.specialOptions.return, this.config.configObj.functionWideNum)
+    const specialParam = logicUtil.getSpecialOptionName(global.SPECIAL_PARAM, true)
+    const specialReturn = logicUtil.getSpecialOptionName(global.SPECIAL_RETURN, true)
+    if (specialParam && key.startsWith('param')) {
+      obj.key = util.spaceStringFn(specialParam, this.config.configObj.functionWideNum)
+    } else if (specialReturn && key.startsWith('return')) {
+      obj.key = util.spaceStringFn(specialReturn, this.config.configObj.functionWideNum)
     }
     obj.type = 'fnMiddle_param'
     obj.typeVal = this.getTypeVal()

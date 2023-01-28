@@ -75,6 +75,17 @@ const globalStateData = {
   errPath: 'error-path'
 }
 
+// special 特殊字符
+const SPECIAL_LAST_EDIT_TIME = 'LastEditTime'
+const SPECIAL_LAST_EDITORS = 'LastEditors'
+const SPECIAL_FILE_PATH = 'FilePath'
+const SPECIAL_PARAM = 'param'
+const SPECIAL_RETURN = 'return'
+const SPECIAL_FN_DESCRIPTION = 'description'
+const SPECIAL_HEAD_DESCRIPTION = 'Description'
+const SPECIAL_AUTHOR = 'Author'
+const SPECIAL_DATE = 'Date'
+
 
 module.exports = {
   lineNum,
@@ -89,5 +100,14 @@ module.exports = {
   errPath,
   initErrPath,
   globalStateData,
-  NoMatchLanguage
+  NoMatchLanguage,
+  SPECIAL_LAST_EDIT_TIME,
+  SPECIAL_LAST_EDITORS,
+  SPECIAL_FILE_PATH,
+  SPECIAL_PARAM,
+  SPECIAL_RETURN,
+  SPECIAL_FN_DESCRIPTION,
+  SPECIAL_HEAD_DESCRIPTION,
+  SPECIAL_AUTHOR,
+  SPECIAL_DATE,
 }
