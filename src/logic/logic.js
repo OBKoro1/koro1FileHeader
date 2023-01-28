@@ -3,7 +3,7 @@
  * Author       : OBKoro1
  * Date         : 2020-06-01 11:10:04
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
- * LastEditTime : 2023-01-19 21:07:29
+ * LastEditTime : 2023-01-28 14:55:34
  * FilePath     : /src/logic/logic.js
  * Description  : 逻辑输出
  * https://github.com/OBKoro1
@@ -285,9 +285,9 @@ const moveCursorDesFn = (fileEnd, config, fontTpl, lineNum) => {
   if (!config.configObj.moveCursor) return
   const editor = vscode.editor || vscode.window.activeTextEditor // 每次运行选中文件
   const specialOptions = config.configObj.specialOptions // 时间字段重命名配置
-  const DescriptionName = specialOptions.Description
-    ? specialOptions.Description
-    : 'Description'
+  const DescriptionName = specialOptions.description
+    ? specialOptions.description
+    : 'description'
   // 计算函数注释模板行数
   const newLineNum = fontTpl.split(/\r\n|\r|\n/).length - 1
   let i = lineNum - 1 // 初始行数

@@ -44,6 +44,7 @@ const changePrototypeNameFn = (data, config) => {
     'Author',
     'Date',
     'Description',
+    'description',
     // 需要变更
     'LastEditTime',
     'LastEditors',
