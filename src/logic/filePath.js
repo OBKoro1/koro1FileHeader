@@ -20,6 +20,27 @@ const createFilePath = (FilePath) => {
   let res = `${path.sep}${itemName}${fileItemPath}` // 拼接项目名称和相对于项目的路径
   if (FilePath === 'no item name') {
     res = `${fileItemPath}`
+  } else if (FilePath === 'relative path') {
+    if (vscode.workspace.workspaceFolders.length > 0) {
+      // 获取工作空间路径
+      let folder = vscode.workspace.workspaceFolders[0];
+      let root = path.resolve(folder.uri.fsPath, '..');
+      if (fileItemPath.indexOf(root) === 0) {
+        res = path.sep + path.relative(root, fileItemPath);
+      }
+    }
+  } else if (FilePath === 'relative path without workspace') {
+    if (vscode.workspace.workspaceFolders.length > 0) {
+      // 遍历工作空间路径
+      for (const workspaceFolder of vscode.workspace.workspaceFolders) {
+        let root = workspaceFolder.uri.fsPath;
+        if (fileItemPath.indexOf(root) === 0) {
+          // 存在于工作空间的路径才进行转换
+          res = path.sep + path.relative(root, fileItemPath);
+          break;
+        }
+      }
+    }
   } else if (FilePath === 'only file name') {
     const arr = fileItemPath.split(path.sep)
     res = arr[arr.length - 1]
