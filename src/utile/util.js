@@ -3,7 +3,7 @@
  * @Author: OBKoro1
  * @Date: 2018-10-31 14:18:17
  * LastEditors  : OBKoro1
- * LastEditTime : 2023-01-28 22:00:11
+ * LastEditTime : 2023-01-29 14:40:28
  */
 
 const vscode = require('vscode')
@@ -55,7 +55,7 @@ const getFsNameEnd = (fileName) => {
   const fileNameArr = fileName.split('.')
   // 多个.的文件名 从多到少匹配自定义注释
   for (const index of fileNameArr.keys()) {
-    const newArr = JSON.parse(JSON.stringify(fileNameArr))
+    const newArr = deepClone(fileNameArr)
     newArr.splice(0, index + 1)
     const endStr = newArr.join('.')
     if (language[endStr]) {
@@ -291,7 +291,7 @@ const getFileRelativeSite = () => {
   let itemName = '' // 项目名称
   let itemPath = '' // 项目路径
   try {
-    itemPath = vscode.workspace.workspaceFolders[0].uri.fsPath
+    itemPath = vscode.workspace.rootPath
     // path.sep window: \ mac: /
     const itemNameArr = itemPath.split(path.sep)
     itemName = itemNameArr[itemNameArr.length - 1] // 取/最后一位
