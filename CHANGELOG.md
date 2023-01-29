@@ -2,8 +2,8 @@
  * Author       : OBKoro1
  * Date         : 2021-03-27 17:30:30
  * Last Author  : OBKoro1 1677593011@qq.com
- * LastEditTime : 2022-12-14 23:15:59
- * FilePath     : /CHANGELOG.md
+ * LastEditTime : 2023-01-29 16:04:10
+ * FilePath     : /koro1FileHeader/CHANGELOG.md
  * Description  :
 -->
 
@@ -16,6 +16,48 @@
 [配置文档](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE%E5%AD%97%E6%AE%B5) - 有所有功能的简介的 json 文件
 
 [配置](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE) - 所有配置的详细描述的文档，用于查看详细介绍。
+
+### [V4.9.3]
+
+* feat: specialOptions支持单独根据语言或者语言后缀进行配置，参考自定义语言的后缀形式 [#539](https://github.com/OBKoro1/koro1FileHeader/issues/539)， 文档：[特殊字段允许自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89)
+
+如下面的js、md，会针对后缀文件进行单独的特殊字段设置。
+
+```js
+"fileheader.configObj": {
+  "specialOptions":{
+    "Author": "creater",
+    "Date": "since",
+    "LastEditTime": "lastTime",
+    "LastEditors": "LastAuthor",
+    "Description": "message", // 头部注释大写的描述Description
+    "description": "function message", // 函数注释小写的描述：description
+    "FilePath": "文件相对于项目的路径"
+    "param": "param2", // 函数注释parm参数别名
+    // 文件后缀、或者语言后缀，可针对单个文件后缀进行配置：language的自定义语言配置
+    "js": {
+        "Description": "message2",  // 合并specialOptions第一层级的配置，覆盖Description的配置
+        "return": "return2", // 单独为js文件添加return 特殊字段配置
+    },
+    "md": {
+      "Date": "date",
+      "Description": "tag"
+    }
+  }
+}
+```
+
+
+* feat: 函数注释特殊字段为description,头部注释的特殊字段为Description，用于区分 [#512](https://github.com/OBKoro1/koro1FileHeader/issues/512)
+
+文档：[特殊字段允许自定义](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#6-%E7%89%B9%E6%AE%8A%E5%AD%97%E6%AE%B5%E5%85%81%E8%AE%B8%E8%87%AA%E5%AE%9A%E4%B9%89)、[移动光标到Description :所在行](https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87%E5%88%B0description-%E6%89%80%E5%9C%A8%E8%A1%8C)
+
+
+
+* fix: now_year改为全局匹配 [#522](https://github.com/OBKoro1/koro1FileHeader/issues/522)
+* fix: now_year、用户名和邮箱不再绑定 [#509](https://github.com/OBKoro1/koro1FileHeader/issues/509)
+* fix: param等宽错误  [#495](https://github.com/OBKoro1/koro1FileHeader/issues/495)
+* fix: 修复vscode默认快捷键和插件简介描述 [#498](https://github.com/OBKoro1/koro1FileHeader/issues/498)
 
 ### [V4.9.2]
 
