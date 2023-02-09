@@ -241,7 +241,9 @@ function changeTplValue (data) {
       '${git_email}': 'git config user.email'
     }
     Object.keys(templateObj).forEach(key => {
-      res = res.replace(templateObj[key], setGitConfig(templateObj[key]))
+      let val = templateObj[key];
+      res = res.replace(key, val)
+      res = res.replace(val, setGitConfig(val))
     })
     return res
   }
