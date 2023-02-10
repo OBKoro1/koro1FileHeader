@@ -149,27 +149,31 @@ class FunctionTplStr {
   // 拼接type和param参数
   getTypeVal (item = {}) {
     const typeVal = this.getTodoType(item)
+
+    // type 和 param 都不存在
+    if (item.type === undefined && item.param === undefined) {
+      return typeVal
+    }
+
     // 配置不要类型捕获
+    let res = ''
     if (this.config.configObj.functionParamsShape === 'no type') {
       // return 没有param
       if (item.param === undefined) {
         return ''
       }
-      return `${item.param}`
-    }
-    // 默认值没有匹配到param
-    if (item.type === undefined && item.param === undefined) {
-      return typeVal
-    }
-    const typeParamOrder = this.config.configObj.typeParamOrder
-    let res = ''
-    if (typeParamOrder === 'type param') {
-      res = `${typeVal} ${item.param}`
-    } else if (typeParamOrder === 'param type') {
-      res = `${item.param} ${typeVal}`
-    } else if (typeParamOrder === 'param') {
       res = `${item.param}`
+    } else {
+      const typeParamOrder = this.config.configObj.typeParamOrder
+      if (typeParamOrder === 'type param') {
+        res = `${typeVal} ${item.param}`
+      } else if (typeParamOrder === 'param type') {
+        res = `${item.param} ${typeVal}`
+      } else if (typeParamOrder === 'param') {
+        res = `${item.param}`
+      }
     }
+
     // 在type param 后面增加字符串 可能是冒号，方便输入参数描述
     const functionParamAddStr = this.config.configObj.functionParamAddStr
     if (functionParamAddStr) {
