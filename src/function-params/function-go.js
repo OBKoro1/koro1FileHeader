@@ -4,7 +4,7 @@
  * LastEditors  : OBKoro1 obkoro1@foxmail.com
  * LastEditTime : 2022-05-14 16:34:29
  * File         : \koro1FileHeader\src\function-params\function-go.js
- * Description  : java语言获取函数参数
+ * Description  : go语言获取函数参数
  */
 
 class GetParams {
@@ -19,6 +19,7 @@ class GetParams {
   matchProcess () {
     const matchObj = {
       matchFunction: 2,
+      matchInterfaceFunc: 2,
       matchFuncNoName: 1
     }
     let params = ''
@@ -45,6 +46,13 @@ class GetParams {
   // 匹配匿名函数  var Add = func(a, b int) int {
   matchFuncNoName () {
     const reg = /\bfunc\b\s*\((.*?)\)/
+    return reg.exec(this.text)
+  }
+
+  // 匹配接口方法声明的参数
+  matchInterfaceFunc () {
+    //没有func关键字 可能有空格 可能有函数名 可能有空格 匹配括号 匹配括号内的一切
+    const reg = /\b.*(\w+)\s*\((.*?)\)/
     return reg.exec(this.text)
   }
 
