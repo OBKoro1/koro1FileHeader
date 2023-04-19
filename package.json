@@ -323,7 +323,15 @@
         "linux": "ctrl+meta+t",
         "when": "editorTextFocus"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.cursorTip",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
